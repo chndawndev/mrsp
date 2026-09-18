@@ -1,0 +1,32 @@
+/scratch/
+
+# Node.js
+node_modules/
+dist/
+build/
+coverage/
+.npm/
+.pnpm-store/
+.yarn/
+.yarn-cache/
+.parcel-cache/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.ipynb_checkpoints/
+
+# OS/editor generated
+.DS_Store
+Thumbs.db

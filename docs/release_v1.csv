@@ -1,0 +1,193 @@
+Colon,Segment,Phantom Number,Video Number ,Video Name,Camera Speed,Edge Enhancement,Brightness,Debris,Deformation,Open End Visible,Tags,Comments,Qualitative Score,Quantitative Score,Youtube Preview URL ID,Total Frames
+c1,ascending,t1,v1,c1_ascending_t1_v1,20.0,2.0,5.0,no,no,no,zigzag,,3.0,-1.4156,SNxHcXeiwGU,282
+c1,ascending,t1,v2,c1_ascending_t1_v2,15.0,2.0,5.0,no,no,no,loop,Pendulum motion with forward translation. Same start and end.,3.0,-1.2866,TzvtE8eRCvE,454
+c1,ascending,t2,v1,c1_ascending_t2_v1,17.0,2.0,6.0,no,no,no,zigzag,"zigzag side by side, then straight up",2.0,0.2027,CW1AuVdesqw,374
+c1,ascending,t2,v2,c1_ascending_t2_v2,12.0,2.0,6.0,no,no,no,loop,"majorly straight line, back to same point",2.0,0.5339,sQ1glZ7wiZE,412
+c1,ascending,t2,v3,c1_ascending_t2_v3,12.0,2.0,6.0,yes,no,no,loop,fecal debris  foam,2.0,,CENEBbKA3HU,412
+c1,ascending,t3,v1,c1_ascending_t3_v1,26.0,3.0,4.0,no,no,yes,fast ; zigzag,zizag motion,1.0,0.2382,43Bnm7YG0Ho,259
+c1,ascending,t3,v2,c1_ascending_t3_v2,12.0,3.0,4.0,no,no,yes,exploratory,exploratory motion,1.0,0.4615,qG2d-QhPgIU,680
+c1,ascending,t3,v3,c1_ascending_t3_v3,12.0,3.0,4.0,yes,no,yes,exploratory,yellow fecal matter,1.0,,PIUWKDFm15Q,680
+c1,ascending,t4,v1,c1_ascending_t4_v1,10.0,3.0,0.0,no,no,no,,,1.0,0.7983,bgn25JzbQTQ,410
+c1,ascending,t4,v2,c1_ascending_t4_v2,10.0,3.0,0.0,no,no,yes,,straight and oscillatory motion,1.0,1.003,V9G4WhuZER4,694
+c1,ascending,t4,v3,c1_ascending_t4_v3,10.0,3.0,0.0,yes,no,yes,,fecal debris yellow,1.0,,FYHJbfrK5kg,694
+c1,ascending,t4,v4,c1_ascending_t4_v4,10.0,3.0,0.0,yes,yes,no,straight  line,in and out motion,,,HsF5--uFsD0,334
+c1,cecum,t1,v1,c1_cecum_t1_v1,61.0,3.0,-1.0,no,no,no,loop ; fast ,Fast looping back to first point,1.0,-0.2671,JOeEqDqtsN4,218
+c1,cecum,t1,v2,c1_cecum_t1_v2,40.0,3.0,8.0,no,no,no,zigzag; water on lens; fast,water on lens next to ICV. Fast exploratory movement,1.0,0.2686,uEZUZ2DQwa8,423
+c1,cecum,t1,v3,c1_cecum_t1_v3,40.0,3.0,8.0,yes,no,no,zigzag; water on lens; fast,water on lens next to ICV. Fast exploratory movement,1.0,,LdZK62gQtfQ,423
+c1,cecum,t1,v4,c1_cecum_t1_v4,10.0,3.0,8.0,yes,yes,no,straight line; saturation; cyclical,straight up and down loop with compression. Light saturation on the side,,,LCPLj9rk-qM,602
+c1,cecum,t2,v1,c1_cecum_t2_v1,18.0,3.0,8.0,no,no,no,polyp; saturation,towards the polyp; oscillatory motion; ICV,1.0,1.0774,XmjblA1svwk,281
+c1,cecum,t2,v2,c1_cecum_t2_v2,22.0,3.0,8.0,no,no,no,exploratory ; polyp,exploratory motion; ICV,1.0,1.3243,RToIHqYkN6I,328
+c1,cecum,t2,v3,c1_cecum_t2_v3,22.0,3.0,8.0,yes,no,no,exploratory ; polyp,"foam, fecal debris; ICV",1.0,,ypkbJxaIej0,328
+c1,cecum,t3,v2,c1_cecum_t3_v2,9.0,2.0,-8.0,no,no,no,polyp; zigzag,ladder zigzag; ICV,1.0,0.166,AaPUG7e21kI,721
+c1,cecum,t3,v3,c1_cecum_t3_v3,9.0,2.0,-8.0,yes,no,no,polyp; zizag,"blood pool, foam, iCV",1.0,,1o0WQ1fmXIs,721
+c1,cecum,t4,v1,c1_cecum_t4_v1,9.0,3.0,4.0,no,no,no,,ICV,1.0,-0.4962,Cf-gd-Z2SEw,866
+c1,cecum,t4,v2,c1_cecum_t4_v2,9.0,3.0,4.0,no,no,no,,"towards ICV, wait in the middle",1.0,-0.8478,lGEzUZfzg58,959
+c1,cecum,t4,v3,c1_cecum_t4_v3,9.0,3.0,4.0,yes,no,no,water jet,"towards ICV, yellow foam, fecal debris",1.0,,Tr17QZFmwKE,959
+c1,descending,t1,v1,c1_descending_t1_v1,22.0,2.0,8.0,no,no,yes,saturation,,1.0,1.16,ByEInBvnYo0,123
+c1,descending,t1,v2,c1_descending_t1_v2,20.0,2.0,8.0,no,no,yes,loop; saturation,back to start point,1.0,1.4549,H_sGijReE90,208
+c1,descending,t1,v3,c1_descending_t1_v3,20.0,2.0,8.0,yes,no,yes,loop; saturation,back to start point,1.0,,G4hGjHT9H9s,208
+c1,descending,t2,v2,c1_descending_t2_v2,10.0,2.0,3.0,no,no,yes,,straight and oscillatory motion,1.0,1.1961,xkaaFsmrYHY,617
+c1,descending,t2,v3,c1_descending_t2_v3,10.0,2.0,3.0,yes,no,yes,,"straight and oscillatory motion, blood",2.0,,yhWPrbaJIME,617
+c1,descending,t3,v1,c1_descending_t3_v1,18.0,2.0,2.0,no,no,yes,,"almost straight line, added light red debris for texture",1.0,0.6179,Ntm5d8xP9Tk,239
+c1,descending,t3,v2,c1_descending_t3_v2,14.0,2.0,2.0,no,no,yes,,,1.0,0.458,YoS0dPyTKRU,342
+c1,descending,t3,v3,c1_descending_t3_v3,14.0,2.0,2.0,yes,no,yes,,yellow foam flowing,1.0,,MOObNN7pn_A,342
+c1,descending,t4,v1,c1_descending_t4_v1,18.0,3.0,0.0,no,no,yes,,,1.0,0.4362,FVqoeB0TMIs,192
+c1,descending,t4,v2,c1_descending_t4_v2,15.0,3.0,0.0,no,no,yes,,,1.0,1.0279,d6_rrrQDHr0,279
+c1,descending,t4,v3,c1_descending_t4_v3,15.0,3.0,0.0,yes,no,yes,,blood & foam on wall,1.0,,d3uqHGwvgyk,279
+c1,descending,t4,v4,c1_descending_t4_v4,15.0,3.0,0.0,yes,yes,yes,straight  line,walls partially close,,,Hjj0QitaeMQ,361
+c1,full,t1,v1,c1_full_t1_v1,,2.0,,yes,,no,polyp ;  water on lens ; debris on lens ; suction ; textureless enface ; saturation; exploratory,,,,y5-YDWNOaOs,11000
+c1,full,t2,v1,c1_full_t2_v1,,2.0,,yes,,no,water on lens ; debris on lens ; suction ; textureless enface ; saturation; exploratory,,,,DPeTP4GxTxg,13800
+c1,full,t3,v1,c1_full_t3_v1,,2.0,,yes,,no,water on lens; polyp;  textureless surface; saturation; exploratory,,,,3RUrkdbG1dU,12200
+c1,full,t4,v1,c1_full_t4_v1,,2.0,,yes,,no,polyp; water on lens; suction; textureless surface; exploratory; saturation,,,,COW-fAm90wE,8400
+c1,rectum,t1,v1,c1_rectum_t1_v1,25.0,1.0,0.0,no,no,no,loop,in and out motion,1.0,0.6343,6qI7m6AHFvA,206
+c1,rectum,t1,v2,c1_rectum_t1_v2,16.0,1.0,0.0,no,no,no,zigzag,oscillatory motion,1.0,0.66,kBGBt-HXE0s,383
+c1,rectum,t1,v3,c1_rectum_t1_v3,16.0,1.0,0.0,yes,no,no,zigzag,mucous pool and fecal debris,1.0,,iUbjm8lc_XE,383
+c1,rectum,t2,v1,c1_rectum_t2_v1,19.0,3.0,3.0,no,no,no,loop,"almost straight line, back to same point",2.0,-1.0436,1kDgLMC5_kw,165
+c1,rectum,t2,v2,c1_rectum_t2_v2,14.0,3.0,3.0,no,no,no,zigzag,exploratory motion,2.0,-1.1795,0nnV0uikO7Y,366
+c1,rectum,t2,v3,c1_rectum_t2_v3,14.0,3.0,3.0,no,no,no,zigzag,exploratory motion,2.0,,qYcTgoYMlIE,366
+c1,rectum,t3,v1,c1_rectum_t3_v1,31.0,3.0,4.0,no,no,no,fast,,1.0,0.1472,54ztxVKAByo,247
+c1,rectum,t3,v2,c1_rectum_t3_v2,23.0,3.0,-3.0,no,no,no,zigzag,,1.0,0.099,KJ5wkdcpoac,220
+c1,rectum,t3,v3,c1_rectum_t3_v3,23.0,3.0,-3.0,yes,no,no,zigzag,"red debris, foam",1.0,,mLNsoW13WS4,220
+c1,rectum,t4,v1,c1_rectum_t4_v1,12.0,3.0,-4.0,no,no,no,,backup and forward,2.0,0.1515,PNmwyj9dw4w,324
+c1,rectum,t4,v2,c1_rectum_t4_v2,9.0,3.0,-4.0,no,no,no,,withdrawal with oscillatory motion,3.0,-0.5389,CzzXGbyYKac,457
+c1,rectum,t4,v3,c1_rectum_t4_v3,9.0,3.0,-4.0,yes,no,no,,"fecal debris, withdrawal with oscillatory motion",3.0,,OmG4PL9lPIw,457
+c1,rectum,t4,v4,c1_rectum_t4_v4,0.0,3.0,-4.0,yes,yes,no,,stationary camera,,,ejIyop8nGRk,240
+c1,sigmoid1,t1,v1,c1_sigmoid1_t1_v1,30.0,2.0,2.0,no,no,no,zigzag; fast,,1.0,1.722,lZ6BQfN0kuY,191
+c1,sigmoid1,t1,v2,c1_sigmoid1_t1_v2,30.0,2.0,2.0,no,no,no,fast ; textureless enface; saturation,en face on a texture less surface,1.0,0.8981,jFERxLlLhyU,307
+c1,sigmoid1,t1,v3,c1_sigmoid1_t1_v3,30.0,2.0,2.0,yes,no,no,fast ; debris on lens ; water on lens,scope dips in mucous pool & lens cleaning there after,1.0,,cz5aTlvfG2c,307
+c1,sigmoid1,t1,v4,c1_sigmoid1_t1_v4,0.0,0.0,0.0,yes,yes,no,,stationary camera,,,Fz-jxS1n950,787
+c1,sigmoid1,t2,v1,c1_sigmoid1_t2_v1,12.0,3.0,-2.0,no,no,yes,,Side to side movement,2.0,-1.0434,1JDPSUAE2Jk,354
+c1,sigmoid1,t2,v2,c1_sigmoid1_t2_v2,16.0,3.0,7.0,no,no,yes,loop ; textureless surface; saturation,first half and and second half of the video has the same waypoints,3.0,-0.0947,L-16CZi1Nio,286
+c1,sigmoid1,t2,v3,c1_sigmoid1_t2_v3,16.0,3.0,7.0,yes,no,yes,loop; saturation,fov covered by mucous pool & fecal debris in the middle of videos,3.0,,qV1VrmmxeTI,286
+c1,sigmoid1,t3,v1,c1_sigmoid1_t3_v1,11.0,3.0,-2.0,no,no,yes,,,1.0,-0.2262,ESR8l8eHrN0,330
+c1,sigmoid1,t3,v2,c1_sigmoid1_t3_v2,15.0,3.0,-2.0,no,no,yes,textureless enface,side to side movement,2.0,-0.8633,uqTh9y03szc,464
+c1,sigmoid1,t3,v3,c1_sigmoid1_t3_v3,15.0,3.0,-2.0,yes,no,yes,,blood pool covers the entire fov,2.0,,XzA56ACBlLc,464
+c1,sigmoid1,t4,v1,c1_sigmoid1_t4_v1,10.0,3.0,0.0,no,no,yes,loop,,3.0,-1.4099,nzFHSttnBnk,447
+c1,sigmoid1,t4,v2,c1_sigmoid1_t4_v2,7.0,3.0,0.0,no,no,yes,textureless enface,wait in between; enface to down the barrel,3.0,-1.0102,MaRks7jdGsc,708
+c1,sigmoid1,t4,v3,c1_sigmoid1_t4_v3,7.0,3.0,0.0,yes,no,yes,water jet,"water jet, cleaning foam, enface to down the barrel",3.0,,Lg3KMemKUxk,708
+c1,sigmoid1,t4,v4,c1_sigmoid1_t4_v4,7.0,3.0,0.0,yes,yes,no,straight  line,,,,XQED3z9kAk4,297
+c1,sigmoid2,t1,v1,c1_sigmoid2_t1_v1,25.0,2.0,-3.0,no,no,yes,,,1.0,0.2442,fbw8tLZLqUo,132
+c1,sigmoid2,t1,v2,c1_sigmoid2_t1_v2,18.0,2.0,-3.0,no,no,yes,zigzag,,1.0,0.8931,Ijv0r22hHSc,152
+c1,sigmoid2,t1,v3,c1_sigmoid2_t1_v3,18.0,2.0,-3.0,yes,no,yes,zigzag,flowing blood foam,1.0,,oylnZBm_1-0,152
+c1,sigmoid2,t2,v1,c1_sigmoid2_t2_v1,10.0,3.0,4.0,no,no,yes,saturation,,1.0,0.4829,U3fwSpPilaU,400
+c1,sigmoid2,t2,v2,c1_sigmoid2_t2_v2,15.0,3.0,4.0,no,no,yes,saturation,,1.0,-0.8085,isWmc6sUDdg,239
+c1,sigmoid2,t2,v3,c1_sigmoid2_t2_v3,15.0,3.0,4.0,yes,no,yes,saturation,blood,1.0,,UsaHXU27spg,239
+c1,sigmoid2,t3,v1,c1_sigmoid2_t3_v1,9.0,1.0,-2.0,no,no,yes,,,1.0,0.8146,UAwmLFS9Pdo,255
+c1,sigmoid2,t3,v2,c1_sigmoid2_t3_v2,12.0,1.0,-2.0,no,no,yes,,,1.0,1.5916,EFsUHooJPHY,243
+c1,sigmoid2,t3,v3,c1_sigmoid2_t3_v3,12.0,1.0,-2.0,yes,no,yes,,dry fecal debris,1.0,,23PmxgasD2g,243
+c1,sigmoid2,t4,v1,c1_sigmoid2_t4_v1,10.0,3.0,4.0,no,no,yes,,,1.0,0.774,V-VPmiHOzXE,390
+c1,sigmoid2,t4,v2,c1_sigmoid2_t4_v2,10.0,3.0,4.0,no,no,yes,,,1.0,0.8847,jKmvNcw7Ay0,428
+c1,sigmoid2,t4,v3,c1_sigmoid2_t4_v3,10.0,3.0,4.0,yes,no,yes,,yellow fecal debris & foam,1.0,,oTFIAJMj4pE,428
+c1,sigmoid2,t4,v4,c1_sigmoid2_t4_v4,10.0,3.0,4.0,yes,yes,yes,straight  line,in and out motion,,,LWTU0TXDl4I,288
+c1,transverse1,t1,v1,c1_transverse1_t1_v1,20.0,3.0,-3.0,no,no,yes,,,1.0,-0.5916,mZh01rTd5HY,156
+c1,transverse1,t1,v2,c1_transverse1_t1_v2,20.0,3.0,0.0,no,no,yes,,down the barrel,1.0,-0.1465,8l7qH4WWv0g,117
+c1,transverse1,t1,v3,c1_transverse1_t1_v3,20.0,3.0,0.0,yes,no,yes,,red debris,2.0,,QcZHNhEgdJ4,117
+c1,transverse1,t1,v4,c1_transverse1_t1_v4,7.0,3.0,0.0,yes,yes,yes,straight line; cyclical,"straight line motion, in & out",,,zFu6kaXnnY0,622
+c1,transverse1,t2,v1,c1_transverse1_t2_v1,7.0,2.0,2.0,no,no,yes,zigzag,Side to side movement,3.0,0.473,N0R-Fr1HwWM,673
+c1,transverse1,t2,v2,c1_transverse1_t2_v2,17.0,2.0,2.0,no,no,yes,,,2.0,-0.3895,TS0bxnCjWL4,235
+c1,transverse1,t2,v3,c1_transverse1_t2_v3,17.0,2.0,2.0,yes,no,yes,,blood,2.0,,L5URD4xbeJE,235
+c1,transverse1,t3,v1,c1_transverse1_t3_v1,26.0,3.0,4.0,no,no,yes,fast; loop,"back to the same point, almost similar path front & back",3.0,0.3711,_xtxLtByf3E,203
+c1,transverse1,t3,v2,c1_transverse1_t3_v2,21.0,3.0,4.0,no,no,yes,textureless enface,,3.0,0.8495,X4RUB5R63YQ,184
+c1,transverse1,t3,v3,c1_transverse1_t3_v3,21.0,3.0,4.0,yes,no,yes,,blood pool covers FOV,3.0,,TiAa1eqUdsU,184
+c1,transverse1,t4,v1,c1_transverse1_t4_v1,15.0,3.0,0.0,no,no,yes,,,2.0,0.1491,lJWvSawG2WU,315
+c1,transverse1,t4,v2,c1_transverse1_t4_v2,10.0,3.0,0.0,no,no,yes,,,2.0,0.0628,mZia7NzFt7U,626
+c1,transverse1,t4,v3,c1_transverse1_t4_v3,10.0,3.0,0.0,yes,no,yes,,Foam and debris,2.0,,vAAXRQL8mpg,626
+c1,transverse1,t4,v4,c1_transverse1_t4_v4,10.0,3.0,0.0,yes,yes,yes,straight line,,,,pQRAekgnQWM,277
+c1,transverse2,t1,v1,c1_transverse2_t1_v1,20.0,3.0,0.0,no,no,yes,polyp,Straight towards the polyp,3.0,0.0387,H9W-P-i1x84,268
+c1,transverse2,t1,v2,c1_transverse2_t1_v2,10.0,3.0,0.0,no,no,yes,loop ; polyp,inspect the polyp; start and end point is the same,3.0,-0.4842,U_XqPPsEQZ0,517
+c1,transverse2,t1,v3,c1_transverse2_t1_v3,10.0,3.0,0.0,yes,no,yes,loop ; polyp,false positive  polyp-like fecal debris near poyp,3.0,,CD_P9lvW31A,517
+c1,transverse2,t2,v1,c1_transverse2_t2_v1,12.0,2.0,3.0,no,no,yes,polyp; saturation,towards the polyp & inspect it,1.0,0.9139,ycOEQ760BOE,457
+c1,transverse2,t2,v2,c1_transverse2_t2_v2,12.0,2.0,3.0,no,no,yes,polyp; saturation,Inspect the polyp,1.0,0.6421,3FOnycgopS4,559
+c1,transverse2,t2,v3,c1_transverse2_t2_v3,12.0,2.0,3.0,yes,no,yes,polyp; saturation,yellow foam,1.0,,4TJbDz6ZU40,559
+c1,transverse2,t3,v1,c1_transverse2_t3_v1,20.0,3.0,4.0,no,no,yes,,swinging exploratory motion,1.0,1.8649,KJUb2D-RULE,578
+c1,transverse2,t3,v2,c1_transverse2_t3_v2,17.0,3.0,4.0,no,no,yes,straight line,straight line motion backing up,1.0,0.6416,ubBOpvW0CJY,249
+c1,transverse2,t3,v3,c1_transverse2_t3_v3,17.0,3.0,4.0,yes,no,yes,straight line,yellow fecal matter; straight line motion backing up,1.0,,eRzIB4ZReVQ,249
+c1,transverse2,t4,v1,c1_transverse2_t4_v1,12.0,2.0,0.0,no,no,yes,,,3.0,-0.5096,RXnRHyYE2r8,258
+c1,transverse2,t4,v2,c1_transverse2_t4_v2,12.0,2.0,0.0,no,no,yes,zigzag,,3.0,0.8025,GJb2d7k1ARw,419
+c1,transverse2,t4,v3,c1_transverse2_t4_v3,7.0,2.0,0.0,yes,no,yes,zigzag,,3.0,,X5nWILoo3eU,419
+c2,ascending,t1,v1,c2_ascending_t1_v1,40.0,2.0,2.0,no,no,yes,fast ; exploratory; polyp ,exploratory motion,2.0,0.8501,ozqeovNOIfE,283
+c2,ascending,t1,v2,c2_ascending_t1_v2,20.0,2.0,-3.0,no,no,yes,polyp ; water on lens ; exploratory; saturation,"exploratory motion with close up to the two polyps, lens cleaning and water on lens in the later portion of the video",2.0,-0.2865,qLPYiL_OFzs,515
+c2,ascending,t1,v3,c2_ascending_t1_v3,20.0,2.0,-3.0,yes,no,yes,polyp ; exploratory ; water jet; saturation,cleaning foam of the polyp,2.0,,Ex6d3rG_fTg,515
+c2,ascending,t1,v4,c2_ascending_t1_v4,0.0,2.0,-3.0,yes,yes,no,,"stationary camera, double compression and deflation ",,,PlKL5on9hiE,441
+c2,ascending,t2,v1,c2_ascending_t2_v1,13.0,3.0,-2.0,no,no,yes,polyp ,45 deg turn of robotic arm,2.0,0.5087,Qp2iyiBW45I,395
+c2,ascending,t2,v2,c2_ascending_t2_v2,10.0,3.0,-2.0,no,no,yes,zigzag,swinging exploratory motion,1.0,1.1417,6b-rqr3wg4k,444
+c2,ascending,t2,v3,c2_ascending_t2_v3,10.0,3.0,-2.0,yes,no,yes,zigzag,"blood, foam, red debris",1.0,,WkPDh3ZMIUs,444
+c2,ascending,t3,v1,c2_ascending_t3_v1,25.0,2.0,6.0,no,no,yes,polyp ; fast ; saturation,"polyp in focus, high saturation in images",3.0,-1.2219,ujYcnSfoSEw,340
+c2,ascending,t3,v2,c2_ascending_t3_v2,20.0,2.0,-2.0,no,no,yes,polyp ; fast ,Wait in front of the polyp,3.0,-1.3121,TVE-ox8LQkw,522
+c2,ascending,t3,v3,c2_ascending_t3_v3,20.0,2.0,-2.0,yes,no,yes,polyp ; fast ; water jet ,"water jet; Cleaning polyp, blood foam, ",3.0,,HVe71mdQ0Gk,522
+c2,ascending,t4,v1,c2_ascending_t4_v1,40.0,3.0,4.0,no,no,yes,mirrored path ; water on lens ; fast ; polyp,first half of path is the same as second half; lens cleaning and water on the lens in the middle,3.0,-0.2158,shSjHJlIw5o,292
+c2,ascending,t4,v2,c2_ascending_t4_v2,30.0,3.0,-2.0,no,no,yes,polyp ; water jet ; water on lens ,"close up of polyp, water jet to on first polyp, lens cleaning and water on lens near second polyp",3.0,-1.2265,S2siIi2omoo,455
+c2,ascending,t4,v3,c2_ascending_t4_v3,30.0,3.0,-2.0,yes,no,yes,polyp ; water jet ; water on lens ,cleaning up polyp using water jet; lens cleaning an water on lens,3.0,,q2MfKAFFEs4,455
+c2,cecum,t1,v1,c2_cecum_t1_v1,30.0,3.0,0.0,no,no,no,fast ; exploratory ,exploratory exploratory motion,1.0,0.6218,h8-p-8Pdwac,304
+c2,cecum,t1,v2,c2_cecum_t1_v2,60.0,3.0,0.0,no,no,no,fast ; zigzag,"fast zizag pendulum like motion, wait in the middle",2.0,-0.5393,4Jsq4z8ON6M,431
+c2,cecum,t1,v3,c2_cecum_t1_v3,60.0,3.0,0.0,yes,no,no,fast ; zigzag ; water jet ; water on lens ,fast zizag motion with water jet on foam and lens cleaning & water on lens immediately afterwards,2.0,,AMWlVyGLMjE,431
+c2,cecum,t1,v4,c2_cecum_t1_v4,12.0,3.0,0.0,yes,yes,no,straight line,straight line motion during contraction,,,8qc_FbkAsOk,317
+c2,cecum,t2,v2,c2_cecum_t2_v2,20.0,3.0,-2.0,no,no,no,exploratory,"exploratory motion, ICV",3.0,-3.41,jh-WiYjS7n0,452
+c2,cecum,t2,v3,c2_cecum_t2_v3,20.0,3.0,-2.0,yes,no,no,exploratory ,"blood pool, ICV",3.0,,a7zSKzEEwd0,452
+c2,cecum,t3,v1,c2_cecum_t3_v1,50.0,2.0,2.0,no,no,no,fast ,"Fast motion, bumping against the wall",2.0,-0.918,o4sHrW9JqxU,228
+c2,cecum,t3,v2,c2_cecum_t3_v2,30.0,2.0,2.0,no,no,no,fast,oscillatory motion in exploration,1.0,-0.7306,CI45hWmj0EU,306
+c2,cecum,t3,v3,c2_cecum_t3_v3,30.0,2.0,2.0,yes,no,no,fast ; water jet,water jet for cleaning foam to check ,1.0,,4OikTyvXBao,306
+c2,cecum,t4,v1,c2_cecum_t4_v1,50.0,2.0,-4.0,no,no,no,fast ; loop ,fast jerky motion,2.0,-0.2529,sxqBik4awcM,191
+c2,cecum,t4,v2,c2_cecum_t4_v2,20.0,2.0,-4.0,no,no,no,textureless enface ,"wait on the ICV, ",1.0,-0.3107,VrKEOLEsoy4,520
+c2,cecum,t4,v3,c2_cecum_t4_v3,20.0,2.0,-4.0,yes,no,no,textureless enface ; water jet ,water jet; cleaning the debris on ICV; mucous pool,1.0,,a5e3rdmfvRE,520
+c2,descending,t3,v1,c2_descending_t3_v1,22.0,3.0,4.0,no,no,yes,,,3.0,-0.3168,9N7dSenLGwE,198
+c2,descending,t3,v2,c2_descending_t3_v2,12.0,3.0,4.0,no,no,yes,textureless enface; saturation,textureless surface en face to down the barrel,3.0,-2.8209,gn2M7HyZBZ8,413
+c2,descending,t3,v3,c2_descending_t3_v3,12.0,3.0,4.0,yes,no,yes,textureless enface; saturation,yellow fecal debris ,3.0,,-KWgPa0497o,413
+c2,descending,t4,v1,c2_descending_t4_v1,11.0,2.0,-1.0,no,no,yes, ,en face to down the barrel (down the barrel still visible in en face),2.0,-0.4133,sYO1DlmAuZM,252
+c2,descending,t4,v2,c2_descending_t4_v2,40.0,2.0,-1.0,no,no,yes,loop ; fast ,fast  motion loop start & end are same points,1.0,0.3733,EVljOx1moZA,128
+c2,descending,t4,v3,c2_descending_t4_v3,40.0,2.0,-1.0,yes,no,yes,loop ; fast ,,1.0,,2XTd6N4NZiU,128
+c2,full,t1,v1,c2_full_t1_v1,,2.0,,yes,,No,polyp ; textureless enface,,,,5UWAdDNBUBU,11000
+c2,full,t2,v1,c2_full_t2_v1,,2.0,,yes,,No,polyp ; textureless enface ; water on lens;  debris on lens ; saturation; exploratory,,,,RheTAhTLeZU,12400
+c2,full,t3,v1,c2_full_t3_v1,,2.0,,no,,No,polyp ; water on lens ; textureless enface ; exploratory ; saturation,Debris on lens for last one third of the video,,,q0zlY3B-FHc,14200
+c2,full,t4,v1,c2_full_t4_v1,,2.0,,yes,,No,"polyp ; textureless enface ; water on lens ; debris on lens ; suction ; exploratory, saturation",,,,ULDgBWYsRts,12300
+c2,rectum,t1,v1,c2_rectum_t1_v1,15.0,3.0,-1.0,no,no,yes,polyp ; textureless enface,,1.0,0.7137,OKwJsiVuhZA,154
+c2,rectum,t1,v2,c2_rectum_t1_v2,15.0,3.0,-3.0,no,no,yes,polyp ; textureless enface ,close up of polyp and textureless surface; start end point are close,2.0,-1.4348,GWIeiOGCV2c,712
+c2,rectum,t1,v3,c2_rectum_t1_v3,15.0,3.0,-3.0,yes,no,yes,polyp ; textureless enface ; water jet ; water on lens ; debris on lens ,cleaning debris of the polyp; lens covered by foam and cleaned; last and first position are close,2.0,,LrnJ8Thg0U4,712
+c2,rectum,t1,v4,c2_rectum_t1_v4,,,,yes,yes,yes,,stationary camera,,,zEJhEty1Dlc,366
+c2,rectum,t2,v1,c2_rectum_t2_v1,10.0,3.0,0.0,no,no,yes,textureless enface,Inspect the polyp,3.0,-1.9057,olSFyxnMRWw,519
+c2,rectum,t2,v2,c2_rectum_t2_v2,16.0,3.0,0.0,no,no,yes,polyp ; textureless enface ,,3.0,-1.7039,O-o7w0mlXCg,383
+c2,rectum,t2,v3,c2_rectum_t2_v3,16.0,3.0,0.0,yes,no,yes,polyp ; textureless enface,fov covered by mucous pool,3.0,,Ak1JH57nwhc,383
+c2,rectum,t3,v1,c2_rectum_t3_v1,23.0,3.0,-2.0,no,no,yes,fast ; textureless enface,en face onto a textureless wall,1.0,0.8338,zkvXqL82QCQ,281
+c2,rectum,t3,v2,c2_rectum_t3_v2,17.0,3.0,-3.0,no,no,yes,textureless enface ; mirrored path,"first half and second half of the trajectory is the same, bumps into the wall in the middle",1.0,0.5534,toquq2WvlD0,333
+c2,rectum,t3,v3,c2_rectum_t3_v3,17.0,3.0,-3.0,yes,no,yes,textureless enface ; mirrored path ; debris on lens ,second half of the video lens is dipped in pool and covered by mucous; ,1.0,,URr82C37DOA,333
+c2,rectum,t4,v1,c2_rectum_t4_v1,45.0,2.0,1.0,no,no,yes,fast ; textureless enface ; loop,"fast motion,  texureless surface, loop to first point",2.0,0.9719,O5golv4ugis,198
+c2,rectum,t4,v2,c2_rectum_t4_v2,15.0,2.0,1.0,no,no,yes,textureless enface ,,2.0,-0.8674,89-0KOjV2Mw,296
+c2,rectum,t4,v3,c2_rectum_t4_v3,15.0,2.0,1.0,yes,no,yes,textureless enface ,mucous pool,2.0,,MEIrncnJqV8,296
+c2,sigmoid,t1,v1,c2_sigmoid_t1_v1,7.0,3.0,0.0,no,no,yes,polyp ; textureless enface ,,1.0,-0.6216,kaihm6Mb84M,501
+c2,sigmoid,t1,v2,c2_sigmoid_t1_v2,10.0,3.0,-3.0,no,no,yes,textureless enface ; straight  line ; mirrored path,"straight line, first and last position is the same; into a texture-less syrface",1.0,1.1396,Cub_lh4UE4k,558
+c2,sigmoid,t1,v3,c2_sigmoid_t1_v3,10.0,3.0,-3.0,yes,no,yes,textureless enface ; straight line ; mirrored path ; debris on lens ; water on lens ,straight line motion back to the same point; len covered with red debris and cleaned ; water on lens,1.0,,U920jpM8b7E,558
+c2,sigmoid,t1,v4,c2_sigmoid_t1_v4,0.0,3.0,-3.0,yes,yes,no,"textureless enface, debris on lens",stationary camera,,,TawsQMJ8xyY,446
+c2,sigmoid,t2,v1,c2_sigmoid_t2_v1,11.0,3.0,0.0,no,no,yes,polyp ,start facing the polyp,1.0,1.9039,l19X7CXdn_Q,466
+c2,sigmoid,t2,v2,c2_sigmoid_t2_v2,14.0,3.0,0.0,no,no,yes,polyp,first half and and second half of the video has the same waypoints,1.0,-0.2833,8_kVyJPfW5c,448
+c2,sigmoid,t2,v3,c2_sigmoid_t2_v3,14.0,3.0,0.0,yes,no,yes,polyp,Almost immerses in water; full FOV in mucous pool,1.0,,l2HD8BmnY4o,448
+c2,sigmoid,t3,v1,c2_sigmoid_t3_v1,10.0,3.0,0.0,no,no,yes,textureless enface,,1.0,0.1815,Mgjp8MLukQI,391
+c2,sigmoid,t3,v2,c2_sigmoid_t3_v2,15.0,3.0,-2.0,no,no,yes,straight line ; textureless enface ,"straight motion into textureless region (en face), first and last point are close",1.0,-1.2899,0sqHVda_3W4,225
+c2,sigmoid,t3,v3,c2_sigmoid_t3_v3,15.0,3.0,-2.0,yes,no,yes,straight line ,mucous pool & fecal debris cover major FOV,1.0,,LUXdc2Z5Mo0,225
+c2,sigmoid,t4,v1,c2_sigmoid_t4_v1,10.0,2.0,2.0,no,no,yes,textureless enface ,down the barrel (flexure) to en face,2.0,-1.4353,g4U5GVXwlwM,413
+c2,sigmoid,t4,v2,c2_sigmoid_t4_v2,15.0,1.0,1.0,no,no,yes,textureless enface ,en face to down the barrel (in flexure),2.0,-1.1985,EmcqqgGxiOk,290
+c2,sigmoid,t4,v3,c2_sigmoid_t4_v3,15.0,1.0,1.0,yes,no,yes,textureless enface ,"fecal liquid pool,  ",2.0,,3skce4FJ6UU,290
+c2,transverse1,t1,v1,c2_transverse1_t1_v1,20.0,2.0,-5.0,no,no,yes,polyp ; textureless enface ; exploratory,"en face to down the barrel, exploratory motion intial",1.0,0.3944,mZHYcku1Wyw,402
+c2,transverse1,t1,v2,c2_transverse1_t1_v2,10.0,2.0,-5.0,no,no,yes,polyp ; water on lens,"towards the polyp, lens cleaning and water on lens",2.0,0.0595,2VP8xUdG0O8,627
+c2,transverse1,t1,v3,c2_transverse1_t1_v3,10.0,2.0,-5.0,yes,no,yes,polyp ; water on lens ,lens cleaning and water on lens in withdrawl; red debris,2.0,,eq7aC1IKUuA,627
+c2,transverse1,t1,v4,c2_transverse1_t1_v4,10.0,2.0,-5.0,yes,yes,yes,,straight line motion in & out,,,xq_zRtMViv4,387
+c2,transverse1,t2,v1,c2_transverse1_t2_v1,9.0,2.0,5.0,no,no,yes,polyp; saturation,moving towards and inspecting the polyp,3.0,-0.9227,_2-itv83oX0,610
+c2,transverse1,t2,v2,c2_transverse1_t2_v2,15.0,2.0,5.0,no,no,yes,polyp; saturation,oscillatory motion in exploration,3.0,-0.4986,5OgMpqaKrWk,600
+c2,transverse1,t2,v3,c2_transverse1_t2_v3,15.0,2.0,5.0,yes,no,yes,polyp ; saturation,blood pool,3.0,,DdGrEtDEg0o,600
+c2,transverse1,t3,v1,c2_transverse1_t3_v1,10.0,3.0,0.0,no,no,yes,exploratory ; water on lens ,"slow circular exploratory motion in first fold, lens cleaning and water on lens",3.0,-1.2219,-pBHC7JZkME,853
+c2,transverse1,t3,v2,c2_transverse1_t3_v2,20.0,3.0,1.0,no,no,yes,straight line ; water on lens ; loop ; mirrored path,straight line path back to same point; lens cleaning in the middle,3.0,-1.3121,z4uk4W5rSuA,298
+c2,transverse1,t3,v3,c2_transverse1_t3_v3,20.0,3.0,1.0,no,no,yes,straight line ; water on lens ; loop ; mirrored path,"heavy fecal debris, straight line path back to same point; lens cleaning in the middle",3.0,,Mls5XP1YqoI,298
+c2,transverse1,t3,v4,c2_transverse1_t3_v4,0.0,3.0,1.0,yes,yes,yes,saturation,camera stationary; heavy  fecal debris,,,VW079mfz-oQ,420
+c2,transverse1,t4,v1,c2_transverse1_t4_v1,20.0,3.0,0.0,no,no,yes,polyp ; loop ,slow smooth motion; exploring the first haustral fold and goes directly to polyp,3.0,-1.1864,EmYfmepbgDQ,376
+c2,transverse1,t4,v2,c2_transverse1_t4_v2,20.0,3.0,0.0,no,no,yes,textureless enface ; water on lens ; polyp,down the barrel ->en face ->down the barrel; water on lens and lens cleaning,3.0,-1.0619,gdxqeVvtmmc,382
+c2,transverse1,t4,v3,c2_transverse1_t4_v3,20.0,3.0,0.0,yes,no,yes,textureless enface ; water on lens ; polyp,down the barrel ->en face ->down the barrel; thick debris; lens cleaning; water on lens,3.0,,EtFHIMVJVH8,382
+c2,transverse2,t1,v1,c2_transverse2_t1_v1,12.0,3.0,-4.0,no,no,yes,polyp,slow orbiting around the polyp,1.0,1.1318,y_oO6i7SE7Q,393
+c2,transverse2,t1,v2,c2_transverse2_t1_v2,20.0,3.0,-1.0,no,no,yes,polyp ; textureless enface ; water on lens ,"lens cleaning after en face, down the barrel after enface",1.0,-0.0911,irmSsGTowZs,552
+c2,transverse2,t1,v3,c2_transverse2_t1_v3,20.0,3.0,-1.0,yes,no,yes,polyp ; textureless enface ; water on lens ; water jet ; debris on lens ,cleaning polyp with water jet and scope dips into mucous pool which is cleaned with lens cleaning water.,1.0,,8bLe5R64OhA,552
+c2,transverse2,t2,v1,c2_transverse2_t2_v1,12.0,2.0,0.0,no,no,yes,polyp,"towards and away from polyp, first and last point are close",2.0,-0.2533,xWMEdnjCNYo,415
+c2,transverse2,t2,v2,c2_transverse2_t2_v2,17.0,2.0,0.0,no,no,yes,zigzag; polyp,zizag,2.0,0.2877,vhZFy_99FRE,337
+c2,transverse2,t2,v3,c2_transverse2_t2_v3,17.0,2.0,0.0,yes,no,yes,zigzag; polyp,low grade fecal debris,2.0,,Dgnkzme6Yqc,337
+c2,transverse2,t3,v1,c2_transverse2_t3_v1,31.0,3.0,-2.0,no,no,yes,fast ,"fast motion, oscillatory exploration",1.0,0.5563,C0Y8XRRR7fE,193
+c2,transverse2,t3,v2,c2_transverse2_t3_v2,7.0,3.0,-2.0,no,no,no,polyp,Hover around the polyp & wait in for 5 sec.,3.0,1.1184,qSkqcN4Es18,733
+c2,transverse2,t3,v3,c2_transverse2_t3_v3,7.0,3.0,-2.0,yes,no,no ,polyp ; water jet ; water on lens ,"water jet, water bead visble on lens, cleaning up the polyp with water",3.0,,o8PAQ6zV1ho,733
+c2,transverse2,t4,v1,c2_transverse2_t4_v1,13.0,3.0,5.0,no,no,yes,water on lens ; mirrored path ; textureless enface; straight line,first and second half of the trajectories the same; lens has water in the second half,1.0,1.2778,y4Fi-r5wtao,687
+c2,transverse2,t4,v3,c2_transverse2_t4_v3,7.0,5.0,5.0,yes,no,yes,polyp ; water jet ; saturation,water jet; trying to clean a false positive polyp,2.0,,n9MZgqEOkrk,940
