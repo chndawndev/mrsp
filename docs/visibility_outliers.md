@@ -109,3 +109,36 @@ Each interpretation below is separated from the measurements above and states wh
 **Group A2 (transverse2/rectum): partially explained, one clear exception.** `c2_transverse2_t3_v1` and `c2_rectum_t3_v1` show the same directional pattern as B (higher incidence angle, and for rectum_t3 a large footprint gap) but far more mildly, and their components are large interior islands rather than a boundary speckle — consistent with a genuine but less extreme visibility-margin effect (folds partially self-occluding a patch that's only seen at a decent-but-not-generous angle for one frame). `c2_rectum_t4_v1` does not fit this story at all (closer, less grazing, similar footprint) and remains **UNKNOWN** — no tested hypothesis explains it; its elevated max rotation (3.50°) at the concentrated frame is a candidate lead not yet followed up. **What would confirm the fold-occlusion reading for transverse2_t3_v1/rectum_t3_v1**: checking whether the flagged components sit immediately behind a haustral fold from that frame's specific camera position (would need a per-frame occlusion-ray test, not done here). **What would settle rectum_t4_v1**: rendering that sequence's frame 30 and inspecting it directly, which has not been done.
 
 **Nothing here should be treated as confirming a bug in `src/geometry/camera.py` or the "transposed" pose convention** — both are frozen, empirically-verified conventions (`docs/conventions.md`, `docs/oracle_check.md`) and this diagnosis did not touch or re-derive them. The candidate mechanisms above (sub-pixel rounding, boundary-grid alignment, marginal-angle folds) are all consistent with a correct implementation that simply sits at the edge of a resolution limit the original renderer's exact implementation handles a little differently — not with the camera model or pose convention being wrong.
+
+---
+
+## Closing: single confirmation experiment (2x2 supersampling)
+
+Per instructions, one diagnostic experiment, then stop. Script: `scripts/supersample_confirmation.py`. CPU/embree (this scope — 4 single-frame casts — doesn't need GPU infrastructure). Diagnostic only: **the production pipeline (`scripts/visibility_full.py`, one ray per pixel) was not changed.** Full numbers: `results/visibility_outliers/supersample_confirmation.json`.
+
+### MEASURED
+
+Re-cast rays at 2x2 sub-pixel offsets (4 rays/pixel, none at the pixel center) for exactly the specified frames, and checked how many previously-false_unobserved faces appear in the hit set.
+
+**A confound had to be corrected first**: a 1x (single center ray) sanity cast at these same frames should recover exactly 0 false_unobserved faces, by definition — no frame in the original sequence ever hit them. It did not: 29/2268 (`c1_sigmoid1_t2_v2`), 35/805 (`c1_sigmoid1_t1_v1`), 0/8033 and 1/8033 (`c1_ascending_t4_v2` frames 58/681). This is exactly the ~0.006% GPU(Warp)-vs-CPU(embree) tie-breaking noise already characterized in `docs/gpu_validation.md` §1 (this experiment's cast is CPU/embree; the production run was GPU/Warp) — not a supersampling effect. All recovery numbers below are reported **net of this backend-noise baseline** (4x count minus 1x-at-the-same-frame count), and also **against the correct denominator** — only the subset of false_unobserved faces whose recorded closest-approach frame (`fu_best_frame` in the per-sequence diagnosis JSON) is the exact frame being tested, since supersampling a frame can't be expected to help a face whose only real opportunity was elsewhere.
+
+| Sequence / frame | Group | False_unobserved with best-frame here | Net recovered (4x − 1x backend noise) | Net recovery rate |
+|---|---|---|---|---|
+| c1_sigmoid1_t2_v2 / 122 | B | 2017 | 54 | **2.68%** |
+| c1_sigmoid1_t1_v1 / 103 | B | 710 | 27 | **3.80%** |
+| c1_ascending_t4_v2 / 58 | A1 | 861 | 0 | **0.00%** |
+| c1_ascending_t4_v2 / 681 | A1 | 855 | 2 | **0.23%** |
+| c1_ascending_t4_v2 combined (58+681, raw union, not backend-corrected) | A1 | 8033 (all) | 3 | 0.04% |
+
+### INTERPRETATION
+
+**Result matches the third pre-registered branch, with an important magnitude caveat the pre-registration didn't anticipate**: A1 does not recover (0.00-0.23%, statistically indistinguishable from the backend-noise floor) while B does recover measurably more (2.68-3.80%, 10-100x A1's rate, clearly above the noise floor) — supporting **two distinct causes**, not one shared root cause. The boundary-speckle hypothesis for A1 is **not** made unnecessary by this result.
+
+**But neither branch was cleanly confirmed as pre-registered.** The first branch ("if most B faces recover, sub-pixel limit confirmed") did not happen — even in group B, 2x2 supersampling recovers a small minority (under 4%), not "most." This is not a contradiction of the sub-pixel-footprint measurement in §3 (median footprint 0.03-0.5px², 70-92% under 1px²) — it is consistent with it: a triangle with ~0.03px² of projected area has a low but non-zero chance of being struck by any one of 4 uniformly-placed sub-pixel samples, which is roughly the order of magnitude observed (a back-of-envelope uniform-sampling estimate for footprint this small gives single-digit-percent hit probability per attempt, matching 2.7-3.8% reasonably well). **Read this as**: the sub-pixel-resolution mechanism is directionally confirmed for group B, but 2x2 supersampling is far from enough sampling density to recover most of these faces — a much higher supersampling factor would likely be needed to fully close the gap, which this experiment does not test and was not asked to.
+
+**Disposition, as instructed:**
+- **Group A1 (ascending) is logged as UNKNOWN.** Supersampling does not move it. The boundary-alignment hypothesis from the main diagnosis remains the leading unverified candidate; distinguishing it from other possibilities (e.g., a genuine independent camera-model discrepancy localized to these specific frames) would need the screen-space boundary-proximity check proposed earlier, which was not run here.
+- **Group B (sigmoid1)'s sub-pixel/grazing-angle explanation is supported, not fully confirmed.** It correctly predicts that these faces respond to finer sampling while A1's do not, but the small recovered fraction means "these faces are simply too small to reliably hit at this camera resolution" remains the best available explanation, without claiming the gap is closed.
+- **No pipeline or metric change was made.** This was a diagnostic experiment only; any change to the production visibility-rasterization setting (e.g., adopting supersampling by default) is explicitly out of scope here and left as a separate decision.
+
+Stopping here, per instructions.

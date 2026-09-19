@@ -1,0 +1,15 @@
+[13:15:41] === c1_sigmoid1_t2_v2 frame 122 (group B) ===
+[13:15:45]   1x sanity check: 29/2268 false_unobserved faces hit (expected 0, by definition of false_unobserved across the whole sequence) [1.7s]
+[13:15:48]   4x supersample: 83/2268 recovered (3.7%) [3.4s]
+[13:15:48] === c1_sigmoid1_t1_v1 frame 103 (group B) ===
+[13:15:52]   1x sanity check: 35/805 false_unobserved faces hit (expected 0, by definition of false_unobserved across the whole sequence) [1.7s]
+[13:15:56]   4x supersample: 62/805 recovered (7.7%) [3.7s]
+[13:15:56] === c1_ascending_t4_v2 frame 58 (group A1) ===
+[13:16:01]   1x sanity check: 0/8033 false_unobserved faces hit (expected 0, by definition of false_unobserved across the whole sequence) [2.2s]
+[13:16:06]   4x supersample: 0/8033 recovered (0.0%) [4.5s]
+[13:16:06] === c1_ascending_t4_v2 frame 681 (group A1) ===
+[13:16:07]   1x sanity check: 1/8033 false_unobserved faces hit (expected 0, by definition of false_unobserved across the whole sequence) [1.2s]
+[13:16:11]   4x supersample: 3/8033 recovered (0.0%) [4.6s]
+[13:16:11] c1_ascending_t4_v2 combined (frames 58+681): 3/8033 (0.0%) recovered
+[13:16:11] wrote results/visibility_outliers/supersample_confirmation.json
+[13:16:11] ALL DONE
