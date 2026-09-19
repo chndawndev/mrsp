@@ -311,3 +311,19 @@ int vt = (int)coverageTex[i] == 255 ? 1 : 2;
 | 4. Coverage "observed" criterion | README **UNKNOWN**; **CONFIRMED via C3VDv3 code**: any primary ray hit (`primID != -1`), no distance/angle threshold, accumulated over the whole sequence |
 | 5. Qualitative/Quantitative Score, Open End Visible | **CONFIRMED** (README); Quantitative Score's exact combination formula **UNKNOWN**, deferred to manuscript |
 
+## 6. Pipeline input format
+
+**This section is a project decision, not a dataset convention** — unlike sections 1-5 above, nothing here is sourced from the dataset or its renderer. It is frozen the same way: recorded once, not silently re-derived or second-guessed.
+
+**Primary setting: methods receive the ORIGINAL fisheye frames. No undistortion.**
+
+**Rationale**: undistorting to the widest practical pinhole (f=541.29, 102.6° horizontal vs. 122.4° original FOV) loses 5-11 percentage points of observed surface and creates 1-4 spurious >5mm coverage gaps per sequence (25-1850 mm²), plus a 3.4x corner resampling stretch. See `docs/pinhole_tradeoff.md` for the full measurement (3 sequences spanning segments, GT pose, both camera models cast against the released `coverage_mesh.obj`).
+
+**GT visibility evaluation always uses the omnidirectional model.** Unchanged by this decision — the coverage criterion in §4 above (any primary ray hit, any pixel, any frame) is defined and computed against the real fisheye geometry regardless of what a given method's input format is.
+
+**Methods requiring explicit intrinsics** (i.e. that cannot consume the omnidirectional model directly) **get the same pinhole approximation** — f=541.29, principal point at image center — **for every method, no per-method tuning.** State the approximation and its max deviation from the true omnidirectional model in the paper.
+
+**Undistorted input is kept as a controlled ablation on 1-2 pipelines**, not as the main setting — to measure the format's own effect in isolation, not to let any method quietly run on the easier input.
+
+**This is a frozen decision. Do not switch a method to undistorted input to improve its numbers.**
+
