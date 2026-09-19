@@ -1,0 +1,99 @@
+
+======================================================================
+1. BACKEND EQUIVALENCE: Warp (GPU) vs embree (CPU), 20 frames, c1_cecum_t1_v1
+======================================================================
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA RTX 6000 Ada Generation" (47 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/grad/doc/2029/chua/.cache/warp/1.17.0
+Module __main__ 9efa9a6 load on device 'cuda:0' took 993.71 ms  (compiled)
+  frame 0: 92 / 1458000 disagree (0.00631%)
+  frame 11: 94 / 1458000 disagree (0.00645%)
+  frame 22: 92 / 1458000 disagree (0.00631%)
+  frame 34: 97 / 1458000 disagree (0.00665%)
+  frame 45: 73 / 1458000 disagree (0.00501%)
+  frame 57: 82 / 1458000 disagree (0.00562%)
+  frame 68: 58 / 1458000 disagree (0.00398%)
+  frame 79: 67 / 1458000 disagree (0.00460%)
+  frame 91: 86 / 1458000 disagree (0.00590%)
+  frame 102: 97 / 1458000 disagree (0.00665%)
+  frame 114: 93 / 1458000 disagree (0.00638%)
+  frame 125: 73 / 1458000 disagree (0.00501%)
+  frame 137: 68 / 1458000 disagree (0.00466%)
+  frame 148: 73 / 1458000 disagree (0.00501%)
+  frame 159: 72 / 1458000 disagree (0.00494%)
+  frame 171: 90 / 1458000 disagree (0.00617%)
+  frame 182: 65 / 1458000 disagree (0.00446%)
+  frame 194: 95 / 1458000 disagree (0.00652%)
+  frame 205: 95 / 1458000 disagree (0.00652%)
+  frame 217: 97 / 1458000 disagree (0.00665%)
+
+TOTAL: 1659 / 29160000 pixels disagree = 0.00569%
+Threshold: 0.1%. PASS
+
+Inspecting disagreement examples (checking if they're edge/tie cases):
+  frame=0 px=(600, 9): cpu_face=109642 gpu_face=109641, face-centroid dist=0.1758mm, shares a vertex=True
+  frame=0 px=(1184, 19): cpu_face=576552 gpu_face=576551, face-centroid dist=0.2076mm, shares a vertex=True
+  frame=0 px=(378, 21): cpu_face=78538 gpu_face=78537, face-centroid dist=0.2960mm, shares a vertex=True
+  frame=0 px=(1067, 24): cpu_face=154179 gpu_face=154183, face-centroid dist=0.1538mm, shares a vertex=True
+  frame=0 px=(417, 33): cpu_face=60029 gpu_face=60030, face-centroid dist=0.2071mm, shares a vertex=True
+
+======================================================================
+2. GT MISS-FRACTION CROSS-CHECK: c1_cecum_t1_v1
+======================================================================
+  frame 0: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 24: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 48: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 72: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 96: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 120: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 144: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 168: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 192: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 217: GT raw==0 frac=0.06999, our miss frac=0.00000
+
+mean GT raw==0 frac: 0.06999
+mean our miss frac:  0.00000
+
+======================================================================
+2. GT MISS-FRACTION CROSS-CHECK: c1_ascending_t2_v1
+======================================================================
+  frame 0: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 41: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 82: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 124: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 165: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 207: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 248: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 290: GT raw==0 frac=0.07001, our miss frac=0.00002
+  frame 331: GT raw==0 frac=0.06999, our miss frac=0.00000
+  frame 373: GT raw==0 frac=0.06999, our miss frac=0.00000
+
+mean GT raw==0 frac: 0.06999
+mean our miss frac:  0.00000
+
+======================================================================
+4. ACCURACY vs RELEASED coverage_mesh.obj: c1_cecum_t1_v1, strides (4, 2, 1)
+======================================================================
+  stride 4: IoU=0.97727, false_observed=33, false_unobserved=14416, all-frame rasterize time=12.7s
+  stride 2: IoU=0.99390, false_observed=98, false_unobserved=3778, all-frame rasterize time=47.6s
+  stride 1: IoU=0.99883, false_observed=371, false_unobserved=373, all-frame rasterize time=171.1s
+
+======================================================================
+5. END-TO-END PER-SEQUENCE COST: c1_cecum_t1_v1
+======================================================================
+  stream archive + parse OBJ: 2.42s (699908 faces)
+  build embree (CPU) BVH: 0.01s
+  build Warp (GPU) BVH: 0.01s
+
+======================================================================
+5. END-TO-END PER-SEQUENCE COST: c1_ascending_t2_v1
+======================================================================
+  stream archive + parse OBJ: 2.79s (838043 faces)
+  build embree (CPU) BVH: 0.01s
+  build Warp (GPU) BVH: 0.01s
+
+ALL VALIDATION CHECKS COMPLETE. Not starting the 169-sequence run.

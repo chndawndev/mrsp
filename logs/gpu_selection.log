@@ -1,0 +1,14 @@
+=== nvidia-smi query at 2026-09-19T03:22:49Z ===
+index, memory.used [MiB], memory.total [MiB], utilization.gpu [%]
+0, 47034 MiB, 49140 MiB, 99 %
+1, 47034 MiB, 49140 MiB, 87 %
+2, 47034 MiB, 49140 MiB, 99 %
+3, 47034 MiB, 49140 MiB, 99 %
+4, 43316 MiB, 49140 MiB, 0 %
+5, 47034 MiB, 49140 MiB, 93 %
+6, 47034 MiB, 49140 MiB, 96 %
+7, 16428 MiB, 49140 MiB, 0 %
+
+Selected GPU: index 7 (16428 MiB used / 49140 MiB total = 32712 MiB free, 0% utilization)
+Reasoning: most free memory AND lowest utilization among all 8 GPUs (GPU 4 also idle but only 5824 MiB free)
+CUDA_VISIBLE_DEVICES will be set to "7" explicitly for this job.

@@ -1,0 +1,241 @@
+[2026-09-19T03:24:58Z] === GPU ray-mesh benchmark starting ===
+[2026-09-19T03:25:00Z] nvidia-smi snapshot (before launch):
+Fri Sep 18 23:24:58 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 33%   63C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 44%   71C    P2            296W /  300W |   47034MiB /  49140MiB |     85%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 45%   74C    P2            297W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 47%   73C    P2            299W /  300W |   47034MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 42%   70C    P2            293W /  300W |   47034MiB /  49140MiB |     89%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 38%   66C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   34C    P2             58W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         2230901      C   python                                47024MiB |
+|    1   N/A  N/A         2284622      C   python                                47024MiB |
+|    2   N/A  N/A         2422831      C   python                                47024MiB |
+|    3   N/A  N/A         2219021      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A         2440297      C   python                                47024MiB |
+|    6   N/A  N/A         2574762      C   python                                47024MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-19T03:25:00Z] chosen GPU index 7: 32712 MiB free of 49140 MiB, 0% utilized (at launch)
+[2026-09-19T03:25:00Z] CUDA_VISIBLE_DEVICES set to '7' explicitly (single GPU only)
+[2026-09-19T03:25:00Z] warp devices visible: ['cpu', 'cuda:0']
+[2026-09-19T03:25:03Z] mesh: 699908 faces
+[2026-09-19T03:25:03Z] GPU BVH built. free_memory now: 33.05 GB (of 50.87 GB total)
+[2026-09-19T03:25:05Z]   frame 0: 906.1ms, hit_frac=1.0000
+[2026-09-19T03:25:05Z]   frame 24: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:05Z]   frame 48: 1.5ms, hit_frac=1.0000
+[2026-09-19T03:25:05Z]   frame 72: 1.3ms, hit_frac=1.0000
+[2026-09-19T03:25:06Z]   frame 96: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:06Z]   frame 120: 1.9ms, hit_frac=1.0000
+[2026-09-19T03:25:06Z]   frame 144: 1.4ms, hit_frac=1.0000
+[2026-09-19T03:25:06Z]   frame 168: 1.9ms, hit_frac=1.0000
+[2026-09-19T03:25:07Z]   frame 192: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:07Z]   frame 217: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:07Z] 
+GPU (index 7) throughput: 10.9 frames/sec
+[2026-09-19T03:25:07Z] 169 sequences, 67886 total frames -> est. 104.3 min (1.74 hr) for all sequences on this single GPU
+[2026-09-19T03:25:07Z] === GPU benchmark finished successfully ===
+[2026-09-19T03:25:27Z] === GPU ray-mesh benchmark starting ===
+[2026-09-19T03:25:29Z] nvidia-smi snapshot (before launch):
+Fri Sep 18 23:25:27 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 33%   63C    P2            298W /  300W |   47034MiB /  49140MiB |     97%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 44%   72C    P2            298W /  300W |   47034MiB /  49140MiB |     92%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 45%   73C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 47%   74C    P2            297W /  300W |   47034MiB /  49140MiB |     92%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 43%   70C    P2            297W /  300W |   47034MiB /  49140MiB |     95%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 38%   67C    P2            296W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   34C    P2             58W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         2230901      C   python                                47024MiB |
+|    1   N/A  N/A         2284622      C   python                                47024MiB |
+|    2   N/A  N/A         2422831      C   python                                47024MiB |
+|    3   N/A  N/A         2219021      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A         2440297      C   python                                47024MiB |
+|    6   N/A  N/A         2574762      C   python                                47024MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-19T03:25:29Z] chosen GPU index 7: 32712 MiB free of 49140 MiB, 0% utilized (at launch)
+[2026-09-19T03:25:29Z] CUDA_VISIBLE_DEVICES set to '7' explicitly (single GPU only)
+[2026-09-19T03:25:29Z] warp devices visible: ['cpu', 'cuda:0']
+[2026-09-19T03:25:32Z] mesh: 699908 faces
+[2026-09-19T03:25:33Z] GPU BVH built. free_memory now: 33.05 GB (of 50.87 GB total)
+[2026-09-19T03:25:33Z]   frame 0: 4.8ms, hit_frac=1.0000
+[2026-09-19T03:25:33Z]   frame 24: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:33Z]   frame 48: 1.5ms, hit_frac=1.0000
+[2026-09-19T03:25:34Z]   frame 72: 1.3ms, hit_frac=1.0000
+[2026-09-19T03:25:34Z]   frame 96: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:34Z]   frame 120: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:34Z]   frame 144: 1.4ms, hit_frac=1.0000
+[2026-09-19T03:25:35Z]   frame 168: 1.9ms, hit_frac=1.0000
+[2026-09-19T03:25:35Z]   frame 192: 1.8ms, hit_frac=1.0000
+[2026-09-19T03:25:35Z]   frame 217: 1.9ms, hit_frac=1.0000
+[2026-09-19T03:25:35Z] 
+GPU (index 7) throughput: 500.8 frames/sec
+[2026-09-19T03:25:35Z] 169 sequences, 67886 total frames -> est. 2.3 min (0.04 hr) for all sequences on this single GPU
+[2026-09-19T03:25:35Z] === GPU benchmark finished successfully ===
+[2026-09-19T03:26:18Z] === GPU ray-mesh benchmark starting ===
+[2026-09-19T03:26:20Z] nvidia-smi snapshot (before launch):
+Fri Sep 18 23:26:18 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 33%   62C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 44%   71C    P2            298W /  300W |   47034MiB /  49140MiB |     96%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 45%   71C    P2            291W /  300W |   47034MiB /  49140MiB |     89%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 47%   73C    P2            299W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 42%   71C    P2            299W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 38%   67C    P2            299W /  300W |   47034MiB /  49140MiB |     98%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   34C    P2             59W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         2230901      C   python                                47024MiB |
+|    1   N/A  N/A         2284622      C   python                                47024MiB |
+|    2   N/A  N/A         2422831      C   python                                47024MiB |
+|    3   N/A  N/A         2219021      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A         2440297      C   python                                47024MiB |
+|    6   N/A  N/A         2574762      C   python                                47024MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-19T03:26:20Z] chosen GPU index 7: 32712 MiB free of 49140 MiB, 0% utilized (at launch)
+[2026-09-19T03:26:20Z] CUDA_VISIBLE_DEVICES set to '7' explicitly (single GPU only)
+[2026-09-19T03:26:21Z] warp devices visible: ['cpu', 'cuda:0']
+[2026-09-19T03:26:24Z] mesh: 699908 faces
+[2026-09-19T03:26:24Z] GPU BVH built. free_memory now: 33.05 GB (of 50.87 GB total)
+[2026-09-19T03:26:25Z]   frame 0: 9.4ms, hit_frac=1.0000
+[2026-09-19T03:26:25Z]   frame 11: 5.5ms, hit_frac=1.0000
+[2026-09-19T03:26:25Z]   frame 22: 5.5ms, hit_frac=1.0000
+[2026-09-19T03:26:25Z]   frame 34: 5.5ms, hit_frac=1.0000
+[2026-09-19T03:26:26Z]   frame 45: 5.0ms, hit_frac=1.0000
+[2026-09-19T03:26:26Z]   frame 57: 4.8ms, hit_frac=1.0000
+[2026-09-19T03:26:26Z]   frame 68: 4.8ms, hit_frac=1.0000
+[2026-09-19T03:26:26Z]   frame 79: 4.9ms, hit_frac=1.0000
+[2026-09-19T03:26:26Z]   frame 91: 5.3ms, hit_frac=1.0000
+[2026-09-19T03:26:26Z]   frame 102: 5.5ms, hit_frac=1.0000
+[2026-09-19T03:26:27Z]   frame 114: 5.5ms, hit_frac=1.0000
+[2026-09-19T03:26:27Z]   frame 125: 5.3ms, hit_frac=1.0000
+[2026-09-19T03:26:27Z]   frame 137: 5.3ms, hit_frac=1.0000
+[2026-09-19T03:26:27Z]   frame 148: 5.0ms, hit_frac=1.0000
+[2026-09-19T03:26:28Z]   frame 159: 5.2ms, hit_frac=1.0000
+[2026-09-19T03:26:28Z]   frame 171: 5.4ms, hit_frac=1.0000
+[2026-09-19T03:26:28Z]   frame 182: 5.3ms, hit_frac=1.0000
+[2026-09-19T03:26:28Z]   frame 194: 5.4ms, hit_frac=1.0000
+[2026-09-19T03:26:28Z]   frame 205: 5.5ms, hit_frac=1.0000
+[2026-09-19T03:26:28Z]   frame 217: 5.5ms, hit_frac=1.0000
+[2026-09-19T03:26:28Z] 
+GPU (index 7) throughput: 182.6 frames/sec
+[2026-09-19T03:26:29Z] 169 sequences, 67886 total frames -> est. 6.2 min (0.10 hr) for all sequences on this single GPU
+[2026-09-19T03:26:29Z] === GPU benchmark finished successfully ===
