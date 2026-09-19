@@ -1,0 +1,195 @@
+[2026-09-19T04:02:26Z] === visibility_full.py starting: full 169-sequence GPU visibility rasterization ===
+[2026-09-19T04:02:26Z] === visibility_full.py starting: full 169-sequence GPU visibility rasterization ===
+[2026-09-19T04:02:26Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-19T04:02:26Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-19T04:02:28Z] Sat Sep 19 00:02:26 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 32%   62C    P2            298W /  300W |   47034MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 41%   69C    P2            292W /  300W |   47034MiB /  49140MiB |     94%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 44%   71C    P2            292W /  300W |   47034MiB /  49140MiB |     89%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 46%   73C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 39%   69C    P2            292W /  300W |   47034MiB /  49140MiB |     92%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 35%   66C    P2            293W /  300W |   47034MiB /  49140MiB |     90%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   36C    P2             59W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         2230901      C   python                                47024MiB |
+|    1   N/A  N/A         2284622      C   python                                47024MiB |
+|    2   N/A  N/A         2422831      C   python                                47024MiB |
+|    3   N/A  N/A         2219021      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A         2440297      C   python                                47024MiB |
+|    6   N/A  N/A         2574762      C   python                                47024MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-19T04:02:28Z] Sat Sep 19 00:02:26 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 32%   62C    P2            298W /  300W |   47034MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 41%   69C    P2            292W /  300W |   47034MiB /  49140MiB |     94%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 44%   71C    P2            292W /  300W |   47034MiB /  49140MiB |     89%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 46%   73C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 39%   69C    P2            292W /  300W |   47034MiB /  49140MiB |     92%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 35%   66C    P2            293W /  300W |   47034MiB /  49140MiB |     90%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   36C    P2             59W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         2230901      C   python                                47024MiB |
+|    1   N/A  N/A         2284622      C   python                                47024MiB |
+|    2   N/A  N/A         2422831      C   python                                47024MiB |
+|    3   N/A  N/A         2219021      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A         2440297      C   python                                47024MiB |
+|    6   N/A  N/A         2574762      C   python                                47024MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-19T04:02:28Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 32.1 GB free, 0% utilized
+[2026-09-19T04:02:28Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 32.1 GB free, 0% utilized
+[2026-09-19T04:02:28Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+[2026-09-19T04:02:28Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA RTX 6000 Ada Generation" (47 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/grad/doc/2029/chua/.cache/warp/1.17.0
+[2026-09-19T04:02:29Z] Environment: {
+  "warp_version": "1.17.0",
+  "gpu_index": 7,
+  "gpu_model": "NVIDIA RTX 6000 Ada Generation",
+  "commit_hash": "44d8a07523c73d64cdaeb7d8ca02b6b69c0927e7",
+  "kernel_cache_note": "Warp's compiled-kernel cache is machine-level (this run's cache: ~/.cache/warp/1.17.0). On a new machine the first sequence pays a one-time JIT compile cost (~1s observed); subsequent sequences load from cache.",
+  "timestamp_utc": "2026-09-19T04:02:29Z"
+}
+[2026-09-19T04:02:29Z] Environment: {
+  "warp_version": "1.17.0",
+  "gpu_index": 7,
+  "gpu_model": "NVIDIA RTX 6000 Ada Generation",
+  "commit_hash": "44d8a07523c73d64cdaeb7d8ca02b6b69c0927e7",
+  "kernel_cache_note": "Warp's compiled-kernel cache is machine-level (this run's cache: ~/.cache/warp/1.17.0). On a new machine the first sequence pays a one-time JIT compile cost (~1s observed); subsequent sequences load from cache.",
+  "timestamp_utc": "2026-09-19T04:02:29Z"
+}
+[2026-09-19T04:02:29Z] precomputed 1458000 camera rays (fixed intrinsics, shared across all sequences)
+[2026-09-19T04:02:29Z] precomputed 1458000 camera rays (fixed intrinsics, shared across all sequences)
+[2026-09-19T04:02:29Z] discovered 169 sequences (asserted 169 inside discover_sequences())
+[2026-09-19T04:02:29Z] discovered 169 sequences (asserted 169 inside discover_sequences())
+Module __main__ 65aaaae load on device 'cuda:0' took 12.17 ms  (cached)
+[2026-09-19T04:04:01Z] [10/169] c1_ascending_t4_v2: IoU=0.98403 false_obs=158 false_unobs=8033 (stream=2.8s bvh=0.00s cast=9.6s) | elapsed=1.5min ETA=24.3min
+[2026-09-19T04:04:01Z] [10/169] c1_ascending_t4_v2: IoU=0.98403 false_obs=158 false_unobs=8033 (stream=2.8s bvh=0.00s cast=9.6s) | elapsed=1.5min ETA=24.3min
+[2026-09-19T04:05:28Z] [20/169] c1_cecum_t4_v1: IoU=0.99952 false_obs=154 false_unobs=152 (stream=2.5s bvh=0.00s cast=10.4s) | elapsed=3.0min ETA=22.2min
+[2026-09-19T04:05:28Z] [20/169] c1_cecum_t4_v1: IoU=0.99952 false_obs=154 false_unobs=152 (stream=2.5s bvh=0.00s cast=10.4s) | elapsed=3.0min ETA=22.2min
+[2026-09-19T04:06:36Z] [30/169] c1_descending_t3_v3: IoU=0.99695 false_obs=155 false_unobs=373 (stream=0.9s bvh=0.00s cast=4.2s) | elapsed=4.1min ETA=19.0min
+[2026-09-19T04:06:36Z] [30/169] c1_descending_t3_v3: IoU=0.99695 false_obs=155 false_unobs=373 (stream=0.9s bvh=0.00s cast=4.2s) | elapsed=4.1min ETA=19.0min
+[2026-09-19T04:07:31Z] [40/169] c1_rectum_t3_v1: IoU=0.99920 false_obs=251 false_unobs=230 (stream=2.5s bvh=0.00s cast=2.9s) | elapsed=5.0min ETA=16.2min
+[2026-09-19T04:07:31Z] [40/169] c1_rectum_t3_v1: IoU=0.99920 false_obs=251 false_unobs=230 (stream=2.5s bvh=0.00s cast=2.9s) | elapsed=5.0min ETA=16.2min
+[2026-09-19T04:08:33Z] [50/169] c1_sigmoid1_t2_v2: IoU=0.98399 false_obs=2273 false_unobs=2268 (stream=1.5s bvh=0.00s cast=4.3s) | elapsed=6.1min ETA=14.4min
+[2026-09-19T04:08:33Z] [50/169] c1_sigmoid1_t2_v2: IoU=0.98399 false_obs=2273 false_unobs=2268 (stream=1.5s bvh=0.00s cast=4.3s) | elapsed=6.1min ETA=14.4min
+[2026-09-19T04:09:37Z] [60/169] c1_sigmoid2_t1_v3: IoU=0.99942 false_obs=35 false_unobs=31 (stream=0.5s bvh=0.00s cast=1.9s) | elapsed=7.1min ETA=12.9min
+[2026-09-19T04:09:37Z] [60/169] c1_sigmoid2_t1_v3: IoU=0.99942 false_obs=35 false_unobs=31 (stream=0.5s bvh=0.00s cast=1.9s) | elapsed=7.1min ETA=12.9min
+[2026-09-19T04:10:23Z] [70/169] c1_transverse1_t1_v1: IoU=0.99700 false_obs=327 false_unobs=347 (stream=1.1s bvh=0.00s cast=1.9s) | elapsed=7.9min ETA=11.2min
+[2026-09-19T04:10:23Z] [70/169] c1_transverse1_t1_v1: IoU=0.99700 false_obs=327 false_unobs=347 (stream=1.1s bvh=0.00s cast=1.9s) | elapsed=7.9min ETA=11.2min
+[2026-09-19T04:11:15Z] [80/169] c1_transverse1_t4_v2: IoU=0.99912 false_obs=97 false_unobs=104 (stream=1.2s bvh=0.00s cast=8.6s) | elapsed=8.8min ETA=9.7min
+[2026-09-19T04:11:15Z] [80/169] c1_transverse1_t4_v2: IoU=0.99912 false_obs=97 false_unobs=104 (stream=1.2s bvh=0.00s cast=8.6s) | elapsed=8.8min ETA=9.7min
+[2026-09-19T04:12:31Z] [90/169] c1_transverse2_t3_v3: IoU=0.99871 false_obs=66 false_unobs=76 (stream=0.6s bvh=0.00s cast=3.8s) | elapsed=10.0min ETA=8.8min
+[2026-09-19T04:12:31Z] [90/169] c1_transverse2_t3_v3: IoU=0.99871 false_obs=66 false_unobs=76 (stream=0.6s bvh=0.00s cast=3.8s) | elapsed=10.0min ETA=8.8min
+[2026-09-19T04:13:49Z] [100/169] c2_ascending_t3_v1: IoU=0.99832 false_obs=470 false_unobs=439 (stream=2.7s bvh=0.00s cast=4.8s) | elapsed=11.3min ETA=7.8min
+[2026-09-19T04:13:49Z] [100/169] c2_ascending_t3_v1: IoU=0.99832 false_obs=470 false_unobs=439 (stream=2.7s bvh=0.00s cast=4.8s) | elapsed=11.3min ETA=7.8min
+[2026-09-19T04:15:06Z] [110/169] c2_cecum_t2_v3: IoU=0.99957 false_obs=100 false_unobs=98 (stream=1.9s bvh=0.00s cast=5.8s) | elapsed=12.6min ETA=6.8min
+[2026-09-19T04:15:06Z] [110/169] c2_cecum_t2_v3: IoU=0.99957 false_obs=100 false_unobs=98 (stream=1.9s bvh=0.00s cast=5.8s) | elapsed=12.6min ETA=6.8min
+[2026-09-19T04:16:07Z] [120/169] c2_descending_t4_v1: IoU=0.99632 false_obs=646 false_unobs=619 (stream=1.8s bvh=0.00s cast=3.4s) | elapsed=13.6min ETA=5.6min
+[2026-09-19T04:16:07Z] [120/169] c2_descending_t4_v1: IoU=0.99632 false_obs=646 false_unobs=619 (stream=1.8s bvh=0.00s cast=3.4s) | elapsed=13.6min ETA=5.6min
+[2026-09-19T04:17:08Z] [130/169] c2_rectum_t3_v2: IoU=0.99865 false_obs=146 false_unobs=129 (stream=1.1s bvh=0.00s cast=4.5s) | elapsed=14.6min ETA=4.4min
+[2026-09-19T04:17:08Z] [130/169] c2_rectum_t3_v2: IoU=0.99865 false_obs=146 false_unobs=129 (stream=1.1s bvh=0.00s cast=4.5s) | elapsed=14.6min ETA=4.4min
+[2026-09-19T04:18:13Z] [140/169] c2_sigmoid_t2_v3: IoU=0.99912 false_obs=66 false_unobs=69 (stream=0.8s bvh=0.00s cast=6.1s) | elapsed=15.7min ETA=3.3min
+[2026-09-19T04:18:13Z] [140/169] c2_sigmoid_t2_v3: IoU=0.99912 false_obs=66 false_unobs=69 (stream=0.8s bvh=0.00s cast=6.1s) | elapsed=15.7min ETA=3.3min
+[2026-09-19T04:19:15Z] [150/169] c2_transverse1_t2_v1: IoU=0.99912 false_obs=107 false_unobs=97 (stream=1.3s bvh=0.00s cast=7.8s) | elapsed=16.8min ETA=2.1min
+[2026-09-19T04:19:15Z] [150/169] c2_transverse1_t2_v1: IoU=0.99912 false_obs=107 false_unobs=97 (stream=1.3s bvh=0.00s cast=7.8s) | elapsed=16.8min ETA=2.1min
+[2026-09-19T04:20:28Z] [160/169] c2_transverse2_t1_v2: IoU=0.99894 false_obs=89 false_unobs=65 (stream=0.8s bvh=0.00s cast=7.6s) | elapsed=18.0min ETA=1.0min
+[2026-09-19T04:20:28Z] [160/169] c2_transverse2_t1_v2: IoU=0.99894 false_obs=89 false_unobs=65 (stream=0.8s bvh=0.00s cast=7.6s) | elapsed=18.0min ETA=1.0min
+[2026-09-19T04:21:45Z] [169/169] c2_transverse2_t4_v3: IoU=0.99919 false_obs=65 false_unobs=43 (stream=0.9s bvh=0.00s cast=12.6s) | elapsed=19.3min ETA=0.0min
+[2026-09-19T04:21:45Z] [169/169] c2_transverse2_t4_v3: IoU=0.99919 false_obs=65 false_unobs=43 (stream=0.9s bvh=0.00s cast=12.6s) | elapsed=19.3min ETA=0.0min
+[2026-09-19T04:21:45Z] wrote results/visibility_full/metrics.csv (169 rows)
+[2026-09-19T04:21:45Z] wrote results/visibility_full/metrics.csv (169 rows)
+[2026-09-19T04:21:46Z] wrote results/visibility_full/observed_masks.npz
+[2026-09-19T04:21:46Z] wrote results/visibility_full/observed_masks.npz
+[2026-09-19T04:21:46Z] wrote results/visibility_full/run_environment.json
+[2026-09-19T04:21:46Z] wrote results/visibility_full/run_environment.json
+[2026-09-19T04:21:46Z] 
+TOTAL elapsed: 19.3 min for 169 sequences
+[2026-09-19T04:21:46Z] 
+TOTAL elapsed: 19.3 min for 169 sequences
+[2026-09-19T04:21:46Z] === ALL DONE ===
+[2026-09-19T04:21:46Z] === ALL DONE ===
+TMUX_JOB_DONE_EXIT_0

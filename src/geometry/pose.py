@@ -17,9 +17,42 @@ than assuming.
 """
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 
 import numpy as np
+
+from .coverage_mesh import _resolve_zip_member
+
+
+def _load_poses_from_lines(lines: list[str]) -> np.ndarray:
+    values = np.array(
+        [[float(x) for x in line.split(",")] for line in lines if line.strip()], dtype=np.float64
+    )
+    if values.shape[1] != 16:
+        raise ValueError(f"expected 16 values per line, got {values.shape[1]}")
+    return values.reshape(-1, 4, 4)
+
+
+def stream_poses_from_zip(archive_path: str | Path, member: str = "pose.txt") -> np.ndarray:
+    """Load pose.txt directly from a zip archive member via `unzip -p`,
+    without extracting the archive to disk. Same layout/caveats as
+    load_poses() -- see module docstring.
+
+    Resolves the actual internal path first (like
+    coverage_mesh.stream_coverage_mesh_from_zip) rather than assuming
+    `member` sits at the archive root: c1_cecum_t1_v3.zip is a confirmed
+    one-off exception that wraps its contents in a `c1_cecum_t1_v3/`
+    subfolder, and a naive `unzip -p archive pose.txt` fails loudly on it
+    (exit code 11) rather than silently returning wrong data -- this bit us
+    once already for coverage_mesh.obj (docs/coverage_stats.md) and again
+    here for pose.txt before this fix.
+    """
+    resolved_member = _resolve_zip_member(archive_path, member)
+    result = subprocess.run(
+        ["unzip", "-p", str(archive_path), resolved_member], capture_output=True, text=True, check=True
+    )
+    return _load_poses_from_lines(result.stdout.splitlines())
 
 
 def load_poses(path: str | Path) -> np.ndarray:
@@ -29,15 +62,7 @@ def load_poses(path: str | Path) -> np.ndarray:
     16 comma-separated floats on each line. Does NOT assume this is a valid
     [R t; 0 0 0 1] transform -- see module docstring.
     """
-    lines = [
-        line for line in Path(path).read_text().splitlines() if line.strip()
-    ]
-    values = np.array(
-        [[float(x) for x in line.split(",")] for line in lines], dtype=np.float64
-    )
-    if values.shape[1] != 16:
-        raise ValueError(f"expected 16 values per line, got {values.shape[1]}")
-    return values.reshape(-1, 4, 4)
+    return _load_poses_from_lines(Path(path).read_text().splitlines())
 
 
 def transform_points(points: np.ndarray, matrices: np.ndarray, interpretation: str) -> np.ndarray:
