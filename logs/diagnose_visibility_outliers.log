@@ -1,0 +1,76 @@
+[12:52:19] === c1_ascending_t4_v2 ===
+[12:52:23]   n_faces=755902 false_unobserved=8033 false_observed=158
+[12:52:24]   false_unobserved: 7549 components, largest area=0.18mm2 (equiv diam 0.48mm)
+[12:52:24]   rim-adjacent fraction of false_unobserved: 0.9959
+[12:52:24]   distance/incidence pass: 0.7s for 10033 faces x 694 frames
+[12:52:26]   footprint pass: 1.6s
+[12:52:29]   rendered views to results/visibility_outliers/views
+[12:52:29]   wrote results/visibility_outliers/c1_ascending_t4_v2_diagnosis.json
+[12:52:29] === c1_ascending_t4_v3 ===
+[12:52:33]   n_faces=755902 false_unobserved=8049 false_observed=147
+[12:52:34]   false_unobserved: 7562 components, largest area=0.18mm2 (equiv diam 0.48mm)
+[12:52:34]   rim-adjacent fraction of false_unobserved: 0.9954
+[12:52:34]   distance/incidence pass: 0.7s for 10049 faces x 694 frames
+[12:52:36]   footprint pass: 1.6s
+[12:52:39]   rendered views to results/visibility_outliers/views
+[12:52:39]   wrote results/visibility_outliers/c1_ascending_t4_v3_diagnosis.json
+[12:52:39] === c1_ascending_t3_v1 ===
+[12:52:41]   n_faces=755902 false_unobserved=4652 false_observed=203
+[12:52:42]   false_unobserved: 4378 components, largest area=0.15mm2 (equiv diam 0.44mm)
+[12:52:42]   rim-adjacent fraction of false_unobserved: 0.9908
+[12:52:42]   distance/incidence pass: 0.1s for 6652 faces x 259 frames
+[12:52:43]   footprint pass: 1.0s
+[12:52:46]   rendered views to results/visibility_outliers/views
+[12:52:46]   wrote results/visibility_outliers/c1_ascending_t3_v1_diagnosis.json
+[12:52:46] === c2_transverse2_t3_v1 ===
+[12:52:47]   n_faces=217102 false_unobserved=4159 false_observed=66
+[12:52:47]   false_unobserved: 209 components, largest area=60.20mm2 (equiv diam 8.76mm)
+[12:52:47]   rim-adjacent fraction of false_unobserved: 0.2515
+[12:52:47]   distance/incidence pass: 0.1s for 6159 faces x 193 frames
+[12:52:48]   footprint pass: 1.0s
+[12:52:49]   rendered views to results/visibility_outliers/views
+[12:52:49]   wrote results/visibility_outliers/c2_transverse2_t3_v1_diagnosis.json
+[12:52:49] === c2_rectum_t4_v1 ===
+[12:52:50]   n_faces=284742 false_unobserved=3070 false_observed=546
+[12:52:51]   false_unobserved: 671 components, largest area=85.99mm2 (equiv diam 10.46mm)
+[12:52:51]   rim-adjacent fraction of false_unobserved: 0.3189
+[12:52:51]   distance/incidence pass: 0.1s for 5070 faces x 198 frames
+[12:52:52]   footprint pass: 0.8s
+[12:52:53]   rendered views to results/visibility_outliers/views
+[12:52:53]   wrote results/visibility_outliers/c2_rectum_t4_v1_diagnosis.json
+[12:52:53] === c2_rectum_t3_v1 ===
+[12:52:54]   n_faces=284742 false_unobserved=2594 false_observed=174
+[12:52:55]   false_unobserved: 467 components, largest area=49.79mm2 (equiv diam 7.96mm)
+[12:52:55]   rim-adjacent fraction of false_unobserved: 0.3624
+[12:52:55]   distance/incidence pass: 0.1s for 4594 faces x 281 frames
+[12:52:55]   footprint pass: 0.8s
+[12:52:57]   rendered views to results/visibility_outliers/views
+[12:52:57]   wrote results/visibility_outliers/c2_rectum_t3_v1_diagnosis.json
+[12:52:57] === c1_sigmoid1_t2_v2 ===
+[12:52:59]   n_faces=439984 false_unobserved=2268 false_observed=2273
+[12:52:59]   false_unobserved: 1930 components, largest area=0.25mm2 (equiv diam 0.56mm)
+[12:52:59]   rim-adjacent fraction of false_unobserved: 0.7756
+[12:52:59]   distance/incidence pass: 0.1s for 4268 faces x 286 frames
+[12:53:00]   footprint pass: 0.7s
+[12:53:01]   degeneracy: {'n_faces': 439984, 'n_near_zero_area_faces': 0, 'near_zero_area_threshold_mm2': 1e-06, 'n_duplicate_vertex_groups': 0, 'n_duplicate_vertices_total': 0, 'n_duplicate_faces_by_vertex_set': 0}
+[12:53:03]   rendered views to results/visibility_outliers/views
+[12:53:03]   wrote results/visibility_outliers/c1_sigmoid1_t2_v2_diagnosis.json
+[12:53:03] === c1_sigmoid1_t2_v3 ===
+[12:53:05]   n_faces=439984 false_unobserved=2266 false_observed=2250
+[12:53:05]   false_unobserved: 1928 components, largest area=0.23mm2 (equiv diam 0.54mm)
+[12:53:05]   rim-adjacent fraction of false_unobserved: 0.7988
+[12:53:05]   distance/incidence pass: 0.1s for 4266 faces x 286 frames
+[12:53:06]   footprint pass: 0.7s
+[12:53:07]   degeneracy: {'n_faces': 439984, 'n_near_zero_area_faces': 0, 'near_zero_area_threshold_mm2': 1e-06, 'n_duplicate_vertex_groups': 0, 'n_duplicate_vertices_total': 0, 'n_duplicate_faces_by_vertex_set': 0}
+[12:53:08]   rendered views to results/visibility_outliers/views
+[12:53:08]   wrote results/visibility_outliers/c1_sigmoid1_t2_v3_diagnosis.json
+[12:53:08] === c1_sigmoid1_t1_v1 ===
+[12:53:10]   n_faces=439984 false_unobserved=805 false_observed=818
+[12:53:11]   false_unobserved: 718 components, largest area=0.35mm2 (equiv diam 0.66mm)
+[12:53:11]   rim-adjacent fraction of false_unobserved: 0.7342
+[12:53:11]   distance/incidence pass: 0.1s for 2805 faces x 191 frames
+[12:53:11]   footprint pass: 0.5s
+[12:53:12]   degeneracy: {'n_faces': 439984, 'n_near_zero_area_faces': 0, 'near_zero_area_threshold_mm2': 1e-06, 'n_duplicate_vertex_groups': 0, 'n_duplicate_vertices_total': 0, 'n_duplicate_faces_by_vertex_set': 0}
+[12:53:14]   rendered views to results/visibility_outliers/views
+[12:53:14]   wrote results/visibility_outliers/c1_sigmoid1_t1_v1_diagnosis.json
+[12:53:14] ALL DONE
