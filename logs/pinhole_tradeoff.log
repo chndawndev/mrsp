@@ -1,0 +1,20 @@
+[14:28:54] pinhole model: f=541.29px, image 1350x1080
+[14:28:54] pinhole FOV: H=102.55deg V=89.86deg
+[14:28:54] corner resampling stretch factor: 3.38x (pinhole px per 1 omni source px)
+[14:28:55] === c2_cecum_t4_v1 ===
+[14:32:34]   rasterized 191 frames x 2 models in 217.1s
+[14:32:34]   observed face fraction: omni=0.8433 pinhole=0.7310
+[14:32:35]   newly-lost (omni-observed, pinhole-unobserved): 61068 faces, 166 components, 3 with equiv diam >5mm (total area 2090.2mm2)
+[14:32:35]   GT-unobserved >5mm regions: 5 total; 4 touched by >=1 omni-observed face; 2 touched by >=1 pinhole-observed face
+[14:32:35] === c1_descending_t1_v1 ===
+[14:34:50]   rasterized 123 frames x 2 models in 134.0s
+[14:34:50]   observed face fraction: omni=0.7549 pinhole=0.7055
+[14:34:50]   newly-lost (omni-observed, pinhole-unobserved): 10831 faces, 89 components, 1 with equiv diam >5mm (total area 1067.7mm2)
+[14:34:50]   GT-unobserved >5mm regions: 4 total; 4 touched by >=1 omni-observed face; 3 touched by >=1 pinhole-observed face
+[14:34:50] === c1_sigmoid2_t1_v1 ===
+[14:37:13]   rasterized 132 frames x 2 models in 142.1s
+[14:37:13]   observed face fraction: omni=0.7546 pinhole=0.6895
+[14:37:13]   newly-lost (omni-observed, pinhole-unobserved): 8743 faces, 51 components, 4 with equiv diam >5mm (total area 949.0mm2)
+[14:37:13]   GT-unobserved >5mm regions: 2 total; 2 touched by >=1 omni-observed face; 1 touched by >=1 pinhole-observed face
+[14:37:13] wrote results/pinhole_tradeoff/pinhole_tradeoff.json
+[14:37:13] ALL DONE
