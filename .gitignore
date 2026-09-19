@@ -1,4 +1,6 @@
 /scratch/
+/results/
+*.ply
 
 # Node.js
 node_modules/

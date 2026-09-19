@@ -1,0 +1,51 @@
+[21:58:57] discovered 169 sequences
+[21:59:08] [1/169] c1_ascending_t1_v1: 153 regions, mesh_hash=7d1e2dbc27c8b5d9 (11.1s this seq, 11s elapsed)
+[21:59:50] [6/169] c1_ascending_t3_v1: 145 regions, mesh_hash=0a6ea4eebbe13fbc (8.1s this seq, 54s elapsed)
+[22:00:30] [11/169] c1_ascending_t4_v3: 105 regions, mesh_hash=4724824f2dd910c5 (9.1s this seq, 93s elapsed)
+[22:01:11] [16/169] c1_cecum_t2_v2: 148 regions, mesh_hash=49e668fd682dbc50 (8.5s this seq, 135s elapsed)
+[22:01:50] [21/169] c1_cecum_t4_v2: 114 regions, mesh_hash=56826dc488a9d33a (7.1s this seq, 174s elapsed)
+[22:02:07] [26/169] c1_descending_t2_v2: 82 regions, mesh_hash=5910ff2d6b21fc32 (2.6s this seq, 190s elapsed)
+[22:02:19] [31/169] c1_descending_t4_v1: 102 regions, mesh_hash=1782808b96a44df0 (2.2s this seq, 202s elapsed)
+[22:02:43] [36/169] c1_rectum_t1_v3: 137 regions, mesh_hash=b22c45e1664d836a (6.9s this seq, 227s elapsed)
+[22:03:17] [41/169] c1_rectum_t3_v2: 123 regions, mesh_hash=279eddad82ba4430 (7.2s this seq, 260s elapsed)
+[22:03:48] [46/169] c1_sigmoid1_t1_v1: 826 regions, mesh_hash=e3efba793952caee (5.9s this seq, 292s elapsed)
+[22:04:14] [51/169] c1_sigmoid1_t2_v3: 1550 regions, mesh_hash=8617dac6fd75006c (4.8s this seq, 318s elapsed)
+[22:04:38] [56/169] c1_sigmoid1_t4_v2: 390 regions, mesh_hash=e0f711b1871e3723 (4.5s this seq, 341s elapsed)
+[22:04:47] [61/169] c1_sigmoid2_t2_v1: 21 regions, mesh_hash=c747573164e08dac (1.2s this seq, 351s elapsed)
+[22:04:54] [66/169] c1_sigmoid2_t3_v3: 57 regions, mesh_hash=1d7809826f7b1bcc (1.6s this seq, 357s elapsed)
+[22:05:08] [71/169] c1_transverse1_t1_v2: 54 regions, mesh_hash=21176e219c9c3865 (4.8s this seq, 371s elapsed)
+[22:05:28] [76/169] c1_transverse1_t3_v1: 68 regions, mesh_hash=eee5722a3f08dbbe (3.3s this seq, 391s elapsed)
+[22:05:46] [81/169] c1_transverse1_t4_v3: 72 regions, mesh_hash=9fd54f82c6d8d1b6 (3.6s this seq, 410s elapsed)
+[22:05:54] [86/169] c1_transverse2_t2_v2: 62 regions, mesh_hash=41e487514ccb5326 (1.7s this seq, 418s elapsed)
+[22:06:02] [91/169] c1_transverse2_t4_v1: 39 regions, mesh_hash=21686fe6a62978a5 (1.7s this seq, 425s elapsed)
+[22:06:27] [96/169] c2_ascending_t1_v3: 129 regions, mesh_hash=465249c5fc3fd4bd (7.7s this seq, 450s elapsed)
+[22:07:01] [101/169] c2_ascending_t3_v2: 127 regions, mesh_hash=8903b5c23ca7449a (6.7s this seq, 485s elapsed)
+[22:07:35] [106/169] c2_cecum_t1_v1: 39 regions, mesh_hash=1dd01d041f11e0bd (5.1s this seq, 519s elapsed)
+[22:07:59] [111/169] c2_cecum_t3_v1: 67 regions, mesh_hash=999360e3cfaeb63f (5.0s this seq, 542s elapsed)
+[22:08:27] [116/169] c2_cecum_t4_v3: 97 regions, mesh_hash=c5105d6d62a6c1a6 (6.9s this seq, 570s elapsed)
+[22:08:54] [121/169] c2_descending_t4_v2: 110 regions, mesh_hash=fe2748ac538132f9 (5.7s this seq, 598s elapsed)
+[22:09:12] [126/169] c2_rectum_t2_v1: 141 regions, mesh_hash=bf1f268733dcf788 (2.9s this seq, 615s elapsed)
+[22:09:27] [131/169] c2_rectum_t3_v3: 103 regions, mesh_hash=17ee9be77d521b57 (2.8s this seq, 630s elapsed)
+[22:09:39] [136/169] c2_sigmoid_t1_v2: 25 regions, mesh_hash=bb9c904345866b37 (1.8s this seq, 642s elapsed)
+[22:09:48] [141/169] c2_sigmoid_t3_v1: 40 regions, mesh_hash=4e519a64dc00ab87 (1.8s this seq, 651s elapsed)
+[22:09:57] [146/169] c2_sigmoid_t4_v3: 31 regions, mesh_hash=9c9f8339f5aa8d18 (2.5s this seq, 661s elapsed)
+[22:10:17] [151/169] c2_transverse1_t2_v2: 76 regions, mesh_hash=8013529f3a37f47f (3.3s this seq, 680s elapsed)
+[22:10:35] [156/169] c2_transverse1_t4_v1: 82 regions, mesh_hash=132bd4c8bb0a8651 (3.4s this seq, 698s elapsed)
+[22:10:51] [161/169] c2_transverse2_t1_v3: 53 regions, mesh_hash=2dae5e29c5afb715 (2.3s this seq, 714s elapsed)
+[22:11:03] [166/169] c2_transverse2_t3_v2: 16 regions, mesh_hash=d49ebd745ea19d75 (2.5s this seq, 726s elapsed)
+[22:11:09] [169/169] c2_transverse2_t4_v3: 30 regions, mesh_hash=6caaf14c39c2595c (2.0s this seq, 732s elapsed)
+Traceback (most recent call last):
+  File "/data1_ycao/chua/projects/mrsp/scripts/regions.py", line 170, in <module>
+    main()
+  File "/data1_ycao/chua/projects/mrsp/scripts/regions.py", line 152, in main
+    regions_df = regions_df.merge(index_df[id_cols], on="Video Name", how="left")
+                                  ~~~~~~~~^^^^^^^^^
+  File "/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/pandas/core/frame.py", line 4384, in __getitem__
+    indexer = self.columns._get_indexer_strict(key, "columns")[1]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 6302, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 6355, in _raise_if_missing
+    raise KeyError(f"{not_found} not in index")
+KeyError: "['Video Number'] not in index"
+TMUX_JOB_DONE_EXIT_0
