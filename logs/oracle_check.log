@@ -1,0 +1,26 @@
+[22:20:37] loading intrinsics, poses, mesh ...
+[22:20:40] mesh: 350595 verts, 699908 faces, 0.9083 observed fraction
+[22:20:40] found 218 depth frames; using every 1 (pixel stride 8)
+[22:20:40]   frame 0 (1/218): 18159 valid pts, running total 18159
+[22:20:40]   frame 20 (21/218): 18159 valid pts, running total 381330
+[22:20:40]   frame 40 (41/218): 19423 valid pts, running total 754095
+[22:20:40]   frame 60 (61/218): 21202 valid pts, running total 1176183
+[22:20:40]   frame 80 (81/218): 21202 valid pts, running total 1600223
+[22:20:40]   frame 100 (101/218): 17954 valid pts, running total 1997822
+[22:20:41]   frame 120 (121/218): 18877 valid pts, running total 2363791
+[22:20:41]   frame 140 (141/218): 21202 valid pts, running total 2783851
+[22:20:41]   frame 160 (161/218): 21202 valid pts, running total 3207891
+[22:20:41]   frame 180 (181/218): 18151 valid pts, running total 3575035
+[22:20:41]   frame 200 (201/218): 18159 valid pts, running total 3938213
+[22:20:41] done fusing: 4246906 total valid backprojected points
+[22:20:41] [raw] subsampled 4246906 -> 2500 points for query (nearest-surface query is pathologically slow for far-off-mesh points)
+[22:20:41] [raw] querying nearest surface for 2500 points ...
+[22:54:57] [raw] nearest-surface query done in 2056.1s
+[22:54:57] [raw] distance median=403.1233mm p95=438.7800mm frac<1mm=0.0000 IoU=0.0010
+[22:54:57] [transposed] querying nearest surface for 4246906 points ...
+[22:56:57] [transposed] nearest-surface query done in 119.4s
+[22:56:58] [transposed] distance median=0.0284mm p95=0.0984mm frac<1mm=1.0000 IoU=0.8694
+[22:56:58] wrote metrics to results/oracle/metrics.json
+[22:56:58] VERDICT: interpretation 'transposed' fits the mesh better
+[22:56:58] ALL DONE
+TMUX_JOB_DONE_EXIT_0

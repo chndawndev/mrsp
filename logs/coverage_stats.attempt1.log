@@ -1,0 +1,19 @@
+[10:32:23] discovered 171 c1/c2 registered_videos sequences
+[10:32:27] [1/171] c1_ascending_t1_v1: 755902 faces, unobs_frac_area=0.1217, 153 components (4.4s this seq, 4s elapsed)
+[10:32:48] [6/171] c1_ascending_t3_v1: 755902 faces, unobs_frac_area=0.1833, 145 components (3.2s this seq, 25s elapsed)
+[10:33:05] [11/171] c1_ascending_t4_v3: 755902 faces, unobs_frac_area=0.3183, 105 components (3.1s this seq, 42s elapsed)
+caution: filename not matched:  coverage_mesh.obj
+[10:33:11] ERROR on c1_cecum_t1_v3: unzip -p /data1_ycao/chua/datasets/C3VDv2/registered_videos/c1_cecum_t1_v3.zip coverage_mesh.obj failed with code 11
+Traceback (most recent call last):
+  File "/data1_ycao/chua/projects/mrsp/scripts/coverage_stats.py", line 184, in <module>
+    main()
+  File "/data1_ycao/chua/projects/mrsp/scripts/coverage_stats.py", line 144, in main
+    row, comp_areas = analyze_sequence(name, kind, path)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1_ycao/chua/projects/mrsp/scripts/coverage_stats.py", line 73, in analyze_sequence
+    mesh = stream_coverage_mesh_from_zip(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1_ycao/chua/projects/mrsp/src/geometry/coverage_mesh.py", line 86, in stream_coverage_mesh_from_zip
+    raise RuntimeError(f"unzip -p {archive_path} {member} failed with code {ret}")
+RuntimeError: unzip -p /data1_ycao/chua/datasets/C3VDv2/registered_videos/c1_cecum_t1_v3.zip coverage_mesh.obj failed with code 11
+TMUX_JOB_DONE_EXIT_0

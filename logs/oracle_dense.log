@@ -1,0 +1,22 @@
+[22:57:52] loading intrinsics, poses, mesh ...
+[22:57:55] mesh: 350595 verts, 699908 faces, 0.9083 observed fraction
+[22:57:55] found 218 depth frames; using every 1 (pixel stride 4)
+[22:57:55]   frame 0 (1/218): 72645 valid pts, running total 72645
+[22:57:56]   frame 20 (21/218): 72657 valid pts, running total 1525631
+[22:57:56]   frame 40 (41/218): 77683 valid pts, running total 3016458
+[22:57:56]   frame 60 (61/218): 84809 valid pts, running total 4704853
+[22:57:57]   frame 80 (81/218): 84809 valid pts, running total 6401033
+[22:57:57]   frame 100 (101/218): 71824 valid pts, running total 7991469
+[22:57:57]   frame 120 (121/218): 75520 valid pts, running total 9455380
+[22:57:58]   frame 140 (141/218): 84809 valid pts, running total 11135641
+[22:57:58]   frame 160 (161/218): 84809 valid pts, running total 12831821
+[22:57:58]   frame 180 (181/218): 72596 valid pts, running total 14300567
+[22:57:59]   frame 200 (201/218): 72649 valid pts, running total 15753534
+[22:57:59] done fusing: 16988545 total valid backprojected points
+[22:57:59] [transposed] querying nearest surface for 16988545 points ...
+[23:06:11] [transposed] nearest-surface query done in 492.2s
+[23:06:14] [transposed] distance median=0.0283mm p95=0.0981mm frac<1mm=1.0000 IoU=0.9441
+[23:06:16] wrote metrics to results/oracle_dense/metrics.json
+[23:06:16] VERDICT: interpretation 'transposed' fits the mesh better
+[23:06:16] ALL DONE
+TMUX_JOB_DONE_EXIT_0
