@@ -51,8 +51,11 @@ These were verified empirically (see `docs/conventions.md`,
   any frame, no distance or incidence-angle threshold.
 - **Dataset composition**: 169 registered + 15 deformation + 8 screening = 192.
   Assert 169 whenever enumerating registered sequences.
-- **v2/v3** share geometry, trajectory, and imaging settings; only debris
-  differs. They are a valid paired comparison. **v1 vs v2** differ in both
+- **v2/v3** v2/v3 are a valid paired comparison ONLY for the 48 of 58 combos that share an
+  identical mesh (verified by vertex-array hash in results/mesh_identity.csv).
+  The other 10 combos have different meshes and must be excluded from any
+  debris ablation. Poses are near-identical but not byte-identical: the robot
+  repeated the trajectory, it did not replay a stored one. **v1 vs v2** differ in both
   trajectory and imaging settings and are NOT a controlled comparison.
 
 ---
