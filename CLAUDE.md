@@ -8,9 +8,11 @@ surface, against the released GT coverage mesh.
 
 ## Hard rules
 
-**Never edit `docs/success_criteria.md`.** It is pre-registration. If a
-criterion looks wrong or unmeasurable, say so in your report and stop. Do not
-reword, clarify, or extend it.
+**Never edit `docs/success_criteria.md`.** It is pre-registration. Do not
+reword, clarify, or extend it, and **do not append a deviation entry either**.
+Deviation entries are written by the author only. If a criterion looks wrong,
+unmeasurable, or infeasible, draft the proposed text in your reply, say what
+would have to change, and stop. Do not touch the file.
 
 **Never change metric or GT code to make a result work.** `src/eval/` and
 `src/gt/` hold the metric definitions, the detection threshold, the registration
@@ -35,7 +37,8 @@ needed. Every extraction must be reproducible from the archives.
 ## Frozen conventions
 
 These were verified empirically (see `docs/conventions.md`,
-`docs/oracle_check.md`). Do not re-derive or second-guess them silently.
+`docs/oracle_check.md`, `docs/gpu_validation.md`). Do not re-derive or
+second-guess them silently.
 
 - **Depth**: uint16 TIFF, linear over 0 to 100 mm, camera-frame **Z-depth**, not
   radial distance. `depth_mm = raw / 65535 * 100`. Mask `raw == 0` (no hit) and
@@ -43,20 +46,53 @@ These were verified empirically (see `docs/conventions.md`,
 - **Pose**: `pose.txt` lines are 16 comma-separated floats.
   `np.array(vals).reshape(4,4).T` is the camera-to-world matrix. A plain
   `reshape(4,4)` is wrong and puts the point cloud ~400 mm off.
-- **Camera**: omnidirectional (Scaramuzza-style) model from
-  `camera_intrinsics.txt`. Never substitute a pinhole model. Back-projection
-  scales the un-normalized model ray by Z; it is not `unit_ray * depth`.
+- **Camera**: Scaramuzza omnidirectional model from `camera_intrinsics.txt`.
+  Never substitute a pinhole model in GT-side computation. The stretch matrix is
+  `[[c, e], [d, 1]]` (the CUDA renderer's column-major form), NOT the
+  `[[c, d], [e, 1]]` used by the dataset's own Python example. There is no `a1`
+  term. Back-projection scales the un-normalized model ray by Z; it is not
+  `unit_ray * depth`.
 - **Coverage GT**: `coverage_mesh.obj`, `vt` index 1 = observed, 2 = unobserved.
   The GT criterion is pure geometric visibility: any primary ray hit, any pixel,
-  any frame, no distance or incidence-angle threshold.
+  any frame, no distance or incidence-angle threshold. Hits beyond 100 mm still
+  count; MAX_DEPTH only clamps the depth image encoding.
 - **Dataset composition**: 169 registered + 15 deformation + 8 screening = 192.
   Assert 169 whenever enumerating registered sequences.
-- **v2/v3** v2/v3 are a valid paired comparison ONLY for the 48 of 58 combos that share an
-  identical mesh (verified by vertex-array hash in results/mesh_identity.csv).
-  The other 10 combos have different meshes and must be excluded from any
-  debris ablation. Poses are near-identical but not byte-identical: the robot
-  repeated the trajectory, it did not replay a stored one. **v1 vs v2** differ in both
-  trajectory and imaging settings and are NOT a controlled comparison.
+- **v2/v3** are a valid paired comparison ONLY for the 48 of 58 combos that
+  share an identical mesh (verified by vertex-array hash in
+  `results/mesh_identity.csv`). The other 10 combos have different meshes and
+  must be excluded from any debris ablation. Poses are near-identical but not
+  byte-identical: the robot repeated the trajectory, it did not replay a stored
+  one. **v1 vs v2** differ in both trajectory and imaging settings and are NOT a
+  controlled comparison.
+- **Analysis unit**: the primary unit is the unobserved region, using the 957
+  regions with equivalent diameter > 5 mm. Regions below 5 mm are appendix only.
+
+---
+
+## Frozen project decisions
+
+Unlike the conventions above, these are choices, not dataset facts. They are
+frozen the same way: recorded once, not silently revisited. Rationale and
+measurements are in the cited documents.
+
+- **Pipeline input format**: methods receive the ORIGINAL fisheye frames. No
+  undistortion. Undistorting to the widest practical pinhole loses 5 to 11
+  percentage points of observed surface and creates 1 to 4 spurious >5 mm
+  coverage gaps per sequence. See `docs/pinhole_tradeoff.md` and
+  `docs/conventions.md` section 6. Undistorted input exists only as a controlled
+  ablation on 1 to 2 pipelines. Never switch a method to undistorted input to
+  improve its numbers.
+- **Intrinsics for methods that require them**: the same pinhole approximation
+  for every method, f = 541.29, principal point at image center. No per-method
+  tuning.
+- **GT visibility evaluation always uses the omnidirectional model**, regardless
+  of what a method consumed.
+- **Mixed configurations use post-hoc substitution**: no surveyed pipeline
+  supports conditioning on GT pose or GT depth, so the mixed conditions are
+  produced at the fusion stage, with the method itself run unmodified. Use the
+  term "post-hoc substitution" consistently; do not invent alternative names.
+  See the deviation entry in `docs/success_criteria.md` section 6.
 
 ---
 
@@ -71,10 +107,14 @@ Never present an unverified mechanism as a finding.
 and reconcile disk scans against it. If they disagree, report the discrepancy
 explicitly instead of silently trusting the scan.
 
-**Report independence, not just counts.** Sequences within a (colon, segment)
-share one mesh, and v2/v3 pairs share geometry. Every aggregate states how many
+**Report independence, not just counts.** 169 sequences are backed by 103
+distinct meshes and 113 trajectories. Every aggregate states how many
 independent meshes and trajectories are behind it. Cluster statistics at the
 mesh level.
+
+**Report failures as results.** Sequences where a pipeline crashes, loses
+tracking, or produces degenerate output are never dropped from an aggregate.
+Report the count, the sequence names, and the failure mode.
 
 **Quote sources with file and line.** When a claim comes from code or a README,
 cite the path and line numbers so it can be checked.
@@ -86,10 +126,18 @@ convention. Mark it UNKNOWN and say what would settle it.
 
 ## Workflow
 
-- Long jobs run under `tmux`, logging to `logs/<task>.log`, non-blocking. Do not
-  run anything over ~10 minutes inside the session.
-- Shared GPU box: always set `CUDA_VISIBLE_DEVICES` explicitly. Check `nvidia-smi`
-  before launching.
+- Long jobs run under `tmux`, non-blocking. Redirect both streams to the log
+  file, `... 2>&1 | tee logs/<task>.log`; do not rely on the script's own
+  logging calls alone, or a crash leaves no traceback. Do not run anything over
+  ~10 minutes inside the session.
+- Log progress periodically in long runs (elapsed, ETA) so a stall is visible.
+- Shared GPU box. Default to CPU when the work is not neural. Before any GPU
+  job, run `scripts/gpu_status.py`, log the full `nvidia-smi` output with a
+  timestamp, pick the freest device, and set `CUDA_VISIBLE_DEVICES` to that
+  single index explicitly. Never use more than one GPU without asking.
+- On CUDA OOM or any CUDA error, log the timestamp, the full `nvidia-smi` output
+  at failure time, this process's peak allocated memory, and the exception, then
+  exit non-zero. Do not silently retry with a smaller batch.
 - Commit after each finished step. Small, reviewable diffs.
 - Append a short entry to `EXPERIMENTS.md` after each finished step: date, what
   was run, result, open questions.
@@ -101,6 +149,8 @@ convention. Mark it UNKNOWN and say what would settle it.
 
 - Code, comments, docstrings, file names, and documents in English.
 - Every coordinate or unit conversion needs a unit test in `tests/conventions/`.
+- Any performance rewrite of geometry code needs a test comparing the new
+  implementation against the previous one on the same inputs.
 - No silent fallbacks. If an input is missing or malformed, fail loudly.
 - Deterministic seeds; record them.
 
@@ -108,8 +158,8 @@ convention. Mark it UNKNOWN and say what would settle it.
 
 ```
 src/geometry/   camera model, pose handling, back-projection
-src/gt/         GT loaders, coverage mesh parsing        (locked)
-src/eval/       metrics, region matching, registration   (locked)
+src/gt/         GT loaders, coverage mesh parsing, visibility raster  (locked)
+src/eval/       metrics, region matching, registration                (locked)
 scripts/        runnable entry points
 tests/          unit tests, tests/conventions/ for units and frames
 docs/           conventions, inventory, results write-ups

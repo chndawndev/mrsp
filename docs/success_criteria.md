@@ -181,7 +181,77 @@ without a §6 deviation entry written first.
 Append-only. Each entry: date, what changed, original text, reason, and whether
 the affected result had already been seen.
 
-(no entries yet)
+### 2026-09-19 — Deviation: D1 mixed configurations redefined as post-hoc substitution
+
+**Results seen at the time of this entry:** none. No pipeline has been run. This
+constraint was discovered during the candidate survey
+(`docs/pipeline_candidates.md`, 2026-09-19), not in response to any observed
+number.
+
+**Original criterion (§2, unchanged in place):** D1 requires the four
+configurations GT depth + GT pose, predicted depth + GT pose, GT depth +
+predicted pose, and both predicted.
+
+**What changed:** Of the ten pipelines surveyed, none exposes a documented
+mechanism for conditioning inference on an injected GT pose or GT depth. The
+foundation-model group predicts depth, pose and intrinsics jointly with no
+conditioning input; the SLAM group couples depth and pose inside a bundle
+adjustment. The two mixed configurations are therefore produced by **post-hoc
+substitution at the fusion stage**: the method's own predicted depth is fused
+using GT poses, and GT depth is fused using the method's own predicted poses.
+The method itself runs unmodified, on its own estimated inputs, in every
+configuration. Only the fusion stage substitutes one input stream after the
+fact. This term, "post-hoc substitution", is the single name used for this
+design in all documents and in the paper.
+
+**What this still answers:** D1's actual question is whether the evaluation has
+measurement power. Post-hoc substitution answers it: if fusing with GT poses
+changes region-level results substantially, pose error matters at the fusion
+stage, whatever happens inside the method.
+
+**Caveat carried into the paper:** post-hoc substitution does not simulate "the
+method running with correct poses", nor "with correct depth". The predicted
+depth used in the pose-substituted configuration was still produced under the
+method's own erroneous pose estimates; the method never saw the GT pose. This
+isolates how each error source propagates through fusion. It does not estimate
+how the method would behave if one of its inputs were actually correct.
+
+**Unaffected:** D1.3's 10-percentage-point threshold applies to the oracle
+versus fully-predicted gap, which this redefinition does not touch. D1.1, D1.2,
+D1.4 and D1.5 are unchanged.
+
+**Future-proofing:** if a pipeline is later found to support genuine GT-pose or
+GT-depth conditioning, run both variants on that method and report the
+difference. Do not silently switch definitions for one method while others use
+post-hoc substitution.
+
+### 2026-09-19 — Clarification: the factual basis of the clustering rule in §1
+
+**Results seen at the time of this entry:** none from any pipeline. The numbers
+below come from GT-side analysis only (`docs/regions.md`,
+`results/mesh_identity.csv`).
+
+**Text being clarified (§1, "Clustering", left unchanged in place):** "Because
+v2/v3 pairs share geometry and trajectory, and all sequences within a (colon,
+segment) share one mesh..."
+
+**Correction:** both premises are looser than stated. Verified by exact
+vertex-array hashing: v2 and v3 share an identical mesh in 48 of 58 combos, not
+all; v1 shares v2's mesh in only 18 of 58; and sequences within a (colon,
+segment) do not all share a single mesh. Dataset-wide, 169 sequences are backed
+by 103 distinct meshes and 113 distinct trajectories.
+
+**Effect on the criteria:** none. The rule itself, that every aggregate and
+every test is clustered at the mesh level and states the number of independent
+meshes behind it, stands unchanged and is if anything better justified. Mesh
+identity is determined by hash from `results/mesh_identity.csv`, not by assuming
+that sequences in the same segment share geometry.
+
+**Related constraint recorded elsewhere:** the debris ablation referenced by
+hypothesis H4 (§4) is restricted to the 48 mesh-identical v2/v3 combos. H4's
+requirement that geometry and trajectory be held identical is therefore met by
+construction on that subset; the remaining 10 combos are excluded and the
+exclusion is reported.
 
 ---
 
