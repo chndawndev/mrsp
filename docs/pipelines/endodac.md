@@ -10,10 +10,15 @@ Target sequence: `c1_cecum_t1_v1`, 218 RGB frames, 1350x1080, already
 extracted at `scratch/c1_cecum_t1_v1/` (rgb/, depth/, pose.txt, etc.).
 
 Status: **environment built, weights downloaded, sanity-check inference
-run.** Runtime looks fine (~16 ms/frame). **The sanity-check depth PNGs
-raise a real concern: predicted depth does not show the lumen/tunnel
-geometry visible in GT** (§5) — flagging before any further investment in
-this pipeline, not yet diagnosed.
+run, cause diagnosed to the extent possible without new data access.**
+Runtime looks fine (~16 ms/frame). Sanity-check depth PNGs raised a real
+concern (§5): no lumen/tunnel structure. §6's diagnosis: not a
+preprocessing bug (ruled out, MEASURED) and not something we can pin down
+further without either gated SCARED access or your approval to pull an
+ungated C3VD v1 sequence for comparison. Leading interpretation: the
+checkpoint was trained/validated only on real tissue video (SCARED,
+Hamlyn) and never on anything resembling C3VD's synthetic rendering — a
+plausible but unproven domain-gap explanation.
 
 ---
 
@@ -308,6 +313,155 @@ before any further investment.
 
 ---
 
+## 6. Diagnosis: why no lumen structure
+
+Cheapest checks first, per instructions. Findings below in the order run;
+each is marked MEASURED (directly observed/read) or INTERPRETATION
+(reasoned conclusion, not directly proven).
+
+### Check 1 — training preprocessing vs. our sanity script
+
+**MEASURED.** The dataset class actually used for training is
+`SCAREDRAWDataset` (`trainer_end_to_end.py:131`,
+`datasets_dict = {"endovis": datasets.SCAREDRAWDataset}` — the *only*
+entry; `options.py:78-81`'s `--dataset` choices are literally
+`["endovis"]`, no other value is accepted). Read its full `__getitem__`
+chain end to end: `SCAREDRAWDataset`/`SCAREDDataset`
+(`datasets/scared_dataset.py`) → `MonoDataset.__getitem__`/`.preprocess`
+(`datasets/mono_dataset.py:91-108, 133-183`).
+
+Result: **training preprocessing is resize-only, no crop** —
+`transforms.Resize((height, width), interpolation=Image.LANCZOS)`
+(`mono_dataset.py:80-82`), then `transforms.ToTensor()` (`mono_dataset.py:63`,
+`:100-102`) — no `Normalize(mean, std)` call anywhere in
+`mono_dataset.py`, `scared_dataset.py`, or `trainer_end_to_end.py` (checked
+by full read, not just grep this time). Color jitter (`ColorJitter`) is
+applied to a separate `color_aug` copy only when `is_train=True` and a coin
+flip hits (`mono_dataset.py:139-140, 152-156`); at inference/eval
+(`is_train=False`) `do_color_aug` is always `False`
+(`mono_dataset.py:139`), so `color_aug` degenerates to the identity
+function and `("color_aug", 0, 0)` — which is what
+`trainer_end_to_end.py:533` actually feeds the depth model
+(`self.models["depth_model"](inputs["color_aug", 0, 0])`), not
+`("color", 0, 0)` — is pixel-identical to the plain resized/ToTensor'd
+image at eval time.
+
+**Conclusion: "Path A" (our sanity script — direct resize, `ToTensor()`,
+no crop, no extra normalization) is not just *a* reasonable preprocessing
+choice, it is an exact structural match to what training actually used.**
+"Path B" (the repo's C3VD-specific crop) was never part of training at
+all — it exists only in `evaluate_depth.py`'s C3VD *evaluation* path,
+apparently added later for users evaluating on C3VD, unconnected to how
+the released checkpoint was trained. This flips §3's open question:
+Path A, not Path B, is the training-consistent choice. **Preprocessing
+mismatch is ruled out** as the explanation for the flat prediction.
+
+**Tensor statistics.** Requested comparison of exact min/max/mean/std:
+since the transform itself (`ToTensor()`, no normalization) is identical
+in both cases, there is no separate "training tensor statistics" to
+recover independently of the training images themselves, which we don't
+have access to (SCARED access is gated, see Check 2). What's measurable is
+our own input tensor, computed directly from the 3 test frames after the
+same resize used at inference:
+
+| Frame | min | max | mean | std | per-channel mean (R,G,B) |
+|---|---|---|---|---|---|
+| 0000 | 0.0 | 1.0 | 0.432 | 0.189 | 0.564, 0.395, 0.338 |
+| 0109 | 0.0 | 1.0 | 0.473 | 0.238 | 0.602, 0.440, 0.378 |
+| 0217 | 0.0 | 1.0 | 0.433 | 0.190 | 0.566, 0.396, 0.338 |
+
+One concrete, measured structural fact worth flagging: **6.4-7.0% of
+pixels in every frame are pure black** (exact `(0,0,0)`, the octagonal
+vignette border — measured on frame 0109, both at native 1350x1080 and
+after resize to 320x256). Whether SCARED training frames contain a
+comparable fraction of pure-black border pixels is **UNKNOWN** (no access
+to SCARED to check) — flagged as a specific, checkable difference in input
+statistics, not confirmed as causal.
+
+### Check 2 — reproduce an authors' own reported number
+
+**Not attempted — infeasible to do cheaply.** The README's results table
+only reports SCARED-benchmark-style numbers (comparing against Fang et al./
+Endo-SfM/AF-SfMLearner, all SCARED-benchmark baselines); no C3VD or Hamlyn
+numbers appear in the README at all. To reproduce *any* published number
+requires the SCARED dataset, which is **not freely downloadable**:
+checked the AF-SfMLearner repo (linked from EndoDAC's README as the SCARED
+prep procedure to follow) — it states "You can download the Endovis or
+SCARED dataset by signing the challenge rules and emailing them to
+max.allan@intusurg.com" (github.com/ShuweiShao/AF-SfMLearner). This is a
+data-use-agreement/email-request process, not a cheap same-session check.
+**Stopping here rather than pursuing it further without your direction** —
+this would need you to hold or obtain SCARED access already; not something
+to pursue unilaterally.
+
+### Check 3 — what was the checkpoint actually trained on
+
+**MEASURED, from the paper itself** (fetched arXiv HTML full text,
+arxiv.org/abs/2405.08672 / arxiv.org/html/2405.08672): EndoDAC was trained
+on **SCARED only** ("15351, 1705, and 551 frames for the training,
+validation and test sets, respectively"), with **Hamlyn used only for
+zero-shot validation** ("21 videos for validation"). **The paper does not
+mention C3VD anywhere** — no C3VD training, no C3VD results, no C3VD
+cross-dataset test. This matches Check 1's code-level finding
+(`options.py` only ever accepts `--dataset endovis`): C3VD support in
+`evaluate_depth.py`/`c3vd_dataset.py` is code the repo maintainer added for
+general usability, disconnected from what the authors actually trained or
+reported on.
+
+**Interpretation carried forward, not proven:** the released checkpoint has
+only ever seen real endoscopic tissue video (SCARED, ex-vivo porcine;
+zero-shot-tested on Hamlyn, also real tissue). C3VDv2 is a synthetic,
+rendered phantom dataset with a different appearance model entirely
+(rendering-engine lighting/shading, no real specular-moisture tissue look,
+different noise characteristics, and the octagonal black-vignette FOV mask
+quantified in Check 1). This is a substantially larger domain shift than
+"real tissue A → real tissue B" (SCARED → Hamlyn), which is the only
+cross-domain generalization the paper actually demonstrates. **This is a
+plausible, well-supported explanation for the flat/near-degenerate
+prediction, but it is INTERPRETATION, not proven** — Checks 2 and 4 are
+the ways to actually confirm it, and neither has been run.
+
+### Check 4 — C3VD v1 vs C3VDv2 comparison
+
+**Not run — would need your approval first**, per workflow rules (new
+external download, more than the one sequence already extracted). Checked
+feasibility only (no download, no extraction):
+
+- **Not available locally**: `/data1_ycao/chua/datasets/C3VDv2` has no
+  `c0_*` (C3VD v1) archives — confirmed by directory listing, 0 matches.
+- **Externally available, and NOT gated** (unlike SCARED): checked
+  durrlab.github.io/C3VD/ — C3VD v1 is distributed via direct Google Drive
+  links, CC BY-NC-SA 4.0, no registration/data-use-agreement mentioned. A
+  single registered-video archive is 0.6-11 GB depending on which
+  cecum/sigmoid/etc. sequence is picked.
+
+This would be a genuinely informative next check (same checkpoint, same
+"Path A" script, C3VD v1 vs our C3VDv2 sequence — if v1 looks visually
+plausible and v2 doesn't, that's much stronger evidence than the
+interpretation above; if both look equally flat, the domain-gap story
+weakens and points somewhere else). **Have not downloaded anything — this
+needs your go-ahead first**, both because it's a new external dataset
+download and because it's an additional sequence beyond the one already
+extracted.
+
+### Summary
+
+| Check | Status | Result |
+|---|---|---|
+| 1. Training vs. sanity-script preprocessing | Done | MEASURED: identical transform pipeline; preprocessing mismatch ruled out |
+| 2. Reproduce authors' number | Blocked | SCARED is gated (data-use agreement), not attempted |
+| 3. What was it trained on | Done | MEASURED (paper + code): SCARED only, zero-shot-validated on Hamlyn only, never C3VD |
+| 4. C3VD v1 vs v2 domain-gap test | Not run | Feasible (ungated, ~1-11GB), needs your approval to download + extract |
+
+**Leading interpretation, not proven**: a real-tissue-only-trained
+checkpoint applied zero-shot to a synthetic rendered dataset with a
+different appearance model and a partially-black-vignetted FOV — a domain
+shift well outside anything the paper's own generalization claims cover.
+Not a bug in our setup (Check 1 rules that out); not confirmed as *the*
+cause without Check 4.
+
+---
+
 ## Open questions
 
 1. ~~Does the public checkpoint include pose/intrinsics weights?~~
@@ -331,10 +485,14 @@ before any further investment.
    actually do — traced to training-only code (`trainer_end_to_end.py`),
    not imported by any inference/eval script, not investigated further
    since out of scope for this sanity check.
-6. **New, highest priority**: why does predicted depth show no lumen/fold
-   structure under either preprocessing path (§5)? What was this
-   checkpoint actually trained on (SCARED? C3VD v1? something else —
-   the README doesn't say)? Does the missing ImageNet normalization (§3)
-   matter here? This should be resolved, or EndoDAC's viability as a
-   candidate should be reconsidered, before any further investment
-   (pose/intrinsics inference, full-corpus run, evaluation code).
+6. **Partially resolved (§6)**: why does predicted depth show no lumen/fold
+   structure? MEASURED: not a preprocessing bug (Check 1 — our script
+   exactly matches training preprocessing) and not the missing ImageNet
+   normalization (Check 1 — training never used it either, so it's not a
+   mismatch). MEASURED: checkpoint trained only on SCARED, zero-shot
+   validated only on Hamlyn, never on C3VD (Check 3, from the paper
+   itself). **Still open**: whether train/test domain gap is *the* actual
+   cause (INTERPRETATION only) — Check 2 (reproduce on SCARED) is blocked
+   by gated access, Check 4 (C3VD v1 vs v2 comparison) is feasible but
+   needs approval to download. Until one of those runs, EndoDAC's
+   viability as a candidate remains genuinely open, not resolved.
