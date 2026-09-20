@@ -10,8 +10,13 @@ Target sequence: `c1_cecum_t1_v1`, 218 RGB frames, 1350x1080, already
 extracted at `scratch/c1_cecum_t1_v1/` (rgb/, depth/, pose.txt, etc.).
 
 Status: **environment built, weights downloaded, sanity-check inference
-run and diagnosed, including a quantitative correction to the initial
-finding.** Runtime looks fine (~16 ms/frame). §5's visual sanity check
+run and diagnosed (including a quantitative correction to the initial
+finding), pose convention empirically validated, full-sequence depth +
+pose + intrinsics inference run on all 218 frames of `c1_cecum_t1_v1`
+(§8).** Depth-only per-frame runtime is slower than first estimated once
+I/O is included (§8 corrects §4's ~16ms/frame to ~122ms/frame measured
+over the full sequence) — a full-corpus run would take ~5 hours and needs
+approval before attempting. §5's visual sanity check
 initially looked concerning (PNGs appeared flat, no visible lumen
 structure). §6 diagnosed this: not a preprocessing bug, not a botched
 checkpoint load, not the numpy ABI issue hit along the way (all ruled out,
@@ -858,6 +863,85 @@ full-sequence run below.
 
 ---
 
+## 8. Full-sequence inference: depth + pose + intrinsics, `c1_cecum_t1_v1`
+
+Baseline input throughout (Path A: full fisheye frame, resize only, no
+crop, no inpaint), all 218 frames, **one sequence only** — not a
+full-corpus run. Script:
+`scratch/pipelines/endodac_full_sequence_inference.py`, log:
+`logs/endodac_full_sequence_inference.log`. Output:
+`results/pipelines/endodac_full_run/c1_cecum_t1_v1/` (1.2GB, gitignored
+under `/results/`, reproducible by rerunning the script).
+
+### Output layout
+
+```
+results/pipelines/endodac_full_run/c1_cecum_t1_v1/
+├── MANIFEST.json                    # machine-readable copy of everything below
+├── depth/
+│   └── {frame:04d}_pred_depth.npy   # float32 [1080, 1350], one per frame, 218 files
+├── poses_pred.npy                   # float32 [218, 4, 4], camera-to-world
+├── poses_pred.txt                   # same data, pose.txt-compatible text format
+├── intrinsics_pred_per_pair.npy     # float32 [217, 3, 3]
+└── intrinsics_pred_summary.json     # mean/std of fx, fy, cx, cy across all 217 pairs
+```
+
+**Depth** (`depth/{frame:04d}_pred_depth.npy`): one file per frame, `float32`,
+shape `[1080, 1350]` (native frame resolution — model output upsampled
+back from the 320x256 feed size via bilinear interpolation, same as the
+sanity-check scripts). **Units are network-native and scale-ambiguous**
+(§3's `disp_to_depth(disp, min_depth=0.1, max_depth=150)` convention) —
+**not millimeters**, not directly comparable to GT depth without a
+scale-recovery step. Raw disparity is recoverable exactly from the saved
+depth if ever needed: `disp = (1/depth - 1/150) / (1/0.1 - 1/150)`.
+
+**Pose** (`poses_pred.npy` / `poses_pred.txt`): 218 camera-to-world
+matrices, frame 0 fixed at identity (arbitrary origin — there's no
+absolute GT anchor available from a monocular method). Built by chaining
+the 217 consecutive-pair relative transforms **with each one inverted
+before chaining**, per §7's empirically-validated convention. `poses_pred.txt`
+uses the exact same 16-comma-separated-float-per-line,
+`reshape(4,4).T`-to-reload format as this project's own `pose.txt`, so it
+drops into any code already written against that convention. **Translation
+scale is network-native and scale-ambiguous** (self-supervised monocular,
+§3) — not metric mm; would need scale recovery (e.g. Umeyama-with-scale
+against a reference) before any metric trajectory comparison.
+
+**Intrinsics** (`intrinsics_pred_per_pair.npy` / `_summary.json`):
+predicted **per consecutive frame pair** (217 values for 218 frames, from
+the same pose-network forward pass, via `IntrinsicsHead` — there is no
+single-frame intrinsics estimate from this checkpoint, only a per-pair
+one). MEASURED summary across all 217 pairs: fx = 265.1 ± 13.9, fy = 269.9
+± 9.3, cx = 158.7 ± 2.0, cy = 130.4 ± 4.6 — **in pixel units at the 320x256
+feed resolution**, not the native 1350x1080 frame resolution (rescale by
+`(1350/320, 1080/256)` before applying to full-resolution depth/frames).
+This is a plain pinhole 3x3 matrix, not compatible with this project's
+Scaramuzza omnidirectional GT camera model without treating it as a rough
+pinhole approximation only (same caveat as the project's own frozen
+shared-pinhole-approximation decision, `CLAUDE.md`).
+
+### Runtime — corrected from §4's earlier estimate
+
+**MEASURED**: depth inference over all 218 frames took 26.5s total
+(121.7ms/frame average); pose+intrinsics over 217 pairs took 32.1s total
+(147.7ms/pair average). **This is substantially slower than §4's earlier
+per-frame estimate** (16ms/frame, extrapolated to ~18 minutes for the full
+67,886-frame corpus) — §4's number was measured from only 2 "hot" frames
+in the 3-frame sanity check and excluded per-frame I/O (PIL load, LANCZOS
+resize, upsampling the output, writing a 5.6MB `.npy` file), which this
+full run's steady per-frame rate shows is not negligible at scale.
+**Corrected extrapolation using this run's actual rate**: depth alone,
+67,886 × 122ms ≈ **138 minutes (~2.3 hours)**; pose+intrinsics adds
+67,886 × 148ms ≈ **167 minutes (~2.8 hours)** more — combined, **roughly
+5 hours** for depth+pose+intrinsics on the full registered corpus, not
+§4's original ~18-minute estimate. **This would need your explicit
+approval before running** (over the 1-hour threshold) and would need to
+run under `tmux`, non-blocking, not attempted here — this section covers
+the single-sequence, 218-frame run only, which itself took under a
+minute (58.6s combined) and was run in the foreground.
+
+---
+
 ## Open questions
 
 1. ~~Does the public checkpoint include pose/intrinsics weights?~~
@@ -902,3 +986,16 @@ full-sequence run below.
    (Check 3: SCARED/Hamlyn-only training) explains the *sharpness/contrast*
    gap versus GT, which Check 4 (C3VD v1 comparison, needs approval) could
    still speak to — but this is no longer a question of basic viability.
+7. **New (§8)**: §4's ~18-minute full-corpus runtime estimate was measured
+   from too small a sample (2 hot frames) and excluded per-frame I/O. The
+   corrected, full-218-frame-measured rate extrapolates to **~5 hours**
+   for depth+pose+intrinsics on the full 67,886-frame corpus — over the
+   1-hour approval threshold. Needs your explicit go-ahead before any
+   full-corpus run, and should run under `tmux`, non-blocking.
+8. **New (§7)**: whether `evaluate_pose.py`'s own reference ATE
+   computation shares the pose-convention issue found here, or whether
+   SCARED's GT pose convention is simply the opposite of ours — not
+   distinguishable without SCARED access (Check 2, blocked). Doesn't
+   affect this project's own use of the checkpoint (§7's empirical fix is
+   correct for our GT regardless of which explanation is true), flagged
+   for completeness only.

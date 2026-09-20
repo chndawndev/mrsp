@@ -1,0 +1,45 @@
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+device=cuda, N_FRAMES=218
+load pretrained weight from /data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/pretrained_model/depth_anything_vitb14.pth
+
+
+=== depth inference ===
+  frame 0/217, elapsed 1.5s
+  frame 50/217, elapsed 8.5s
+  frame 100/217, elapsed 14.0s
+  frame 150/217, elapsed 19.3s
+  frame 200/217, elapsed 24.7s
+  frame 217/217, elapsed 26.5s
+depth inference done: 26.54s total, 121.72ms/frame
+
+=== pose + intrinsics inference ===
+  pair (0,1), elapsed 0.2s
+  pair (50,51), elapsed 7.9s
+  pair (100,101), elapsed 14.8s
+  pair (150,151), elapsed 22.2s
+  pair (200,201), elapsed 29.5s
+  pair (216,217), elapsed 32.0s
+pose+intrinsics inference done: 32.05s total, 147.68ms/pair
+
+intrinsics summary: {
+  "feed_resolution_wh": [
+    320,
+    256
+  ],
+  "fx_mean": 265.1112976074219,
+  "fx_std": 13.851746559143066,
+  "fy_mean": 269.9787292480469,
+  "fy_std": 9.339693069458008,
+  "cx_mean": 158.6812286376953,
+  "cx_std": 1.981322169303894,
+  "cy_mean": 130.39364624023438,
+  "cy_std": 4.613316535949707,
+  "n_pairs": 217
+}
+
+Wrote MANIFEST.json and all outputs to /data1_ycao/chua/projects/mrsp/results/pipelines/endodac_full_run/c1_cecum_t1_v1
