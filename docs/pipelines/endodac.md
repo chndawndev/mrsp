@@ -10,15 +10,21 @@ Target sequence: `c1_cecum_t1_v1`, 218 RGB frames, 1350x1080, already
 extracted at `scratch/c1_cecum_t1_v1/` (rgb/, depth/, pose.txt, etc.).
 
 Status: **environment built, weights downloaded, sanity-check inference
-run, cause diagnosed to the extent possible without new data access.**
-Runtime looks fine (~16 ms/frame). Sanity-check depth PNGs raised a real
-concern (§5): no lumen/tunnel structure. §6's diagnosis: not a
-preprocessing bug (ruled out, MEASURED) and not something we can pin down
-further without either gated SCARED access or your approval to pull an
-ungated C3VD v1 sequence for comparison. Leading interpretation: the
-checkpoint was trained/validated only on real tissue video (SCARED,
-Hamlyn) and never on anything resembling C3VD's synthetic rendering — a
-plausible but unproven domain-gap explanation.
+run and diagnosed, including a quantitative correction to the initial
+finding.** Runtime looks fine (~16 ms/frame). §5's visual sanity check
+initially looked concerning (PNGs appeared flat, no visible lumen
+structure). §6 diagnosed this: not a preprocessing bug, not a botched
+checkpoint load, not the numpy ABI issue hit along the way (all ruled out,
+MEASURED) — and, most importantly (§6 Check 5), **not actually a flat
+prediction at all**: the quantitative check the earlier visual read was
+missing shows baseline predicted inverse depth already correlates
+strongly with GT depth (Spearman ρ ≈ -0.87 over ~1.16M pixels/frame). The
+checkpoint generalizes to C3VDv2 zero-shot with reduced sharpness/contrast
+relative to GT, not with no signal. The vignette border (black frame
+corners) is a real but secondary drag on that correlation (~0.04-0.06 ρ).
+Training-data domain gap (SCARED/Hamlyn only, confirmed from the paper)
+remains the best explanation for the *fidelity* gap, not for a failure —
+because there wasn't one.
 
 ---
 
@@ -265,7 +271,15 @@ frame pair.
 
 ---
 
-## 5. Sanity-check depth PNGs — done, and the result is a concern
+## 5. Sanity-check depth PNGs — done; see §6 Check 5 for a correction
+
+**Superseded, keep reading**: this section's purely visual read (from an
+8-bit PNG at a fixed display range) turned out to be too pessimistic. §6
+Check 5 adds the quantitative check this section was missing (Pearson/
+Spearman correlation against GT) and finds real, strong, GT-correlated
+structure in the same prediction described as "flat" below. Left in place
+verbatim for the record of what was actually observed at the time; treat
+§6 Check 5 as the corrected conclusion.
 
 Ran Path A inference (§3) on 3 frames from `c1_cecum_t1_v1` (0000, 0109,
 0217 — first/middle/last of 218), saved alongside GT depth as PNGs for
@@ -578,6 +592,84 @@ needs your go-ahead first**, both because it's a new external dataset
 download and because it's an additional sequence beyond the one already
 extracted.
 
+### Check 5 — vignette hypothesis, and the quantitative signal we'd been missing
+
+Motivation: the frames have 6.4-7.0% pure-black vignette pixels (§0b);
+`docs/gpu_validation.md:18` gives the exact geometry — optical center
+`cx=677.74, cy=543.06` (native 1350x1080), all-valid radius <706px,
+all-invalid radius >864px, mixed in between (the mask isn't a perfect
+circle, consistent with the visibly octagonal border in the RGB frames). A
+ViT backbone trained only on SCARED/Hamlyn (Check 3) may never have seen a
+hard black border like this. No new downloads needed — tested by modifying
+only the input, same checkpoint, same 3 frames.
+Script: `scratch/pipelines/endodac_vignette_test.py`, log:
+`logs/endodac_vignette_test.log`, images:
+`results/pipelines/endodac_vignette_test/`.
+
+Three input variants, all MEASURED:
+
+- **(a) baseline** — as-is, full frame (same as §5).
+- **(b) vignette inpainted** — pure-black pixels filled by nearest-valid-
+  pixel extrapolation (`scipy.ndimage.distance_transform_edt`), full frame
+  size kept.
+- **(c) tight circular crop** — cropped to the largest axis-aligned square
+  fully inside the confirmed-all-valid r=706 circle: a 998x998 box
+  (`left=179, upper=44, right=1177, lower=1042` for this frame size),
+  verified 0.000000 black pixels remaining inside the crop.
+
+**The requested quantitative signal** — Pearson/Spearman correlation
+between predicted inverse depth (raw sigmoid disparity, pre
+`disp_to_depth`) and GT depth (mm), over GT-valid pixels only:
+
+| Frame | Variant | n valid px | Pearson r | Spearman ρ |
+|---|---|---|---|---|
+| 0000 | a baseline | 1,161,423 | -0.756 | -0.876 |
+| 0000 | b inpainted | 1,161,423 | -0.802 | -0.916 |
+| 0000 | c tight crop | 801,476 | -0.836 | -0.908 |
+| 0109 | a baseline | 1,166,039 | -0.782 | -0.851 |
+| 0109 | b inpainted | 1,166,039 | -0.801 | -0.902 |
+| 0109 | c tight crop | 806,092 | -0.880 | -0.959 |
+| 0217 | a baseline | 1,161,414 | -0.751 | -0.873 |
+| 0217 | b inpainted | 1,161,414 | -0.795 | -0.915 |
+| 0217 | c tight crop | 801,467 | -0.841 | -0.912 |
+| **mean** | **a baseline** | | **-0.763** | **-0.867** |
+| **mean** | **b inpainted** | | **-0.800** | **-0.911** |
+| **mean** | **c tight crop** | | **-0.852** | **-0.926** |
+
+All correlations negative as expected (higher predicted disparity =
+closer = lower GT depth, if the prediction tracks real geometry at all),
+all p-values effectively 0 at ~1M pixels. **This is a major correction to
+§5's framing.**
+
+**§5 said "no lumen/tunnel structure... does not look like a plausible
+reconstruction."** That was a visual read of an 8-bit PNG rendered with a
+fixed 0-100mm display range, and it was too pessimistic. The Spearman
+correlation for the *baseline* (no fix, exactly what §5 already ran) is
+**-0.85 to -0.88** — strong, not weak, monotonic agreement with GT depth
+over 1.16M pixels per frame. Looking again at the baseline PNGs with this
+in mind, and directly at the tight-crop PNG (`0109_c_tightcrop_pred.png`
+vs `0109_c_tightcrop_gt.png`): a blurred, low-contrast, but real analog of
+the GT's bright lumen region (upper-left-of-center) versus darker
+right-hand wall *is* visible on closer inspection in all three variants,
+most legibly in (c). It is much lower-contrast and far less sharp than
+GT — no distinct fold ridges, a soft blob instead of a crisp boundary —
+but it is not the "no signal, wrong pattern" read from §5. **§5's
+qualitative description was misleading; this section's numbers supersede
+it.**
+
+**Vignette hypothesis: partially supported, not the dominant effect.**
+Correlation improves monotonically a → b → c (mean Spearman -0.867 →
+-0.911 → -0.926), consistent with the black border hurting the
+prediction somewhat. But the effect size is modest — roughly 0.04-0.06 of
+Spearman ρ, on top of an already-strong baseline correlation — not the
+difference between "broken" and "working" that would be expected if the
+vignette were the primary cause of a genuinely flat/degenerate output.
+Since the baseline was never actually degenerate (Check 0b already showed
+real variation; this check now shows that variation is meaningfully
+GT-correlated), the vignette looks like a real but secondary contributor,
+not the explanation for a failure that, on this quantitative measure,
+isn't as severe as §5 described.
+
 ### Summary
 
 | Check | Status | Result |
@@ -588,13 +680,24 @@ extracted.
 | 2. Reproduce authors' number | Blocked | SCARED is gated (data-use agreement), not attempted |
 | 3. What was it trained on | Done | MEASURED (paper + code): SCARED only, zero-shot-validated on Hamlyn only, never C3VD |
 | 4. C3VD v1 vs v2 domain-gap test | Not run | Feasible (ungated, ~1-11GB), needs your approval to download + extract |
+| 5. Vignette hypothesis (quantitative correlation) | Done | MEASURED: baseline Spearman ρ already -0.87 (strong); crop/inpaint improve it modestly to -0.93. §5's "no structure" read corrected — real GT-correlated signal present, vignette a secondary, not dominant, contributor |
 
-**Leading interpretation, not proven**: a real-tissue-only-trained
-checkpoint applied zero-shot to a synthetic rendered dataset with a
-different appearance model and a partially-black-vignetted FOV — a domain
-shift well outside anything the paper's own generalization claims cover.
-Not a bug in our setup (Check 1 rules that out); not confirmed as *the*
-cause without Check 4.
+**Revised bottom line.** §5's visual impression of a flat, implausible
+prediction does not survive quantitative check: baseline predicted inverse
+depth already correlates strongly with GT depth (Spearman ρ ≈ -0.87 across
+3 frames, ~1.16M pixels each). The checkpoint is producing real,
+GT-correlated geometric structure zero-shot on C3VDv2, just at much lower
+contrast/sharpness than GT and without resolving fine structure (fold
+ridges). The vignette border is a real, measurable, secondary drag on
+correlation (~0.04-0.06 Spearman ρ), not the explanation for a "broken"
+output — because the output was not actually broken. The domain-gap
+interpretation (Check 3) is still relevant to explain the *gap in
+sharpness/scale*, but "the checkpoint fails to generalize to C3VDv2" is no
+longer an accurate summary; "the checkpoint generalizes with reduced
+fidelity" is. Check 4 (C3VD v1 comparison) would still be informative for
+quantifying that fidelity gap, but the original framing that motivated it
+("does EndoDAC even produce plausible geometry here") is now answered:
+yes, with a measurable, strong, quantitative correlation.
 
 ---
 
@@ -621,14 +724,14 @@ cause without Check 4.
    actually do — traced to training-only code (`trainer_end_to_end.py`),
    not imported by any inference/eval script, not investigated further
    since out of scope for this sanity check.
-6. **Partially resolved (§6)**: why does predicted depth show no lumen/fold
-   structure? MEASURED: not a preprocessing bug (Check 1 — our script
-   exactly matches training preprocessing) and not the missing ImageNet
-   normalization (Check 1 — training never used it either, so it's not a
-   mismatch). MEASURED: checkpoint trained only on SCARED, zero-shot
-   validated only on Hamlyn, never on C3VD (Check 3, from the paper
-   itself). **Still open**: whether train/test domain gap is *the* actual
-   cause (INTERPRETATION only) — Check 2 (reproduce on SCARED) is blocked
-   by gated access, Check 4 (C3VD v1 vs v2 comparison) is feasible but
-   needs approval to download. Until one of those runs, EndoDAC's
-   viability as a candidate remains genuinely open, not resolved.
+6. **Resolved, and the premise was wrong (§6 Checks 0b and 5)**: "why does
+   predicted depth show no lumen/fold structure" assumed a flat/failed
+   prediction that quantitative measurement does not support. MEASURED:
+   raw disparity has real spatial variation (Check 0b), and that variation
+   correlates strongly with GT depth (Spearman ρ ≈ -0.87 baseline, Check
+   5) — not a preprocessing bug (Check 1), not a botched weight load
+   (Check 0b), not primarily the vignette (Check 5, secondary effect
+   only). Remaining open item, now narrower: whether the domain gap
+   (Check 3: SCARED/Hamlyn-only training) explains the *sharpness/contrast*
+   gap versus GT, which Check 4 (C3VD v1 comparison, needs approval) could
+   still speak to — but this is no longer a question of basic viability.

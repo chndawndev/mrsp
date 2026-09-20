@@ -1,0 +1,31 @@
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+load pretrained weight from /data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/pretrained_model/depth_anything_vitb14.pth
+
+
+=== frame 0000 ===
+  black-pixel fraction: full frame 0.0698, crop box 0.000000 (box: left=179 upper=44 right=1177 lower=1042, size 998x998)
+  [a_baseline] n_valid=1161423, Pearson r=-0.7557 (p=0.00e+00), Spearman rho=-0.8759 (p=0.00e+00), disp std/|mean|=0.1855
+  [b_inpainted] n_valid=1161423, Pearson r=-0.8021 (p=0.00e+00), Spearman rho=-0.9163 (p=0.00e+00), disp std/|mean|=0.1729
+  [c_tight_crop] n_valid=801476, Pearson r=-0.8360 (p=0.00e+00), Spearman rho=-0.9075 (p=0.00e+00), disp std/|mean|=0.1931
+
+=== frame 0109 ===
+  black-pixel fraction: full frame 0.0698, crop box 0.000000 (box: left=179 upper=44 right=1177 lower=1042, size 998x998)
+  [a_baseline] n_valid=1166039, Pearson r=-0.7824 (p=0.00e+00), Spearman rho=-0.8508 (p=0.00e+00), disp std/|mean|=0.2676
+  [b_inpainted] n_valid=1166039, Pearson r=-0.8013 (p=0.00e+00), Spearman rho=-0.9023 (p=0.00e+00), disp std/|mean|=0.2608
+  [c_tight_crop] n_valid=806092, Pearson r=-0.8802 (p=0.00e+00), Spearman rho=-0.9591 (p=0.00e+00), disp std/|mean|=0.3264
+
+=== frame 0217 ===
+  black-pixel fraction: full frame 0.0698, crop box 0.000000 (box: left=179 upper=44 right=1177 lower=1042, size 998x998)
+  [a_baseline] n_valid=1161414, Pearson r=-0.7505 (p=0.00e+00), Spearman rho=-0.8732 (p=0.00e+00), disp std/|mean|=0.1804
+  [b_inpainted] n_valid=1161414, Pearson r=-0.7953 (p=0.00e+00), Spearman rho=-0.9145 (p=0.00e+00), disp std/|mean|=0.1676
+  [c_tight_crop] n_valid=801467, Pearson r=-0.8407 (p=0.00e+00), Spearman rho=-0.9115 (p=0.00e+00), disp std/|mean|=0.1904
+
+=== summary across frames ===
+a_baseline: mean Pearson r = -0.7629, mean Spearman rho = -0.8666
+b_inpainted: mean Pearson r = -0.7996, mean Spearman rho = -0.9110
+c_tight_crop: mean Pearson r = -0.8523, mean Spearman rho = -0.9261
