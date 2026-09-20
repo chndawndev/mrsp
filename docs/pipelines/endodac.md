@@ -24,7 +24,12 @@ relative to GT, not with no signal. The vignette border (black frame
 corners) is a real but secondary drag on that correlation (~0.04-0.06 ρ).
 Training-data domain gap (SCARED/Hamlyn only, confirmed from the paper)
 remains the best explanation for the *fidelity* gap, not for a failure —
-because there wasn't one.
+because there wasn't one. **Correction (2026-09-20, §6 Check 3):** C3VDv2's
+RGB is real clinical-endoscope footage of a real silicone phantom, not a
+synthetic rendering — only the GT side is rendered. The domain gap is
+real-tissue-camera → real-phantom-camera, smaller than originally
+described, which fits Check 5's positive correlation result better than
+the original "real vs. synthetic" framing did.
 
 ---
 
@@ -556,18 +561,52 @@ cross-dataset test. This matches Check 1's code-level finding
 general usability, disconnected from what the authors actually trained or
 reported on.
 
-**Interpretation carried forward, not proven:** the released checkpoint has
-only ever seen real endoscopic tissue video (SCARED, ex-vivo porcine;
-zero-shot-tested on Hamlyn, also real tissue). C3VDv2 is a synthetic,
-rendered phantom dataset with a different appearance model entirely
-(rendering-engine lighting/shading, no real specular-moisture tissue look,
-different noise characteristics, and the octagonal black-vignette FOV mask
-quantified in Check 1). This is a substantially larger domain shift than
-"real tissue A → real tissue B" (SCARED → Hamlyn), which is the only
-cross-domain generalization the paper actually demonstrates. **This is a
-plausible, well-supported explanation for the flat/near-degenerate
-prediction, but it is INTERPRETATION, not proven** — Checks 2 and 4 are
-the ways to actually confirm it, and neither has been run.
+**Correction (2026-09-20): the paragraph below originally called C3VDv2
+"synthetic, rendered" — that was a factual error, caught and corrected
+before it propagated further. Rewritten with the corrected premise.**
+
+**What's actually rendered vs. real, per this project's own documentation**
+(`docs/dataset_official_description.md:5`, "acquired with a static,
+undeformed colon phantom"; `docs/conventions.md:3`, citing
+`C3VDv3` as "the rendering/capture pipeline that produced this dataset";
+`docs/gpu_validation.md:20`'s finding that `RenderingModule.cpp` outputs
+`fbRgb` alongside the rendered GT channels, consistent with a real-capture
+RGB stream being masked/packaged through the same pipeline rather than
+being synthesized): **C3VDv2's RGB frames are captured with a real
+clinical endoscope imaging a real (silicone) colon phantom.** Only the
+GT side — depth, normals, coverage mesh, optical flow — is rendered,
+against a separately-scanned 3D model of the phantom, registered to the
+real camera's recovered trajectory (`tools/Handeye.cpp`'s hand-eye
+calibration, cited in `docs/conventions.md`, is a real-camera/real-robot
+calibration technique, not something a synthetic pipeline would need).
+The black octagonal vignette (Check 1) is very plausibly genuine hardware
+vignetting from the real endoscope's optics, not a rendering artifact —
+and if so, it's a characteristic SCARED and Hamlyn footage (also captured
+with real clinical endoscopes) may well share, not something unique to
+C3VD. This last point is **inference, not verified** — I have not checked
+SCARED/Hamlyn frames directly (no access, Check 2) for a comparable
+vignette.
+
+**Revised interpretation:** the actual domain shift is real tissue
+(ex-vivo porcine for SCARED, presumably human or animal tissue for
+Hamlyn) → a real silicone phantom, both imaged with real clinical
+endoscopy hardware — not "real → synthetic." This is a substantially
+*smaller* shift than the original (incorrect) framing claimed: same
+general imaging modality, same rough optical/vignetting characteristics,
+same category of specular highlights and lighting (real light on a wet or
+lubricated surface, not a rendering-engine lighting model) — the
+difference is the imaged material (organic tissue vs. silicone) and
+phantom geometry, not the whole appearance domain. This revision is
+**consistent with, and better explains, Check 5's finding** (§6): the
+baseline prediction already correlates strongly with GT depth (Spearman
+ρ ≈ -0.87) — a real endoscope-to-real-endoscope generalization gap, not a
+sim-to-real one, is exactly the kind of gap a SCARED/Hamlyn-trained model
+would be expected to cross reasonably well. **Still INTERPRETATION where
+marked**: the precise degree of hardware/lighting similarity between the
+C3VD acquisition rig and the SCARED/Hamlyn rigs hasn't been verified from
+any source — Check 2 (SCARED access) or the C3VD paper's own acquisition
+methodology section (not yet read) would be the way to check this
+further.
 
 ### Check 4 — C3VD v1 vs C3VDv2 comparison
 
@@ -701,25 +740,153 @@ yes, with a measurable, strong, quantitative correlation.
 
 ---
 
+## 7. Pose convention: empirical validation
+
+Before any trajectory work, per instructions: verify
+`transformation_from_parameters`'s output convention against our frozen
+`.reshape(4,4).T` camera-to-world convention **empirically, not from
+reading alone** — the same way the pose.txt transpose ambiguity was
+originally settled. Baseline input (no crop, no inpaint) throughout, per
+instructions. Scripts: `scratch/pipelines/endodac_pose_validation.py`
+(global chain+alignment) and
+`scratch/pipelines/endodac_pose_validation_perstep.py` (per-step,
+written after the first test came back inconclusive — see below). Logs:
+`logs/endodac_pose_validation*.log`.
+
+### First attempt: chain + Umeyama + ATE — inconclusive, and why
+
+Ran pose inference on 20 consecutive frames (0-19), chained the 19
+relative transforms into a trajectory two ways — (A) as predicted,
+right-multiplied (`world_T_cam_{i+1} = world_T_cam_i @ T_i`, matching
+`evaluate_pose.py`'s own `dump_xyz` convention), (B) with each `T_i`
+inverted before chaining — Umeyama-aligned (rotation+translation+scale)
+each to the GT trajectory from `pose.txt`, and compared ATE (RMSE after
+alignment).
+
+**MEASURED, frames 0-19**: ATE_A = 0.0047mm, ATE_B = 0.0047mm — a
+complete tie. Investigated why before trusting it: this window's GT motion
+totals only **0.077mm over 19 steps** (checked directly from `pose.txt`) —
+the sequence opens on a near-static settling period, not real motion. Too
+small a signal to discriminate anything.
+
+Reran on frames 30-49 (GT path length 45.7mm, reasonable motion) and
+frames 139-158 (path length 37.8mm, picked for higher curvature —
+straightness ratio 0.60 vs. 0.89 for the 30-49 window, by scanning all
+198 possible 20-frame windows for one with real curvature, not just a
+near-straight segment). **Still inconclusive**: ATE_A=1.45mm vs.
+ATE_B=1.36mm (frames 30-49); ATE_A=1.22mm vs. ATE_B=1.21mm (frames
+139-158) — real motion now, but still no clear winner.
+
+**Why the global test doesn't discriminate, established directly, not
+assumed:** per-step predicted rotations are tiny (see §7's per-step table
+below, sub-degree to low-single-digit-degree GT relative rotation over
+one frame step) — near-identity rotations satisfy `R ≈ Rᵀ`, so inverting a
+step barely changes its rotational contribution. What it does change is
+the translation's sign. For a chain of near-identity-rotation,
+sign-flippable steps, a **global proper 3D rotation** (which Umeyama
+alignment is free to choose) can often convert the "wrong-direction" chain
+into something close to congruent with the correct one, particularly over
+a short window — this is a known blind spot of chain+Umeyama ATE, not a
+property specific to this checkpoint. The fix: stop giving the alignment
+step that much freedom.
+
+### Second attempt: per-step comparison — decisive
+
+For each consecutive pair `(i, i+1)` in a window, computed the GT relative
+transform directly, `G = inv(C2W_i) @ C2W_{i+1}` (in the same "chains via
+right-multiplication" convention as hypothesis A above, so `G` is the
+correct-convention target for the network's raw output `T`), and compared
+**per pair, with no global alignment freedom**: rotation angle of
+`Gᵀ @ R` (degrees) and cosine similarity between GT and predicted
+translation *directions* (magnitude is scale-ambiguous, §3, so only
+direction is meaningful) — for both `T` as-is and `inv(T)`.
+
+**MEASURED, frames 139-158 (19 pairs):**
+
+| | mean rotation error | mean translation-direction cosine similarity |
+|---|---|---|
+| Hypothesis A (`T` as predicted) | 0.36° | **-0.976** |
+| Hypothesis B (`inv(T)`) | 0.19° | **+0.976** |
+
+**MEASURED, frames 30-49 (19 pairs), independent confirmation:**
+
+| | mean rotation error | mean translation-direction cosine similarity |
+|---|---|---|
+| Hypothesis A (`T` as predicted) | 0.49° | **-0.887** |
+| Hypothesis B (`inv(T)`) | 0.42° | **+0.886** |
+
+Every single pair in both windows shows the same sign pattern (checked
+individually in the logs, not just the means — e.g. frames 139-158's 19
+pairs are unanimous, cosine similarity negative for A and positive for B
+in every one). Rotation error is small and similar for both hypotheses
+(expected, given `R ≈ Rᵀ` for near-identity rotations — not
+discriminative, consistent with why the global test failed). Translation
+direction is completely decisive: **~-0.9 (nearly anti-parallel) for the
+raw network output, ~+0.9 (nearly parallel) for the inverted output,
+unanimous across 38 total pairs in 2 independent windows.**
+
+**Conclusion: `transformation_from_parameters`'s raw output must be
+inverted before being chained as a camera-to-world step.** Equivalently:
+the raw output `T` (from the color-channel order `cat([frame_{i+1},
+frame_i])`, no `invert` flag passed, matching `evaluate_pose.py`'s own
+call) represents the transform from frame `i`'s local camera frame into
+frame `i+1`'s local camera frame — call it `T_{(i+1)←i}` — not the
+`C2W_i → C2W_{i+1}` step needed for chaining, which is its inverse,
+`T_{i←(i+1)}`.
+
+**Worth flagging, INTERPRETATION not proven:** `evaluate_pose.py`'s own
+`dump_xyz`/ATE computation (used to produce the paper's reported pose
+numbers) chains the raw, non-inverted output — i.e., it uses what this
+check found to be hypothesis A, the wrong one for matching our GT
+convention. Two readings are possible, and I can't distinguish them
+without SCARED access (Check 2, blocked): either (a) their own script has
+the same sign issue, silently invisible in their reported ATE because
+chain+Umeyama+ATE is insensitive to it for the reason established above
+(their own evaluation methodology would share this blind spot), or (b)
+SCARED's pose.txt-equivalent ground truth uses the opposite
+camera-pose convention from ours, in which case what's "wrong" for us is
+right for them and there's no bug at all — just two projects' differing
+GT conventions. Not resolved, not blocking (our own empirical test is
+sound regardless of which explanation is true), flagged for completeness.
+
+### What this means going forward
+
+Any code that chains EndoDAC's predicted relative poses into an absolute
+trajectory for comparison against this project's GT must invert each
+`transformation_from_parameters` output first. Applied in §8's
+full-sequence run below.
+
+---
+
 ## Open questions
 
 1. ~~Does the public checkpoint include pose/intrinsics weights?~~
    **Resolved (§2): yes**, both `intrinsics_head.pth` and the pose
    encoder/decoder are present alongside `depth_model.pth`.
 2. ~~Path A vs Path B preprocessing — which to use going forward?~~
-   **Partially settled (§5): neither produces plausible-looking depth.**
-   The choice between them is no longer the leading question; *why both
-   fail* is.
+   **Resolved differently than either earlier answer (§6 Check 5):** Path A
+   (baseline, no crop) already gives a strong GT correlation (Spearman
+   ρ ≈ -0.87); Path B-style tight cropping improves it only modestly
+   (ρ ≈ -0.93). Both "produce plausible depth" in the quantitative sense —
+   the September 19 note that "neither produces plausible-looking depth"
+   was based on the superseded flat-prediction finding (§5) and no longer
+   holds. Path A (baseline) is used going forward per the user's
+   instruction to use baseline input for pose work and the full-sequence
+   run.
 3. Whether the crop box in `c3vd_dataset.py` (`200, 180, 1150, 900`) is
    removing a black vignette border or discarding real fisheye image
    content — unverified, would need visual inspection of a cropped-out
-   region. Lower priority now given finding 5 below.
-4. The relative-pose matrix convention (`transformation_from_parameters`)
-   has not been checked against our `.reshape(4,4).T` pose.txt convention
-   for sign/handedness compatibility — needed before any pose comparison,
-   not needed for the depth-only sanity check. Also now secondary to
-   finding 5: no point checking pose convention on a method whose depth
-   output already looks implausible on this dataset.
+   region. Low priority: Check 5 shows the crop only matters modestly for
+   correlation either way.
+4. ~~The relative-pose matrix convention...~~ **Resolved empirically (§7):**
+   `transformation_from_parameters`'s raw output must be **inverted**
+   before chaining as a camera-to-world step to match our
+   `.reshape(4,4).T` convention — confirmed by per-step translation-
+   direction cosine similarity (+0.88 to +0.98 inverted vs. -0.88 to -0.98
+   as-is, unambiguous across 2 independent 19-pair windows). The global
+   chain+Umeyama+ATE test that was tried first was inconclusive (near-tied
+   ATE both ways) for a specific, identified reason — see §7 — not because
+   the convention doesn't matter.
 5. What `position*`/`transform*` auxiliary networks in the checkpoint
    actually do — traced to training-only code (`trainer_end_to_end.py`),
    not imported by any inference/eval script, not investigated further

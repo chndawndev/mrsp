@@ -1,0 +1,37 @@
+START_FRAME=30, N_FRAMES=20
+pair (30,31): translation norm (network units) = 0.002636
+pair (31,32): translation norm (network units) = 0.002286
+pair (32,33): translation norm (network units) = 0.001750
+pair (33,34): translation norm (network units) = 0.001191
+pair (34,35): translation norm (network units) = 0.000360
+pair (35,36): translation norm (network units) = 0.001053
+pair (36,37): translation norm (network units) = 0.001842
+pair (37,38): translation norm (network units) = 0.002892
+pair (38,39): translation norm (network units) = 0.003299
+pair (39,40): translation norm (network units) = 0.003914
+pair (40,41): translation norm (network units) = 0.004366
+pair (41,42): translation norm (network units) = 0.004881
+pair (42,43): translation norm (network units) = 0.005189
+pair (43,44): translation norm (network units) = 0.005063
+pair (44,45): translation norm (network units) = 0.005448
+pair (45,46): translation norm (network units) = 0.005970
+pair (46,47): translation norm (network units) = 0.005924
+pair (47,48): translation norm (network units) = 0.005714
+pair (48,49): translation norm (network units) = 0.005806
+GT window total path length: 45.6606 mm, end-to-end: 40.8278 mm, per-step: [2.80796474 1.01704345 0.74977637 0.80472161 0.17492779 0.27294085
+ 1.20472132 0.89843689 2.42656276 1.53686484 1.82229131 4.35720666
+ 2.5447949  2.79674612 6.35107896 3.32792566 3.29652837 6.37790181
+ 2.89213758]
+
+=== Hypothesis A: chain T_i as predicted (right-multiply, as in evaluate_pose.py's dump_xyz) ===
+Umeyama scale c = 667.507882
+ATE (RMSE after Umeyama alignment) = 1.445344 mm
+
+=== Hypothesis B: chain inv(T_i) (right-multiply the inverse) ===
+Umeyama scale c = 667.556110
+ATE (RMSE after Umeyama alignment) = 1.358286 mm
+
+=== conclusion ===
+Hypothesis A ATE: 1.4453 mm
+Hypothesis B ATE: 1.3583 mm
+Winner: B (chain the inverse), ratio of ATEs = 1.06x

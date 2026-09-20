@@ -1,0 +1,23 @@
+pair (139,140): rot_err_A=  0.11 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9770, cos_sim_B=+0.9782
+pair (140,141): rot_err_A=  0.12 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9949, cos_sim_B=+0.9955
+pair (141,142): rot_err_A=  0.94 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9980, cos_sim_B=+0.9982
+pair (142,143): rot_err_A=  0.89 deg, rot_err_B=  0.43 deg, cos_sim_A=-0.9956, cos_sim_B=+0.9951
+pair (143,144): rot_err_A=  1.42 deg, rot_err_B=  0.94 deg, cos_sim_A=-0.9979, cos_sim_B=+0.9974
+pair (144,145): rot_err_A=  0.93 deg, rot_err_B=  0.65 deg, cos_sim_A=-0.9952, cos_sim_B=+0.9946
+pair (145,146): rot_err_A=  0.66 deg, rot_err_B=  0.35 deg, cos_sim_A=-0.9979, cos_sim_B=+0.9976
+pair (146,147): rot_err_A=  0.40 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9547, cos_sim_B=+0.9536
+pair (147,148): rot_err_A=  0.33 deg, rot_err_B=  0.24 deg, cos_sim_A=-0.9974, cos_sim_B=+0.9974
+pair (148,149): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.7408, cos_sim_B=+0.7404
+pair (149,150): rot_err_A=  0.54 deg, rot_err_B=  0.54 deg, cos_sim_A=-0.9131, cos_sim_B=+0.9133
+pair (150,151): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9995, cos_sim_B=+0.9995
+pair (151,152): rot_err_A=  0.48 deg, rot_err_B=  0.46 deg, cos_sim_A=-0.9994, cos_sim_B=+0.9994
+pair (152,153): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9997, cos_sim_B=+0.9998
+pair (153,154): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9998, cos_sim_B=+0.9998
+pair (154,155): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9980, cos_sim_B=+0.9981
+pair (155,156): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9971, cos_sim_B=+0.9972
+pair (156,157): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9952, cos_sim_B=+0.9953
+pair (157,158): rot_err_A=  0.00 deg, rot_err_B=  0.00 deg, cos_sim_A=-0.9967, cos_sim_B=+0.9968
+
+=== summary, window frames 139-158 ===
+Hypothesis A (T as predicted): mean rot err = 0.36 deg, mean translation-direction cosine sim = -0.9762
+Hypothesis B (inv(T)):         mean rot err = 0.19 deg, mean translation-direction cosine sim = +0.9762

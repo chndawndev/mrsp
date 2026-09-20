@@ -1,0 +1,32 @@
+pair (0,1): translation norm (network units) = 0.000230
+pair (1,2): translation norm (network units) = 0.000226
+pair (2,3): translation norm (network units) = 0.000226
+pair (3,4): translation norm (network units) = 0.000218
+pair (4,5): translation norm (network units) = 0.000226
+pair (5,6): translation norm (network units) = 0.000229
+pair (6,7): translation norm (network units) = 0.000216
+pair (7,8): translation norm (network units) = 0.000219
+pair (8,9): translation norm (network units) = 0.000236
+pair (9,10): translation norm (network units) = 0.000221
+pair (10,11): translation norm (network units) = 0.000225
+pair (11,12): translation norm (network units) = 0.000226
+pair (12,13): translation norm (network units) = 0.000233
+pair (13,14): translation norm (network units) = 0.000220
+pair (14,15): translation norm (network units) = 0.000217
+pair (15,16): translation norm (network units) = 0.000218
+pair (16,17): translation norm (network units) = 0.000209
+pair (17,18): translation norm (network units) = 0.000217
+pair (18,19): translation norm (network units) = 0.000230
+
+=== Hypothesis A: chain T_i as predicted (right-multiply, as in evaluate_pose.py's dump_xyz) ===
+Umeyama scale c = 3.414119
+ATE (RMSE after Umeyama alignment) = 0.004668 mm
+
+=== Hypothesis B: chain inv(T_i) (right-multiply the inverse) ===
+Umeyama scale c = 3.413244
+ATE (RMSE after Umeyama alignment) = 0.004669 mm
+
+=== conclusion ===
+Hypothesis A ATE: 0.0047 mm
+Hypothesis B ATE: 0.0047 mm
+Winner: A (chain as predicted), ratio of ATEs = 1.00x
