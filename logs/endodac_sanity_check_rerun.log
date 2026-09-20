@@ -1,0 +1,15 @@
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+numpy: 1.26.4 torch: 2.0.0+cu117
+load pretrained weight from /data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/pretrained_model/depth_anything_vitb14.pth
+
+frame 0000: scale ratio 176.9420
+  vs original raw prediction: max abs diff = 0.00000000, mean abs diff = 0.00000000
+frame 0109: scale ratio 166.1481
+  vs original raw prediction: max abs diff = 0.00000000, mean abs diff = 0.00000000
+frame 0217: scale ratio 176.6834
+  vs original raw prediction: max abs diff = 0.00000000, mean abs diff = 0.00000000

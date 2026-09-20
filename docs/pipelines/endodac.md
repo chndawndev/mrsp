@@ -319,6 +319,42 @@ Cheapest checks first, per instructions. Findings below in the order run;
 each is marked MEASURED (directly observed/read) or INTERPRETATION
 (reasoned conclusion, not directly proven).
 
+### Check 0 — ruled out: was the numpy 2.x/torch ABI break the actual cause?
+
+Before trusting anything in §5, verified this explicitly rather than from
+memory, since it's the kind of thing that's easy to get wrong by
+recollection. **MEASURED, timeline reconstructed from logs and file
+timestamps, not memory:**
+
+- `pip install` initially resolved `numpy==2.0.2` as a transitive
+  dependency of `torchvision` (`logs/endodac_pip_install.log:369`).
+- The **first** sanity-check attempt (numpy 2.0.2 active) **crashed with
+  `RuntimeError: Numpy is not available`** at the `torch.from_numpy(...)`
+  call — before any image was written. **Zero PNGs exist from that
+  attempt.** This was a loud, hard failure, not a silent bad-output one.
+- `numpy<2` was then installed (resolved to 1.26.4).
+- The sanity-check script was rerun **only after** that fix. This is the
+  *only* run that ever produced output — both the Path A set (files
+  timestamped 2026-09-19 21:59:10) and the Path B set (timestamped
+  2026-09-19 22:00:20) were generated with numpy 1.26.4 already active.
+  There is no "pre-fix" image set to compare against, because the pre-fix
+  run never got far enough to produce one.
+- **Independent re-verification, 2026-09-20**: confirmed `numpy==1.26.4`
+  active in the env right now, then reran the identical Path A script
+  end-to-end from scratch (fresh process, `results/pipelines/
+  endodac_sanity_check_rerun/`). Compared the rerun's raw predicted-depth
+  array against the original run's saved `.npy` for all 3 frames:
+  **max absolute difference = 0.0, mean absolute difference = 0.0** —
+  bit-for-bit identical, not just visually similar. Confirms the original
+  result was already fully deterministic and reproducible under the fixed
+  numpy version, with no residual effect from the earlier ABI break.
+
+**Conclusion: the numpy ABI break is ruled out as the cause of the flat
+prediction.** It was a hard crash that happened before the fix, and
+produced no output at all — not a silent corruption that leaked into the
+images we've been analyzing. The rest of this diagnosis (Checks 1-4 below)
+stands.
+
 ### Check 1 — training preprocessing vs. our sanity script
 
 **MEASURED.** The dataset class actually used for training is
