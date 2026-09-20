@@ -32,3 +32,4 @@ ENV/
 # OS/editor generated
 .DS_Store
 Thumbs.db
+logs/.nfs00000005246a5fd700000800
