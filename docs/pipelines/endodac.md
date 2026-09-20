@@ -355,6 +355,104 @@ produced no output at all — not a silent corruption that leaked into the
 images we've been analyzing. The rest of this diagnosis (Checks 1-4 below)
 stands.
 
+### Check 0b — raw network output and weight-loading verification
+
+Requested before pursuing Checks 1-4 further: inspect the raw network
+output directly (not the rendered PNG), and verify the checkpoint actually
+loaded. Script: `scratch/pipelines/endodac_raw_output_diagnosis.py`, log:
+`logs/endodac_raw_output_diagnosis.log`. **All MEASURED, no interpretation
+in this section.**
+
+**Weight-loading audit.** Compared `depth_model.pth`'s keys against the
+live model's `state_dict()` keys directly (not just visually, counted):
+389 tensor keys in the checkpoint, 389 keys in the model, **389/389
+intersect — 0 model keys left unmatched, 0 checkpoint keys silently
+dropped.** The `{k: v for k, v in depther_dict.items() if k in
+model_dict}` filtering pattern in `test_simple.py` (flagged earlier as a
+pattern that *could* silently drop weights on a key mismatch) did not
+actually drop anything here — full key-name agreement.
+
+**Parameter value comparison** (backbone-only-init model, i.e. before
+`depth_model.pth` is loaded, vs. the same tensors after loading — 96 LoRA
+tensors total in the model, 8 sampled directly, spanning `lora_A`,
+`lora_B`, `lora_U` across 2 transformer blocks, plus 3 `depth_head`
+projection weights):
+
+| Parameter | Identical to backbone-only init? | Backbone-only (min/max/mean/std) | Loaded (min/max/mean/std) |
+|---|---|---|---|
+| `encoder.blocks.0.mlp.fc1.lora_A` | **No** | -0.036/0.036/-0.0001/0.021 | -0.108/0.107/-0.0016/0.040 |
+| `encoder.blocks.0.mlp.fc1.lora_B` | **No** | 0/0/0/0 (exact zero-init) | -0.077/0.077/0.0001/0.017 |
+| `encoder.blocks.0.mlp.fc1.lora_U` | **No** | -0.656/0.929/0.159/0.652 | -0.849/-0.004/-0.261/0.398 |
+| `encoder.blocks.0.mlp.fc2.lora_B` | **No** | 0/0/0/0 | -0.055/0.060/-0.0002/0.015 |
+| `encoder.blocks.1.mlp.fc1.lora_B` | **No** | 0/0/0/0 | -0.063/0.061/-0.0002/0.016 |
+| `depth_head.projects.0.weight` | **Yes** | -0.186/0.211/-0.00009/0.026 | (same) |
+| `depth_head.projects.1.weight` | **Yes** | -0.134/0.115/0.00001/0.026 | (same) |
+| `depth_head.projects.2.weight` | **Yes** | -0.102/0.093/0.00005/0.024 | (same) |
+
+Every sampled LoRA tensor differs from its backbone-only value — most
+tellingly, every `lora_B` tensor is **exactly** `0.0` (the DVLoRA
+zero-init scheme, `models/backbones/mylora/layers.py:359-360`,
+`nn.init.zeros_(self.lora_B)`) before loading and clearly non-zero after.
+**Conclusion: the EndoDAC checkpoint's LoRA adapter weights were
+genuinely applied — this is not the bare `depth_anything_vitb14` backbone
+running unmodified.** The 3 `depth_head.projects.*` samples came back
+identical, meaning those specific projection layers hold the same value
+before and after loading `depth_model.pth` — consistent with the paper's
+claim of "remarkably few trainable parameters" (most of the depth head may
+be frozen, inherited unchanged from the DepthAnything backbone); flagged
+as measured but not further investigated, since it doesn't bear on the
+main question.
+
+**Raw sigmoid disparity, before `disp_to_depth`** (`outputs[("disp",0)]`,
+shape `(1,1,256,320)` for all 3 frames):
+
+| Frame | min | max | mean | std | std/mean |
+|---|---|---|---|---|---|
+| 0000 | 0.3338 | 0.6771 | 0.4391 | 0.0836 | 0.190 |
+| 0109 | 0.2914 | 0.8242 | 0.4753 | 0.1331 | 0.280 |
+| 0217 | 0.3302 | 0.6722 | 0.4387 | 0.0808 | 0.184 |
+
+10-bin histograms (all 3 frames, `logs/endodac_raw_output_diagnosis.log`)
+show mass spread across the full observed range, not piled into 1-2 bins —
+e.g. frame 0109: 5933 / 27656 / 16273 / 5055 / 3811 / 5275 / 6685 / 5718 /
+4021 / 1493 pixels per bin (81,920 pixels total, 256×320).
+
+**Converted depth** (`disp_to_depth(disp, 0.1, 150)`):
+
+| Frame | min | max | mean | std |
+|---|---|---|---|---|
+| 0000 | 0.1477 | 0.2992 | 0.2347 | 0.0385 |
+| 0109 | 0.1213 | 0.3426 | 0.2250 | 0.0538 |
+| 0217 | 0.1487 | 0.3024 | 0.2345 | 0.0371 |
+
+**Input tensor** (all 3 frames): shape `(1, 3, 256, 320)`, dtype
+`torch.float32`, min `0.0`, max `1.0`. Per-frame mean/std: 0000 →
+0.4324/0.1893; 0109 → 0.4733/0.2380; 0217 → 0.4332/0.1897 (matches §6
+Check 1's separately-computed numbers exactly, as expected — same
+transform).
+
+**Answering the specific question — is the disparity constant, or is
+variation being lost in the 8-bit PNG render?** relative std (std/mean) is
+0.18-0.28 across the 3 frames: **not near-constant, real spatial
+variation is present in the raw output.** And it is **not** being lost in
+the median-scaled 8-bit rendering: the converted-depth range for frame
+0109 (0.121-0.343, a ~99% relative span) scales to roughly 20-57mm after
+the ~166x median-scale factor used for the PNG — a ~94-level spread out of
+256, which is a clearly visible gradient, not something 8-bit quantization
+would wash out. Looking back at the rendered PNG (§5) with this in mind:
+it does show a real gradient (darker toward the right/far side, lighter
+upper-left) — **the earlier description "almost-flat" undersold the
+measured variation.** The precise, corrected finding: **the network
+produces a real, non-degenerate, spatially-varying prediction — it is
+just the wrong pattern.** It does not reproduce the lumen "hole" or fold
+ridges visible in GT; it produces a smooth directional gradient instead.
+This is a more specific finding than "flat/degenerate output" and is
+consistent with — though does not by itself prove — a model that is
+confidently predicting the wrong geometry rather than failing to predict
+anything, which is exactly the kind of failure a train/test domain gap
+would produce (as opposed to, say, a numerical bug that would more likely
+produce NaNs, exact zeros, or a genuinely constant map).
+
 ### Check 1 — training preprocessing vs. our sanity script
 
 **MEASURED.** The dataset class actually used for training is
@@ -484,6 +582,8 @@ extracted.
 
 | Check | Status | Result |
 |---|---|---|
+| 0. numpy ABI break as the cause | Done | MEASURED: ruled out — pre-fix run crashed and produced no output; post-fix rerun bit-identical to original |
+| 0b. Raw output + weight-loading verification | Done | MEASURED: checkpoint genuinely loaded (LoRA weights differ from zero-init); raw disparity has real spatial variation (std/mean 0.18-0.28), not constant — wrong pattern, not no signal |
 | 1. Training vs. sanity-script preprocessing | Done | MEASURED: identical transform pipeline; preprocessing mismatch ruled out |
 | 2. Reproduce authors' number | Blocked | SCARED is gated (data-use agreement), not attempted |
 | 3. What was it trained on | Done | MEASURED (paper + code): SCARED only, zero-shot-validated on Hamlyn only, never C3VD |

@@ -1,0 +1,117 @@
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+numpy 1.26.4, torch 2.0.0+cu117, device cuda
+checkpoint feed size: 320x256
+load pretrained weight from /data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/pretrained_model/depth_anything_vitb14.pth
+
+load pretrained weight from /data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/pretrained_model/depth_anything_vitb14.pth
+
+
+=== weight-loading key audit ===
+depth_model.pth keys total: 392 (includes non-tensor 'height'/'width' entries)
+depth_model.pth tensor keys: 389
+model_full state_dict keys: 389
+intersection (keys actually applied): 389
+model keys with NO matching checkpoint entry (stay at backbone/random init): 0
+checkpoint tensor keys with no matching model key (silently dropped): 0
+
+=== LoRA / head parameter comparison (backbone-only init vs depth_model.pth-loaded) ===
+total LoRA parameter tensors in model: 96
+  encoder.blocks.0.mlp.fc1.lora_A: shape (4, 768), identical=False, backbone-only stats (min=-0.036067 max=0.036040 mean=-0.000121 std=0.020990), loaded stats (min=-0.107852 max=0.106583 mean=-0.001558 std=0.039901)
+  encoder.blocks.0.mlp.fc1.lora_B: shape (3072, 4), identical=False, backbone-only stats (min=0.000000 max=0.000000 mean=0.000000 std=0.000000), loaded stats (min=-0.076972 max=0.076769 mean=0.000065 std=0.017329)
+  encoder.blocks.0.mlp.fc1.lora_U: shape (4, 1), identical=False, backbone-only stats (min=-0.656439 max=0.929082 mean=0.158620 std=0.652397), loaded stats (min=-0.848819 max=-0.004301 mean=-0.260989 std=0.398056)
+  encoder.blocks.0.mlp.fc2.lora_B: shape (768, 4), identical=False, backbone-only stats (min=0.000000 max=0.000000 mean=0.000000 std=0.000000), loaded stats (min=-0.055330 max=0.059965 mean=-0.000189 std=0.014931)
+  encoder.blocks.1.mlp.fc1.lora_B: shape (3072, 4), identical=False, backbone-only stats (min=0.000000 max=0.000000 mean=0.000000 std=0.000000), loaded stats (min=-0.063306 max=0.060929 mean=-0.000165 std=0.015842)
+  depth_head.projects.0.weight: shape (96, 768, 1, 1), identical=True, backbone-only stats (min=-0.186240 max=0.210796 mean=-0.000086 std=0.025555), loaded stats (min=-0.186240 max=0.210796 mean=-0.000086 std=0.025555)
+  depth_head.projects.1.weight: shape (192, 768, 1, 1), identical=True, backbone-only stats (min=-0.134012 max=0.114715 mean=0.000014 std=0.025549), loaded stats (min=-0.134012 max=0.114715 mean=0.000014 std=0.025549)
+  depth_head.projects.2.weight: shape (384, 768, 1, 1), identical=True, backbone-only stats (min=-0.102255 max=0.092595 mean=0.000052 std=0.023852), loaded stats (min=-0.102255 max=0.092595 mean=0.000052 std=0.023852)
+
+=== raw network output per frame (model_full, i.e. depth_model.pth loaded) ===
+
+--- frame 0000 ---
+input tensor: shape=(1, 3, 256, 320), dtype=torch.float32, min=0.000000, max=1.000000, mean=0.432389, std=0.189326
+raw sigmoid disparity ('disp',0): shape=(1, 1, 256, 320), min=0.33381292, max=0.67705214, mean=0.43914399, std=0.08357836
+  histogram (10 bins over observed range):
+    [0.333813, 0.368137): 15599
+    [0.368137, 0.402461): 19513
+    [0.402461, 0.436785): 16578
+    [0.436785, 0.471109): 9725
+    [0.471109, 0.505433): 3683
+    [0.505433, 0.539756): 2900
+    [0.539756, 0.574080): 4348
+    [0.574080, 0.608404): 4353
+    [0.608404, 0.642728): 3671
+    [0.642728, 0.677052): 1550
+converted depth (disp_to_depth, min_depth=0.1 max_depth=150): min=0.147652, max=0.299171, mean=0.234739, std=0.038522
+  histogram (10 bins over observed range):
+    [0.147652, 0.162804): 4646
+    [0.162804, 0.177956): 6703
+    [0.177956, 0.193108): 4422
+    [0.193108, 0.208260): 3562
+    [0.208260, 0.223412): 6502
+    [0.223412, 0.238563): 12355
+    [0.238563, 0.253715): 12614
+    [0.253715, 0.268867): 13013
+    [0.268867, 0.284019): 13104
+    [0.284019, 0.299171): 4999
+disp relative std (std/mean): 0.190321 (has variation)
+
+--- frame 0109 ---
+input tensor: shape=(1, 3, 256, 320), dtype=torch.float32, min=0.000000, max=1.000000, mean=0.473314, std=0.238045
+raw sigmoid disparity ('disp',0): shape=(1, 1, 256, 320), min=0.29139149, max=0.82423866, mean=0.47534794, std=0.13313887
+  histogram (10 bins over observed range):
+    [0.291391, 0.344676): 5933
+    [0.344676, 0.397961): 27656
+    [0.397961, 0.451246): 16273
+    [0.451246, 0.504530): 5055
+    [0.504530, 0.557815): 3811
+    [0.557815, 0.611100): 5275
+    [0.611100, 0.664384): 6685
+    [0.664384, 0.717669): 5718
+    [0.717669, 0.770954): 4021
+    [0.770954, 0.824239): 1493
+converted depth (disp_to_depth, min_depth=0.1 max_depth=150): min=0.121307, max=0.342625, mean=0.224965, std=0.053805
+  histogram (10 bins over observed range):
+    [0.121307, 0.143439): 7637
+    [0.143439, 0.165571): 11094
+    [0.165571, 0.187702): 6367
+    [0.187702, 0.209834): 4723
+    [0.209834, 0.231966): 6555
+    [0.231966, 0.254098): 13722
+    [0.254098, 0.276230): 15183
+    [0.276230, 0.298362): 14641
+    [0.298362, 0.320494): 1680
+    [0.320494, 0.342625): 318
+disp relative std (std/mean): 0.280087 (has variation)
+
+--- frame 0217 ---
+input tensor: shape=(1, 3, 256, 320), dtype=torch.float32, min=0.000000, max=1.000000, mean=0.433230, std=0.189702
+raw sigmoid disparity ('disp',0): shape=(1, 1, 256, 320), min=0.33020109, max=0.67222649, mean=0.43871850, std=0.08079284
+  histogram (10 bins over observed range):
+    [0.330201, 0.364404): 10456
+    [0.364404, 0.398606): 22871
+    [0.398606, 0.432809): 16851
+    [0.432809, 0.467011): 11046
+    [0.467011, 0.501214): 3909
+    [0.501214, 0.535416): 2923
+    [0.535416, 0.569619): 4399
+    [0.569619, 0.603821): 4251
+    [0.603821, 0.638024): 3678
+    [0.638024, 0.672226): 1536
+converted depth (disp_to_depth, min_depth=0.1 max_depth=150): min=0.148711, max=0.302437, mean=0.234481, std=0.037132
+  histogram (10 bins over observed range):
+    [0.148711, 0.164084): 4629
+    [0.164084, 0.179456): 6673
+    [0.179456, 0.194829): 4443
+    [0.194829, 0.210201): 3778
+    [0.210201, 0.225574): 7643
+    [0.225574, 0.240946): 12806
+    [0.240946, 0.256319): 12677
+    [0.256319, 0.271692): 16069
+    [0.271692, 0.287064): 12923
+    [0.287064, 0.302437): 279
+disp relative std (std/mean): 0.184156 (has variation)
