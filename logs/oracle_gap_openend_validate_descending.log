@@ -1,0 +1,10 @@
+[11:25:56] loaded vignette mask: 102049 px (6.9992%)
+[11:25:57] 
+=== c1_descending_t1_v1: 123 frames, mesh 217311 faces ===
+[11:28:09] c1_descending_t1_v1 done in 132s (1.07s/frame)
+[11:28:09]   totals: escape=6092927, nohit=6105055, agree=6091639, escape_only=1288, nohit_only=13416, overall IoU=0.997592
+[11:28:09]   peak escape frame: 51, 73895 px (5.07% of frame)
+[11:28:09] 
+wrote /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_openend_validation.json
+[11:28:09] ALL DONE
+EXITCODE:0

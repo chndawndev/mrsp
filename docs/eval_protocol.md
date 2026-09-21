@@ -165,6 +165,34 @@ predicted-observed set.** This is definitionally the same quantity
 output marks as never adequately observed" — restated here to make the
 equivalence explicit, not introducing a new definition.
 
+### 2a. Evaluable pixel — the actual gate on the tau test
+
+Settled by `docs/eval_protocol_oracle_gap.md`'s investigation (vignette
+mask, open-end/mold escape diagnosis). A pixel is **evaluable**, applied
+identically to every configuration and every method, if and only if:
+
+- it is **inside the fixed camera valid-pixel mask** — the 135-sequence
+  majority mask, 102,049 px (6.9992%), `docs/eval_protocol.md` §8 — AND
+- **the hit distance along that pixel's ray is ≤100mm** (camera-frame
+  Z-depth, the same `d_hit` defined above, not Euclidean ray length).
+
+**Only evaluable pixels enter the tau test.** A pixel outside this gate
+never contributes to the predicted-observed set, regardless of what `tau`
+or the predicted/GT depth values say — there's nothing meaningful to test
+there (§ below). **Predicted depth is masked with the same valid-pixel
+mask before use**: a method's own output inside the vignette carries no
+information (the corresponding GT pixel is always forced to `raw==0` by
+the same hardware mask, `docs/gpu_validation.md`), so a method's
+predicted value there must not be trusted or scored either, symmetrically.
+
+This single gate is what separates the two distinct non-evaluable
+populations found during the investigation — a fixed hardware mask, and a
+depth-clamp — from the two *evaluable*-but-still-miss populations that
+need no special casing at all: open-end escapes and mold/extra-scene-
+geometry escapes are simply rays that find **no hit** against
+`coverage_mesh.obj`, already covered by §3 (discard, count), not folded
+into "evaluable" one way or the other.
+
 ### Why a tau gate is necessary (not just permitted)
 
 Without it, "predicted-observed" would degenerate into "the camera's
@@ -353,23 +381,41 @@ within a small, stated numerical tolerance (not yet chosen — proposed
 alongside whoever implements the extension) is required before the hit
 distance is trusted for the tau test anywhere else in this protocol.
 
-**What the oracle configuration must reproduce**: GT depth + GT pose,
-run through this protocol's own full ray-cast + tau-gate pipeline (not
-a shortcut re-derivation of `coverage_mesh.obj`'s `vt` flags), should
-recover a predicted-observed set matching the mesh's own GT-observed
-labeling almost exactly — because GT depth + GT pose + the same camera
-model is nearly the same information the original renderer used to
-produce those labels in the first place.
+**What the oracle configuration must reproduce — rewritten (2026-09-21)
+after `docs/eval_protocol_oracle_gap.md`'s Part 1 measurement**: GT depth
++ GT pose, run through this protocol's own full ray-cast + tau-gate
+pipeline, is compared against **our own GT rasterization restricted to
+evaluable pixels** (§2a) — *not* directly against the released mesh's
+`vt` flags. This is a deliberate change from the original plan: Part 1
+measured that even a perfect, error-free oracle **cannot** reach IoU 1.0
+against the released `vt` flags — vignette and the 100mm depth clamp
+create a structural ceiling of **0.948-0.968** (3 sequences measured,
+`docs/eval_protocol_oracle_gap.md`), for reasons that have nothing to do
+with the eval code's correctness. Comparing the code's oracle output
+directly against the released mesh would conflate a known, measured,
+method-independent gap with an actual code bug — exactly the ambiguity
+this rewrite avoids: the **evaluable-pixel-restricted** GT rasterization
+is a fair target that a correctly-implemented oracle configuration really
+can hit at IoU ≈ 1.0, since restricting to evaluable pixels removes
+precisely the two structural gap causes before comparison.
+
+**The released-GT comparison is kept too, as a separate, always-reported
+number, with Part 1's ceiling stated next to it every time** — so a
+reader sees "oracle vs. released GT: 0.95-ish (expected, see the
+measured ceiling)" and "oracle vs. evaluable-pixel GT: should be ≈1.0
+(actual code-correctness signal)" side by side, and nobody reads the
+first number as a bug.
 
 **Target and precedent**: `docs/gpu_validation.md` already validated a
 related but not identical check (a direct visibility ray-caster, not a
 depth-image-backprojection-and-tau-gate pipeline) at **full pixel
-density, achieving IoU 0.9988** against the released mesh. This protocol
-adopts the same **IoU ≥ 0.99** bar for its own oracle validation, at full
-density — a reasonable target given the closely related methodology, but
-not a guarantee this exact number reproduces, since the pipelines aren't
-identical (flagged so nobody mistakes 0.9988 as already having validated
-*this* code).
+density, achieving IoU 0.9988** against the released mesh — before the
+evaluable-pixel restriction existed as a concept. This protocol adopts
+the same **IoU ≥ 0.99** bar, now against the evaluable-pixel-restricted
+target, at full density — a reasonable target given the closely related
+methodology, but not a guarantee this exact number reproduces, since the
+pipelines aren't identical (flagged so nobody mistakes 0.9988 as already
+having validated *this* code).
 
 **Tau's effect on the oracle should be negligible, and that's itself a
 check**: since `d_pred` and `d_hit` are both derived from the same GT
@@ -406,6 +452,30 @@ recall, not a face-set IoU against the raw mesh labels — both should be
 checked, in that order (code correctness first, then the pre-registered
 result threshold), since a D1.2 failure with broken eval code would be
 mis-diagnosed as a method problem.
+
+### The oracle gap is a known, method-independent property — not a per-method finding
+
+Non-evaluable faces (vignette + 100mm-clamp, `docs/eval_protocol_oracle_gap.md`
+Part 1) are marked **unobserved** for every method equally, including a
+perfect oracle — no method, however accurate, can ever mark them observed,
+because the pixels that would need to are gated out before the tau test
+even runs (§2a). This has one specific, predictable consequence worth
+stating before any method's numbers are reported: it **raises false alarm
+rate uniformly** (`docs/success_criteria.md` §1: "fraction of
+predicted-unobserved area that GT marks as observed") — every non-evaluable
+face that the released GT calls observed contributes to false alarm rate
+for *every* method, oracle included, by construction, not because any
+method actually failed to detect something reachable.
+
+**Measured size of the effect**, from Part 1: 3.16-5.13% of each tested
+sequence's GT-observed faces are non-evaluable (`docs/eval_protocol_oracle_gap.md`).
+This is the same interval as the max-face-IoU shortfall (1 − 0.948 to
+1 − 0.968), for the same reason — it's the same face set, read two ways.
+Any reported false alarm rate should be read against this floor, the same
+way `docs/success_criteria.md` §2's D1.2/D1.3 already ask for an oracle
+baseline before trusting a predicted-configuration number — a method's
+false alarm rate minus this floor is the part that's actually about the
+method.
 
 ---
 
@@ -529,6 +599,24 @@ an explicit step in §6.
 
 ---
 
+## 8. Vignette mask — decided (2026-09-21)
+
+Resolved the `docs/eval_protocol_oracle_gap.md` investigation's Part A
+question: **the fixed camera valid-pixel mask is the 135-sequence
+majority mask, 102,049 px (6.9992%)**, computed as the intersection of GT
+depth `raw==0` across every frame, checked identical across 135 of the
+169 registered sequences (streamed from the archives, no extraction;
+`scratch/pipelines/oracle_gap_vignette_169.py`). The other 34 sequences'
+excess pixels (each sequence's own unique amount, +7px to +34,787px above
+this baseline) are **trajectory-dependent persistent escapes, not
+vignette** — a pixel that happens to face an opening for a whole
+sequence's duration, not a hardware property. These are handled by §3
+(rays that miss the mesh: discarded, counted), the same as the transient
+open-end bulges found earlier, not folded into the vignette mask. This
+value feeds §2a's "evaluable pixel" definition once Part 2 is written.
+
+---
+
 ## Flags: where this design touches frozen definitions
 
 None of the following are violations found in the frozen text — nothing
@@ -580,6 +668,25 @@ modified by writing this list.
    explicitly so it's confirmed or corrected before it becomes frozen by
    implementation, rather than assumed silently.
 
+   **Rejected alternative, stated explicitly**: registering the
+   *predicted point cloud* (backprojected predicted depth, at predicted
+   pose) directly onto `coverage_mesh.obj` — e.g. via ICP — was
+   considered and rejected. That approach lets **depth error drive the
+   alignment**: ICP would warp the predicted trajectory to minimize
+   point-to-mesh distance, which depends on predicted depth's own
+   accuracy. This would silently contaminate the "GT depth + predicted
+   pose" configuration (§4) — the whole point of that configuration is to
+   isolate pose error *alone*, with depth held exactly correct, but a
+   point-cloud-ICP registration computed from a run that includes
+   predicted depth (or fit once and reused, which just moves the
+   contamination) breaks that isolation and makes the four configurations
+   in §4 no longer independently interpretable. **Trajectory alignment
+   depends on pose only** (§1's Umeyama fit uses camera *positions*,
+   never depth) — it keeps depth error and pose error separable across
+   all four configurations, which is the entire reason §4's post-hoc-
+   substitution design exists in the first place
+   (`docs/success_criteria.md` §6's deviation entry).
+
 5. **Predicted intrinsics are not used anywhere in this protocol** — all
    ray-casting uses the project's own fixed Scaramuzza camera model,
    never a pipeline's own predicted (pinhole) intrinsics output, matching
@@ -588,6 +695,22 @@ modified by writing this list.
    a conflict, just making an implicit consequence of an existing frozen
    decision explicit before someone assumes predicted intrinsics get used
    somewhere in fusion.
+
+6. **The evaluable-pixel restriction (§2a) is a filter under
+   `docs/success_criteria.md` §5 prohibited move #4** ("Introducing a
+   per-sequence or per-region filter that was not pre-stated, unless it
+   is applied identically to every method and logged"). It qualifies:
+   the mask (135-sequence majority, 102,049px) and the 100mm cutoff are
+   fixed, sequence-independent, method-independent, and applied
+   identically to the oracle and every predicted configuration alike —
+   never tuned per sequence or per method — and it's logged here, in
+   `docs/eval_protocol_oracle_gap.md`, and in §6's rewritten
+   code-correctness target. **The GT region definition itself is
+   unchanged**: regions are still exactly the released `vt`-flagged
+   components (`docs/success_criteria.md` §1's "GT region"), not
+   recomputed against the evaluable-pixel mask — only the *predicted*
+   side (what counts as a valid comparison pixel) is restricted, never
+   the ground truth's own definition of what a region is.
 
 ---
 

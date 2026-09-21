@@ -1,0 +1,14 @@
+target pixel count: 5436 (expected 5436)
+
+distance to coverage_mesh.obj: median=4.398mm, mean=4.891mm, max=13.679mm, min=0.001mm
+fraction inside coverage_mesh.obj's bbox: 0.8585 (4667/5436)
+
+combined registered mold: 890372 verts, bbox [[-150.98597133021673, -500.48282240979444, -339.62024771296836], [39.47209872209399, -383.71430491490554, -227.3350711765637]]
+distance to registered mold (all 3 pieces combined): median=1.076mm, mean=1.451mm, max=7.936mm, min=0.001mm
+  vs c1_ascending_bottom.stl: median=6.981mm, min=0.001mm, frac<1mm=0.0587, frac<5mm=0.1829
+  vs c1_ascending_core.stl: median=1.332mm, min=0.003mm, frac<1mm=0.4178, frac<5mm=0.9042
+  vs c1_ascending_top.stl: median=27.835mm, min=9.292mm, frac<1mm=0.0000, frac<5mm=0.0000
+
+fraction closer to mold than to coverage_mesh.obj: 0.7653
+
+saved results/pipelines/oracle_gap_diagnosis_step3.npz

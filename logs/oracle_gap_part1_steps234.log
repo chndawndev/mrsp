@@ -1,0 +1,65 @@
+[11:30:29] vignette mask: 102049 px (6.9992%)
+[11:30:33] 
+=== c1_cecum_t1_v1: 218 frames, 699908 faces, 635753 GT-observed ===
+[11:30:35]   frame 0/217, elapsed 3s
+[11:31:40]   frame 50/217, elapsed 67s
+[11:32:41]   frame 100/217, elapsed 128s
+[11:33:43]   frame 150/217, elapsed 190s
+[11:34:46]   frame 200/217, elapsed 253s
+[11:35:07]   frame 217/217, elapsed 274s
+[11:35:07] c1_cecum_t1_v1: ray-casting done in 274s
+[11:35:07]   gap (GT-observed, never evaluable): 20095 / 635753 (3.1608%)
+[11:35:07]     -- vignette-only-reachable: 19720 (3.1018%)
+[11:35:07]     -- beyond-100mm-only-reachable: 0 (0.0000%)
+[11:35:07]     -- union: 19720 (3.1018%)
+[11:35:07]     -- residual (never hit evaluable/vignette/beyond100 at all): 375
+[11:35:07]   MAX FACE IoU (oracle ceiling vs released GT): 0.967873
+[11:35:07]   computing region-level impact ...
+[11:35:08]   original >5mm GT-unobserved regions: 3
+[11:35:08]   modified (gap reclassified unobserved) >5mm regions: 3
+[11:35:08]   original regions whose face-set changed: 3 / 3
+[11:35:08]   of those, regions that merged with other original regions: 3
+[11:35:10] 
+=== c1_ascending_t3_v1: 259 frames, 755902 faces, 615047 GT-observed ===
+[11:35:12]   frame 0/258, elapsed 2s
+[11:36:17]   frame 50/258, elapsed 67s
+[11:37:20]   frame 100/258, elapsed 130s
+[11:38:20]   frame 150/258, elapsed 190s
+[11:39:21]   frame 200/258, elapsed 251s
+[11:40:23]   frame 250/258, elapsed 313s
+[11:40:33]   frame 258/258, elapsed 323s
+[11:40:33] c1_ascending_t3_v1: ray-casting done in 323s
+[11:40:33]   gap (GT-observed, never evaluable): 31580 / 615047 (5.1346%)
+[11:40:33]     -- vignette-only-reachable: 23183 (3.7693%)
+[11:40:33]     -- beyond-100mm-only-reachable: 3744 (0.6087%)
+[11:40:33]     -- union: 26927 (4.3780%)
+[11:40:33]     -- residual (never hit evaluable/vignette/beyond100 at all): 4653
+[11:40:33]   MAX FACE IoU (oracle ceiling vs released GT): 0.948371
+[11:40:33]   computing region-level impact ...
+[11:40:34]   original >5mm GT-unobserved regions: 4
+[11:40:34]   modified (gap reclassified unobserved) >5mm regions: 5
+[11:40:34]   original regions whose face-set changed: 4 / 4
+[11:40:34]   of those, regions that merged with other original regions: 4
+[11:40:34] 
+=== c2_rectum_t1_v1: 154 frames, 284742 faces, 201300 GT-observed ===
+[11:40:36]   frame 0/153, elapsed 2s
+[11:41:36]   frame 50/153, elapsed 61s
+[11:42:36]   frame 100/153, elapsed 122s
+[11:43:36]   frame 150/153, elapsed 182s
+[11:43:40]   frame 153/153, elapsed 185s
+[11:43:40] c2_rectum_t1_v1: ray-casting done in 185s
+[11:43:40]   gap (GT-observed, never evaluable): 9329 / 201300 (4.6344%)
+[11:43:40]     -- vignette-only-reachable: 9176 (4.5584%)
+[11:43:40]     -- beyond-100mm-only-reachable: 0 (0.0000%)
+[11:43:40]     -- union: 9176 (4.5584%)
+[11:43:40]     -- residual (never hit evaluable/vignette/beyond100 at all): 153
+[11:43:40]   MAX FACE IoU (oracle ceiling vs released GT): 0.952970
+[11:43:40]   computing region-level impact ...
+[11:43:40]   original >5mm GT-unobserved regions: 4
+[11:43:40]   modified (gap reclassified unobserved) >5mm regions: 2
+[11:43:40]   original regions whose face-set changed: 4 / 4
+[11:43:40]   of those, regions that merged with other original regions: 4
+[11:43:40] 
+wrote /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_part1/summary.json
+[11:43:40] ALL DONE
+EXITCODE:0
