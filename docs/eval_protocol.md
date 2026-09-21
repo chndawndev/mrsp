@@ -337,6 +337,22 @@ never be presented identically.
 
 ## 6. Validation plan for the eval code
 
+**Step 0, prerequisite to everything below: validate the GPU rasterizer's
+new distance-output capability itself**, before trusting any oracle check
+that depends on it. §7's decision approved exactly two extensions to the
+frozen rasterizer — hit-distance output and arbitrary-pose input — and
+the existing IoU 0.9988 validation (`docs/gpu_validation.md`) covers only
+the rasterizer's original observed/unobserved logic, not this new
+capability. **Required check**: for a sample of frames, compare the
+rasterizer's reported hit distance against an independent computation of
+the same quantity (e.g. `src/geometry/camera.py`'s `backproject_depth`
+applied to the corresponding GT depth pixel, which should yield the same
+camera-frame Z-depth up to floating-point/ray-BVH precision, since both
+are describing the same GT geometry along the same ray). Agreement to
+within a small, stated numerical tolerance (not yet chosen — proposed
+alongside whoever implements the extension) is required before the hit
+distance is trusted for the tau test anywhere else in this protocol.
+
 **What the oracle configuration must reproduce**: GT depth + GT pose,
 run through this protocol's own full ray-cast + tau-gate pipeline (not
 a shortcut re-derivation of `coverage_mesh.obj`'s `vt` flags), should
@@ -494,18 +510,22 @@ resource" courtesy this project already practices for GPUs
 assuming unlimited concurrency is free to take on a shared box, and not
 benchmarked here (single-process cost only was measured).
 
-### Decision (2026-09-20)
+### Decision (2026-09-20) — approved by Chen
 
-**Option 1 approved**: extend the existing GPU (Warp) visibility
-rasterizer — add hit-distance output and accept an arbitrary camera pose
-(GT or aligned-predicted), not only the GT trajectory it currently runs
-against. This is the sign-off `docs/visibility_limitations.md`'s "frozen"
-note requires, obtained here, for exactly this extension (hit-distance
-output + arbitrary-pose input) — not a blanket reopening of that tooling
-for unrelated changes. Options 2-4 are documented above for the record
-but not being pursued. **Not yet implemented** — this section records the
-decision; the extension itself and `src/eval/` are separate, still-unwritten
-next steps.
+**Option 1 approved by Chen**, in-conversation, via an explicit choice
+between the four options presented above (not inferred from an absence of
+objection): extend the existing GPU (Warp) visibility rasterizer — add
+hit-distance output and accept an arbitrary camera pose (GT or
+aligned-predicted), not only the GT trajectory it currently runs against.
+This is the sign-off `docs/visibility_limitations.md`'s "frozen" note
+requires, obtained here, for **exactly these two extensions (hit-distance
+output + arbitrary-pose input) and nothing else** — not a blanket
+reopening of that tooling for unrelated changes. Options 2-4 are
+documented above for the record but not being pursued. **Not yet
+implemented** — this section records the decision; the extension itself
+and `src/eval/` are separate, still-unwritten next steps. The new
+distance-output capability needs its own validation before use, added as
+an explicit step in §6.
 
 ---
 
