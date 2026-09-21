@@ -1,0 +1,15 @@
+[23:59:37] loaded vignette mask: 102049 px (6.9992%)
+[23:59:41] 
+=== c1_ascending_t3_v1: 259 frames, mesh 755902 faces ===
+[00:05:13] c1_ascending_t3_v1 done in 332s (1.28s/frame)
+[00:05:13]   totals: escape=24483, nohit=2854253, agree=24483, escape_only=0, nohit_only=2829770, overall IoU=0.008578
+[00:05:13]   peak escape frame: 152, 1375 px (0.09% of frame)
+[00:05:14] 
+=== c2_rectum_t1_v1: 154 frames, mesh 284742 faces ===
+[00:08:24] c2_rectum_t1_v1 done in 191s (1.24s/frame)
+[00:08:24]   totals: escape=427169, nohit=427311, agree=426946, escape_only=223, nohit_only=365, overall IoU=0.998625
+[00:08:24]   peak escape frame: 41, 17148 px (1.18% of frame)
+[00:08:24] 
+wrote /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_openend_validation.json
+[00:08:24] ALL DONE
+EXITCODE:0

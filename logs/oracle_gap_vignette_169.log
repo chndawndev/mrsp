@@ -1,0 +1,99 @@
+[23:27:19] 169 registered sequences (c1_*/c2_*, c0_* excluded)
+[23:27:26]   [1/169] c1_ascending_t1_v1: 282 frames, 102049 vignette px (6.9992%), elapsed 7s
+[23:29:38]   [11/169] c1_ascending_t4_v3: 694 frames, 102049 vignette px (6.9992%), elapsed 139s
+[23:32:09]   [21/169] c1_cecum_t4_v2: 959 frames, 102049 vignette px (6.9992%), elapsed 290s
+[23:34:00]   [31/169] c1_descending_t4_v1: 192 frames, 121991 vignette px (8.3670%), elapsed 401s
+[23:35:26]   [41/169] c1_rectum_t3_v2: 220 frames, 102049 vignette px (6.9992%), elapsed 487s
+[23:36:58]   [51/169] c1_sigmoid1_t2_v3: 286 frames, 102049 vignette px (6.9992%), elapsed 579s
+[23:38:31]   [61/169] c1_sigmoid2_t2_v1: 400 frames, 109411 vignette px (7.5042%), elapsed 673s
+[23:39:38]   [71/169] c1_transverse1_t1_v2: 117 frames, 103564 vignette px (7.1032%), elapsed 739s
+[23:41:01]   [81/169] c1_transverse1_t4_v3: 626 frames, 102049 vignette px (6.9992%), elapsed 822s
+[23:42:41]   [91/169] c1_transverse2_t4_v1: 258 frames, 123268 vignette px (8.4546%), elapsed 923s
+[23:44:24]   [101/169] c2_ascending_t3_v2: 522 frames, 102049 vignette px (6.9992%), elapsed 1025s
+[23:45:58]   [111/169] c2_cecum_t3_v1: 228 frames, 102049 vignette px (6.9992%), elapsed 1119s
+[23:47:12]   [121/169] c2_descending_t4_v2: 128 frames, 102049 vignette px (6.9992%), elapsed 1194s
+[23:48:45]   [131/169] c2_rectum_t3_v3: 333 frames, 102049 vignette px (6.9992%), elapsed 1287s
+[23:50:29]   [141/169] c2_sigmoid_t3_v1: 391 frames, 102049 vignette px (6.9992%), elapsed 1390s
+[23:52:11]   [151/169] c2_transverse1_t2_v2: 600 frames, 102049 vignette px (6.9992%), elapsed 1492s
+[23:53:57]   [161/169] c2_transverse2_t1_v3: 552 frames, 102049 vignette px (6.9992%), elapsed 1599s
+[23:55:35]   [169/169] c2_transverse2_t4_v3: 940 frames, 102049 vignette px (6.9992%), elapsed 1697s
+[23:55:35] 
+all sequences processed in 1697s
+[23:55:35] 
+=== comparing all per-sequence vignette masks ===
+[23:55:35] reference: c1_ascending_t1_v1, 102049 vignette px
+[23:55:35] number of DISTINCT masks across 169 sequences: 35
+[23:55:35] RESULT: masks DIFFER. Reporting groups:
+[23:55:35]   group with 102049 vignette px, 135 sequences (c1=62 c2=73, v1=43 v2=47 v3=45 v4=0): ['c1_ascending_t1_v1', 'c1_ascending_t1_v2', 'c1_ascending_t2_v1', 'c1_ascending_t2_v2', 'c1_ascending_t2_v3']...
+[23:55:35]   group with 122787 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_descending_t1_v1']
+[23:55:35]   group with 119742 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_descending_t1_v2']
+[23:55:35]   group with 119741 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_descending_t1_v3']
+[23:55:35]   group with 127402 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_descending_t3_v1']
+[23:55:35]   group with 102944 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_descending_t3_v2']
+[23:55:35]   group with 102954 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_descending_t3_v3']
+[23:55:35]   group with 121991 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_descending_t4_v1']
+[23:55:35]   group with 102056 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_sigmoid2_t1_v1']
+[23:55:35]   group with 111431 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_sigmoid2_t1_v2']
+[23:55:35]   group with 111443 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_sigmoid2_t1_v3']
+[23:55:35]   group with 109411 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_sigmoid2_t2_v1']
+[23:55:35]   group with 102106 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_sigmoid2_t2_v3']
+[23:55:35]   group with 102941 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_sigmoid2_t3_v1']
+[23:55:35]   group with 104442 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_sigmoid2_t3_v2']
+[23:55:35]   group with 104595 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_sigmoid2_t3_v3']
+[23:55:35]   group with 102730 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_sigmoid2_t4_v3']
+[23:55:35]   group with 104539 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_transverse1_t1_v1']
+[23:55:35]   group with 103564 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_transverse1_t1_v2']
+[23:55:35]   group with 103512 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_transverse1_t1_v3']
+[23:55:35]   group with 104148 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_transverse1_t4_v1']
+[23:55:35]   group with 120498 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_transverse2_t1_v1']
+[23:55:35]   group with 103212 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_transverse2_t1_v2']
+[23:55:35]   group with 103557 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_transverse2_t1_v3']
+[23:55:35]   group with 102086 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_transverse2_t2_v1']
+[23:55:35]   group with 106220 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_transverse2_t2_v2']
+[23:55:35]   group with 106203 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_transverse2_t2_v3']
+[23:55:35]   group with 136836 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_transverse2_t3_v2']
+[23:55:35]   group with 136822 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_transverse2_t3_v3']
+[23:55:35]   group with 123268 vignette px, 1 sequences (c1=1 c2=0, v1=1 v2=0 v3=0 v4=0): ['c1_transverse2_t4_v1']
+[23:55:35]   group with 107549 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=1 v3=0 v4=0): ['c1_transverse2_t4_v2']
+[23:55:35]   group with 107540 vignette px, 1 sequences (c1=1 c2=0, v1=0 v2=0 v3=1 v4=0): ['c1_transverse2_t4_v3']
+[23:55:35]   group with 102060 vignette px, 1 sequences (c1=0 c2=1, v1=1 v2=0 v3=0 v4=0): ['c2_transverse1_t2_v1']
+[23:55:35]   group with 107454 vignette px, 1 sequences (c1=0 c2=1, v1=0 v2=1 v3=0 v4=0): ['c2_transverse1_t3_v2']
+[23:55:35]   group with 107449 vignette px, 1 sequences (c1=0 c2=1, v1=0 v2=0 v3=1 v4=0): ['c2_transverse1_t3_v3']
+[23:55:35]   group starting with c1_descending_t1_v1: differs from reference (c1_ascending_t1_v1) at 20738 pixels
+[23:55:35]   group starting with c1_descending_t1_v2: differs from reference (c1_ascending_t1_v1) at 17693 pixels
+[23:55:35]   group starting with c1_descending_t1_v3: differs from reference (c1_ascending_t1_v1) at 17692 pixels
+[23:55:35]   group starting with c1_descending_t3_v1: differs from reference (c1_ascending_t1_v1) at 25353 pixels
+[23:55:35]   group starting with c1_descending_t3_v2: differs from reference (c1_ascending_t1_v1) at 895 pixels
+[23:55:35]   group starting with c1_descending_t3_v3: differs from reference (c1_ascending_t1_v1) at 905 pixels
+[23:55:35]   group starting with c1_descending_t4_v1: differs from reference (c1_ascending_t1_v1) at 19942 pixels
+[23:55:35]   group starting with c1_sigmoid2_t1_v1: differs from reference (c1_ascending_t1_v1) at 7 pixels
+[23:55:35]   group starting with c1_sigmoid2_t1_v2: differs from reference (c1_ascending_t1_v1) at 9382 pixels
+[23:55:35]   group starting with c1_sigmoid2_t1_v3: differs from reference (c1_ascending_t1_v1) at 9394 pixels
+[23:55:35]   group starting with c1_sigmoid2_t2_v1: differs from reference (c1_ascending_t1_v1) at 7362 pixels
+[23:55:35]   group starting with c1_sigmoid2_t2_v3: differs from reference (c1_ascending_t1_v1) at 57 pixels
+[23:55:35]   group starting with c1_sigmoid2_t3_v1: differs from reference (c1_ascending_t1_v1) at 892 pixels
+[23:55:35]   group starting with c1_sigmoid2_t3_v2: differs from reference (c1_ascending_t1_v1) at 2393 pixels
+[23:55:35]   group starting with c1_sigmoid2_t3_v3: differs from reference (c1_ascending_t1_v1) at 2546 pixels
+[23:55:35]   group starting with c1_sigmoid2_t4_v3: differs from reference (c1_ascending_t1_v1) at 681 pixels
+[23:55:35]   group starting with c1_transverse1_t1_v1: differs from reference (c1_ascending_t1_v1) at 2490 pixels
+[23:55:35]   group starting with c1_transverse1_t1_v2: differs from reference (c1_ascending_t1_v1) at 1515 pixels
+[23:55:35]   group starting with c1_transverse1_t1_v3: differs from reference (c1_ascending_t1_v1) at 1463 pixels
+[23:55:35]   group starting with c1_transverse1_t4_v1: differs from reference (c1_ascending_t1_v1) at 2099 pixels
+[23:55:35]   group starting with c1_transverse2_t1_v1: differs from reference (c1_ascending_t1_v1) at 18449 pixels
+[23:55:35]   group starting with c1_transverse2_t1_v2: differs from reference (c1_ascending_t1_v1) at 1163 pixels
+[23:55:35]   group starting with c1_transverse2_t1_v3: differs from reference (c1_ascending_t1_v1) at 1508 pixels
+[23:55:35]   group starting with c1_transverse2_t2_v1: differs from reference (c1_ascending_t1_v1) at 37 pixels
+[23:55:35]   group starting with c1_transverse2_t2_v2: differs from reference (c1_ascending_t1_v1) at 4171 pixels
+[23:55:35]   group starting with c1_transverse2_t2_v3: differs from reference (c1_ascending_t1_v1) at 4154 pixels
+[23:55:35]   group starting with c1_transverse2_t3_v2: differs from reference (c1_ascending_t1_v1) at 34787 pixels
+[23:55:35]   group starting with c1_transverse2_t3_v3: differs from reference (c1_ascending_t1_v1) at 34773 pixels
+[23:55:35]   group starting with c1_transverse2_t4_v1: differs from reference (c1_ascending_t1_v1) at 21219 pixels
+[23:55:35]   group starting with c1_transverse2_t4_v2: differs from reference (c1_ascending_t1_v1) at 5500 pixels
+[23:55:35]   group starting with c1_transverse2_t4_v3: differs from reference (c1_ascending_t1_v1) at 5491 pixels
+[23:55:35]   group starting with c2_transverse1_t2_v1: differs from reference (c1_ascending_t1_v1) at 11 pixels
+[23:55:35]   group starting with c2_transverse1_t3_v2: differs from reference (c1_ascending_t1_v1) at 5405 pixels
+[23:55:35]   group starting with c2_transverse1_t3_v3: differs from reference (c1_ascending_t1_v1) at 5400 pixels
+[23:55:35] 
+wrote /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_vignette/summary.json
+[23:55:35] ALL DONE
+EXITCODE:0
