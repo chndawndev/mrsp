@@ -53,33 +53,112 @@ factor.
 
 ---
 
-## 3. Depth scale vs. pose scale: substantially inconsistent
+## 3. Depth scale vs. pose scale: a geometric consistency test
 
-| Quantity | Value |
-|---|---|
-| `s_pose` | 557.87 |
-| median depth scale | 177.01 |
-| ratio (`s_pose` / median depth scale) | **3.15** |
-| percent difference | **+215%** |
-| differ by more than 20%? | **YES, by over an order of magnitude past the threshold** |
+**Correction (2026-09-20): this section originally compared `s_pose`
+(557.87) directly against the median depth scale (177.01) as a ratio
+(3.15x, "+215%") and concluded depth and pose were substantially
+inconsistent. That comparison was invalid and has been removed, not just
+reworded.** `s_pose` converts network-native *translation* units to mm;
+the depth scale converts network-native *depth* units to mm. These are
+two independently-initialized output heads with unrelated internal unit
+systems (`docs/pipelines/endodac.md` §3) — there is no reason the two
+raw numeric factors should be comparable at all, any more than a
+currency-exchange rate and a unit-conversion factor for length would be.
+A large numeric ratio between them measures nothing. Replaced with an
+actual geometric test, below.
 
-**Depth and pose carry inconsistent scale.** The pose-derived scale factor
-is more than 3x the depth-derived scale factor — nowhere near the 20%
-tolerance. This is not surprising in retrospect: depth and pose come from
-two entirely separate network heads (`depth_model.pth` vs.
-`pose_encoder.pth`/`pose.pth`) with independent, arbitrarily-initialized
-output unit systems (`docs/pipelines/endodac.md` §3's scale-ambiguity
-note applies to both, independently) — there is no architectural reason
-their native units would agree, and they measurably don't.
+### The test
 
-**Consequence for fusion, stated as instructed:** depth and pose must be
-scaled **separately** — a single shared scale factor recovered from one
-(e.g. from pose via Umeyama-to-GT, or from depth via median-matching)
-cannot be reused for the other. Any fusion step (post-hoc substitution,
-`docs/success_criteria.md` §6) that projects predicted depth using
-predicted or GT poses must resolve depth's own scale independently from
-whatever scale resolution pose uses, or the fused reconstruction will be
-off by roughly the 3.15x ratio measured here.
+Four configurations, 20 frames spread evenly across `c1_cecum_t1_v1`
+(indices `0, 11, 22, ..., 217`), backprojected via the project's own
+validated camera model (`src/geometry/camera.py`) and compared against
+`coverage_mesh.obj` using the exact same methodology as
+`scripts/oracle_check.py` (pixel stride 8, `trimesh` nearest-surface
+query, capped at 20,000 query points per configuration — same cap
+`oracle_check.py` uses). Script:
+`scratch/pipelines/endodac_fusion_check.py`, log:
+`logs/endodac_fusion_check.log`, raw numbers:
+`results/pipelines/endodac_fusion_check/metrics.json`.
+
+| Config | Depth | Pose | Median dist. | p95 dist. |
+|---|---|---|---|---|
+| **A. oracle** | GT (mm) | GT (world frame) | **0.028 mm** | 0.099 mm |
+| **B. fully predicted** | pred × 177.01 | pred, world-anchored | **10.12 mm** | 33.91 mm |
+| **C. pred depth only** | pred × 177.01 | GT | **10.17 mm** | 33.32 mm |
+| **D. pred pose only** | GT (mm) | pred, world-anchored | **3.70 mm** | 10.29 mm |
+
+Config A reproduces `docs/oracle_check.md`'s established 0.028mm almost
+exactly (0.0282mm here, on a different 20-frame/stride-8 sample vs. the
+original all-218-frame run) — confirms this script's camera-model/pose
+plumbing matches the validated pipeline, not a new implementation with
+its own bugs.
+
+**Predicted poses need a world-frame anchor, not just a scalar.**
+`poses_pred.npy`'s chain starts at an arbitrary reference frame (frame 0
+= identity) — a bare multiply by `s_pose` fixes the *scale* of that
+arbitrary frame but not its *position/orientation* relative to the mesh's
+real-world coordinates, which is a separate, necessary piece of
+bookkeeping. Configs B and D apply the **full** Umeyama similarity
+transform (rotation `R_u`, translation `t_u`, scale `s_pose` — the same
+`s_pose` from section 2, unchanged) fitted over the whole 218-frame
+trajectory to re-express each predicted camera pose in the mesh's world
+frame: for predicted rotation `R_i` and translation `t_i` at frame `i`,
+`R_world = R_u @ R_i`, `T_world = s_pose * (R_u @ t_i) + t_u`. This is
+required to ask the geometric question at all — without it, *any*
+depth/pose combination would land arbitrarily far from the mesh
+regardless of scale correctness, which would itself be a units error of
+the same kind being corrected here.
+
+### Result: the two scales are geometrically consistent, order of magnitude
+
+**Config B (fully predicted) lands at a median 10.12mm from the true
+mesh surface — not hundreds of mm.** For comparison, the *wrong* pose
+interpretation tested during setup (`docs/pipelines/endodac.md` §7's
+precursor to that convention check, and the original pose.txt transpose
+ambiguity in `docs/oracle_check.md`) produced ~400mm errors — two orders
+of magnitude worse. 10mm is small relative to the mesh's own geometric
+scale (this sequence's unobserved regions alone range 5mm to several cm,
+`docs/success_criteria.md` §1's size classes). **This confirms the
+user's stated hypothesis: the fully-predicted configuration lands near
+the mesh, so the two independently-fit global scales are geometrically
+consistent when combined, and the earlier "3.15x" reading was exactly
+the incommensurable-units artifact it's now described as** — not
+evidence of a real scale mismatch.
+
+### Isolating the source: depth error dominates, not a depth/pose interaction
+
+Comparing the two controls against the fully-predicted result:
+
+- **C (pred depth + GT pose) ≈ B (pred depth + pred pose)**: 10.17mm vs.
+  10.12mm — nearly identical. Swapping in perfect pose barely changes the
+  outcome.
+- **D (GT depth + pred pose)**: 3.70mm — noticeably smaller than either
+  depth-involving configuration.
+
+**Depth error dominates the misplacement; pose error is a smaller,
+mostly-independent contributor.** This is consistent with section 1's
+finding that a single global depth scale is a poor fit (13.4-51.2%
+relative spread) — that per-frame scale mismatch, plus depth's own
+structural/shape error (`docs/pipelines/endodac.md` §6, baseline Spearman
+ρ ≈ -0.87, real but imperfect correlation), plausibly explains most of
+configs B and C's ~10mm gap. **Illustrative check, not a proven
+decomposition law**: treating the two error sources as roughly
+independent, `sqrt(C² + D²) = sqrt(10.17² + 3.70²) ≈ 10.82mm`, close to
+B's measured 10.12mm — consistent with roughly-independent, not strongly
+super-additive, error sources, though this quadrature check is offered as
+a sanity-check on the qualitative "depth dominates" reading, not as a
+validated error-propagation model.
+
+**Consequence for fusion, stated as instructed:** the earlier
+"depth and pose must be scaled separately, one factor cannot be reused
+for the other" advice was correct in effect (they clearly ARE two
+separate fits with different numeric values, 177.01 and 557.87, in
+unrelated units) but for the wrong stated reason (a meaningless ratio,
+not a demonstrated geometric mismatch). The corrected reasoning: fit each
+scale independently (as already done) and expect the fused reconstruction
+to land within roughly the 10mm order of magnitude shown here — dominated
+by depth's own accuracy, not by any depth/pose scale disagreement.
 
 ---
 
@@ -118,7 +197,7 @@ concrete, reportable number for this sequence.
 |---|---|
 | Depth scale tightness | Wide: 13.4% relative IQR, 51.2% relative range across 218 frames — not a tight single global scale |
 | Pose scale | `s_pose` = 557.87, ATE 9.23mm over the full trajectory |
-| Depth vs. pose scale consistency | **Inconsistent**: ratio 3.15x, +215% — well past the 20% threshold. Must scale depth and pose separately in fusion. |
+| Depth vs. pose scale consistency | **Corrected via geometric test (§3)**: fully-predicted reconstruction lands 10.12mm median from the mesh (vs. oracle's 0.028mm, and vs. ~400mm for a genuinely wrong transform) — the two independently-fit scales are geometrically consistent; the earlier "3.15x inconsistent" reading compared incommensurable units and was removed. Depth error dominates the ~10mm gap (pred-depth-only ≈ fully-predicted; pred-pose-only is 3.70mm), not a depth/pose scale mismatch. |
 | Trajectory drift (candidate D1.1 metric) | Path length ratio 0.920 (8% short); **endpoint error 2.78% of distance traveled** |
 
 No evaluation code written. This is measurement only, ahead of designing

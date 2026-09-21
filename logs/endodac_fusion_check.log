@@ -1,0 +1,35 @@
+[21:46:37] loading intrinsics, GT poses, predicted poses, mesh ...
+[21:46:37] using depth_scale (global median) = 177.0134
+[21:46:37] Umeyama fit: s_pose=557.8712 (cross-check vs saved 557.8712)
+[21:46:40] mesh: 350595 verts, 699908 faces
+[21:46:40] test frames (20): [0, 11, 22, 34, 45, 57, 68, 79, 91, 102, 114, 125, 137, 148, 159, 171, 182, 194, 205, 217]
+[21:46:41]   frame 0: 18159 valid pts
+[21:46:41]   frame 11: 18159 valid pts
+[21:46:41]   frame 22: 18187 valid pts
+[21:46:41]   frame 34: 18810 valid pts
+[21:46:41]   frame 45: 21202 valid pts
+[21:46:41]   frame 57: 21202 valid pts
+[21:46:41]   frame 68: 21202 valid pts
+[21:46:41]   frame 79: 21202 valid pts
+[21:46:41]   frame 91: 20386 valid pts
+[21:46:41]   frame 102: 17961 valid pts
+[21:46:41]   frame 114: 18456 valid pts
+[21:46:41]   frame 125: 21202 valid pts
+[21:46:41]   frame 137: 21202 valid pts
+[21:46:41]   frame 148: 21202 valid pts
+[21:46:41]   frame 159: 21202 valid pts
+[21:46:41]   frame 171: 17886 valid pts
+[21:46:41]   frame 182: 18162 valid pts
+[21:46:41]   frame 194: 18159 valid pts
+[21:46:41]   frame 205: 18159 valid pts
+[21:46:41]   frame 217: 18159 valid pts
+[21:46:41] [A_oracle] querying nearest surface for 20000/390259 points ...
+[21:46:46] [A_oracle] done in 5.2s: median=0.0282mm p95=0.0993mm
+[21:46:46] [B_fully_predicted] querying nearest surface for 20000/390259 points ...
+[21:48:32] [B_fully_predicted] done in 106.0s: median=10.1157mm p95=33.9067mm
+[21:48:32] [C_pred_depth_only] querying nearest surface for 20000/390259 points ...
+[21:50:14] [C_pred_depth_only] done in 101.7s: median=10.1740mm p95=33.3219mm
+[21:50:14] [D_pred_pose_only] querying nearest surface for 20000/390259 points ...
+[21:50:29] [D_pred_pose_only] done in 15.4s: median=3.7006mm p95=10.2875mm
+[21:50:29] wrote /data1_ycao/chua/projects/mrsp/results/pipelines/endodac_fusion_check/metrics.json
+[21:50:29] ALL DONE
