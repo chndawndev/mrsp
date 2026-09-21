@@ -1,0 +1,44 @@
+[15:09:35] stride 4: 91260 rays/frame (6451 vignette, 84809 non-vignette)
+[15:09:35] 169 registered sequences
+[15:10:00]   [1/169] c1_ascending_t1_v1: 282f, GT_obs=662255, vignette_only=18379 (2.775%), 22.4s, total 25s
+[15:12:54]   [6/169] c1_ascending_t3_v1: 259f, GT_obs=615047, vignette_only=22914 (3.726%), 19.6s, total 199s
+[15:17:10]   [11/169] c1_ascending_t4_v3: 694f, GT_obs=512630, vignette_only=16595 (3.237%), 52.8s, total 455s
+[15:19:31]   [16/169] c1_cecum_t2_v2: 328f, GT_obs=637391, vignette_only=26519 (4.161%), 24.2s, total 597s
+[15:24:21]   [21/169] c1_cecum_t4_v2: 959f, GT_obs=638527, vignette_only=21951 (3.438%), 76.8s, total 887s
+[15:27:19]   [26/169] c1_descending_t2_v2: 617f, GT_obs=162184, vignette_only=4702 (2.899%), 45.7s, total 1065s
+[15:29:37]   [31/169] c1_descending_t4_v1: 192f, GT_obs=160130, vignette_only=2869 (1.792%), 14.7s, total 1203s
+[15:31:53]   [36/169] c1_rectum_t1_v3: 383f, GT_obs=595826, vignette_only=8161 (1.370%), 32.8s, total 1338s
+[15:34:04]   [41/169] c1_rectum_t3_v2: 220f, GT_obs=582012, vignette_only=7394 (1.270%), 19.3s, total 1470s
+[15:36:48]   [46/169] c1_sigmoid1_t1_v1: 191f, GT_obs=248387, vignette_only=7967 (3.207%), 15.1s, total 1634s
+[15:38:59]   [51/169] c1_sigmoid1_t2_v3: 286f, GT_obs=281495, vignette_only=16318 (5.797%), 20.9s, total 1764s
+[15:42:00]   [56/169] c1_sigmoid1_t4_v2: 708f, GT_obs=272907, vignette_only=8295 (3.039%), 50.3s, total 1945s
+[15:43:44]   [61/169] c1_sigmoid2_t2_v1: 400f, GT_obs=114977, vignette_only=3217 (2.798%), 24.8s, total 2049s
+[15:45:00]   [66/169] c1_sigmoid2_t3_v3: 243f, GT_obs=105124, vignette_only=2977 (2.832%), 15.3s, total 2126s
+[15:46:40]   [71/169] c1_transverse1_t1_v2: 117f, GT_obs=217051, vignette_only=4003 (1.844%), 9.9s, total 2225s
+[15:48:35]   [76/169] c1_transverse1_t3_v1: 203f, GT_obs=237584, vignette_only=7397 (3.113%), 15.9s, total 2341s
+[15:50:57]   [81/169] c1_transverse1_t4_v3: 626f, GT_obs=228280, vignette_only=4063 (1.780%), 42.7s, total 2482s
+[15:53:12]   [86/169] c1_transverse2_t2_v2: 559f, GT_obs=122284, vignette_only=2321 (1.898%), 31.5s, total 2617s
+[15:55:22]   [91/169] c1_transverse2_t4_v1: 258f, GT_obs=114794, vignette_only=1829 (1.593%), 18.3s, total 2748s
+[15:58:22]   [96/169] c2_ascending_t1_v3: 515f, GT_obs=533958, vignette_only=21582 (4.042%), 42.1s, total 2927s
+[16:01:23]   [101/169] c2_ascending_t3_v2: 522f, GT_obs=525435, vignette_only=21199 (4.035%), 41.9s, total 3109s
+[16:04:16]   [106/169] c2_cecum_t1_v1: 304f, GT_obs=445878, vignette_only=20543 (4.607%), 23.7s, total 3281s
+[16:06:54]   [111/169] c2_cecum_t3_v1: 228f, GT_obs=498699, vignette_only=18694 (3.749%), 16.8s, total 3439s
+[16:09:09]   [116/169] c2_cecum_t4_v3: 520f, GT_obs=512364, vignette_only=25384 (4.954%), 34.1s, total 3574s
+[16:11:08]   [121/169] c2_descending_t4_v2: 128f, GT_obs=374316, vignette_only=6769 (1.808%), 11.7s, total 3693s
+[16:14:11]   [126/169] c2_rectum_t2_v1: 519f, GT_obs=222602, vignette_only=9205 (4.135%), 39.6s, total 3877s
+[16:16:30]   [131/169] c2_rectum_t3_v3: 333f, GT_obs=203806, vignette_only=13876 (6.808%), 25.9s, total 4015s
+[16:18:52]   [136/169] c2_sigmoid_t1_v2: 558f, GT_obs=152711, vignette_only=1881 (1.232%), 40.1s, total 4158s
+[16:21:38]   [141/169] c2_sigmoid_t3_v1: 391f, GT_obs=149450, vignette_only=7019 (4.697%), 28.5s, total 4324s
+[16:23:32]   [146/169] c2_sigmoid_t4_v3: 290f, GT_obs=158198, vignette_only=10389 (6.567%), 22.9s, total 4438s
+[16:27:50]   [151/169] c2_transverse1_t2_v2: 600f, GT_obs=295981, vignette_only=7339 (2.480%), 48.4s, total 4695s
+[16:31:10]   [156/169] c2_transverse1_t4_v1: 376f, GT_obs=241197, vignette_only=7355 (3.049%), 30.7s, total 4896s
+[16:34:03]   [161/169] c2_transverse2_t1_v3: 552f, GT_obs=145361, vignette_only=9315 (6.408%), 37.4s, total 5068s
+[16:36:30]   [166/169] c2_transverse2_t3_v2: 733f, GT_obs=100596, vignette_only=11970 (11.899%), 52.3s, total 5216s
+[16:39:22]   [169/169] c2_transverse2_t4_v3: 940f, GT_obs=132774, vignette_only=9465 (7.129%), 68.1s, total 5387s
+[16:39:22] 
+all done in 5387s
+[16:39:22] 
+=== distribution of vignette-only fraction of GT-observed faces, 169 sequences ===
+[16:39:22] median=2.899%, mean=3.278%, min=0.666%, max=11.899%, p25=1.898%, p75=4.135%
+[16:39:22] ALL DONE
+EXITCODE:0

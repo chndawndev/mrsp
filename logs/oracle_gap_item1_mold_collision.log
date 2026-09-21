@@ -1,0 +1,111 @@
+[15:57:19] 
+=== c1_ascending_t4_v2 (3D model: c1_ascending) ===
+[15:57:25]   loaded raw lumen: 838043 faces in 3.0s
+[16:11:59]   lumen->coverage_mesh registration RMS: 0.0528mm (873.9s)
+[16:11:59]     loaded c1_ascending_bottom: 400708 faces in 0.0s
+[16:11:59]     loaded c1_ascending_core: 1320511 faces in 0.1s
+[16:12:00]     loaded c1_ascending_top: 253230 faces in 0.0s
+[16:12:00]   mold pieces: [('c1_ascending_bottom', 400708), ('c1_ascending_core', 1320511), ('c1_ascending_top', 253230)]
+[16:12:10]     frame 0/693, elapsed 10s
+[16:15:07]     frame 50/693, elapsed 187s
+[16:17:46]     frame 100/693, elapsed 346s
+[16:20:26]     frame 150/693, elapsed 505s
+[16:23:15]     frame 200/693, elapsed 675s
+[16:26:34]     frame 250/693, elapsed 874s
+[16:29:50]     frame 300/693, elapsed 1070s
+[16:33:07]     frame 350/693, elapsed 1267s
+[16:36:33]     frame 400/693, elapsed 1473s
+[16:39:55]     frame 450/693, elapsed 1675s
+[16:43:14]     frame 500/693, elapsed 1874s
+[16:46:30]     frame 550/693, elapsed 2069s
+[16:49:24]     frame 600/693, elapsed 2244s
+[16:52:00]     frame 650/693, elapsed 2400s
+[16:54:07]     frame 693/693, elapsed 2527s
+[16:54:07]   ray-casting done in 2527s
+[16:54:07]   false_unobserved (residual): 8032 faces (GT-observed=512586)
+[16:54:07]     vs c1_ascending_bottom (400708 faces): 7952/8032 false_unobserved indices below bound (99.00%)
+[16:54:07]     vs c1_ascending_core (1320511 faces): 8032/8032 false_unobserved indices below bound (100.00%)
+[16:54:07]     vs c1_ascending_top (253230 faces): 7934/8032 false_unobserved indices below bound (98.78%)
+[16:54:07]     overlap vs c1_ascending_bottom: fu_comparable=7952, mold_hit=205003, overlap=1778, IoU=0.0084, frac_of_fu_explained=0.2236
+[16:54:07]     overlap vs c1_ascending_core: fu_comparable=8032, mold_hit=279, overlap=0, IoU=0.0000, frac_of_fu_explained=0.0000
+[16:54:07]     overlap vs c1_ascending_top: fu_comparable=7934, mold_hit=78972, overlap=2987, IoU=0.0356, frac_of_fu_explained=0.3765
+[16:54:07] 
+=== c1_ascending_t4_v3 (3D model: c1_ascending) ===
+[16:54:14]   loaded raw lumen: 838043 faces in 3.1s
+[17:08:46]   lumen->coverage_mesh registration RMS: 0.0528mm (872.0s)
+[17:08:46]     loaded c1_ascending_bottom: 400708 faces in 0.0s
+[17:08:46]     loaded c1_ascending_core: 1320511 faces in 0.1s
+[17:08:47]     loaded c1_ascending_top: 253230 faces in 0.0s
+[17:08:47]   mold pieces: [('c1_ascending_bottom', 400708), ('c1_ascending_core', 1320511), ('c1_ascending_top', 253230)]
+[17:08:57]     frame 0/693, elapsed 10s
+[17:11:58]     frame 50/693, elapsed 191s
+[17:15:00]     frame 100/693, elapsed 373s
+[17:17:53]     frame 150/693, elapsed 546s
+[17:20:51]     frame 200/693, elapsed 724s
+[17:24:05]     frame 250/693, elapsed 918s
+[17:27:18]     frame 300/693, elapsed 1111s
+[17:30:14]     frame 350/693, elapsed 1287s
+[17:33:34]     frame 400/693, elapsed 1486s
+[17:36:50]     frame 450/693, elapsed 1682s
+[17:39:59]     frame 500/693, elapsed 1872s
+[17:43:09]     frame 550/693, elapsed 2061s
+[17:46:02]     frame 600/693, elapsed 2235s
+[17:49:02]     frame 650/693, elapsed 2414s
+[17:51:26]     frame 693/693, elapsed 2559s
+[17:51:26]   ray-casting done in 2559s
+[17:51:26]   false_unobserved (residual): 8050 faces (GT-observed=512630)
+[17:51:26]     vs c1_ascending_bottom (400708 faces): 7984/8050 false_unobserved indices below bound (99.18%)
+[17:51:26]     vs c1_ascending_core (1320511 faces): 8050/8050 false_unobserved indices below bound (100.00%)
+[17:51:26]     vs c1_ascending_top (253230 faces): 7960/8050 false_unobserved indices below bound (98.88%)
+[17:51:26]     overlap vs c1_ascending_bottom: fu_comparable=7984, mold_hit=204975, overlap=1775, IoU=0.0084, frac_of_fu_explained=0.2223
+[17:51:26]     overlap vs c1_ascending_core: fu_comparable=8050, mold_hit=277, overlap=0, IoU=0.0000, frac_of_fu_explained=0.0000
+[17:51:26]     overlap vs c1_ascending_top: fu_comparable=7960, mold_hit=78987, overlap=3000, IoU=0.0357, frac_of_fu_explained=0.3769
+[17:51:26] 
+=== c1_ascending_t3_v1 (3D model: c1_ascending) ===
+[17:51:33]   loaded raw lumen: 838043 faces in 3.2s
+[17:58:31]   lumen->coverage_mesh registration RMS: 0.0941mm (417.7s)
+[17:58:31]     loaded c1_ascending_bottom: 400708 faces in 0.0s
+[17:58:31]     loaded c1_ascending_core: 1320511 faces in 0.1s
+[17:58:32]     loaded c1_ascending_top: 253230 faces in 0.0s
+[17:58:32]   mold pieces: [('c1_ascending_bottom', 400708), ('c1_ascending_core', 1320511), ('c1_ascending_top', 253230)]
+[17:58:43]     frame 0/258, elapsed 11s
+[18:01:07]     frame 50/258, elapsed 155s
+[18:03:37]     frame 100/258, elapsed 304s
+[18:06:18]     frame 150/258, elapsed 465s
+[18:08:58]     frame 200/258, elapsed 625s
+[18:11:15]     frame 250/258, elapsed 763s
+[18:11:35]     frame 258/258, elapsed 783s
+[18:11:35]   ray-casting done in 783s
+[18:11:35]   false_unobserved (residual): 4653 faces (GT-observed=615047)
+[18:11:35]     vs c1_ascending_bottom (400708 faces): 4551/4653 false_unobserved indices below bound (97.81%)
+[18:11:35]     vs c1_ascending_core (1320511 faces): 4653/4653 false_unobserved indices below bound (100.00%)
+[18:11:35]     vs c1_ascending_top (253230 faces): 4517/4653 false_unobserved indices below bound (97.08%)
+[18:11:35]     overlap vs c1_ascending_bottom: fu_comparable=4551, mold_hit=202630, overlap=1058, IoU=0.0051, frac_of_fu_explained=0.2325
+[18:11:35]     overlap vs c1_ascending_core: fu_comparable=4653, mold_hit=272, overlap=0, IoU=0.0000, frac_of_fu_explained=0.0000
+[18:11:35]     overlap vs c1_ascending_top: fu_comparable=4517, mold_hit=77875, overlap=1667, IoU=0.0207, frac_of_fu_explained=0.3691
+[18:11:35] 
+=== c1_cecum_t1_v1 (3D model: c1_cecum) ===
+[18:11:40]   loaded raw lumen: 699908 faces in 2.1s
+[18:15:46]   lumen->coverage_mesh registration RMS: 0.0515mm (246.5s)
+[18:15:46]     loaded c1_cecum_bottom: 150000 faces in 0.0s
+[18:15:46]     loaded c1_cecum_core: 1517622 faces in 0.1s
+[18:15:47]     loaded c1_cecum_top: 197048 faces in 0.0s
+[18:15:47]   mold pieces: [('c1_cecum_bottom', 150000), ('c1_cecum_core', 1517622), ('c1_cecum_top', 197048)]
+[18:15:57]     frame 0/217, elapsed 10s
+[18:17:35]     frame 50/217, elapsed 108s
+[18:19:21]     frame 100/217, elapsed 213s
+[18:21:05]     frame 150/217, elapsed 317s
+[18:22:50]     frame 200/217, elapsed 423s
+[18:23:30]     frame 217/217, elapsed 463s
+[18:23:30]   ray-casting done in 463s
+[18:23:30]   false_unobserved (residual): 375 faces (GT-observed=635753)
+[18:23:30]     vs c1_cecum_bottom (150000 faces): 51/375 false_unobserved indices below bound (13.60%)
+[18:23:30]     vs c1_cecum_core (1517622 faces): 375/375 false_unobserved indices below bound (100.00%)
+[18:23:30]     vs c1_cecum_top (197048 faces): 77/375 false_unobserved indices below bound (20.53%)
+[18:23:30]     overlap vs c1_cecum_bottom: fu_comparable=51, mold_hit=0, overlap=0, IoU=0.0000, frac_of_fu_explained=0.0000
+[18:23:30]     overlap vs c1_cecum_core: fu_comparable=375, mold_hit=0, overlap=0, IoU=0.0000, frac_of_fu_explained=0.0000
+[18:23:30]     overlap vs c1_cecum_top: fu_comparable=77, mold_hit=0, overlap=0, IoU=0.0000, frac_of_fu_explained=0.0000
+[18:23:30] 
+wrote /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_item1/summary.json
+[18:23:30] ALL DONE
+EXITCODE:0

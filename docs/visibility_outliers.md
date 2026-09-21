@@ -142,3 +142,48 @@ Re-cast rays at 2x2 sub-pixel offsets (4 rays/pixel, none at the pixel center) f
 - **No pipeline or metric change was made.** This was a diagnostic experiment only; any change to the production visibility-rasterization setting (e.g., adopting supersampling by default) is explicitly out of scope here and left as a separate decision.
 
 Stopping here, per instructions.
+
+---
+
+## Addendum (2026-09-21): Group A1's "boundary-alignment discrepancy" hypothesis retracted; new, partially-confirmed evidence
+
+The §"boundary-alignment discrepancy" hypothesis above (line 107) has
+**not** been confirmed and is superseded by direct evidence for a
+different, more specific mechanism, found while diagnosing an unrelated
+open-end-escape question for `docs/eval_protocol_oracle_gap.md`. (An
+intermediate step in that investigation briefly re-attributed
+`c1_ascending_t3_v1`'s disagreement there to this Group A1 entry on the
+grounds of "same sequence" — that attribution was itself retracted on
+closer inspection, since the two phenomena's signatures don't match; see
+`docs/eval_protocol_oracle_gap.md`'s Decision 2 and Item 1.)
+
+**New hypothesis tested**: `render/Render.cu`'s coverage update
+(`coverage[primID] = 255`, lines 315-320) writes to a per-mesh-local
+`primID` with no check of which mesh was hit, and the scene contains
+multiple meshes — lumen plus mold (`render/RenderContext.cpp:262-263`).
+If a primary ray hits a **mold** triangle at local index N, this would
+incorrectly mark **lumen** face N as observed in the coverage buffer — a
+defect in the released GT, not in any downstream visibility code.
+
+**MEASURED** (`docs/eval_protocol_oracle_gap.md` Item 1, full detail and
+method there): on all three Group A1 sequences (`c1_ascending_t4_v2`,
+`c1_ascending_t4_v3`, `c1_ascending_t3_v1`), **at least ~38% of the
+false_unobserved faces share their exact index with a mold triangle our
+own ray-cast genuinely hits** (registered mold via ICP, RMS 0.05mm on the
+lumen fit). On the non-open-end control (`c1_cecum_t1_v1`, `Open End
+Visible: no`), the registered mold is **never hit at all, from any of
+218 frames** — zero overlap, a clean negative control.
+
+**Disposition, corrected**: this is **not** the sub-millimetre,
+single-face, silhouette-boundary speckle the original diagnosis (line
+107) described — it's a distinct, now directly-evidenced mechanism
+(mold-index collision), confirmed to account for a substantial minority-
+to-plurality (≥38%, exact combined figure not pinned down) of Group A1's
+false_unobserved faces. **Not fully resolved**: roughly 40-60% remains
+unexplained by this specific check, for reasons not yet investigated
+(imperfect mold registration, an unreleased `model.obj` differing from
+the raw STL proxy used here, or a genuinely separate residual cause).
+**Group A1 moves from UNKNOWN to partially-explained, not resolved** —
+the original boundary-alignment hypothesis is retracted as the leading
+candidate; mold-index collision is now the leading, partially-confirmed
+one.

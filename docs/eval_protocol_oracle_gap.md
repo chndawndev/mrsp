@@ -336,38 +336,236 @@ across the 3 sequences — genuinely short of 1.0, entirely from vignette
 + 100mm-clamp, not from any method error. This number belongs next to
 any future oracle-configuration result as the honest ceiling, not 1.0.
 
-### Region-level impact — MEASURED, touches the primary analysis unit, unevenly
+### Predicted-side impact — CORRECTED interpretation (2026-09-21)
 
-For each sequence: built the real >5mm GT-unobserved regions (face
-adjacency, `src/geometry/mesh_stats.py`, matching `docs/success_criteria.md`
-§1's region definition exactly), then rebuilt regions after reclassifying
-every gap face (GT-observed but non-evaluable) as unobserved too, and
-compared.
+**The earlier version of this section was wrong about what changes.**
+It described the gap as changing "GT-unobserved regions" — it doesn't.
+**GT regions stay exactly as released, always** — they're defined once
+from `coverage_mesh.obj`'s own `vt` flags (`docs/success_criteria.md` §1)
+and this protocol never touches that definition (Flag 6, `docs/eval_protocol.md`).
+**What the gap actually distorts is the *predicted* side**, for every
+method including a perfect oracle: a face that can never be reached
+through an evaluable pixel can never be marked predicted-observed,
+regardless of depth/pose accuracy, so it lands in **predicted-unobserved**
+by construction — inflating false alarm rate (since it's a GT-observed
+face sitting in the predicted-unobserved set) and potentially bridging
+otherwise-separate predicted-unobserved *components* into one, which is
+what localization error's centroid computation (`docs/success_criteria.md`
+§1) actually uses. The numbers below are the same computation as before
+(built the real >5mm GT-unobserved regions via face adjacency,
+`src/geometry/mesh_stats.py`, then rebuilt with gap faces added), but the
+correct reading is **"the oracle configuration's own predicted-unobserved
+components, with vs. without the non-evaluable faces baked in"** — not a
+GT redefinition.
 
-| Sequence | original >5mm regions | modified >5mm regions | regions whose face-set changed | of those, merged with another region's faces |
+| Sequence | predicted-unobserved components *without* non-evaluable faces (= true GT-unobserved regions) | *with* non-evaluable faces (today's actual oracle output) | components whose face-set changed | of those, merged with another component |
 |---|---|---|---|---|
 | `c1_cecum_t1_v1` | 3 | 3 | 3/3 | 3 |
 | `c1_ascending_t3_v1` | 4 | **5** | 4/4 | 4 |
 | `c2_rectum_t1_v1` | 4 | **2** | 4/4 | 4 |
 
-**Every single tracked region changed in every sequence** — the gap is
-not negligible at the region level. The *kind* of change varies:
-`c1_cecum_t1_v1` grows all 3 regions without changing the count;
-`c1_ascending_t3_v1` gains a **new** >5mm region (gap faces forming their
-own component large enough to cross the threshold on their own — a
-region that exists only because of the gap, not because of any real
-missed area); `c2_rectum_t1_v1` **merges** 4 regions down to 2 (gap faces
-bridge previously-separate regions into fewer, larger ones). "Merged"
-here means a tracked region's face-set gained faces beyond the gap set
-itself (i.e. absorbed area from what was a separate unobserved
-component, tracked or not) — a real structural change, not just growth
-from newly-reclassified gap faces alone.
+**Every tracked component changes in every sequence**, purely from the
+gap, not from any depth/pose error — this is what an oracle's predicted-
+unobserved output actually looks like today, distorted relative to the
+true GT-unobserved regions it's supposed to reproduce. `c1_cecum_t1_v1`
+grows all 3 components without changing the count; `c1_ascending_t3_v1`
+gains a spurious **new** component (gap faces forming their own component
+large enough to cross 5mm on their own — exists only because of the gap);
+`c2_rectum_t1_v1` **merges** 4 components into 2 (gap faces bridge
+previously-separate components into one, which would also merge/distort
+whatever localization-error centroid gets computed from them).
 
-**This directly answers the original question**: yes, the gap touches
-`docs/success_criteria.md`'s primary analysis unit (regions), and it does
-so differently per sequence — sometimes only growing existing regions,
-sometimes creating a new one, sometimes merging several into fewer. Not
-uniform, and not ignorable.
+### False alarm rate — CORRECTED, the earlier number used the wrong denominator
+
+**Also wrong in the earlier version**, and in `docs/eval_protocol.md` §6's
+"raises false alarm rate uniformly by 3.16-5.13%" — that used
+`gap / GT_observed`, not `docs/success_criteria.md` §1's actual
+definition: "fraction of **predicted-unobserved area** that GT marks as
+observed," i.e. `gap / (GT_unobserved + gap)` for the oracle configuration
+(predicted-unobserved = GT_unobserved ∪ gap, and only the gap portion of
+that is GT-observed). **Corrected, MEASURED**:
+
+| Sequence | GT_unobserved | gap | false alarm rate (oracle, uncorrected) |
+|---|---|---|---|
+| `c1_cecum_t1_v1` | 64,155 | 20,095 | **23.85%** |
+| `c1_ascending_t3_v1` | 140,855 | 31,580 | **18.31%** |
+| `c2_rectum_t1_v1` | 83,442 | 9,329 | **10.06%** |
+
+**This is far larger than the earlier 3.16-5.13% figure** — a perfect
+oracle, today, would show a false alarm rate of 10-24% purely from the
+gap, which would badly fail `docs/success_criteria.md` §2's D1.5 check
+("false reassurance rate... strictly between 0.02 and 0.98" — note D1.5
+is about *false reassurance*, the opposite-direction metric, but a
+10-24% false alarm rate floor is exactly the kind of large, method-
+independent distortion that would make *any* false-alarm-based reading
+of D1-D3 misleading without a fix). The ignore-set amendment below is
+proposed specifically because this number is too large to leave
+unaddressed.
+
+---
+
+## Item 1: testing the mold-index-collision hypothesis for Group A1 — MEASURED, partially confirmed
+
+Hypothesis: `Render.cu`'s coverage update (`coverage[primID] = 255`,
+lines 315-320) writes to a per-mesh-local `primID` with no check of which
+mesh was actually hit, and the scene has multiple meshes (lumen + mold,
+`RenderContext.cpp:262-263`). If a primary ray hits a **mold** triangle
+with local index N, the bug would mark **lumen** face N observed — a
+defect in the released GT itself, not a rendering or visibility bug on
+our side.
+
+**Sequences**: `c1_ascending_t4_v2`, `c1_ascending_t4_v3`,
+`c1_ascending_t3_v1` (Group A1, all three), `c1_cecum_t1_v1` (control —
+`Open End Visible: no` per `docs/release_v1.csv`, but its own mold exists
+too: `c1_cecum_mold.zip`). Extracted `coverage_mesh.obj` + `pose.txt`
+only for the two not-yet-present sequences (t4_v2/t4_v3, ~32MB each, not
+the 8+GB full archives). Script:
+`scratch/pipelines/oracle_gap_item1_mold_collision.py`, log:
+`logs/oracle_gap_item1_mold_collision.log`.
+
+**Methodology correction made and disclosed**: the first attempt cast
+rays against a single combined (lumen+mold) scene, letting occlusion
+determine lumen-vs-mold per ray. That gave a false_unobserved count of
+291,783 for `c1_ascending_t4_v2` — 36x the expected ~8,033 — almost
+certainly from imperfect mold/lumen registration causing spurious
+occlusion (the mold intruding into space the ray-cast treats as nearer
+than the true lumen wall), not a real finding. **Switched to two
+independent ray-casts per frame** (lumen alone, mold alone) and an
+index-set comparison — this is also a more direct test of the actual
+hypothesis, which is about index collision, not physical occlusion
+ordering.
+
+### a) Mold face counts
+
+`model.obj` (the renderer's actual per-video scene file) is **not
+present in the released dataset** — confirmed by search. Used the raw
+mold STL files instead, stated explicitly as a proxy, not literally "as
+loaded by the renderer": `c1_ascending_bottom.stl` 400,708 faces,
+`c1_ascending_core.stl` 1,320,511 faces, `c1_ascending_top.stl` 253,230
+faces (3D_models/colon1/molds/c1_ascending_mold.zip); cecum's
+equivalents are 150,000 / 1,517,622 / 197,048.
+
+### b) Do false_unobserved indices fall below the mold's triangle count?
+
+**False_unobserved counts reproduced almost exactly** (validates the
+ray-casting methodology against the prior, independent GPU-rasterizer
+work): `t4_v2` 8,032 (prior: 8,033), `t4_v3` 8,050 (prior: 8,049),
+`t3_v1` 4,653 (prior: 4,652), cecum 375 (prior: 373/375).
+
+| Sequence | below `_bottom` bound | below `_core` bound | below `_top` bound |
+|---|---|---|---|
+| `c1_ascending_t4_v2` | 99.00% | 100.00% | 98.78% |
+| `c1_ascending_t4_v3` | 99.18% | 100.00% | 98.88% |
+| `c1_ascending_t3_v1` | 97.81% | 100.00% | 97.08% |
+| `c1_cecum_t1_v1` (control) | 13.60% | 100.00% | 20.53% |
+
+The `_core` bound (1.3-1.5M) is far larger than any false_unobserved
+count (max 8,050), so 100% there is close to guaranteed by chance and not
+informative on its own. The smaller `_bottom`/`_top` bounds are more
+telling: **ascending sequences show 97-99% below bound — well above what
+matching bound sizes would predict by chance** (`_bottom`/total ≈ 53%,
+`_top`/total ≈ 34% for ascending's ~756K-face lumen); **the cecum control
+shows only 13.6%/20.5% — below or near chance** (`_bottom`/total ≈ 21%,
+`_top`/total ≈ 28% for cecum's ~700K-face lumen). A real, but not yet
+conclusive, differential signal — this alone doesn't prove collision, it
+only shows ascending's false_unobserved indices skew low in a way cecum's
+don't.
+
+### c) Strongest test: overlap between false_unobserved lumen indices and actual mold-hit indices
+
+**MEASURED, the decisive check**:
+
+| Sequence | vs `_bottom` (IoU / frac explained) | vs `_core` (IoU / frac explained) | vs `_top` (IoU / frac explained) | mold ever hit at all? |
+|---|---|---|---|---|
+| `c1_ascending_t4_v2` | 0.0084 / **22.4%** | 0.0000 / 0.0% | 0.0356 / **37.7%** | yes (205,003 + 78,972 triangles) |
+| `c1_ascending_t4_v3` | 0.0084 / **22.2%** | 0.0000 / 0.0% | 0.0357 / **37.7%** | yes (204,975 + 78,987 triangles) |
+| `c1_ascending_t3_v1` | 0.0051 / **23.3%** | 0.0000 / 0.0% | 0.0207 / **36.9%** | yes (202,630 + 77,875 triangles) |
+| `c1_cecum_t1_v1` (control) | — / 0.0% | — / 0.0% | — / 0.0% | **no — zero mold triangles hit, from any of 218 frames** |
+
+("frac explained" = fraction of that sequence's false_unobserved lumen
+indices that also appear, at the exact same index, in that mold piece's
+hit-index set.)
+
+**On all three ascending sequences, `_top` alone explains 37-38% of
+false_unobserved by exact index match, `_bottom` another 22-23%** (the
+two likely overlap partially — a proper union wasn't computed due to
+time, so the true combined figure is somewhere between 38% and 60%, not
+pinned down exactly). `_core` contributes nothing despite being hit
+(279-283 triangles) — none of those particular indices happen to coincide
+with a false_unobserved lumen index. **The control (`c1_cecum_t1_v1`)
+shows zero mold visibility and therefore zero overlap, by construction**
+— consistent with `Open End Visible: no` and a clean negative control.
+
+### Verdict: PARTIALLY CONFIRMED, not fully — reported precisely, not forced into either bucket
+
+The evidence is real and directional: a substantial minority-to-plurality
+of Group A1's false_unobserved faces (at least ~38%, likely more once
+`_bottom`/`_top` overlap is resolved) share their exact index with a mold
+triangle our ray-cast genuinely hits — on a sequence where the control
+shows zero such coincidence. This is **not** the sub-millimetre,
+single-face, boundary-contour speckle that the retracted "same sequence"
+attribution invoked (Decision 2, above) — it's a distinct, now
+directly-evidenced mechanism. **But it does not explain 100% of
+false_unobserved** — roughly 40-60% remains unaccounted for by this
+specific check, for reasons not investigated further here (imperfect
+mold registration specifically, vs. the lumen's very good 0.05-0.09mm fit;
+a different, unreleased `model.obj` geometry than the raw STLs used as a
+proxy; or a genuinely separate cause for the unexplained remainder).
+
+**Action taken**: `docs/visibility_outliers.md` updated with this
+evidence (new note under Group A1, not a rewrite of the original
+diagnosis) rather than marked fully "resolved," since the evidence is
+strong but partial — your call whether "partially confirmed with ~40%+
+directly evidenced" counts as resolved for that document's purposes.
+
+---
+
+## Item 3: vignette-only-observed faces across all 169 sequences — MEASURED
+
+Faces the released GT marks observed but that our own ray-cast (GT pose)
+only ever reaches through vignette-region pixels, never a non-vignette
+one — candidate first level for a criteria-sensitivity analysis
+("released GT minus faces never actually imaged"). Streamed
+`coverage_mesh.obj` + `pose.txt` only, all 169 registered sequences, no
+bulk extraction. **Reduced pixel density (stride 4) for full-corpus
+tractability** — `docs/oracle_check.md` already characterized this exact
+stride's gap versus full density (IoU 0.944 vs. 0.9988) on this same
+mesh; flagged explicitly as an approximation, not a full-density result,
+same caveat applies here directionally (likely a mild undercount of true
+reach, meaning these fractions are more likely slight overestimates of
+the true vignette-only-observed gap). Script:
+`scratch/pipelines/oracle_gap_item3_vignette_only_169.py`, log:
+`logs/oracle_gap_item3_vignette_only_169.log`, raw data:
+`results/pipelines/oracle_gap_item3/summary.json`.
+
+**Distribution, fraction of each sequence's GT-observed faces that are
+vignette-only-observed, 169/169 sequences successfully processed**:
+
+| Statistic | Value |
+|---|---|
+| Median | 2.90% |
+| Mean | 3.28% |
+| Min | 0.67% (`c1_rectum_t1_v1`) |
+| Max | 11.90% (`c2_transverse2_t3_v2`) |
+| p5 / p25 / p75 / p95 | 1.24% / 1.90% / 4.14% / 6.43% |
+| Total faces (all 169 sequences) | 1,734,922 |
+
+**Not uniform across segments**: the 5 highest-fraction sequences are all
+`transverse2` or `rectum` (`c2_transverse2_t3_v2` 11.90%,
+`c2_transverse2_t3_v3` 11.52%, `c2_transverse2_t4_v3` 7.13%,
+`c2_rectum_t3_v3` 6.81%, `c2_transverse2_t3_v1` 6.70%); the 5 lowest are
+all `c1_rectum` (0.67-0.96%) — the same segment name, opposite colon
+(`c1` vs `c2`), sitting at opposite ends of the distribution. **Not
+investigated further** — flagged as a real pattern, not explained here.
+
+**As a candidate criteria-sensitivity first level**: "released GT minus
+vignette-only-observed faces" would remove a median 2.90% (up to 11.90%
+in the worst observed sequence) of each sequence's GT-observed set from
+consideration — smaller than the combined vignette+100mm-clamp gap
+measured in Part 1 (3.16-5.13% on the 3 sequences tested there, at full
+density, for comparison — the two numbers aren't directly comparable since
+Item 3 is vignette-only, at stride 4, across all 169, while Part 1 was
+vignette+clamp, at full density, on 3 sequences).
 
 ---
 
@@ -379,6 +577,11 @@ uniform, and not ignorable.
 | Open-end escapes an oracle gap? | No — confirmed on 2 clean sequences (IoU 0.9986, 0.9976) | MEASURED |
 | `c1_ascending_t3_v1`'s large disagreement | Not Group A1 (signatures differ) — a 4th cause: mold geometry visible through the open end, rendered but not exported to `coverage_mesh.obj` | MEASURED + diagnosed, CONFIRMED |
 | Max face IoU vs. released GT (oracle ceiling) | 0.948-0.968 across 3 sequences, from vignette + 100mm clamp only | MEASURED |
-| Does the gap touch region-level metrics? | Yes, on every tracked region, unevenly (growth / new spurious region / merges) | MEASURED |
+| Does the gap touch region-level metrics? | Corrected: touches the *predicted*-unobserved side (components, false alarm rate), not GT regions, which stay as released | MEASURED, corrected |
+| False alarm rate impact (oracle, uncorrected) | 10.06%-23.85%, not the earlier 3.16-5.13% (wrong denominator) | MEASURED, corrected |
+| Group A1's mold-index-collision hypothesis | Partially confirmed: 38%+ of false_unobserved explained by exact index match with mold-hit triangles on all 3 ascending sequences; zero on the non-open-end control | MEASURED, PARTIAL |
+| Vignette-only-observed faces, all 169 sequences | Median 2.90% of GT-observed, up to 11.90% (`transverse2`/`rectum`-linked pattern, not explained) | MEASURED (stride-4 approximation) |
 
-Part 2 (amending `docs/eval_protocol.md`) follows in this same session.
+Part 2 (amending `docs/eval_protocol.md`) is already complete (prior turn
+in this session). Items 1-3 above were requested before Part 2's review;
+nothing further pending except your review of all of it.

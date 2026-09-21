@@ -467,15 +467,63 @@ face that the released GT calls observed contributes to false alarm rate
 for *every* method, oracle included, by construction, not because any
 method actually failed to detect something reachable.
 
-**Measured size of the effect**, from Part 1: 3.16-5.13% of each tested
-sequence's GT-observed faces are non-evaluable (`docs/eval_protocol_oracle_gap.md`).
-This is the same interval as the max-face-IoU shortfall (1 − 0.948 to
-1 − 0.968), for the same reason — it's the same face set, read two ways.
-Any reported false alarm rate should be read against this floor, the same
-way `docs/success_criteria.md` §2's D1.2/D1.3 already ask for an oracle
-baseline before trusting a predicted-configuration number — a method's
-false alarm rate minus this floor is the part that's actually about the
-method.
+**Measured size of the effect, corrected (2026-09-21)**: an earlier
+version of this paragraph reported "3.16-5.13%," computed as
+`gap / GT_observed` — the wrong denominator. `docs/success_criteria.md`
+§1 defines false alarm rate as "fraction of **predicted-unobserved
+area** that GT marks as observed," which for the oracle configuration is
+`gap / (GT_unobserved + gap)` (predicted-unobserved = GT_unobserved ∪
+gap, and only the gap portion is GT-observed). **Correct measured
+values: 10.06%-23.85%** across the 3 tested sequences
+(`docs/eval_protocol_oracle_gap.md`) — far larger than first reported,
+and large enough that it isn't just "read false alarm rate against a
+small floor" (the original framing) but a real problem needing the
+ignore-set fix below, not just a caveat.
+
+### Proposed amendment: an ignore set — DRAFT ONLY, not applied
+
+Not adopted or frozen — a proposal, per instructions, showing the effect
+on oracle numbers before any decision to adopt it.
+
+**Definition**: the **ignore set** for a sequence is the set of faces
+never reachable through an evaluable pixel (§2a) under **GT pose** —
+exactly the "gap" set already measured in
+`docs/eval_protocol_oracle_gap.md` Part 1 (vignette + 100mm-clamp
+causes). Computed **once per sequence**, from GT pose alone — **method-
+independent**, the same set used for every configuration and every
+pipeline evaluated on that sequence, never recomputed per method (so it
+can't be tuned, satisfying the same §5-rule-4 "applied identically"
+requirement as §2a and Flag 6).
+
+**Effect, applied everywhere a method's output is scored**:
+- **Excluded from false alarm rate's computation** — neither the
+  numerator nor denominator counts an ignore-set face, for any
+  configuration, any method.
+- **Excluded from predicted-unobserved connected-component
+  construction** — an ignore-set face can never bridge two otherwise-
+  separate predicted-unobserved components together, removing the
+  spurious-merge/spurious-new-component distortion measured above.
+- **GT regions are unchanged** — the ignore set only ever touches the
+  *predicted* side's bookkeeping, never `coverage_mesh.obj`'s own `vt`-
+  flagged region definition (same as Flag 6 already states for §2a).
+
+**Effect on the oracle numbers, MEASURED** (ignore-set faces = exactly
+the already-measured gap faces, so "with the ignore set" numbers are
+recovered directly from data already collected, not a new computation):
+
+| Sequence | false alarm rate, no ignore set | false alarm rate, **with ignore set** | predicted-unobserved components, no ignore set | **with ignore set** |
+|---|---|---|---|---|
+| `c1_cecum_t1_v1` | 23.85% | **0.00%** | 3 | **3** |
+| `c1_ascending_t3_v1` | 18.31% | **0.00%** | 5 (1 spurious) | **4** |
+| `c2_rectum_t1_v1` | 10.06% | **0.00%** | 2 (2 merged away) | **4** |
+
+With the ignore set, the oracle's false alarm rate drops to exactly 0
+(predicted-unobserved becomes exactly GT-unobserved, which by definition
+shares no faces with GT-observed) and the component counts return to
+matching the true GT-unobserved regions exactly — the distortion is
+fully explained by, and fully reversed by excluding, the same gap set
+already measured. This is offered as evidence for adopting the
+amendment, not as the amendment being in effect.
 
 ---
 
