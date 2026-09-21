@@ -393,6 +393,120 @@ mis-diagnosed as a method problem.
 
 ---
 
+## 7. Compute cost estimate — MEASURED, before writing code
+
+Ray-casting (§2) is the dominant cost; backprojection, tau comparison,
+face-set accumulation, and region-level metrics are cheap elementwise
+`numpy` operations by comparison. Benchmarked directly rather than
+guessed: `scratch/pipelines/eval_protocol_cost_benchmark.py`, log:
+`logs/eval_protocol_cost_benchmark.log`, using the project's own camera
+model, `coverage_mesh.obj`, and `trimesh`'s embree-backed ray intersector
+(`trimesh.ray.ray_pyembree`, confirmed active by default in
+`scratch/.venv`).
+
+**Design point validated first**: ray-casting depends only on
+`(frame, pose-variant)`, not on `(frame, configuration)` or
+`(frame, configuration, tau)`. Two pose variants exist (GT pose, shared by
+the oracle and pred-depth-only configurations; aligned predicted pose,
+shared by the fully-predicted and pred-pose-only configurations) — not
+four. `tau` is applied post-hoc to cached hit distances, exactly as
+instructed, at zero extra ray-casting cost.
+
+**MEASURED, full pixel density (1350x1080 = 1,458,000 rays/frame), one
+pose variant, mean over 3 frames spread across `c1_cecum_t1_v1`**:
+
+| Quantity | Value |
+|---|---|
+| Mean ray-cast time / frame | 1.71 s |
+| Throughput | ~0.9M rays/sec (0.57-1.18M across the 3 sampled frames) |
+| Per-sequence (218 frames × 2 pose variants) | **743.7 s ≈ 12.4 min** |
+| **Corpus extrapolation (169 sequences)** | **125,680 s ≈ 2,095 min ≈ 34.9 hours** |
+
+**This exceeds "a few hours" by roughly an order of magnitude.** Per
+instructions: not silently reducing density. Options below, none chosen
+here.
+
+### Option 1 (recommended): reuse the project's existing GPU rasterizer
+
+`scripts/visibility_full.py` / the GPU (Warp) rasterizer already built
+for this project's own GT-side visibility work solved a **structurally
+identical problem** — one ray per pixel per frame, nearest hit on this
+same `coverage_mesh.obj` — at full density, for the entire 169-sequence
+corpus, in **19.3 minutes total**
+(`docs/visibility_rasterization.md`/`EXPERIMENTS.md`, 2026-09-19),
+validated to IoU 0.9988 against the released mesh
+(`docs/gpu_validation.md`). That's roughly **100x faster** than this
+benchmark's CPU/embree throughput for a comparable single-pose-variant,
+full-corpus task. Extended to 2 pose variants, the precedent throughput
+would plausibly land the entire corpus well under an hour.
+
+**Two extensions needed, neither touching the core algorithm**: (a) also
+return hit **distance** (`d_hit`), not just hit/miss and face index — the
+rasterizer must already compute this internally to determine the nearest
+hit, so exposing it should not add meaningful cost, but it's currently
+unused/undocumented, per what's visible in this design process; (b)
+accept an arbitrary camera pose (GT or aligned-predicted), not only the
+GT trajectory it's been run against so far.
+
+**Flag, not a decision made here**: `docs/visibility_limitations.md`
+states plainly "Visibility rasterization tooling (`scripts/
+visibility_full.py`, `scripts/render_coverage_views.py`, `src/geometry/`)
+is now frozen." Extending it needs explicit sign-off — proposed, not
+done. The existing IoU 0.9988 validation covers the observed/unobserved
+logic, which this extension doesn't change; the new distance-output
+capability would need its own, separate validation pass (§6-style) before
+being trusted.
+
+### Option 2: reduce pixel density on CPU/embree
+
+Quantified, not assumed: extrapolating this benchmark's throughput
+linearly with pixel count, stride 4 → ~8.7 hours, stride 8 → ~4.4 hours
+(both still ≥ "a few hours" under most readings of that phrase). Stride 8
+is exactly the density `docs/oracle_check.md` already found produces a
+real, diagnosed IoU shortfall (0.869 vs. 0.9988 at full density) — reusing
+it here would put that already-known artifact into the actual eval
+numbers, not a diagnostic script, and would need its own fresh
+re-validation against this protocol's IoU ≥ 0.99 oracle bar (§6) before
+being trusted at any stride below 1. Not recommended given Option 1
+exists.
+
+### Option 3: reduce sequence scope — ruled out, not proposed as viable
+
+D1's own trigger condition (`docs/success_criteria.md` §2) is "one
+end-to-end pipeline has been run on **all 169** registered sequences."
+Running fewer isn't a compute optimization available within the frozen
+protocol without a `docs/success_criteria.md` §6-style deviation entry
+changing D1's trigger itself — out of scope for an eval-code design
+decision, noted only to rule it out explicitly.
+
+### Option 4: CPU/embree, parallelized across sequences
+
+No methodology change, no touching frozen tooling: run independent
+sequences as separate OS processes (embree/trimesh ray intersectors are
+not meant to be shared across threads on one mesh object, but separate
+processes each with their own mesh copy are straightforward and safe).
+The shared box has 48 CPUs (`nproc`, checked earlier this session).
+Naive per-sequence parallelism across, say, 8-16 concurrent processes
+could plausibly cut ~35 hours to roughly 2-4 hours wall-clock without any
+change to density or accuracy — but shares the same "don't hog a shared
+resource" courtesy this project already practices for GPUs
+(`CLAUDE.md`'s workflow rules); worth stating as a real constraint, not
+assuming unlimited concurrency is free to take on a shared box, and not
+benchmarked here (single-process cost only was measured).
+
+### Recommendation, not a decision
+
+Option 1 (extend the existing, already-validated, ~100x-faster GPU
+rasterizer) is the strongest candidate — same density, no new artifact
+risk, large precedent margin under "a few hours" even before
+parallelizing further. Option 4 is a reasonable no-risk fallback or
+complement if Option 1's sign-off doesn't happen. Options 2 and 3 are
+presented for completeness and not recommended. **Which to pursue is
+your call, not mine to make silently, per instructions** — flagged here,
+nothing implemented.
+
+---
+
 ## Flags: where this design touches frozen definitions
 
 None of the following are violations found in the frozen text — nothing

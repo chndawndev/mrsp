@@ -1,0 +1,17 @@
+[22:21:55] loading intrinsics, mesh, poses ...
+[22:21:58] mesh: 350595 verts, 699908 faces, ray intersector: trimesh.ray.ray_pyembree
+[22:21:58] frame resolution: 1350x1080 = 1458000 pixels/frame (full density)
+[22:21:59] computed per-pixel camera-space unit ray directions
+[22:21:59] 
+=== timing single-frame full-density ray-cast (GT pose), 3 frames for stability ===
+[22:22:01]   frame 0: 2.542s, 1458000/1458000 rays hit (1.0000), 0.57M rays/sec
+[22:22:03]   frame 100: 1.238s, 1458000/1458000 rays hit (1.0000), 1.18M rays/sec
+[22:22:04]   frame 217: 1.337s, 1458000/1458000 rays hit (1.0000), 1.09M rays/sec
+[22:22:04] mean time per frame (full-density ray-cast, one pose variant): 1.706s
+[22:22:04] 
+=== extrapolation ===
+[22:22:04] per-sequence ray-casting time (218 frames x 2 pose variants): 743.7s = 12.39 min
+[22:22:04] (naive, if ray-casting were repeated per-configuration instead of per-pose-variant: 1487.3s = 24.79 min -- 2.0x more than the shared approach)
+[22:22:04] corpus extrapolation (169 sequences, ray-casting only): 125680s = 2094.7 min = 34.91 hours
+[22:22:04] 
+Note: this measures ray-casting only, the dominant cost. Backprojection, tau comparison, face-set accumulation, and region-level metrics are cheap elementwise numpy operations by comparison, not separately benchmarked here.
