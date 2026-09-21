@@ -1,0 +1,25 @@
+=== 1. Depth scale, per frame ===
+n=218, median=177.0134, IQR=[167.7717, 191.4991] (width 23.7274), min=135.7861, max=226.3256, std=19.2607
+relative IQR (IQR/median): 0.1340
+relative range ((max-min)/median): 0.5115
+
+=== 2. Pose scale, full trajectory ===
+Umeyama scale s_pose = 557.871176
+post-alignment ATE (RMSE) = 9.2300 mm
+
+=== 3. Depth scale vs pose scale comparison ===
+pose scale s_pose = 557.8712
+median depth scale = 177.0134
+ratio (pose/depth) = 3.1516  (+215.2%)
+differ by more than 20%? YES
+
+=== 4. Trajectory drift ===
+GT path length: 348.35 mm
+predicted path length (raw network units): 0.574289
+predicted path length (scaled by s_pose): 320.38 mm
+predicted path length (aligned trajectory, cross-check): 320.38 mm
+path length ratio (pred_scaled / GT): 0.9197
+endpoint error (aligned pred vs GT, frame 217): 9.68 mm
+endpoint error as fraction of GT path length: 0.0278 (2.78%)
+
+Wrote results/pipelines/endodac_scale_analysis.json
