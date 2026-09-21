@@ -279,6 +279,9 @@ substituted) leak into cross-configuration comparisons.
   primary artifact, per configuration.
 - **Predicted-unobserved face set** — its complement (§2).
 - **Ray-miss fraction** (§3), per configuration.
+- **Predicted-unobserved area fraction and calibration ratio** (per
+  configuration, per tau — see below, own paragraph since it's the check
+  that keeps every recall number honest).
 - **Region-level metrics**, exactly as frozen in `docs/success_criteria.md`
   §1, computed per configuration:
   - Region recall (fraction of GT regions detected, per size class:
@@ -301,6 +304,34 @@ substituted) leak into cross-configuration comparisons.
 - **tau-sweep table**: every metric above, at each of the 4 proposed tau
   values, not just the primary — needed for D1.4-style robustness
   reporting and for validating tau itself (§6).
+
+### Predicted-unobserved area fraction — the check that keeps recall honest
+
+Two numbers, per configuration, per tau:
+
+- **Predicted-unobserved area as a fraction of total mesh area.**
+- **Ratio of predicted-unobserved area to GT-unobserved area** — 1.0 for
+  a perfectly calibrated method (marks the same total area unobserved as
+  GT actually is, whether or not it's the *same* area); above 1.0 means
+  over-flagging, below 1.0 means under-flagging.
+
+**Why this is required, not optional**: region recall alone can't
+distinguish a method that genuinely detects missed regions from one that
+just marks almost everything unobserved. A method returning the entire
+mesh as unobserved scores perfect region recall (every GT region is
+trivially ≥50% covered) while being useless — and a low tau (§2) could
+push a genuinely mediocre depth predictor toward exactly this degenerate
+behavior (flagged already in the "Flags" section, risk #3, as a specific
+concern for D1.5; this area-fraction check is the direct instrument for
+catching it, not just a related worry). **Report this area fraction
+directly next to every recall number in every results table** — not in a
+separate appendix — so a reviewer (or a future version of the person
+running this pipeline) can't read a strong recall number without also
+seeing whether it was bought by over-flagging. A recall improvement that
+comes with the unobserved-area fraction climbing toward 1.0 (i.e., toward
+"everything is unobserved") is not the same finding as a recall
+improvement at a stable, GT-comparable area fraction, and the two must
+never be presented identically.
 
 ---
 
