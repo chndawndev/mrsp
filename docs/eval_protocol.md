@@ -494,16 +494,18 @@ resource" courtesy this project already practices for GPUs
 assuming unlimited concurrency is free to take on a shared box, and not
 benchmarked here (single-process cost only was measured).
 
-### Recommendation, not a decision
+### Decision (2026-09-20)
 
-Option 1 (extend the existing, already-validated, ~100x-faster GPU
-rasterizer) is the strongest candidate — same density, no new artifact
-risk, large precedent margin under "a few hours" even before
-parallelizing further. Option 4 is a reasonable no-risk fallback or
-complement if Option 1's sign-off doesn't happen. Options 2 and 3 are
-presented for completeness and not recommended. **Which to pursue is
-your call, not mine to make silently, per instructions** — flagged here,
-nothing implemented.
+**Option 1 approved**: extend the existing GPU (Warp) visibility
+rasterizer — add hit-distance output and accept an arbitrary camera pose
+(GT or aligned-predicted), not only the GT trajectory it currently runs
+against. This is the sign-off `docs/visibility_limitations.md`'s "frozen"
+note requires, obtained here, for exactly this extension (hit-distance
+output + arbitrary-pose input) — not a blanket reopening of that tooling
+for unrelated changes. Options 2-4 are documented above for the record
+but not being pursued. **Not yet implemented** — this section records the
+decision; the extension itself and `src/eval/` are separate, still-unwritten
+next steps.
 
 ---
 
