@@ -261,7 +261,9 @@ at full density in `docs/gpu_validation.md`). This protocol specifies
 **full pixel density** (every pixel, every frame) for exactly this
 reason — matching the frozen GT criterion's own "any pixel" language, and
 avoiding re-discovering the same already-diagnosed artifact under a new
-name. This has real compute cost at corpus scale, not estimated here.
+name. This has real compute cost at corpus scale — measured in §7, not
+just flagged: ~35 hours on CPU/embree for the full corpus, which is why
+§7 exists and why §7's decision (extend the GPU rasterizer) applies here.
 
 ---
 
@@ -480,10 +482,11 @@ and large enough that it isn't just "read false alarm rate against a
 small floor" (the original framing) but a real problem needing the
 ignore-set fix below, not just a caveat.
 
-### Proposed amendment: an ignore set — DRAFT ONLY, not applied
+### The ignore set — ADOPTED (2026-09-21, approved by Chen)
 
-Not adopted or frozen — a proposal, per instructions, showing the effect
-on oracle numbers before any decision to adopt it.
+**Adopted**, in-conversation, explicitly and by name — not inferred.
+Originally proposed as a draft with measured before/after numbers (kept
+below as the evidence base for the decision); now part of the protocol.
 
 **Definition**: the **ignore set** for a sequence is the set of faces
 never reachable through an evaluable pixel (§2a) under **GT pose** —
@@ -522,8 +525,19 @@ With the ignore set, the oracle's false alarm rate drops to exactly 0
 shares no faces with GT-observed) and the component counts return to
 matching the true GT-unobserved regions exactly — the distortion is
 fully explained by, and fully reversed by excluding, the same gap set
-already measured. This is offered as evidence for adopting the
-amendment, not as the amendment being in effect.
+already measured. This was the evidence the adoption decision above was
+based on.
+
+**Mold-index-collision faces fall into the ignore set by construction,
+not as a special case.** `docs/eval_protocol_oracle_gap.md` Item 1's
+false_unobserved set (faces our own ray-cast never hits at all, from any
+frame) is a strict subset of the "gap"/ignore set (faces never reached
+by an *evaluable* ray specifically — a weaker, more inclusive condition
+than "never hit at all"). Any face the released GT mislabels observed
+because of the suspected `primID` collision with a mold triangle is,
+by definition, never hit by our own lumen-only ray-cast — so it is
+already excluded via the ignore set, with no additional logic needed to
+special-case it.
 
 ---
 
@@ -582,14 +596,17 @@ unused/undocumented, per what's visible in this design process; (b)
 accept an arbitrary camera pose (GT or aligned-predicted), not only the
 GT trajectory it's been run against so far.
 
-**Flag, not a decision made here**: `docs/visibility_limitations.md`
-states plainly "Visibility rasterization tooling (`scripts/
-visibility_full.py`, `scripts/render_coverage_views.py`, `src/geometry/`)
-is now frozen." Extending it needs explicit sign-off — proposed, not
-done. The existing IoU 0.9988 validation covers the observed/unobserved
-logic, which this extension doesn't change; the new distance-output
-capability would need its own, separate validation pass (§6-style) before
-being trusted.
+**Historical record**: `docs/visibility_limitations.md` states plainly
+"Visibility rasterization tooling (`scripts/visibility_full.py`,
+`scripts/render_coverage_views.py`, `src/geometry/`) is now frozen," so
+extending it needed explicit sign-off before this option could be
+pursued. That sign-off was requested here, as a flag alongside three
+other options, and **was subsequently obtained — see the "Decision
+(2026-09-21) — approved by Chen" note below**, scoped to exactly these
+two extensions. The existing IoU 0.9988 validation covers the
+observed/unobserved logic, which this extension doesn't change; the new
+distance-output capability needs its own, separate validation pass
+(§6 Step 0) before being trusted.
 
 ### Option 2: reduce pixel density on CPU/embree
 
@@ -759,6 +776,19 @@ modified by writing this list.
    recomputed against the evaluable-pixel mask — only the *predicted*
    side (what counts as a valid comparison pixel) is restricted, never
    the ground truth's own definition of what a region is.
+
+7. **The ignore set (§6, adopted 2026-09-21) is also a filter under
+   `docs/success_criteria.md` §5 prohibited move #4**, on the same terms
+   as Flag 6: computed once per sequence from GT pose alone, before any
+   method's output is scored, identical across every configuration and
+   every pipeline evaluated on that sequence, never tuned, and logged
+   here and in `docs/eval_protocol_oracle_gap.md`. It excludes ignore-set
+   faces from false alarm rate and from predicted-unobserved
+   connected-component construction — a narrower effect than §2a's
+   evaluable-pixel restriction (which gates the tau test itself), applied
+   downstream of it. **GT regions are unchanged by this filter too** —
+   same principle as Flag 6, restated because it's a separate adopted
+   filter, not a consequence of the first.
 
 ---
 
