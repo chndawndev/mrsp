@@ -194,7 +194,18 @@ not generalize to A2.
 real, non-generalizing, but mechanistically unconfirmed signal exists for
 Group A1 specifically — not usable as an explanation or a fix.
 **Roughly 87% of Group A1's false_unobserved faces, and 100% of the
-tested A2 sequence's, remain entirely unexplained. Group A1 (and the
-tested A2 case) stay logged as UNKNOWN**, same disposition as before this
-addendum, with one candidate mechanism now tested and mostly ruled out
-rather than untested.
+tested A2 sequence's, remain entirely unexplained.** The tested A2 case
+(`c2_rectum_t4_v1`) stays logged as UNKNOWN.
+
+**Second addendum (2026-09-22): Group A1 closed, via a check independent
+of the mold STL files.** The false_unobserved face indices themselves
+(no ray-casting, no mold file needed) show a sharp, near-identical cutoff
+at index K≈82,000 (of 755,902 faces) on all 3 A1 sequences — consistent
+with a `primID` collision against an unreleased mold mesh of roughly K
+triangles, and explaining why the overlap test above failed (the
+*released* mold STL pieces, 400,708/1,320,511/253,230 faces, don't match
+K≈82,000 — very likely the wrong mold geometry, not a refutation of the
+underlying mechanism). Not confirmable without the renderer's actual
+`model.obj`. Full detail: `docs/visibility_limitations.md`,
+`docs/eval_protocol_oracle_gap.md`'s closing check. **Group A1 is now
+closed, per instructions — no further work.**

@@ -568,6 +568,24 @@ run — fails the confirmation criterion outright.
 
 </details>
 
+### Closing check (2026-09-22): sharp index cutoff, no mold file needed — Group A1 closed
+
+One final, mold-file-independent check: the false_unobserved face
+**indices themselves** (already-saved arrays, no new ray-casting), on
+all 3 A1 sequences, show a **sharp, near-identical cutoff at index
+K≈82,000** (of 755,902 lumen faces) — dense, roughly uniform below K,
+then dropping to isolated background-noise levels for the rest of the
+range. 98.3-98.5% of `t4_v2`/`t4_v3`'s false_unobserved faces and
+96.0-96.1% of `t3_v1`'s fall below K. This is **consistent with a
+`primID` collision against an unreleased mold mesh of roughly K
+triangles — not confirmable without `model.obj`**, and explains why the
+earlier overlap test (§b/c above, using the *released* mold STL files as
+a proxy) failed: that proxy's piece sizes (400,708 / 1,320,511 / 253,230)
+don't match K≈82,000, so it was very likely testing against the wrong
+mold geometry. Full detail, method, and disposition:
+`docs/visibility_limitations.md`'s "Unexplained boundary-contour
+speckle" entry, now closed. **No further A1 work**, per instructions.
+
 ---
 
 ## Item 3: vignette-only-observed faces across all 169 sequences — MEASURED
