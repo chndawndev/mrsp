@@ -1,0 +1,49 @@
+[2026-09-22T23:11:09Z] === Stage 1 validation: c1_cecum_t1_v1 ===
+[2026-09-22T23:11:09Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-22T23:11:09Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 32.1 GB free, 0% utilized
+[2026-09-22T23:11:09Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+[2026-09-22T23:11:09Z] warp version 1.17.0, device cuda:0
+[2026-09-22T23:11:10Z] camera rays: 1458000 (1350x1080)
+[2026-09-22T23:11:13Z] streamed mesh (699908 faces) + poses (218 frames) from /data1_ycao/chua/datasets/C3VDv2/registered_videos/c1_cecum_t1_v1.zip in 3.2s
+[2026-09-22T23:11:13Z] 
+=== Part A: accumulate-mode IoU reproduction ===
+[2026-09-22T23:11:18Z] accumulate-mode ray-cast over 218 frames: 4.61s
+[2026-09-22T23:11:18Z] NEW    : iou=0.9988272726701083 false_observed=371 false_unobserved=375 n_gt_observed=635753 n_pred_observed=635749
+[2026-09-22T23:11:18Z] RECORDED: iou=np.float64(0.9988272726701083) false_observed=371 false_unobserved=375 n_gt_observed=635753 n_pred_observed=635749
+[2026-09-22T23:11:18Z] IDENTICAL to recorded (exact, not merely close): True
+[2026-09-22T23:11:18Z] 
+=== Part B: Step 0 hit-distance validation, 20 sampled frames ===
+[2026-09-22T23:11:18Z] sampled frame indices: [0, 11, 22, 34, 45, 57, 68, 79, 91, 102, 114, 125, 137, 148, 159, 171, 182, 194, 205, 217]
+[2026-09-22T23:11:18Z]   frame 0: gt_valid=1161423 hit=1458000 compared=1161423 gt_valid_no_hit=0 hit_no_gt_valid=296577 median=0.00343mm p95=0.01141mm max=16.34290mm
+[2026-09-22T23:11:18Z]   frame 11: gt_valid=1161444 hit=1458000 compared=1161444 gt_valid_no_hit=0 hit_no_gt_valid=296556 median=0.00341mm p95=0.01156mm max=12.88827mm
+[2026-09-22T23:11:18Z]   frame 22: gt_valid=1162382 hit=1458000 compared=1162382 gt_valid_no_hit=0 hit_no_gt_valid=295618 median=0.00342mm p95=0.01148mm max=17.33946mm
+[2026-09-22T23:11:19Z]   frame 34: gt_valid=1202437 hit=1458000 compared=1202437 gt_valid_no_hit=0 hit_no_gt_valid=255563 median=0.00286mm p95=0.00975mm max=29.30676mm
+[2026-09-22T23:11:19Z]   frame 45: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00225mm p95=0.00768mm max=20.05547mm
+[2026-09-22T23:11:19Z]   frame 57: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00146mm p95=0.00646mm max=10.19011mm
+[2026-09-22T23:11:19Z]   frame 68: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00174mm p95=0.00747mm max=5.53309mm
+[2026-09-22T23:11:19Z]   frame 79: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00166mm p95=0.00802mm max=8.59394mm
+[2026-09-22T23:11:19Z]   frame 91: gt_valid=1304075 hit=1458000 compared=1304075 gt_valid_no_hit=0 hit_no_gt_valid=153925 median=0.00245mm p95=0.01164mm max=15.24702mm
+[2026-09-22T23:11:19Z]   frame 102: gt_valid=1148259 hit=1458000 compared=1148259 gt_valid_no_hit=0 hit_no_gt_valid=309741 median=0.00302mm p95=0.01416mm max=16.04311mm
+[2026-09-22T23:11:19Z]   frame 114: gt_valid=1180189 hit=1458000 compared=1180189 gt_valid_no_hit=0 hit_no_gt_valid=277811 median=0.00320mm p95=0.01422mm max=27.86895mm
+[2026-09-22T23:11:20Z]   frame 125: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00234mm p95=0.01180mm max=22.86759mm
+[2026-09-22T23:11:20Z]   frame 137: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00189mm p95=0.00970mm max=17.70459mm
+[2026-09-22T23:11:20Z]   frame 148: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00197mm p95=0.00735mm max=9.85771mm
+[2026-09-22T23:11:20Z]   frame 159: gt_valid=1355951 hit=1458000 compared=1355951 gt_valid_no_hit=0 hit_no_gt_valid=102049 median=0.00260mm p95=0.00935mm max=14.18313mm
+[2026-09-22T23:11:20Z]   frame 171: gt_valid=1143933 hit=1458000 compared=1143933 gt_valid_no_hit=0 hit_no_gt_valid=314067 median=0.00368mm p95=0.01155mm max=15.20965mm
+[2026-09-22T23:11:20Z]   frame 182: gt_valid=1161446 hit=1458000 compared=1161446 gt_valid_no_hit=0 hit_no_gt_valid=296554 median=0.00348mm p95=0.01131mm max=16.94978mm
+[2026-09-22T23:11:21Z]   frame 194: gt_valid=1161433 hit=1458000 compared=1161433 gt_valid_no_hit=0 hit_no_gt_valid=296567 median=0.00358mm p95=0.01119mm max=14.97541mm
+[2026-09-22T23:11:21Z]   frame 205: gt_valid=1161428 hit=1458000 compared=1161428 gt_valid_no_hit=0 hit_no_gt_valid=296572 median=0.00338mm p95=0.01165mm max=14.97083mm
+[2026-09-22T23:11:21Z]   frame 217: gt_valid=1161414 hit=1458000 compared=1161414 gt_valid_no_hit=0 hit_no_gt_valid=296586 median=0.00355mm p95=0.01119mm max=18.95907mm
+[2026-09-22T23:11:22Z] 
+=== Part B aggregate over 24957471 compared pixels, 20 frames ===
+[2026-09-22T23:11:22Z] median abs diff: 0.002619 mm
+[2026-09-22T23:11:22Z] p95 abs diff:    0.010773 mm
+[2026-09-22T23:11:22Z] p99 abs diff:    0.016524 mm
+[2026-09-22T23:11:22Z] p99.9 abs diff:  0.035082 mm
+[2026-09-22T23:11:22Z] max abs diff:    29.306765 mm
+[2026-09-22T23:11:22Z] fraction > 1mm:  0.00698%  (1741 px)
+[2026-09-22T23:11:22Z] fraction > 5mm:  0.00345%  (862 px)
+[2026-09-22T23:11:22Z] fraction > 10mm: 0.00133% (331 px)
+[2026-09-22T23:11:22Z] 
+wrote /data1_ycao/chua/projects/mrsp/results/eval_protocol_stage1/summary.json
+[2026-09-22T23:11:22Z] ALL DONE
