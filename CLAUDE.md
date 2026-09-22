@@ -157,8 +157,13 @@ convention. Mark it UNKNOWN and say what would settle it.
 ## Layout
 
 ```
-src/geometry/   camera model, pose handling, back-projection
-src/gt/         GT loaders, coverage mesh parsing, visibility raster  (locked)
+src/geometry/   camera model, pose handling, back-projection, coverage mesh
+                parsing (coverage_mesh.py and pose.py live here, not
+                src/gt/ -- historical: written before src/gt/ existed, and
+                scripts/visibility_full.py plus other already-frozen code
+                import from geometry.coverage_mesh/geometry.pose, so they
+                were not relocated when src/gt/ was introduced)
+src/gt/         depth loading, visibility raster                      (locked)
 src/eval/       metrics, region matching, registration                (locked)
 scripts/        runnable entry points
 tests/          unit tests, tests/conventions/ for units and frames
