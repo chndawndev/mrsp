@@ -21,6 +21,14 @@ GT poses across a full sequence must reproduce that script's recorded
 per-sequence IoU exactly -- this is the Stage 1 validation performed in
 `scratch/pipelines/eval_protocol_stage1_validation.py`.
 
+Lives in `src/gt/` (not `src/geometry/`) per `CLAUDE.md`'s layout, which
+names "visibility raster" as part of `src/gt/`'s (locked) contents --
+`src/eval/` imports this module for both the GT-side rasterization
+(`docs/eval_protocol.md` section 6's evaluable-pixel-restricted target)
+and the predicted-observed-set ray-cast (section 2), reusing the same
+engine for both per section 7's decision, rather than building a second
+one.
+
 Pose convention: `(R_c2w, T_c2w)` is the camera-to-world rotation (3, 3)
 and translation (3,) -- `CLAUDE.md`'s "transposed" `pose.txt` convention
 (`np.array(vals).reshape(4,4).T`) for GT pose, or `docs/eval_protocol.md`

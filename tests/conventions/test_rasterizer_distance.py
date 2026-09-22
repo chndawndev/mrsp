@@ -1,4 +1,4 @@
-"""Unit tests for src/geometry/rasterizer.py's camera-frame Z-depth output.
+"""Unit tests for src/gt/rasterizer.py's camera-frame Z-depth output.
 
 Runs on the CPU Warp device (no GPU required for CI) against small
 synthetic meshes with known, hand-computable geometry -- not real C3VDv2
@@ -17,7 +17,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from geometry.rasterizer import build_mesh, cast_frame, make_raycast_frame_kernel, pose_axes  # noqa: E402
+from gt.rasterizer import build_mesh, cast_frame, make_raycast_frame_kernel, pose_axes  # noqa: E402
 
 wp = pytest.importorskip("warp")
 
