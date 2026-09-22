@@ -1,0 +1,91 @@
+[20:20:50] 
+=== c1_ascending_t4_v2 (3D model: c1_ascending, group A1) ===
+[20:35:35]   registration RMS: 0.0528mm (882s)
+[20:35:36]   mold pieces: [('c1_ascending_bottom', 400708), ('c1_ascending_core', 1320511), ('c1_ascending_top', 253230)]
+[20:35:45]     frame 0/693, elapsed 9s
+[20:40:59]     frame 100/693, elapsed 323s
+[20:46:26]     frame 200/693, elapsed 650s
+[20:53:02]     frame 300/693, elapsed 1046s
+[20:59:40]     frame 400/693, elapsed 1444s
+[21:05:55]     frame 500/693, elapsed 1819s
+[21:11:26]     frame 600/693, elapsed 2150s
+[21:15:54]     frame 693/693, elapsed 2418s
+[21:15:54]   ray-casting done in 2418s
+[21:15:54]   false_unobserved: 8032 / GT-observed=512586
+[21:15:54]   (b) overlap per piece: {'c1_ascending_bottom': {'n_comparable': 7952, 'n_overlap': 1778, 'frac_explained': 0.22359154929577466}, 'c1_ascending_core': {'n_comparable': 8032, 'n_overlap': 0, 'frac_explained': 0.0}, 'c1_ascending_top': {'n_comparable': 7934, 'n_overlap': 2987, 'frac_explained': 0.37648096798588354}}
+[21:15:54]   (b) UNION overlap: 3714/8032 = 46.24%
+[21:15:54]   (a) null baseline (all lumen faces): mean=32.726% std=0.509% p95=33.578%
+[21:15:54]   (a) null baseline (GT-observed only): mean=32.597% std=0.522% p95=33.442%
+[21:15:54]   (a) observed union overlap 46.24% vs. null (GT-observed pool) mean 32.597% -> z-like ratio 1.4x
+[21:15:54]   (c) IoU vs released GT: WITHOUT mold-collision term = 0.984023, WITH = 0.856745
+[21:15:54] 
+=== c1_ascending_t4_v3 (3D model: c1_ascending, group A1) ===
+[21:30:49]   registration RMS: 0.0528mm (892s)
+[21:30:50]   mold pieces: [('c1_ascending_bottom', 400708), ('c1_ascending_core', 1320511), ('c1_ascending_top', 253230)]
+[21:31:02]     frame 0/693, elapsed 11s
+[21:36:45]     frame 100/693, elapsed 355s
+[21:41:51]     frame 200/693, elapsed 661s
+[21:47:28]     frame 300/693, elapsed 998s
+[21:52:53]     frame 400/693, elapsed 1322s
+[21:58:59]     frame 500/693, elapsed 1689s
+[22:04:51]     frame 600/693, elapsed 2041s
+[22:09:54]     frame 693/693, elapsed 2344s
+[22:09:54]   ray-casting done in 2344s
+[22:09:54]   false_unobserved: 8050 / GT-observed=512630
+[22:09:54]   (b) overlap per piece: {'c1_ascending_bottom': {'n_comparable': 7984, 'n_overlap': 1775, 'frac_explained': 0.2223196392785571}, 'c1_ascending_core': {'n_comparable': 8050, 'n_overlap': 0, 'frac_explained': 0.0}, 'c1_ascending_top': {'n_comparable': 7960, 'n_overlap': 3000, 'frac_explained': 0.3768844221105528}}
+[22:09:54]   (b) UNION overlap: 3722/8050 = 46.24%
+[22:09:55]   (a) null baseline (all lumen faces): mean=32.753% std=0.504% p95=33.566%
+[22:09:55]   (a) null baseline (GT-observed only): mean=32.613% std=0.515% p95=33.441%
+[22:09:55]   (a) observed union overlap 46.24% vs. null (GT-observed pool) mean 32.613% -> z-like ratio 1.4x
+[22:09:55]   (c) IoU vs released GT: WITHOUT mold-collision term = 0.984014, WITH = 0.856815
+[22:09:55] 
+=== c1_ascending_t3_v1 (3D model: c1_ascending, group A1) ===
+[22:16:21]   registration RMS: 0.0941mm (383s)
+[22:16:22]   mold pieces: [('c1_ascending_bottom', 400708), ('c1_ascending_core', 1320511), ('c1_ascending_top', 253230)]
+[22:16:32]     frame 0/258, elapsed 10s
+[22:21:20]     frame 100/258, elapsed 298s
+[22:26:24]     frame 200/258, elapsed 602s
+[22:28:48]     frame 258/258, elapsed 747s
+[22:28:48]   ray-casting done in 747s
+[22:28:48]   false_unobserved: 4653 / GT-observed=615047
+[22:28:49]   (b) overlap per piece: {'c1_ascending_bottom': {'n_comparable': 4551, 'n_overlap': 1058, 'frac_explained': 0.23247637881784222}, 'c1_ascending_core': {'n_comparable': 4653, 'n_overlap': 0, 'frac_explained': 0.0}, 'c1_ascending_top': {'n_comparable': 4517, 'n_overlap': 1667, 'frac_explained': 0.3690502545937569}}
+[22:28:49]   (b) UNION overlap: 2116/4653 = 45.48%
+[22:28:49]   (a) null baseline (all lumen faces): mean=32.401% std=0.725% p95=33.527%
+[22:28:49]   (a) null baseline (GT-observed only): mean=32.455% std=0.670% p95=33.549%
+[22:28:49]   (a) observed union overlap 45.48% vs. null (GT-observed pool) mean 32.455% -> z-like ratio 1.4x
+[22:28:49]   (c) IoU vs released GT: WITHOUT mold-collision term = 0.992106, WITH = 0.927676
+[22:28:49] 
+=== c2_rectum_t4_v1 (3D model: c2_rectum, group A2) ===
+[22:30:40]   registration RMS: 0.0002mm (110s)
+[22:30:40]   mold pieces: [('c2_rectum_bottom', 122800), ('c2_rectum_core', 212893), ('c2_rectum_top', 125572)]
+[22:30:44]     frame 0/197, elapsed 4s
+[22:33:53]     frame 100/197, elapsed 193s
+[22:36:57]     frame 197/197, elapsed 377s
+[22:36:57]   ray-casting done in 377s
+[22:36:57]   false_unobserved: 3072 / GT-observed=234276
+[22:36:57]   (b) overlap per piece: {'c2_rectum_bottom': {'n_comparable': 1635, 'n_overlap': 0, 'frac_explained': 0.0}, 'c2_rectum_core': {'n_comparable': 2247, 'n_overlap': 0, 'frac_explained': 0.0}, 'c2_rectum_top': {'n_comparable': 1654, 'n_overlap': 0, 'frac_explained': 0.0}}
+[22:36:57]   (b) UNION overlap: 0/3072 = 0.00%
+[22:36:57]   (a) null baseline (all lumen faces): mean=0.000% std=0.000% p95=0.000%
+[22:36:57]   (a) null baseline (GT-observed only): mean=0.000% std=0.000% p95=0.000%
+[22:36:57]   (a) observed union overlap 0.00% vs. null (GT-observed pool) mean 0.000% -> z-like ratio 0.0x
+[22:36:57]   (c) IoU vs released GT: WITHOUT mold-collision term = 0.984584, WITH = 0.984584
+[22:36:57] 
+=== c1_cecum_t1_v1 (3D model: c1_cecum, group control) ===
+[22:41:12]   registration RMS: 0.0515mm (252s)
+[22:41:13]   mold pieces: [('c1_cecum_bottom', 150000), ('c1_cecum_core', 1517622), ('c1_cecum_top', 197048)]
+[22:41:22]     frame 0/217, elapsed 8s
+[22:45:03]     frame 100/217, elapsed 230s
+[22:48:50]     frame 200/217, elapsed 456s
+[22:49:27]     frame 217/217, elapsed 494s
+[22:49:27]   ray-casting done in 494s
+[22:49:27]   false_unobserved: 375 / GT-observed=635753
+[22:49:27]   (b) overlap per piece: {'c1_cecum_bottom': {'n_comparable': 51, 'n_overlap': 0, 'frac_explained': 0.0}, 'c1_cecum_core': {'n_comparable': 375, 'n_overlap': 0, 'frac_explained': 0.0}, 'c1_cecum_top': {'n_comparable': 77, 'n_overlap': 0, 'frac_explained': 0.0}}
+[22:49:27]   (b) UNION overlap: 0/375 = 0.00%
+[22:49:27]   (a) null baseline (all lumen faces): mean=0.000% std=0.000% p95=0.000%
+[22:49:27]   (a) null baseline (GT-observed only): mean=0.000% std=0.000% p95=0.000%
+[22:49:27]   (a) observed union overlap 0.00% vs. null (GT-observed pool) mean 0.000% -> z-like ratio 0.0x
+[22:49:27]   (c) IoU vs released GT: WITHOUT mold-collision term = 0.998826, WITH = 0.998826
+[22:49:27] 
+wrote /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_item1_tightened/summary.json
+[22:49:27] ALL DONE
+EXITCODE:0

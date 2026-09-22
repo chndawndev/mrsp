@@ -145,45 +145,56 @@ Stopping here, per instructions.
 
 ---
 
-## Addendum (2026-09-21): Group A1's "boundary-alignment discrepancy" hypothesis retracted; new, partially-confirmed evidence
+## Addendum (2026-09-21, corrected same day): Group A1's "boundary-alignment discrepancy" hypothesis retracted; new evidence, tested rigorously, does NOT confirm a replacement — A1 stays UNKNOWN
 
-The §"boundary-alignment discrepancy" hypothesis above (line 107) has
-**not** been confirmed and is superseded by direct evidence for a
-different, more specific mechanism, found while diagnosing an unrelated
-open-end-escape question for `docs/eval_protocol_oracle_gap.md`. (An
-intermediate step in that investigation briefly re-attributed
-`c1_ascending_t3_v1`'s disagreement there to this Group A1 entry on the
-grounds of "same sequence" — that attribution was itself retracted on
-closer inspection, since the two phenomena's signatures don't match; see
-`docs/eval_protocol_oracle_gap.md`'s Decision 2 and Item 1.)
+**This corrects an over-claim made earlier the same day** (see the
+superseded text preserved in git history for that intermediate version):
+an initial test reported "≥38% of false_unobserved explained" without a
+chance baseline; a null-baseline control and a decisive predicted-GT
+IoU test (both requested and run immediately after) showed that number
+was mostly chance and the mechanism does not hold up as a resolution.
 
-**New hypothesis tested**: `render/Render.cu`'s coverage update
+The original "boundary-alignment discrepancy" hypothesis (line 107) is
+still retracted — it doesn't match the measured signature (thousands of
+pixels of real absence vs. sub-millimetre single-face speckle) — but the
+replacement candidate below is **not confirmed either**. Group A1 remains
+**UNKNOWN**.
+
+**Hypothesis tested**: `render/Render.cu`'s coverage update
 (`coverage[primID] = 255`, lines 315-320) writes to a per-mesh-local
 `primID` with no check of which mesh was hit, and the scene contains
 multiple meshes — lumen plus mold (`render/RenderContext.cpp:262-263`).
 If a primary ray hits a **mold** triangle at local index N, this would
-incorrectly mark **lumen** face N as observed in the coverage buffer — a
-defect in the released GT, not in any downstream visibility code.
+incorrectly mark **lumen** face N as observed.
 
-**MEASURED** (`docs/eval_protocol_oracle_gap.md` Item 1, full detail and
-method there): on all three Group A1 sequences (`c1_ascending_t4_v2`,
-`c1_ascending_t4_v3`, `c1_ascending_t3_v1`), **at least ~38% of the
-false_unobserved faces share their exact index with a mold triangle our
-own ray-cast genuinely hits** (registered mold via ICP, RMS 0.05mm on the
-lumen fit). On the non-open-end control (`c1_cecum_t1_v1`, `Open End
-Visible: no`), the registered mold is **never hit at all, from any of
-218 frames** — zero overlap, a clean negative control.
+**MEASURED, tightened** (`docs/eval_protocol_oracle_gap.md` Item 1, full
+method and numbers there): on all three Group A1 sequences, the
+false_unobserved/mold-hit index overlap (union of each mold piece's own
+local index space) is 45-46% — but a 1,000-draw null baseline (same-size
+random index samples) gives ~32.6% by pure chance, since the mold
+surface gets hit so extensively across a full video that a large,
+essentially arbitrary fraction of its low-numbered triangles were struck
+by *some* frame regardless of any bug. **The real, chance-corrected
+excess is only ~13 percentage points** — statistically real (the null
+distribution is tight, so 13pp is many standard deviations out) but far
+smaller than the raw 45-46% headline suggested.
 
-**Disposition, corrected**: this is **not** the sub-millimetre,
-single-face, silhouette-boundary speckle the original diagnosis (line
-107) described — it's a distinct, now directly-evidenced mechanism
-(mold-index collision), confirmed to account for a substantial minority-
-to-plurality (≥38%, exact combined figure not pinned down) of Group A1's
-false_unobserved faces. **Not fully resolved**: roughly 40-60% remains
-unexplained by this specific check, for reasons not yet investigated
-(imperfect mold registration, an unreleased `model.obj` differing from
-the raw STL proxy used here, or a genuinely separate residual cause).
-**Group A1 moves from UNKNOWN to partially-explained, not resolved** —
-the original boundary-alignment hypothesis is retracted as the leading
-candidate; mold-index collision is now the leading, partially-confirmed
-one.
+**Decisive test, as pre-specified: FAILS.** Constructing
+`predicted_GT = (our own lumen-only observed set) ∪ {mold-hit-index
+matches}` and comparing IoU against the released `coverage_mesh.obj`
+makes agreement **worse**, not better (0.984→0.857 for the `t4` pair,
+0.992→0.928 for `t3_v1`) — the mold-hit union set is too broad (~third of
+the whole lumen's index range) to use as a correction; it adds far more
+false positives than true corrections. **A generalization test on Group
+A2** (`c2_rectum_t4_v1`) found the mold never hit at all in that
+sequence's trajectory — this mechanism, real or not for ascending, does
+not generalize to A2.
+
+**Disposition, final for this addendum**: a small (~13pp), statistically
+real, non-generalizing, but mechanistically unconfirmed signal exists for
+Group A1 specifically — not usable as an explanation or a fix.
+**Roughly 87% of Group A1's false_unobserved faces, and 100% of the
+tested A2 sequence's, remain entirely unexplained. Group A1 (and the
+tested A2 case) stay logged as UNKNOWN**, same disposition as before this
+addendum, with one candidate mechanism now tested and mostly ruled out
+rather than untested.
