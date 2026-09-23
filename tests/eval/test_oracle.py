@@ -14,6 +14,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
+from eval.ignore_set import compute_ignore_set  # noqa: E402
 from eval.oracle import run_oracle_sequence  # noqa: E402
 from gt.depth import depth_to_mm  # noqa: E402
 from gt.rasterizer import build_mesh  # noqa: E402
@@ -95,15 +96,21 @@ def test_oracle_sequence_boundary_and_bookkeeping(warp_ready):
     assert result.predicted_observed[boundary_tau + 1e-6][0] == True  # noqa: E712
 
     # ever_evaluable_hit / ignore_set: single face, reached by an evaluable
-    # ray (ray0, every frame) -> in ever_evaluable_hit, not in ignore_set.
+    # ray (ray0, every frame) -> in ever_evaluable_hit, not in ignore_set
+    # (a GT-observed, evaluable-reached face is exactly the non-gap case --
+    # src/eval/ignore_set.py's narrow, gt_observed-restricted definition).
     assert result.ever_evaluable_hit[0] == True  # noqa: E712
-    assert result.ignore_set[0] == False  # noqa: E712
+    gt_observed = np.array([True])
+    ignore_set = compute_ignore_set(gt_observed, result.ever_evaluable_hit)
+    assert ignore_set[0] == False  # noqa: E712
 
 
 def test_oracle_sequence_face_never_evaluable_goes_to_ignore_set(warp_ready):
     """A ray that only ever hits the mesh through a vignetted pixel never
-    marks its face in ever_evaluable_hit -- the face lands in the ignore
-    set even though it was geometrically hit every frame."""
+    marks its face in ever_evaluable_hit. If the released GT nonetheless
+    credits that face as observed (the classic "gap" scenario -- GT-observed
+    but never reachable via an evaluable ray), it lands in the ignore set
+    (src/eval/ignore_set.py's narrow, gt_observed-restricted definition)."""
     cam_rays = np.array([[0.0, 0.0, 1.0]], dtype=np.float64)
     vertices, faces = _single_triangle_plane(z=50.0)
     identity_pose = np.eye(4)
@@ -117,5 +124,7 @@ def test_oracle_sequence_face_never_evaluable_goes_to_ignore_set(warp_ready):
 
     assert result.evaluable_count == 0
     assert result.ever_evaluable_hit[0] == False  # noqa: E712
-    assert result.ignore_set[0] == True  # noqa: E712
+    gt_observed = np.array([True])
+    ignore_set = compute_ignore_set(gt_observed, result.ever_evaluable_hit)
+    assert ignore_set[0] == True  # noqa: E712
     assert result.predicted_observed[0.25][0] == False  # noqa: E712

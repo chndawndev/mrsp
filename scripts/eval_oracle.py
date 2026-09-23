@@ -140,10 +140,9 @@ def run():
         t_run = time.time() - t0
         log(f"{seq}: oracle run over {result.n_frames} frames in {t_run:.1f}s")
 
-        ignore_set = compute_ignore_set(result.ever_evaluable_hit)
-        assert np.array_equal(ignore_set, result.ignore_set)
-
         gt_observed = mesh_data.face_observed
+        ignore_set = compute_ignore_set(gt_observed, result.ever_evaluable_hit)
+
         seq_out = {
             "n_faces": result.n_faces,
             "n_frames": result.n_frames,

@@ -1,6 +1,6 @@
-[2026-09-22T23:35:18Z] === Stage 2: oracle configuration, 3 sequences ===
-[2026-09-22T23:35:18Z] === GPU availability check (scripts/gpu_status.py) ===
-[2026-09-22T23:35:20Z] Tue Sep 22 19:35:18 2026       
+[2026-09-23T03:53:40Z] === Stage 2: oracle configuration, 3 sequences ===
+[2026-09-23T03:53:40Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-23T03:53:42Z] Tue Sep 22 23:53:40 2026       
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
 +-----------------------------------------+------------------------+----------------------+
@@ -9,19 +9,19 @@
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
 |   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
-| 34%   63C    P2            289W /  300W |   47034MiB /  49140MiB |     99%      Default |
+| 32%   61C    P2            296W /  300W |   47034MiB /  49140MiB |     92%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
-| 44%   72C    P2            297W /  300W |   47034MiB /  49140MiB |     89%      Default |
+| 44%   70C    P2            294W /  300W |   47034MiB /  49140MiB |     91%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
-| 45%   72C    P2            297W /  300W |   47034MiB /  49140MiB |     93%      Default |
+| 45%   72C    P2            299W /  300W |   47034MiB /  49140MiB |     99%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
-| 46%   74C    P2            298W /  300W |   47034MiB /  49140MiB |     97%      Default |
+| 46%   73C    P2            299W /  300W |   47034MiB /  49140MiB |     99%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
@@ -29,15 +29,15 @@
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
-| 41%   69C    P2            295W /  300W |   47034MiB /  49140MiB |     97%      Default |
+| 41%   69C    P2            297W /  300W |   47034MiB /  49140MiB |     99%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
-| 37%   66C    P2            289W /  300W |   47034MiB /  49140MiB |     98%      Default |
+| 37%   67C    P2            300W /  300W |   47034MiB /  49140MiB |    100%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
-| 30%   34C    P2             59W /  300W |   16428MiB /  49140MiB |      0%      Default |
+| 30%   33C    P2             59W /  300W |   16428MiB /  49140MiB |      0%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 
@@ -56,42 +56,42 @@
 |    7   N/A  N/A         3284995      C   python3                               16418MiB |
 +-----------------------------------------------------------------------------------------+
 
-[2026-09-22T23:35:20Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 32.1 GB free, 0% utilized
-[2026-09-22T23:35:20Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
-[2026-09-22T23:35:20Z] warp version 1.17.0, device cuda:0
-[2026-09-22T23:35:21Z] camera rays: 1458000 (1350x1080)
-[2026-09-22T23:35:21Z] vignette mask: 102049 px (6.9992%)
-[2026-09-22T23:35:21Z] loaded Part 1 ceiling reference from /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_part1/summary.json
-[2026-09-22T23:35:21Z] 
+[2026-09-23T03:53:42Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 32.1 GB free, 0% utilized
+[2026-09-23T03:53:42Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+[2026-09-23T03:53:43Z] warp version 1.17.0, device cuda:0
+[2026-09-23T03:53:43Z] camera rays: 1458000 (1350x1080)
+[2026-09-23T03:53:43Z] vignette mask: 102049 px (6.9992%)
+[2026-09-23T03:53:43Z] loaded Part 1 ceiling reference from /data1_ycao/chua/projects/mrsp/results/pipelines/oracle_gap_part1/summary.json
+[2026-09-23T03:53:43Z] 
 === c1_cecum_t1_v1 ===
-[2026-09-22T23:35:24Z] streamed mesh (699908 faces) + poses (218 frames) in 3.4s
-[2026-09-22T23:36:16Z] c1_cecum_t1_v1: oracle run over 218 frames in 51.7s
-[2026-09-22T23:36:16Z]   tau=0.15: IoU vs evaluable-GT-rasterization=0.999998 (target >=0.99: PASS) | IoU vs released GT=0.967873 | tau_reject=7063/271602180 usable pixels (0.00260%)
-[2026-09-22T23:36:16Z]   tau=0.25: IoU vs evaluable-GT-rasterization=0.999998 (target >=0.99: PASS) | IoU vs released GT=0.967873 | tau_reject=2383/271602180 usable pixels (0.00088%)
-[2026-09-22T23:36:16Z]   tau=0.35: IoU vs evaluable-GT-rasterization=1.000000 (target >=0.99: PASS) | IoU vs released GT=0.967874 | tau_reject=539/271602180 usable pixels (0.00020%)
-[2026-09-22T23:36:16Z]   tau=0.5: IoU vs evaluable-GT-rasterization=1.000000 (target >=0.99: PASS) | IoU vs released GT=0.967874 | tau_reject=29/271602180 usable pixels (0.00001%)
-[2026-09-22T23:36:16Z]   Part 1 measured ceiling (oracle vs released GT, structural gap only): 0.9678726729068345
-[2026-09-22T23:36:16Z]   ray_miss_frac=0.00000% evaluable_frac=85.45235% d_pred_unavailable=2979 ignore_set_size=83908 (11.9884% of faces)
-[2026-09-22T23:36:16Z] 
+[2026-09-23T03:53:46Z] streamed mesh (699908 faces) + poses (218 frames) in 3.2s
+[2026-09-23T03:54:38Z] c1_cecum_t1_v1: oracle run over 218 frames in 51.9s
+[2026-09-23T03:54:38Z]   tau=0.15: IoU vs evaluable-GT-rasterization=0.999998 (target >=0.99: PASS) | IoU vs released GT=0.967873 | tau_reject=7063/271602180 usable pixels (0.00260%)
+[2026-09-23T03:54:38Z]   tau=0.25: IoU vs evaluable-GT-rasterization=0.999998 (target >=0.99: PASS) | IoU vs released GT=0.967873 | tau_reject=2383/271602180 usable pixels (0.00088%)
+[2026-09-23T03:54:38Z]   tau=0.35: IoU vs evaluable-GT-rasterization=1.000000 (target >=0.99: PASS) | IoU vs released GT=0.967874 | tau_reject=539/271602180 usable pixels (0.00020%)
+[2026-09-23T03:54:38Z]   tau=0.5: IoU vs evaluable-GT-rasterization=1.000000 (target >=0.99: PASS) | IoU vs released GT=0.967874 | tau_reject=29/271602180 usable pixels (0.00001%)
+[2026-09-23T03:54:38Z]   Part 1 measured ceiling (oracle vs released GT, structural gap only): 0.9678726729068345
+[2026-09-23T03:54:38Z]   ray_miss_frac=0.00000% evaluable_frac=85.45235% d_pred_unavailable=2979 ignore_set_size=20094 (2.8709% of faces)
+[2026-09-23T03:54:38Z] 
 === c2_rectum_t1_v1 ===
-[2026-09-22T23:36:17Z] streamed mesh (284742 faces) + poses (154 frames) in 0.9s
-[2026-09-22T23:36:50Z] c2_rectum_t1_v1: oracle run over 154 frames in 33.8s
-[2026-09-22T23:36:50Z]   tau=0.15: IoU vs evaluable-GT-rasterization=0.999974 (target >=0.99: PASS) | IoU vs released GT=0.952950 | tau_reject=5230/208388919 usable pixels (0.00251%)
-[2026-09-22T23:36:50Z]   tau=0.25: IoU vs evaluable-GT-rasterization=0.999974 (target >=0.99: PASS) | IoU vs released GT=0.952950 | tau_reject=4816/208388919 usable pixels (0.00231%)
-[2026-09-22T23:36:50Z]   tau=0.35: IoU vs evaluable-GT-rasterization=0.999979 (target >=0.99: PASS) | IoU vs released GT=0.952955 | tau_reject=4526/208388919 usable pixels (0.00217%)
-[2026-09-22T23:36:50Z]   tau=0.5: IoU vs evaluable-GT-rasterization=0.999990 (target >=0.99: PASS) | IoU vs released GT=0.952965 | tau_reject=4095/208388919 usable pixels (0.00197%)
-[2026-09-22T23:36:50Z]   Part 1 measured ceiling (oracle vs released GT, structural gap only): 0.9529697932438135
-[2026-09-22T23:36:50Z]   ray_miss_frac=1.05989% evaluable_frac=92.81044% d_pred_unavailable=223 ignore_set_size=92627 (32.5302% of faces)
-[2026-09-22T23:36:50Z] 
+[2026-09-23T03:54:39Z] streamed mesh (284742 faces) + poses (154 frames) in 1.2s
+[2026-09-23T03:55:19Z] c2_rectum_t1_v1: oracle run over 154 frames in 39.5s
+[2026-09-23T03:55:19Z]   tau=0.15: IoU vs evaluable-GT-rasterization=0.999974 (target >=0.99: PASS) | IoU vs released GT=0.952950 | tau_reject=5230/208388919 usable pixels (0.00251%)
+[2026-09-23T03:55:19Z]   tau=0.25: IoU vs evaluable-GT-rasterization=0.999974 (target >=0.99: PASS) | IoU vs released GT=0.952950 | tau_reject=4816/208388919 usable pixels (0.00231%)
+[2026-09-23T03:55:19Z]   tau=0.35: IoU vs evaluable-GT-rasterization=0.999979 (target >=0.99: PASS) | IoU vs released GT=0.952955 | tau_reject=4526/208388919 usable pixels (0.00217%)
+[2026-09-23T03:55:19Z]   tau=0.5: IoU vs evaluable-GT-rasterization=0.999990 (target >=0.99: PASS) | IoU vs released GT=0.952965 | tau_reject=4095/208388919 usable pixels (0.00197%)
+[2026-09-23T03:55:19Z]   Part 1 measured ceiling (oracle vs released GT, structural gap only): 0.9529697932438135
+[2026-09-23T03:55:19Z]   ray_miss_frac=1.05989% evaluable_frac=92.81044% d_pred_unavailable=223 ignore_set_size=9330 (3.2767% of faces)
+[2026-09-23T03:55:19Z] 
 === c1_descending_t1_v1 ===
-[2026-09-22T23:36:51Z] streamed mesh (217311 faces) + poses (123 frames) in 0.7s
-[2026-09-22T23:37:17Z] c1_descending_t1_v1: oracle run over 123 frames in 26.3s
-[2026-09-22T23:37:17Z]   tau=0.15: IoU vs evaluable-GT-rasterization=0.999851 (target >=0.99: PASS) | IoU vs released GT=0.981783 | tau_reject=3895/159952525 usable pixels (0.00244%)
-[2026-09-22T23:37:17Z]   tau=0.25: IoU vs evaluable-GT-rasterization=0.999950 (target >=0.99: PASS) | IoU vs released GT=0.981821 | tau_reject=1809/159952525 usable pixels (0.00113%)
-[2026-09-22T23:37:17Z]   tau=0.35: IoU vs evaluable-GT-rasterization=0.999963 (target >=0.99: PASS) | IoU vs released GT=0.981833 | tau_reject=657/159952525 usable pixels (0.00041%)
-[2026-09-22T23:37:17Z]   tau=0.5: IoU vs evaluable-GT-rasterization=0.999963 (target >=0.99: PASS) | IoU vs released GT=0.981833 | tau_reject=205/159952525 usable pixels (0.00013%)
-[2026-09-22T23:37:17Z]   Part 1 measured ceiling (oracle vs released GT, structural gap only): None
-[2026-09-22T23:37:17Z]   ray_miss_frac=3.43766% evaluable_frac=89.19333% d_pred_unavailable=1446 ignore_set_size=55823 (25.6881% of faces)
-[2026-09-22T23:37:17Z] 
+[2026-09-23T03:55:20Z] streamed mesh (217311 faces) + poses (123 frames) in 1.0s
+[2026-09-23T03:55:49Z] c1_descending_t1_v1: oracle run over 123 frames in 28.8s
+[2026-09-23T03:55:49Z]   tau=0.15: IoU vs evaluable-GT-rasterization=0.999851 (target >=0.99: PASS) | IoU vs released GT=0.981783 | tau_reject=3895/159952525 usable pixels (0.00244%)
+[2026-09-23T03:55:49Z]   tau=0.25: IoU vs evaluable-GT-rasterization=0.999950 (target >=0.99: PASS) | IoU vs released GT=0.981821 | tau_reject=1809/159952525 usable pixels (0.00113%)
+[2026-09-23T03:55:49Z]   tau=0.35: IoU vs evaluable-GT-rasterization=0.999963 (target >=0.99: PASS) | IoU vs released GT=0.981833 | tau_reject=657/159952525 usable pixels (0.00041%)
+[2026-09-23T03:55:49Z]   tau=0.5: IoU vs evaluable-GT-rasterization=0.999963 (target >=0.99: PASS) | IoU vs released GT=0.981833 | tau_reject=205/159952525 usable pixels (0.00013%)
+[2026-09-23T03:55:49Z]   Part 1 measured ceiling (oracle vs released GT, structural gap only): None
+[2026-09-23T03:55:49Z]   ray_miss_frac=3.43766% evaluable_frac=89.19333% d_pred_unavailable=1446 ignore_set_size=2930 (1.3483% of faces)
+[2026-09-23T03:55:49Z] 
 wrote /data1_ycao/chua/projects/mrsp/results/eval_oracle_stage2/summary.json
-[2026-09-22T23:37:17Z] ALL DONE
+[2026-09-23T03:55:49Z] ALL DONE

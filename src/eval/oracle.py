@@ -1,9 +1,17 @@
 """Oracle configuration (GT depth + GT pose) end-to-end, `docs/eval_protocol.md`
 sections 1 (N/A -- the oracle needs no scale recovery, since it isn't a
 prediction), 2 (ray-cast + tau-gated depth agreement), 2a (evaluable
-pixel), 3 (ray misses), and the ignore set (section 6). Predicted
-configurations (scale recovery, post-hoc substitution) are Stage 4's job;
-this module only ever consumes GT depth and GT pose.
+pixel), and 3 (ray misses). Predicted configurations (scale recovery,
+post-hoc substitution) are Stage 4's job; this module only ever consumes
+GT depth and GT pose.
+
+Does NOT compute the ignore set itself (`src/eval/ignore_set.py` does,
+from this module's `ever_evaluable_hit` plus `gt_observed` -- the latter
+isn't otherwise needed by this module, and keeping the ignore-set
+definition in one place avoided a real bug: an earlier version computed
+`ignore_set = ~ever_evaluable_hit` here directly, which turned out to be
+the wrong, unrestricted reading of section 6 -- see
+`src/eval/ignore_set.py`'s docstring for the full diagnosis).
 
 No file I/O, no GPU/device selection here -- callers (`scripts/`) load the
 mesh/poses/depth and pick a GPU; this module is the locked procedure, not
@@ -37,7 +45,6 @@ class OracleSequenceResult:
     taus: list[float]
     predicted_observed: dict[float, np.ndarray]  # tau -> (n_faces,) bool, OR-accumulated
     ever_evaluable_hit: np.ndarray  # (n_faces,) bool -- evaluable-pixel-restricted GT rasterization
-    ignore_set: np.ndarray  # (n_faces,) bool -- complement of ever_evaluable_hit
     ray_miss_count: int  # section 3: rays that never hit the mesh at all, summed over all frames
     evaluable_count: int  # evaluable pixels (section 2a), summed over all frames
     d_pred_unavailable_count: int  # evaluable pixels where GT depth itself is raw==0/65535
@@ -118,8 +125,6 @@ def run_oracle_sequence(
             tau_reject_count[tau] += int((usable & ~tau_pass).sum())
             np.logical_or.at(predicted_observed[tau], face[tau_pass], True)
 
-    ignore_set = ~ever_evaluable_hit
-
     return OracleSequenceResult(
         n_faces=n_faces,
         n_frames=n_frames,
@@ -127,7 +132,6 @@ def run_oracle_sequence(
         taus=list(taus),
         predicted_observed=predicted_observed,
         ever_evaluable_hit=ever_evaluable_hit,
-        ignore_set=ignore_set,
         ray_miss_count=ray_miss_count,
         evaluable_count=evaluable_count,
         d_pred_unavailable_count=d_pred_unavailable_count,
