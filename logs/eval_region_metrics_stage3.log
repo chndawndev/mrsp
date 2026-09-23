@@ -1,6 +1,6 @@
-[2026-09-23T03:55:59Z] === Stage 3: region-level metrics, oracle configuration, 3 sequences ===
-[2026-09-23T03:55:59Z] === GPU availability check (scripts/gpu_status.py) ===
-[2026-09-23T03:56:03Z] Tue Sep 22 23:56:01 2026       
+[2026-09-23T04:40:45Z] === Stage 3: region-level metrics, oracle configuration, 3 sequences ===
+[2026-09-23T04:40:45Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-23T04:40:47Z] Wed Sep 23 00:40:45 2026       
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
 +-----------------------------------------+------------------------+----------------------+
@@ -9,35 +9,35 @@
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
 |   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
-| 32%   63C    P2            297W /  300W |   47034MiB /  49140MiB |    100%      Default |
+| 33%   62C    P2            297W /  300W |   47034MiB /  49140MiB |     99%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
-| 43%   71C    P2            299W /  300W |   47034MiB /  49140MiB |     98%      Default |
+| 43%   69C    P2            296W /  300W |   47034MiB /  49140MiB |     89%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
-| 45%   68C    P2            251W /  300W |   47034MiB /  49140MiB |     70%      Default |
+| 45%   71C    P2            296W /  300W |   47034MiB /  49140MiB |     99%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
-| 45%   73C    P2            300W /  300W |   47034MiB /  49140MiB |     85%      Default |
+| 46%   69C    P2            300W /  300W |   47034MiB /  49140MiB |    100%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
-| 30%   29C    P8             31W /  300W |   43316MiB /  49140MiB |      0%      Default |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
-| 42%   70C    P2            296W /  300W |   47034MiB /  49140MiB |     99%      Default |
+| 41%   68C    P2            297W /  300W |   47034MiB /  49140MiB |     95%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
-| 36%   64C    P2            298W /  300W |   47034MiB /  49140MiB |     95%      Default |
+| 37%   66C    P2            296W /  300W |   47034MiB /  49140MiB |     91%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 |   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
-| 30%   52C    P2            252W /  300W |   35857MiB /  49140MiB |     80%      Default |
+| 30%   41C    P2            112W /  300W |   25903MiB /  49140MiB |     35%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 
@@ -53,80 +53,83 @@
 |    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
 |    5   N/A  N/A         3026244      C   python                                47024MiB |
 |    6   N/A  N/A         3179062      C   python                                47024MiB |
-|    7   N/A  N/A          370097      C   python                                19424MiB |
+|    7   N/A  N/A          401079      C   python                                 9470MiB |
 |    7   N/A  N/A         3284995      C   python3                               16418MiB |
 +-----------------------------------------------------------------------------------------+
 
-[2026-09-23T03:56:03Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 12.7 GB free, 83% utilized
-[2026-09-23T03:56:03Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
-[2026-09-23T03:56:04Z] warp version 1.17.0, device cuda:0
-[2026-09-23T03:56:04Z] vignette mask: 102049 px (6.9992%)
-[2026-09-23T03:56:04Z] 
+[2026-09-23T04:40:47Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 22.6 GB free, 27% utilized
+[2026-09-23T04:40:47Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+[2026-09-23T04:40:48Z] warp version 1.17.0, device cuda:0
+[2026-09-23T04:40:48Z] vignette mask: 102049 px (6.9992%)
+[2026-09-23T04:40:48Z] 
 === c1_cecum_t1_v1 ===
-[2026-09-23T03:56:07Z]   streamed mesh (699908 faces) + poses (218 frames) in 3.3s
-[2026-09-23T03:56:59Z]   oracle run over 218 frames in 52.2s
-[2026-09-23T03:57:00Z]   face_areas: 0.1s
-[2026-09-23T03:57:00Z]   face_adjacency: 0.5s (1049222 edge pairs)
-[2026-09-23T03:57:00Z]   ignore_set: 20094/699908 faces (2.8709%), 3.0023% of mesh area
-[2026-09-23T03:57:00Z]   GT regions: 416 total, 3 headline (d>=5mm) in 0.1s
-[2026-09-23T03:57:00Z]   predicted components (tau=0.25): 298 in 0.1s
-[2026-09-23T03:57:00Z]   localization_error over 3 headline regions: 0.0s
-[2026-09-23T03:57:00Z]   [tau=0.25, ignore_set_frac_faces=2.8709%] recall@50%: small=1.0000 (2) medium=nan (0) large=1.0000 (1)
-[2026-09-23T03:57:00Z]   [tau=0.25] false_reassurance=0.004600 false_alarm(with ignore)=0.000010 false_alarm(no ignore)=0.264573
-[2026-09-23T03:57:00Z]   [tau=0.25] area_fraction=0.113480 calibration_ratio=1.353499
-[2026-09-23T03:57:00Z]   [tau=0.25] localization_error: n=3 undetected=0 median=0.0306mm
-[2026-09-23T03:57:00Z]   [ignore-set validation, tau=0.15] 298 predicted components computed in 0.1s
-[2026-09-23T03:57:00Z]   [ignore-set validation, tau=0.15] false_alarm(with ignore)=0.000010 (no ignore)=0.264573 | components: all 298/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=79, missing=197)
-[2026-09-23T03:57:00Z]   [ignore-set validation, tau=0.25] 298 predicted components computed in 0.1s
-[2026-09-23T03:57:00Z]   [ignore-set validation, tau=0.25] false_alarm(with ignore)=0.000010 (no ignore)=0.264573 | components: all 298/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=79, missing=197)
-[2026-09-23T03:57:00Z]   [ignore-set validation, tau=0.35] 297 predicted components computed in 0.1s
-[2026-09-23T03:57:00Z]   [ignore-set validation, tau=0.35] false_alarm(with ignore)=0.000000 (no ignore)=0.264567 | components: all 297/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=78, missing=197)
-[2026-09-23T03:57:01Z]   [ignore-set validation, tau=0.5] 297 predicted components computed in 0.1s
-[2026-09-23T03:57:01Z]   [ignore-set validation, tau=0.5] false_alarm(with ignore)=0.000000 (no ignore)=0.264567 | components: all 297/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=78, missing=197)
-[2026-09-23T03:57:01Z] 
+[2026-09-23T04:40:51Z]   streamed mesh (699908 faces) + poses (218 frames) in 2.7s
+[2026-09-23T04:41:39Z]   oracle run over 218 frames in 47.9s
+[2026-09-23T04:41:39Z]   face_areas: 0.1s
+[2026-09-23T04:41:39Z]   face_adjacency: 0.3s (1049222 edge pairs)
+[2026-09-23T04:41:39Z]   ignore_set: 20094/699908 faces (2.8709%), 3.0023% of mesh area
+[2026-09-23T04:41:39Z]   GT regions: 416 total, 3 headline (d>=5mm) in 0.1s
+[2026-09-23T04:41:39Z]   predicted components (tau=0.25): 298 in 0.1s
+[2026-09-23T04:41:40Z]   localization_error over 3 headline regions: 1.0s
+[2026-09-23T04:41:40Z]   [tau=0.25, ignore_set_frac_faces=2.8709%] recall@50%: small=1.0000 (2) medium=nan (0) large=1.0000 (1)
+[2026-09-23T04:41:40Z]   [tau=0.25] false_reassurance=0.004600 false_alarm(with ignore)=0.000010 false_alarm(no ignore)=0.264573
+[2026-09-23T04:41:40Z]   [tau=0.25] area_fraction=0.113480 calibration_ratio=1.353499
+[2026-09-23T04:41:40Z]   [tau=0.25] localization_error: n=3 undetected=0 median=0.0306mm
+[2026-09-23T04:41:40Z]   [tau=0.25] segment-intersects-mesh diagnostic: 0/3 matched pairs (0.00%) -- straight centroid line tunnels through the mesh
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.15] 298 predicted components computed in 0.1s
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.15] false_alarm(with ignore)=0.000010 (no ignore)=0.264573 | components: all 298/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=79, missing=197)
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.25] 298 predicted components computed in 0.1s
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.25] false_alarm(with ignore)=0.000010 (no ignore)=0.264573 | components: all 298/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=79, missing=197)
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.35] 297 predicted components computed in 0.1s
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.35] false_alarm(with ignore)=0.000000 (no ignore)=0.264567 | components: all 297/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=78, missing=197)
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.5] 297 predicted components computed in 0.1s
+[2026-09-23T04:41:41Z]   [ignore-set validation, tau=0.5] false_alarm(with ignore)=0.000000 (no ignore)=0.264567 | components: all 297/416 (match=False) headline 3/3 (match=True) | exact_faceset_match=False (extra=78, missing=197)
+[2026-09-23T04:41:41Z] 
 === c2_rectum_t1_v1 ===
-[2026-09-23T03:57:02Z]   streamed mesh (284742 faces) + poses (154 frames) in 1.0s
-[2026-09-23T03:57:38Z]   oracle run over 154 frames in 36.8s
-[2026-09-23T03:57:38Z]   face_areas: 0.0s
-[2026-09-23T03:57:39Z]   face_adjacency: 0.1s (426360 edge pairs)
-[2026-09-23T03:57:39Z]   ignore_set: 9330/284742 faces (3.2767%), 3.1835% of mesh area
-[2026-09-23T03:57:39Z]   GT regions: 108 total, 4 headline (d>=5mm) in 0.0s
-[2026-09-23T03:57:39Z]   predicted components (tau=0.25): 67 in 0.0s
-[2026-09-23T03:57:39Z]   localization_error over 4 headline regions: 0.0s
-[2026-09-23T03:57:39Z]   [tau=0.25, ignore_set_frac_faces=3.2767%] recall@50%: small=nan (0) medium=1.0000 (2) large=1.0000 (2)
-[2026-09-23T03:57:39Z]   [tau=0.25] false_reassurance=0.001691 false_alarm(with ignore)=0.000052 false_alarm(no ignore)=0.099563
-[2026-09-23T03:57:39Z]   [tau=0.25] area_fraction=0.319895 calibration_ratio=1.108694
-[2026-09-23T03:57:39Z]   [tau=0.25] localization_error: n=4 undetected=0 median=0.0022mm
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.15] 67 predicted components computed in 0.0s
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.15] false_alarm(with ignore)=0.000052 (no ignore)=0.099563 | components: all 67/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=20, missing=61)
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.25] 67 predicted components computed in 0.0s
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.25] false_alarm(with ignore)=0.000052 (no ignore)=0.099563 | components: all 67/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=20, missing=61)
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.35] 66 predicted components computed in 0.0s
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.35] false_alarm(with ignore)=0.000030 (no ignore)=0.099545 | components: all 66/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=19, missing=61)
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.5] 66 predicted components computed in 0.0s
-[2026-09-23T03:57:39Z]   [ignore-set validation, tau=0.5] false_alarm(with ignore)=0.000009 (no ignore)=0.099528 | components: all 66/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=19, missing=61)
-[2026-09-23T03:57:39Z] 
+[2026-09-23T04:41:42Z]   streamed mesh (284742 faces) + poses (154 frames) in 1.4s
+[2026-09-23T04:42:18Z]   oracle run over 154 frames in 35.3s
+[2026-09-23T04:42:18Z]   face_areas: 0.0s
+[2026-09-23T04:42:18Z]   face_adjacency: 0.1s (426360 edge pairs)
+[2026-09-23T04:42:18Z]   ignore_set: 9330/284742 faces (3.2767%), 3.1835% of mesh area
+[2026-09-23T04:42:18Z]   GT regions: 108 total, 4 headline (d>=5mm) in 0.0s
+[2026-09-23T04:42:18Z]   predicted components (tau=0.25): 67 in 0.0s
+[2026-09-23T04:42:18Z]   localization_error over 4 headline regions: 0.5s
+[2026-09-23T04:42:18Z]   [tau=0.25, ignore_set_frac_faces=3.2767%] recall@50%: small=nan (0) medium=1.0000 (2) large=1.0000 (2)
+[2026-09-23T04:42:18Z]   [tau=0.25] false_reassurance=0.001691 false_alarm(with ignore)=0.000052 false_alarm(no ignore)=0.099563
+[2026-09-23T04:42:18Z]   [tau=0.25] area_fraction=0.319895 calibration_ratio=1.108694
+[2026-09-23T04:42:18Z]   [tau=0.25] localization_error: n=4 undetected=0 median=0.0022mm
+[2026-09-23T04:42:18Z]   [tau=0.25] segment-intersects-mesh diagnostic: 0/4 matched pairs (0.00%) -- straight centroid line tunnels through the mesh
+[2026-09-23T04:42:18Z]   [ignore-set validation, tau=0.15] 67 predicted components computed in 0.0s
+[2026-09-23T04:42:18Z]   [ignore-set validation, tau=0.15] false_alarm(with ignore)=0.000052 (no ignore)=0.099563 | components: all 67/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=20, missing=61)
+[2026-09-23T04:42:18Z]   [ignore-set validation, tau=0.25] 67 predicted components computed in 0.0s
+[2026-09-23T04:42:18Z]   [ignore-set validation, tau=0.25] false_alarm(with ignore)=0.000052 (no ignore)=0.099563 | components: all 67/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=20, missing=61)
+[2026-09-23T04:42:19Z]   [ignore-set validation, tau=0.35] 66 predicted components computed in 0.0s
+[2026-09-23T04:42:19Z]   [ignore-set validation, tau=0.35] false_alarm(with ignore)=0.000030 (no ignore)=0.099545 | components: all 66/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=19, missing=61)
+[2026-09-23T04:42:19Z]   [ignore-set validation, tau=0.5] 66 predicted components computed in 0.0s
+[2026-09-23T04:42:19Z]   [ignore-set validation, tau=0.5] false_alarm(with ignore)=0.000009 (no ignore)=0.099528 | components: all 66/108 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=19, missing=61)
+[2026-09-23T04:42:19Z] 
 === c1_descending_t1_v1 ===
-[2026-09-23T03:57:40Z]   streamed mesh (217311 faces) + poses (123 frames) in 1.1s
-[2026-09-23T03:58:09Z]   oracle run over 123 frames in 29.2s
-[2026-09-23T03:58:09Z]   face_areas: 0.0s
-[2026-09-23T03:58:09Z]   face_adjacency: 0.1s (325347 edge pairs)
-[2026-09-23T03:58:09Z]   ignore_set: 2930/217311 faces (1.3483%), 1.2814% of mesh area
-[2026-09-23T03:58:09Z]   GT regions: 97 total, 4 headline (d>=5mm) in 0.0s
-[2026-09-23T03:58:09Z]   predicted components (tau=0.25): 93 in 0.0s
-[2026-09-23T03:58:10Z]   localization_error over 4 headline regions: 0.0s
-[2026-09-23T03:58:10Z]   [tau=0.25, ignore_set_frac_faces=1.3483%] recall@50%: small=1.0000 (1) medium=1.0000 (1) large=1.0000 (2)
-[2026-09-23T03:58:10Z]   [tau=0.25] false_reassurance=0.001031 false_alarm(with ignore)=0.000077 false_alarm(no ignore)=0.051907
-[2026-09-23T03:58:10Z]   [tau=0.25] area_fraction=0.247218 calibration_ratio=1.053662
-[2026-09-23T03:58:10Z]   [tau=0.25] localization_error: n=4 undetected=0 median=0.0152mm
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.15] 93 predicted components computed in 0.0s
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.15] false_alarm(with ignore)=0.000298 (no ignore)=0.052100 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.25] 93 predicted components computed in 0.0s
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.25] false_alarm(with ignore)=0.000077 (no ignore)=0.051907 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.35] 93 predicted components computed in 0.0s
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.35] false_alarm(with ignore)=0.000038 (no ignore)=0.051872 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.5] 93 predicted components computed in 0.0s
-[2026-09-23T03:58:10Z]   [ignore-set validation, tau=0.5] false_alarm(with ignore)=0.000038 (no ignore)=0.051872 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
-[2026-09-23T03:58:10Z] 
+[2026-09-23T04:42:19Z]   streamed mesh (217311 faces) + poses (123 frames) in 0.8s
+[2026-09-23T04:42:47Z]   oracle run over 123 frames in 27.8s
+[2026-09-23T04:42:47Z]   face_areas: 0.0s
+[2026-09-23T04:42:47Z]   face_adjacency: 0.1s (325347 edge pairs)
+[2026-09-23T04:42:47Z]   ignore_set: 2930/217311 faces (1.3483%), 1.2814% of mesh area
+[2026-09-23T04:42:47Z]   GT regions: 97 total, 4 headline (d>=5mm) in 0.0s
+[2026-09-23T04:42:47Z]   predicted components (tau=0.25): 93 in 0.0s
+[2026-09-23T04:42:48Z]   localization_error over 4 headline regions: 0.5s
+[2026-09-23T04:42:48Z]   [tau=0.25, ignore_set_frac_faces=1.3483%] recall@50%: small=1.0000 (1) medium=1.0000 (1) large=1.0000 (2)
+[2026-09-23T04:42:48Z]   [tau=0.25] false_reassurance=0.001031 false_alarm(with ignore)=0.000077 false_alarm(no ignore)=0.051907
+[2026-09-23T04:42:48Z]   [tau=0.25] area_fraction=0.247218 calibration_ratio=1.053662
+[2026-09-23T04:42:48Z]   [tau=0.25] localization_error: n=4 undetected=0 median=0.0152mm
+[2026-09-23T04:42:48Z]   [tau=0.25] segment-intersects-mesh diagnostic: 0/4 matched pairs (0.00%) -- straight centroid line tunnels through the mesh
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.15] 93 predicted components computed in 0.0s
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.15] false_alarm(with ignore)=0.000298 (no ignore)=0.052100 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.25] 93 predicted components computed in 0.0s
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.25] false_alarm(with ignore)=0.000077 (no ignore)=0.051907 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.35] 93 predicted components computed in 0.0s
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.35] false_alarm(with ignore)=0.000038 (no ignore)=0.051872 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.5] 93 predicted components computed in 0.0s
+[2026-09-23T04:42:48Z]   [ignore-set validation, tau=0.5] false_alarm(with ignore)=0.000038 (no ignore)=0.051872 | components: all 93/97 (match=False) headline 4/4 (match=True) | exact_faceset_match=False (extra=16, missing=20)
+[2026-09-23T04:42:48Z] 
 wrote /data1_ycao/chua/projects/mrsp/results/eval_region_metrics_stage3/summary.json
-[2026-09-23T03:58:10Z] ALL DONE
+[2026-09-23T04:42:48Z] ALL DONE

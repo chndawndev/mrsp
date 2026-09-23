@@ -8,10 +8,18 @@ For each sequence, at the primary tau=0.25 (docs/eval_protocol.md section 2):
 region recall by size class + the 25/50/75% detection sweep, false
 reassurance rate, false alarm rate (ignore-set-excluded, section 6),
 localization error, predicted-unobserved area fraction and calibration
-ratio. The ignore-set fraction (measured per sequence in Stage 2 -- 12.0%
-cecum, 25.7% descending, 32.5% rectum) is reported alongside every metric
-per sequence, per request -- metrics are not comparable across sequences
+ratio. The ignore-set fraction (measured per sequence -- 2.87% cecum,
+3.28% rectum, 1.35% descending, narrow gt_observed-restricted definition,
+docs/eval_protocol.md section 6) is reported alongside every metric per
+sequence, per request -- metrics are not comparable across sequences
 without it.
+
+Also reports the localization-error diagnostic (docs/eval_protocol.md
+section 5, "Localization error: Euclidean, decided" -- 2026-09-23,
+approved by Chen): for each matched GT-region/predicted-component pair,
+whether the straight segment between their centroids tunnels through the
+mesh (src/eval/region_metrics.py::segment_intersects_mesh), reported as a
+fraction of matched pairs per sequence, NOT used to adjust the metric.
 
 Validates (Stage 3's explicit ask): with the ignore set applied, false
 alarm rate should be ~0 and predicted-unobserved components should match
@@ -31,6 +39,7 @@ import traceback
 from pathlib import Path
 
 import numpy as np
+import trimesh
 
 REPO = Path("/data1_ycao/chua/projects/mrsp")
 sys.path.insert(0, str(REPO / "src"))
@@ -53,7 +62,10 @@ from eval.region_metrics import (  # noqa: E402
     false_alarm_rate,
     false_reassurance_rate,
     localization_error,
+    matching_predicted_component,
+    region_centroid,
     region_recall_by_size_class,
+    segment_intersects_mesh,
 )
 from gpu_status import get_gpu_stats  # noqa: E402
 
@@ -188,15 +200,26 @@ def run():
         area_frac, calib_ratio = area_fraction_and_calibration(predicted_unobserved, gt_unobserved, areas, total_area)
 
         t0 = time.time()
+        mesh_trimesh = trimesh.Trimesh(vertices=mesh_data.vertices, faces=mesh_data.faces, process=False)
         loc_errors = []
         n_headline_undetected = 0
+        n_segment_checked = 0
+        n_segment_intersects = 0
         for r in gt_regions_headline:
             err = localization_error(r, predicted_components, face_to_component_id, mesh_data.vertices, mesh_data.faces, areas)
             if err is None:
                 n_headline_undetected += 1
             else:
                 loc_errors.append(err)
+                comp = matching_predicted_component(r, predicted_components, face_to_component_id)
+                c_gt = region_centroid(r, mesh_data.vertices, mesh_data.faces, areas)
+                c_pred = region_centroid(comp, mesh_data.vertices, mesh_data.faces, areas)
+                n_segment_checked += 1
+                if segment_intersects_mesh(mesh_trimesh, c_gt, c_pred):
+                    n_segment_intersects += 1
         log(f"  localization_error over {len(gt_regions_headline)} headline regions: {time.time()-t0:.1f}s")
+
+        segment_intersect_frac = n_segment_intersects / n_segment_checked if n_segment_checked else float("nan")
 
         seq_out["primary_tau"] = {
             "tau": PRIMARY_TAU,
@@ -212,6 +235,9 @@ def run():
             "localization_error_median_mm": float(np.median(loc_errors)) if loc_errors else None,
             "localization_error_mean_mm": float(np.mean(loc_errors)) if loc_errors else None,
             "localization_error_max_mm": float(np.max(loc_errors)) if loc_errors else None,
+            "n_segment_pairs_checked": n_segment_checked,
+            "n_segment_pairs_intersect_mesh": n_segment_intersects,
+            "segment_intersect_fraction": segment_intersect_frac,
         }
 
         recall_50 = region_recall_by_size_class(gt_regions, predicted_unobserved, areas, DETECTION_PRIMARY)
@@ -225,6 +251,8 @@ def run():
         loc_med = seq_out["primary_tau"]["localization_error_median_mm"]
         log(f"  [tau={PRIMARY_TAU}] localization_error: n={len(loc_errors)} undetected={n_headline_undetected} "
             f"median={loc_med if loc_med is None else f'{loc_med:.4f}mm'}")
+        log(f"  [tau={PRIMARY_TAU}] segment-intersects-mesh diagnostic: {n_segment_intersects}/{n_segment_checked} "
+            f"matched pairs ({segment_intersect_frac*100:.2f}%) -- straight centroid line tunnels through the mesh")
 
         # ---------------- ignore-set validation, every tau ----------------
         t0 = time.time()

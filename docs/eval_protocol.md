@@ -363,6 +363,38 @@ comes with the unobserved-area fraction climbing toward 1.0 (i.e., toward
 improvement at a stable, GT-comparable area fraction, and the two must
 never be presented identically.
 
+### Localization error: Euclidean, not geodesic — decided (2026-09-23, approved by Chen)
+
+`docs/success_criteria.md` §1 defines localization error as a "surface
+distance" between two centroids, without saying whether that means
+geodesic (along the mesh surface) or Euclidean (straight-line through 3D
+space) — an ambiguity neither document resolved before `src/eval/` had to
+implement something. **Decision: Euclidean**, between the two regions'
+area-weighted face centroids.
+
+**Reasoning**: geodesic distance on a ~700k-face mesh is not a single
+well-defined number — Dijkstra-along-edges, the heat method, and an exact
+(e.g. MMP-family) geodesic solver give genuinely different results, and
+picking one adds an implementation-dependent methodological choice
+without adding clarity to what's being measured. Euclidean is
+parameter-free, deterministic, and trivially reproducible by anyone
+re-running this code, at the cost of not being a "distance along the
+surface" in the literal sense the phrase suggests.
+
+**Diagnostic, not a change to the metric**: for each matched GT-region /
+predicted-component pair, test whether the straight segment between the
+two centroids intersects the mesh anywhere strictly between its two
+endpoints (`src/eval/region_metrics.py::segment_intersects_mesh`, a small
+margin excluded at each end so a centroid sitting on/near the surface
+doesn't register a spurious self-hit). An intersecting segment means the
+straight line cuts through the lumen or the wall, so Euclidean
+understates the true surface separation for that pair. **Report the
+fraction of matched pairs where this happens, per sequence, alongside
+localization error** — not folded into the metric itself. If that
+fraction is large on the corpus, geodesic distance should be revisited;
+if small, Euclidean stands on measured evidence rather than an assumption
+about mesh geometry.
+
 ---
 
 ## 6. Validation plan for the eval code

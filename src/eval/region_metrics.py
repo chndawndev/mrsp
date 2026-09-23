@@ -27,20 +27,18 @@ place the frozen definitions below are modified by it):
     unfiltered, exactly as `docs/success_criteria.md` / section 5 define
     them.
 
-**UNKNOWN, flagged not guessed (`CLAUDE.md` reporting rules)**:
-"localization error" is defined as a "surface distance" between two
-centroids (`docs/success_criteria.md` line 66-67), which is ambiguous
+**Localization error: Euclidean, decided (2026-09-23, approved by Chen)**.
+"Surface distance" (`docs/success_criteria.md` line 66-67) is ambiguous
 between geodesic (along-mesh) and Euclidean (straight-line through 3D
-space) -- neither `docs/success_criteria.md` nor `docs/eval_protocol.md`
-section 5 resolves it. This module implements **Euclidean** distance
-between area-weighted face centroids (the simpler, well-defined choice,
-and the same choice already made elsewhere in this project for a
-different "surface distance" task -- `src/geometry/mesh_stats.py`'s
-`face_boundary_distances`) -- NOT a claim that this is the intended
-definition. Geodesic distance would be a materially different (and more
-expensive) computation, particularly for two centroids on opposite sides
-of a fold where a straight line tunnels through the lumen. Needs author
-confirmation.
+space); resolved in favor of Euclidean, between area-weighted face
+centroids -- parameter-free and reproducible, vs. geodesic distance on a
+~700k-face mesh being implementation-dependent (Dijkstra-along-edges vs.
+heat method vs. exact geodesic give different numbers). Full reasoning in
+`docs/eval_protocol.md` section 5. Paired with a diagnostic, not a change
+to the metric: `segment_intersects_mesh` below tests whether the straight
+line between a matched pair's centroids tunnels through the mesh, which
+would mean Euclidean understates the true surface separation for that
+pair -- reported as a per-sequence fraction alongside localization error.
 """
 from __future__ import annotations
 
@@ -197,12 +195,50 @@ def localization_error(
     areas: np.ndarray,
 ) -> float | None:
     """Euclidean surface distance between `gt_region`'s centroid and the
-    overlapping predicted component's centroid -- see module docstring for
-    the geodesic-vs-Euclidean UNKNOWN. None if no predicted component
-    overlaps `gt_region` (undetected -- no error to report)."""
+    overlapping predicted component's centroid -- see module docstring,
+    "Localization error: Euclidean, decided". None if no predicted
+    component overlaps `gt_region` (undetected -- no error to report)."""
     comp = matching_predicted_component(gt_region, predicted_components, face_to_component_id)
     if comp is None:
         return None
     c_gt = region_centroid(gt_region, vertices, faces, areas)
     c_pred = region_centroid(comp, vertices, faces, areas)
     return float(np.linalg.norm(c_gt - c_pred))
+
+
+def segment_intersects_mesh(
+    mesh, point_a: np.ndarray, point_b: np.ndarray, margin_frac: float = 1e-3
+) -> bool:
+    """The localization-error diagnostic (`docs/eval_protocol.md` section 5,
+    "Localization error: Euclidean, decided") -- NOT part of the metric
+    itself, never used to compute or adjust `localization_error`.
+
+    True if the straight segment from `point_a` to `point_b` crosses the
+    mesh surface anywhere strictly between its two endpoints. `mesh`: a
+    `trimesh.Trimesh` (built once per sequence and reused across pairs --
+    not rebuilt here). `margin_frac`: fraction of the segment length
+    excluded at each end, since a region centroid sits on/near the mesh
+    surface itself and a ray cast from exactly there would otherwise
+    register a spurious self-intersection at t~0.
+
+    An intersecting segment means the straight line cuts through the
+    lumen or the wall -- Euclidean distance understates the true surface
+    separation for that pair.
+    """
+    vec = np.asarray(point_b, dtype=np.float64) - np.asarray(point_a, dtype=np.float64)
+    length = float(np.linalg.norm(vec))
+    if length == 0.0:
+        return False
+    direction = vec / length
+    margin = margin_frac * length
+    origin = np.asarray(point_a, dtype=np.float64) + margin * direction
+
+    locations, index_ray, index_tri = mesh.ray.intersects_location(
+        origin.reshape(1, 3), direction.reshape(1, 3), multiple_hits=True
+    )
+    if len(locations) == 0:
+        return False
+
+    t = (locations - origin) @ direction  # distance along the ray from `origin`
+    valid_range = length - 2 * margin
+    return bool(np.any((t > 0) & (t < valid_range)))

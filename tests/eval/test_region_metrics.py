@@ -22,7 +22,10 @@ from eval.region_metrics import (  # noqa: E402
     matching_predicted_component,
     region_coverage_fraction,
     region_recall_by_size_class,
+    segment_intersects_mesh,
 )
+
+trimesh = pytest.importorskip("trimesh")
 from eval.regions import Region  # noqa: E402
 
 
@@ -177,3 +180,47 @@ def test_localization_error_none_when_undetected():
     gt_region = _region([0], area=0.5)
     face_to_component_id = build_face_to_component_id(1, [])
     assert localization_error(gt_region, [], face_to_component_id, vertices, faces, areas) is None
+
+
+def _wall_mesh(half_extent: float = 1000.0) -> "trimesh.Trimesh":
+    """A large flat wall in the plane z=0."""
+    verts = np.array(
+        [
+            [-half_extent, -half_extent, 0.0],
+            [half_extent, -half_extent, 0.0],
+            [half_extent, half_extent, 0.0],
+            [-half_extent, half_extent, 0.0],
+        ]
+    )
+    faces = np.array([[0, 1, 2], [0, 2, 3]])
+    return trimesh.Trimesh(vertices=verts, faces=faces, process=False)
+
+
+def test_segment_intersects_mesh_crossing_wall():
+    mesh = _wall_mesh()
+    point_a = np.array([0.0, 0.0, -5.0])
+    point_b = np.array([0.0, 0.0, 5.0])
+    assert segment_intersects_mesh(mesh, point_a, point_b) is True
+
+
+def test_segment_intersects_mesh_same_side_no_crossing():
+    mesh = _wall_mesh()
+    point_a = np.array([0.0, 0.0, -5.0])
+    point_b = np.array([0.0, 0.0, -1.0])
+    assert segment_intersects_mesh(mesh, point_a, point_b) is False
+
+
+def test_segment_intersects_mesh_endpoints_on_surface_no_false_positive():
+    """Both endpoints essentially on the mesh surface, segment lying flat
+    within the plane (not crossing through it) -- must not register a
+    spurious self-intersection from the margin-excluded endpoints."""
+    mesh = _wall_mesh()
+    point_a = np.array([-10.0, 0.0, 0.0])
+    point_b = np.array([10.0, 0.0, 0.0])
+    assert segment_intersects_mesh(mesh, point_a, point_b) is False
+
+
+def test_segment_intersects_mesh_zero_length_segment():
+    mesh = _wall_mesh()
+    point_a = np.array([5.0, 5.0, -3.0])
+    assert segment_intersects_mesh(mesh, point_a, point_a) is False
