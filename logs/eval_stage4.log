@@ -1,0 +1,105 @@
+[2026-09-23T04:48:34Z] === Stage 4: predicted path, c1_cecum_t1_v1, all 4 configurations ===
+[2026-09-23T04:48:34Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-23T04:48:36Z] Wed Sep 23 00:48:34 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 33%   59C    P2            295W /  300W |   47034MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 44%   72C    P2            278W /  300W |   47034MiB /  49140MiB |     75%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 44%   72C    P2            289W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 46%   73C    P2            296W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 42%   70C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 37%   66C    P2            296W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   42C    P2            110W /  300W |   27043MiB /  49140MiB |     30%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         3665199      C   python                                47024MiB |
+|    1   N/A  N/A         4118905      C   python                                47024MiB |
+|    2   N/A  N/A          135635      C   python                                47024MiB |
+|    3   N/A  N/A         3863493      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A         3026244      C   python                                47024MiB |
+|    6   N/A  N/A         3179062      C   python                                47024MiB |
+|    7   N/A  N/A          401079      C   python                                10610MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-23T04:48:36Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 21.5 GB free, 30% utilized
+[2026-09-23T04:48:36Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+[2026-09-23T04:48:36Z] warp version 1.17.0, device cuda:0
+[2026-09-23T04:48:40Z] streamed mesh (699908 faces) + poses (218 frames) in 3.3s
+[2026-09-23T04:48:46Z] loaded 218 GT depth frames in 5.7s
+[2026-09-23T04:48:47Z] loaded predicted depth + poses in 1.1s
+[2026-09-23T04:48:51Z] depth scale: median=177.01337448048218
+[2026-09-23T04:48:51Z] pose alignment: s_pose=557.8711809619352
+[2026-09-23T04:48:51Z] cross-check vs already-measured values (/data1_ycao/chua/projects/mrsp/results/pipelines/endodac_scale_analysis.json): depth_scale.median 177.01337448048218 vs saved 177.01336669921875 (diff 7.781263e-06); s_pose 557.8711809619352 vs saved 557.8711757434633 (diff 5.218472e-06)
+[2026-09-23T04:49:47Z] pose variant GT: ray-cast + fusion over 218 frames, 2 depth sources, in 56.3s
+[2026-09-23T04:50:40Z] pose variant pred: ray-cast + fusion over 218 frames, 2 depth sources, in 52.8s
+[2026-09-23T04:51:28Z] cross-check: ran src/eval/oracle.py's run_oracle_sequence fresh in 48.5s
+[2026-09-23T04:51:28Z] cross-check result: fusion.py's oracle config bit-for-bit identical to oracle.py = True
+[2026-09-23T04:51:28Z] ignore_set: 20094/699908 faces (2.8709%)
+[2026-09-23T04:51:29Z] GT regions: 416 total, 3 headline (d>=5mm)
+[2026-09-23T04:51:29Z] 
+=== configuration: oracle ===
+[2026-09-23T04:51:29Z]   ray_miss_frac=0.00000% evaluable_frac=85.45235% d_pred_unavailable=2979
+[2026-09-23T04:51:30Z]   [tau=0.15] ignore_set_frac=2.8709% area_fraction=0.113480 calib_ratio=1.353499 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.004600 false_alarm=0.000010 | loc_err_median=0.0306mm undetected=0 | tau_reject=7063
+[2026-09-23T04:51:30Z]   [tau=0.25] ignore_set_frac=2.8709% area_fraction=0.113480 calib_ratio=1.353499 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.004600 false_alarm=0.000010 | loc_err_median=0.0306mm undetected=0 | tau_reject=2383
+[2026-09-23T04:51:30Z]   [tau=0.35] ignore_set_frac=2.8709% area_fraction=0.113479 calib_ratio=1.353489 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.004600 false_alarm=0.000000 | loc_err_median=0.0306mm undetected=0 | tau_reject=539
+[2026-09-23T04:51:30Z]   [tau=0.5] ignore_set_frac=2.8709% area_fraction=0.113479 calib_ratio=1.353489 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.004600 false_alarm=0.000000 | loc_err_median=0.0306mm undetected=0 | tau_reject=29
+[2026-09-23T04:51:30Z] 
+=== configuration: pred_depth_only ===
+[2026-09-23T04:51:30Z]   ray_miss_frac=0.00000% evaluable_frac=85.45235% d_pred_unavailable=0
+[2026-09-23T04:51:31Z]   [tau=0.15] ignore_set_frac=2.8709% area_fraction=0.356919 calib_ratio=4.257027 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.001363 false_alarm=0.743870 | loc_err_median=1.1357mm undetected=0 | tau_reject=205295749
+[2026-09-23T04:51:31Z]   [tau=0.25] ignore_set_frac=2.8709% area_fraction=0.250180 calib_ratio=2.983934 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.002071 false_alarm=0.619959 | loc_err_median=1.1021mm undetected=0 | tau_reject=161000487
+[2026-09-23T04:51:31Z]   [tau=0.35] ignore_set_frac=2.8709% area_fraction=0.197726 calib_ratio=2.358316 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.002510 false_alarm=0.501312 | loc_err_median=1.1021mm undetected=0 | tau_reject=117707112
+[2026-09-23T04:51:31Z]   [tau=0.5] ignore_set_frac=2.8709% area_fraction=0.177453 calib_ratio=2.116511 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.002853 false_alarm=0.432931 | loc_err_median=1.1021mm undetected=0 | tau_reject=63265936
+[2026-09-23T04:51:31Z] 
+=== configuration: pred_pose_only ===
+[2026-09-23T04:51:31Z]   ray_miss_frac=0.05332% evaluable_frac=86.88113% d_pred_unavailable=8335784
+[2026-09-23T04:51:32Z]   [tau=0.15] ignore_set_frac=2.8709% area_fraction=0.131849 calib_ratio=1.572581 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.095125 false_alarm=0.302340 | loc_err_median=4.4600mm undetected=0 | tau_reject=93575487
+[2026-09-23T04:51:32Z]   [tau=0.25] ignore_set_frac=2.8709% area_fraction=0.122050 calib_ratio=1.455707 | recall@50%: small=0.5000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.114423 false_alarm=0.256048 | loc_err_median=3.9711mm undetected=0 | tau_reject=36642233
+[2026-09-23T04:51:32Z]   [tau=0.35] ignore_set_frac=2.8709% area_fraction=0.111690 calib_ratio=1.332150 | recall@50%: small=0.5000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.134568 false_alarm=0.230365 | loc_err_median=2.5047mm undetected=0 | tau_reject=13764722
+[2026-09-23T04:51:32Z]   [tau=0.5] ignore_set_frac=2.8709% area_fraction=0.108569 calib_ratio=1.294921 | recall@50%: small=0.5000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.141373 false_alarm=0.225472 | loc_err_median=2.2091mm undetected=0 | tau_reject=3629600
+[2026-09-23T04:51:32Z] 
+=== configuration: fully_predicted ===
+[2026-09-23T04:51:32Z]   ray_miss_frac=0.05332% evaluable_frac=86.88113% d_pred_unavailable=0
+[2026-09-23T04:51:32Z]   [tau=0.15] ignore_set_frac=2.8709% area_fraction=0.315445 calib_ratio=3.762370 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.009523 false_alarm=0.709102 | loc_err_median=7.2840mm undetected=0 | tau_reject=210189609
+[2026-09-23T04:51:32Z]   [tau=0.25] ignore_set_frac=2.8709% area_fraction=0.222463 calib_ratio=2.653359 | recall@50%: small=1.0000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.019515 false_alarm=0.572977 | loc_err_median=5.9988mm undetected=0 | tau_reject=163440073
+[2026-09-23T04:51:32Z]   [tau=0.35] ignore_set_frac=2.8709% area_fraction=0.185453 calib_ratio=2.211932 | recall@50%: small=0.5000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.030042 false_alarm=0.477175 | loc_err_median=0.9231mm undetected=0 | tau_reject=120860007
+[2026-09-23T04:51:33Z]   [tau=0.5] ignore_set_frac=2.8709% area_fraction=0.165001 calib_ratio=1.968000 | recall@50%: small=0.5000(2) medium=nan(0) large=1.0000(1) | false_reassur=0.041015 false_alarm=0.406251 | loc_err_median=1.4451mm undetected=0 | tau_reject=61689824
+[2026-09-23T04:51:33Z] 
+wrote /data1_ycao/chua/projects/mrsp/results/eval_stage4/summary.json
+[2026-09-23T04:51:33Z] ALL DONE (no D1 pass/fail commentary -- one sequence is not D1, per instructions)
