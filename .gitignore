@@ -33,3 +33,4 @@ ENV/
 .DS_Store
 Thumbs.db
 logs/.nfs00000005246a5fd700000800
+logs/check_viewer.log
