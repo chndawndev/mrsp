@@ -253,10 +253,56 @@ requirement that geometry and trajectory be held identical is therefore met by
 construction on that subset; the remaining 10 combos are excluded and the
 exclusion is reported.
 
+### 2026-09-23: Pre-run note: anticipated risk to D1.3 (no change to criteria)
+
+Written before the full-corpus D1 run. Only one sequence (c1_cecum_t1_v1)
+has been evaluated so far.
+
+Observation (single sequence, not a result): under fully_predicted with
+EndoDAC, the predicted-unobserved area fraction is 2.0x to 3.8x the GT
+fraction across tau in {0.15, 0.25, 0.35, 0.50}, and every headline region
+is detected in every configuration. Region recall is non-decreasing in the
+size of the predicted-unobserved set, so a pipeline that over-flags can
+reach high recall regardless of localization quality.
+
+Prediction: D1.3 (oracle minus fully_predicted recall on medium + large
+regions >= 10 pp) may fail on the full corpus because predicted-depth
+over-flagging inflates fully_predicted recall.
+
+Commitments:
+- D1.3's definition and threshold are unchanged.
+- If D1.3 fails, the pre-registered failure branch for D1.3 applies as
+  written.
+- Predicted-unobserved area fraction and false reassurance will be
+  reported next to recall for every configuration. These are descriptive
+  diagnostics only and do not substitute for D1.3 in any pass/fail
+  decision.
+
+### 2026-09-23: Deviation: localization error operationalized as Euclidean
+
+§1 defines localization error as "surface distance" between centroids.
+This term admits a geodesic reading. The protocol (docs/eval_protocol.md,
+decision of 2026-09-23) uses the Euclidean distance between the
+area-weighted centroid of the GT region and that of the matched predicted
+component, and reports as a diagnostic whether the connecting segment
+intersects the mesh (segment_intersects_mesh).
+
+Recorded as a deviation rather than a clarification because the original
+wording does not rule out the geodesic reading.
+
+Timing: decided before the full-corpus run; a single-sequence pilot
+(c1_cecum_t1_v1) had been run, in which all matched segments stayed
+inside the lumen.
+
+Trigger fixed in advance: if more than 20% of matched GT-predicted pairs
+on the full corpus have a segment that intersects the mesh, geodesic
+localization error will be computed and reported alongside Euclidean
+for all configurations. Euclidean remains the primary metric either way.
+
 ---
 
 ## 7. Sign-off
 
 Pre-registered by: Chen
 Date: 2026-09-18
-Commit at time of freezing: (5698d018163cf284317a4353ac9d425966f5d65a)
+Commit at time of freezing: (b3fa3fb7095fe3ded13428c81a1bfaa5922e3923)
