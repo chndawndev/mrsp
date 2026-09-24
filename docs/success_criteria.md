@@ -299,6 +299,22 @@ on the full corpus have a segment that intersects the mesh, geodesic
 localization error will be computed and reported alongside Euclidean
 for all configurations. Euclidean remains the primary metric either way.
 
+### 2026-09-23: Clarification: operational definition of D1.1 completion
+
+§2 D1.1 requires "a usable trajectory and depth for the full sequence, no
+crash, no permanent track loss". Operationalized before the full-corpus
+run as: every frame of the sequence has finite predicted depth and a
+finite predicted pose, and the Sim(3) trajectory alignment succeeds.
+
+Frame-to-frame pose pipelines such as EndoDAC cannot lose track by
+construction; for them D1.1 measures crash-free completion only. This is
+stated wherever D1.1 is reported.
+
+Trajectory quality (ATE after Sim(3) alignment, endpoint drift as a
+fraction of GT path length) is reported per sequence as a descriptive
+quantity. No threshold is attached to it, because one sequence
+(c1_cecum_t1_v1, endpoint drift 2.78%) had already been seen.
+
 ---
 
 ## 7. Sign-off

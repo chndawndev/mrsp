@@ -265,22 +265,6 @@ name. This has real compute cost at corpus scale — measured in §7, not
 just flagged: ~35 hours on CPU/embree for the full corpus, which is why
 §7 exists and why §7's decision (extend the GPU rasterizer) applies here.
 
-### 2026-09-23: Clarification: operational definition of D1.1 completion
-
-§2 D1.1 requires "a usable trajectory and depth for the full sequence, no
-crash, no permanent track loss". Operationalized before the full-corpus
-run as: every frame of the sequence has finite predicted depth and a
-finite predicted pose, and the Sim(3) trajectory alignment succeeds.
-
-Frame-to-frame pose pipelines such as EndoDAC cannot lose track by
-construction; for them D1.1 measures crash-free completion only. This is
-stated wherever D1.1 is reported.
-
-Trajectory quality (ATE after Sim(3) alignment, endpoint drift as a
-fraction of GT path length) is reported per sequence as a descriptive
-quantity. No threshold is attached to it, because one sequence
-(c1_cecum_t1_v1, endpoint drift 2.78%) had already been seen.
-
 ---
 
 ## 3. Rays that miss the mesh entirely
@@ -350,6 +334,29 @@ substituted) leak into cross-configuration comparisons.
 - **tau-sweep table**: every metric above, at each of the 4 proposed tau
   values, not just the primary — needed for D1.4-style robustness
   reporting and for validating tau itself (§6).
+
+### 2026-09-23: Aggregation rule for corpus-level metrics (decided before the full-corpus run)
+
+Point estimate: pooled over regions. For region recall in a size class,
+the number of detected GT regions divided by the total number of GT
+regions in that class, across all evaluated sequences. Every region has
+equal weight. Area-based metrics (false reassurance rate, false alarm
+rate, area fraction, calibration ratio) are pooled the same way: summed
+numerator area over summed denominator area across sequences.
+
+Uncertainty: cluster bootstrap at the mesh level (resample mesh hash ids
+from results/mesh_identity.csv with replacement, carrying all sequences
+and regions of each resampled mesh), 10,000 replicates, 95% percentile
+interval. The number of regions and the number of independent meshes
+behind every estimate are reported with it.
+
+Sensitivity (reported, not used for any decision): the same bootstrap
+clustered at the physical segment level (colon + segment parsed from the
+sequence name), since distinct mesh hashes can share one physical
+phantom segment.
+
+All D1 to D2 pass/fail decisions use the point estimate, as the
+thresholds in docs/success_criteria.md are stated on point values.
 
 ### Predicted-unobserved area fraction — the check that keeps recall honest
 
