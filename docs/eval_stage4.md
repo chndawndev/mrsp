@@ -185,6 +185,8 @@ Diagnosed with `scratch/pipelines/stage4_small_region_diagnosis.py` (reruns the 
 | 0 | 1478 | 57.9384 | 8.5889 |
 | 1 | 1537 | 75.0400 | 9.7747 |
 
+("region 0"/"region 1" here are local to this diagnosis's small-region-only list; the global `compute_regions` id used elsewhere (e.g. `docs/viewer_export.md`, the results viewer) is 45 for region 0 and 175 for region 1.)
+
 Area-weighted coverage fraction of each region by the predicted-unobserved set, per configuration, per tau (detection threshold is 50%):
 
 | config | tau=0.15 | tau=0.25 | tau=0.35 | tau=0.5 |

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MRSP results viewer -- c1_cecum_t1_v1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- BUILD_INFO -->
+<style>
+/* CSS_INLINE */
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app">
+  <div id="canvas-wrap">
+    <div id="loading">Decoding embedded data&hellip;</div>
+  </div>
+  <div id="panel">
+    <h1>MRSP results viewer</h1>
+    <div class="sub">c1_cecum_t1_v1 &middot; display only, no metric is computed here &mdash; every number is read from metrics.json / regions.json exported in Stage 1</div>
+
+    <h2>View</h2>
+    <div class="row">
+      <label for="sel-config">Config</label>
+      <select id="sel-config"></select>
+    </div>
+    <div class="row">
+      <label for="sel-tau">Tau</label>
+      <select id="sel-tau"></select>
+    </div>
+    <div class="row">
+      <label>&nbsp;</label>
+      <button id="btn-headline">Headline regions only</button>
+      <button id="btn-diff">Diff mode</button>
+    </div>
+    <div id="diff-controls" class="row" style="display:none;">
+      <label for="sel-config-a">A / B</label>
+      <select id="sel-config-a"></select>
+      <select id="sel-config-b"></select>
+    </div>
+
+    <h2>Legend</h2>
+    <div id="legend"></div>
+
+    <h2>Metrics (selected config &times; tau)</h2>
+    <div id="metrics-panel"></div>
+
+    <h2>Selected face</h2>
+    <div id="region-info"><span class="empty">Click a face on the mesh.</span></div>
+
+    <h2>Trajectory</h2>
+    <div class="row">
+      <label for="frame-slider">Frame</label>
+      <input type="range" id="frame-slider" min="0" max="1" value="0" step="1">
+      <span id="frame-label">0 / 0</span>
+    </div>
+    <div id="trajectory-info" class="note"></div>
+  </div>
+</div>
+
+<script type="application/json" id="manifest-data">MANIFEST_JSON</script>
+<!-- DATA_BLOCKS -->
+
+<script type="module">
+/* APP_JS_INLINE (core.js followed by viewer.js, concatenated by build_viewer.py --
+   one module scope so viewer.js can call core.js's top-level functions directly) */
+</script>
+</body>
+</html>
