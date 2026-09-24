@@ -11,9 +11,24 @@ Script: `scripts/export_viewer_data.py --export` (GPU, then)
 `logs/export_viewer_data.log`. GPU selection followed
 `scripts/eval_stage4.py`'s convention exactly: index 7 (RTX 6000 Ada, 32.1
 GB free, 0% utilized), single `CUDA_VISIBLE_DEVICES`. Total export runtime
-4m48s (streamed mesh+poses 3.2s, GT depth load 6.0s, pose variant GT
-52.9s, pose variant pred 48.9s, oracle.py cross-check 44.0s, metrics+JSON
-writing ~4s).
+**2m48s** (01:22:02Z-01:24:50Z: streamed mesh+poses 3.2s, GT depth load
+6.0s, pose variant GT 52.9s, pose variant pred 48.9s, oracle.py
+cross-check 44.0s, metrics+JSON writing ~4s).
+
+### Corrections (2026-09-23, before Stage 2)
+
+Three errors in the original version of this doc, found during Stage 2
+planning and fixed here, not silently:
+- Runtime was reported as 4m48s; the log timestamps give 2m48s.
+- "Clean tree at export time" was wrong -- `manifest.json`'s `git.dirty`
+  is `true` (correctly: `scripts/export_viewer_data.py` itself was
+  untracked at export time, committed only afterward as 52981dc).
+- Added: the float32 informational metric recompute promised by the
+  original export script's docstring but not actually run (see
+  "Verification A" below) -- `_recompute_and_diff_metrics` in
+  `scripts/export_viewer_data.py` was factored out so `--verify` can call
+  it twice, once on the float64 export (gating) and once on the float32
+  export (informational only).
 
 ---
 
@@ -43,9 +58,11 @@ All under `results/viewer/c1_cecum_t1_v1/`:
 **Format**: raw little-endian `.bin` arrays (a browser viewer can load
 these directly as typed arrays) plus JSON for structured/variable-size
 data, all indexed by `manifest.json` (path, dtype, shape, byte size,
-sha256 per file; git commit `485d52a`, clean tree at export time; tau
-list; config name list; `predicted_observed_packed`'s axis order
-`[config, tau, byte]` and bit order `little`).
+sha256 per file; git commit `485d52a`, **dirty tree at export time** --
+`scripts/export_viewer_data.py` itself was still untracked, committed
+only afterward as 52981dc; tau list; config name list;
+`predicted_observed_packed`'s axis order `[config, tau, byte]` and bit
+order `little`).
 
 **Dual precision (flagged in planning, not in the original spec)**:
 vertices and face areas are exported as both float32 and float64. The
@@ -85,11 +102,15 @@ float64 arrays.
 `ignore_set_frac_faces` diff = 0.0. Recomputed GT region ids exactly match
 the exported `gt_region_id` array and order.
 
-Informational only, not part of the pass/fail: recomputing face areas
-from the float32 vertex copy gives a max diff of 1.055e-05 mm² against the
-float64 areas (see "Dual precision" above) -- not run through the full
-metric pipeline, since check A's tolerance (1e-9) was defined against the
-float64 export.
+**Informational only, not part of the pass/fail**: the same recomputation
+run a second time, from the float32 vertex/area export instead. Worst
+metric diff: **1.698e-07mm**, on `fully_predicted/tau=0.5/localization_error_median_mm`
+(`verification.json`: `check_A.f32_informational.worst_diff`) -- six
+orders of magnitude looser than check A's 1e-9 gate, consistent with the
+float32-cast area error measured above (1.055e-05 mm²) propagating
+through centroid/distance computations rather than compounding. Every
+per-config, per-tau metric's float32-recomputed diff is in
+`verification.json`: `check_A.f32_informational.metric_max_diffs`.
 
 **Not independently recomputable from the exported per-face arrays**
 (flagged, not silently treated as verified): `ray_miss_frac`,

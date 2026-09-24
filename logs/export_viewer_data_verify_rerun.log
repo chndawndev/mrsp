@@ -1,0 +1,12 @@
+[2026-09-24T01:38:24Z] === Viewer export verification: c1_cecum_t1_v1 ===
+[2026-09-24T01:38:24Z] check A [f64]: max |recomputed_area - exported_area| = 0.000e+00
+[2026-09-24T01:38:24Z] check A [f32]: max |recomputed_area - exported_area| = 1.055e-05
+[2026-09-24T01:38:25Z] check A: recomputed GT region ids match exported gt_region_id = True
+[2026-09-24T01:38:25Z] check A: ignore_set_frac_faces diff = 0.000e+00
+[2026-09-24T01:38:30Z] check A: worst metric diff = 0.000e+00 (None) -- PASS
+[2026-09-24T01:38:35Z] check A [f32 informational]: worst metric diff = 1.698e-07 (fully_predicted/tau=0.5/localization_error_median_mm)
+[2026-09-24T01:38:35Z] check B: n_faces=699908 (True), ignore_set=20094 (True), headline=3 small=2 medium=0 large=1 (True)
+[2026-09-24T01:38:35Z] check C: diagnosis small-region-0 face set matches gt_region_id 45 (expected 45)
+[2026-09-24T01:38:35Z] check C: 73 faces only-unobserved under fully_predicted (tau=0.25, region 45); 72 also unobserved under pred_depth_only, 1 not
+[2026-09-24T01:38:35Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/verification.json
+[2026-09-24T01:38:35Z] VERIFY DONE

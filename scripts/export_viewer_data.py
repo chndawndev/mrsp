@@ -63,8 +63,6 @@ LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 def log(msg: str) -> None:
     line = f"[{time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}] {msg}"
     print(line, flush=True)
-    with open(LOG_PATH, "a") as f:
-        f.write(line + "\n")
 
 
 def select_gpu() -> int:
@@ -480,6 +478,96 @@ def _load_bin(manifest: dict, key: str) -> np.ndarray:
     return arr.reshape(info["shape"])
 
 
+def _recompute_and_diff_metrics(
+    vertices, faces, areas, gt_observed, gt_unobserved, ignore_set, packed,
+    config_names, taus, n_faces, total_area, reference, funcs,
+) -> tuple[dict, float, str | None]:
+    """Recompute every metrics.json field from face-level arrays via the
+    locked src/eval functions, and diff against `reference`
+    (results/eval_stage4/summary.json). Shared by check A's gating (f64
+    arrays) and the informational f32 recompute -- same recomputation,
+    different input precision."""
+    (compute_regions, build_face_to_component_id, detection_sweep, false_alarm_rate,
+     false_reassurance_rate, localization_error, matching_predicted_component,
+     region_centroid, region_recall_by_size_class, segment_intersects_mesh,
+     area_fraction_and_calibration, face_adjacency, mesh_trimesh) = funcs
+
+    adjacency = face_adjacency(vertices, faces)
+    gt_regions = compute_regions(n_faces, adjacency, gt_unobserved, areas)
+    gt_regions_headline = [r for r in gt_regions if r.size_class != "below_headline"]
+
+    max_diffs = {}
+    worst = 0.0
+    worst_key = None
+    for ci, config_name in enumerate(config_names):
+        ref_config = reference["configurations"][config_name]
+        for ti, tau in enumerate(taus):
+            predicted_observed = np.unpackbits(packed[ci, ti], bitorder="little")[:n_faces].astype(bool)
+            predicted_unobserved = ~predicted_observed
+
+            predicted_components = compute_regions(n_faces, adjacency, predicted_unobserved & ~ignore_set, areas)
+            face_to_component_id = build_face_to_component_id(n_faces, predicted_components)
+
+            sweep = detection_sweep(gt_regions, predicted_unobserved, areas)
+            f_reassur = false_reassurance_rate(gt_unobserved, predicted_observed, areas)
+            f_alarm = false_alarm_rate(predicted_unobserved, gt_observed, ignore_set, areas)
+            area_frac, calib_ratio = area_fraction_and_calibration(predicted_unobserved, gt_unobserved, areas, total_area)
+            recall_50 = region_recall_by_size_class(gt_regions, predicted_unobserved, areas, 0.50)
+
+            loc_errors = []
+            n_undetected = 0
+            n_seg_checked = 0
+            n_seg_intersect = 0
+            for r in gt_regions_headline:
+                err = localization_error(r, predicted_components, face_to_component_id, vertices, faces, areas)
+                if err is None:
+                    n_undetected += 1
+                else:
+                    loc_errors.append(err)
+                    comp = matching_predicted_component(r, predicted_components, face_to_component_id)
+                    c_gt = region_centroid(r, vertices, faces, areas)
+                    c_pred = region_centroid(comp, vertices, faces, areas)
+                    n_seg_checked += 1
+                    if segment_intersects_mesh(mesh_trimesh, c_gt, c_pred):
+                        n_seg_intersect += 1
+
+            recomputed = {
+                "area_fraction": area_frac,
+                "calibration_ratio": calib_ratio,
+                "false_reassurance_rate": f_reassur,
+                "false_alarm_rate": f_alarm,
+                "n_predicted_unobserved_faces": int(predicted_unobserved.sum()),
+                "n_headline_regions_with_localization_error": len(loc_errors),
+                "n_headline_regions_undetected": n_undetected,
+                "localization_error_median_mm": float(np.median(loc_errors)) if loc_errors else None,
+                "localization_error_mean_mm": float(np.mean(loc_errors)) if loc_errors else None,
+                "segment_intersect_fraction": (n_seg_intersect / n_seg_checked) if n_seg_checked else None,
+            }
+            ref_tau = ref_config["by_tau"][str(tau)]
+            for key, val in recomputed.items():
+                d = _nan_aware_diff(val, ref_tau[key])
+                mkey = f"{config_name}/tau={tau}/{key}"
+                max_diffs[mkey] = d
+                if d > worst:
+                    worst, worst_key = d, mkey
+            for size_class in ["below_headline", "small", "medium", "large"]:
+                d = _nan_aware_diff(recall_50[size_class]["recall"], ref_tau["recall_at_50pct"][size_class]["recall"])
+                mkey = f"{config_name}/tau={tau}/recall_at_50pct/{size_class}"
+                max_diffs[mkey] = d
+                if d > worst:
+                    worst, worst_key = d, mkey
+            for t_str, by_class in sweep.items():
+                ref_sweep = ref_tau["detection_sweep"][str(t_str)]
+                for size_class, v in by_class.items():
+                    d = _nan_aware_diff(v["recall"], ref_sweep[size_class]["recall"])
+                    mkey = f"{config_name}/tau={tau}/detection_sweep/{t_str}/{size_class}"
+                    max_diffs[mkey] = d
+                    if d > worst:
+                        worst, worst_key = d, mkey
+
+    return max_diffs, worst, worst_key
+
+
 def run_verify():
     from geometry.mesh_stats import face_adjacency, face_areas
     from eval.ignore_set import compute_ignore_set  # noqa: F401 (kept for symmetry / future use)
@@ -548,85 +636,50 @@ def run_verify():
 
     metrics = json.loads((OUT_DIR / "metrics.json").read_text())
 
-    max_diffs = {}
-    worst = 0.0
-    worst_key = None
-    for ci, config_name in enumerate(config_names):
-        ref_config = reference["configurations"][config_name]
-        for ti, tau in enumerate(taus):
-            n_bits = n_faces
-            predicted_observed = np.unpackbits(packed[ci, ti], bitorder="little")[:n_bits].astype(bool)
-            predicted_unobserved = ~predicted_observed
+    funcs = (
+        compute_regions, build_face_to_component_id, detection_sweep, false_alarm_rate,
+        false_reassurance_rate, localization_error, matching_predicted_component,
+        region_centroid, region_recall_by_size_class, segment_intersects_mesh,
+        area_fraction_and_calibration, face_adjacency, mesh_trimesh,
+    )
 
-            predicted_components = compute_regions(n_faces, adjacency, predicted_unobserved & ~ignore_set, areas64)
-            face_to_component_id = build_face_to_component_id(n_faces, predicted_components)
-
-            sweep = detection_sweep(gt_regions, predicted_unobserved, areas64)
-            f_reassur = false_reassurance_rate(gt_unobserved, predicted_observed, areas64)
-            f_alarm = false_alarm_rate(predicted_unobserved, gt_observed, ignore_set, areas64)
-            area_frac, calib_ratio = area_fraction_and_calibration(predicted_unobserved, gt_unobserved, areas64, total_area)
-            recall_50 = region_recall_by_size_class(gt_regions, predicted_unobserved, areas64, 0.50)
-
-            loc_errors = []
-            n_undetected = 0
-            n_seg_checked = 0
-            n_seg_intersect = 0
-            for r in gt_regions_headline:
-                err = localization_error(r, predicted_components, face_to_component_id, vertices64, faces64, areas64)
-                if err is None:
-                    n_undetected += 1
-                else:
-                    loc_errors.append(err)
-                    comp = matching_predicted_component(r, predicted_components, face_to_component_id)
-                    c_gt = region_centroid(r, vertices64, faces64, areas64)
-                    c_pred = region_centroid(comp, vertices64, faces64, areas64)
-                    n_seg_checked += 1
-                    if segment_intersects_mesh(mesh_trimesh, c_gt, c_pred):
-                        n_seg_intersect += 1
-
-            recomputed = {
-                "ignore_set_frac_faces": ignore_set_frac_faces,
-                "area_fraction": area_frac,
-                "calibration_ratio": calib_ratio,
-                "false_reassurance_rate": f_reassur,
-                "false_alarm_rate": f_alarm,
-                "n_predicted_unobserved_faces": int(predicted_unobserved.sum()),
-                "n_headline_regions_with_localization_error": len(loc_errors),
-                "n_headline_regions_undetected": n_undetected,
-                "localization_error_median_mm": float(np.median(loc_errors)) if loc_errors else None,
-                "localization_error_mean_mm": float(np.mean(loc_errors)) if loc_errors else None,
-                "segment_intersect_fraction": (n_seg_intersect / n_seg_checked) if n_seg_checked else None,
-            }
-            ref_tau = ref_config["by_tau"][str(tau)]
-            for key, val in recomputed.items():
-                d = _nan_aware_diff(val, ref_tau[key])
-                mkey = f"{config_name}/tau={tau}/{key}"
-                max_diffs[mkey] = d
-                if d > worst:
-                    worst = d
-                    worst_key = mkey
-            for size_class in ["below_headline", "small", "medium", "large"]:
-                d = _nan_aware_diff(recall_50[size_class]["recall"], ref_tau["recall_at_50pct"][size_class]["recall"])
-                mkey = f"{config_name}/tau={tau}/recall_at_50pct/{size_class}"
-                max_diffs[mkey] = d
-                if d > worst:
-                    worst = d
-                    worst_key = mkey
-            for t_str, by_class in sweep.items():
-                ref_sweep = ref_tau["detection_sweep"][str(t_str)]
-                for size_class, v in by_class.items():
-                    d = _nan_aware_diff(v["recall"], ref_sweep[size_class]["recall"])
-                    mkey = f"{config_name}/tau={tau}/detection_sweep/{t_str}/{size_class}"
-                    max_diffs[mkey] = d
-                    if d > worst:
-                        worst = d
-                        worst_key = mkey
+    max_diffs, worst, worst_key = _recompute_and_diff_metrics(
+        vertices64, faces64, areas64, gt_observed, gt_unobserved, ignore_set, packed,
+        config_names, taus, n_faces, total_area, reference, funcs,
+    )
+    max_diffs["ignore_set_frac_faces"] = diff_ignore_frac
+    if diff_ignore_frac > worst:
+        worst, worst_key = diff_ignore_frac, "ignore_set_frac_faces"
 
     report["check_A"]["metric_max_diffs"] = max_diffs
     report["check_A"]["worst_diff"] = worst
     report["check_A"]["worst_diff_key"] = worst_key
     report["check_A"]["pass"] = worst <= 1e-9
     log(f"check A: worst metric diff = {worst:.3e} ({worst_key}) -- {'PASS' if worst <= 1e-9 else 'FAIL'}")
+
+    # ---- informational only: same recomputation from the float32 export ----
+    vertices32 = _load_bin(manifest, "vertices_f32").astype(np.float32)
+    areas32 = _load_bin(manifest, "face_area_mm2_f32")
+    mesh_trimesh32 = trimesh.Trimesh(vertices=vertices32.astype(np.float64), faces=faces64, process=False)
+    funcs32 = (
+        compute_regions, build_face_to_component_id, detection_sweep, false_alarm_rate,
+        false_reassurance_rate, localization_error, matching_predicted_component,
+        region_centroid, region_recall_by_size_class, segment_intersects_mesh,
+        area_fraction_and_calibration, face_adjacency, mesh_trimesh32,
+    )
+    max_diffs32, worst32, worst_key32 = _recompute_and_diff_metrics(
+        vertices32.astype(np.float64), faces64, areas32.astype(np.float64), gt_observed, gt_unobserved,
+        ignore_set, packed, config_names, taus, n_faces, float(areas32.sum()), reference, funcs32,
+    )
+    report["check_A"]["f32_informational"] = {
+        "note": "NOT part of check A's pass/fail -- recomputation from the float32 vertex/area "
+                "export, reported for information only (the float32 cast is not exact, see "
+                "area_recompute_max_diff_f32 above).",
+        "worst_diff": worst32,
+        "worst_diff_key": worst_key32,
+        "metric_max_diffs": max_diffs32,
+    }
+    log(f"check A [f32 informational]: worst metric diff = {worst32:.3e} ({worst_key32})")
 
     for key in ["ray_miss_frac", "evaluable_frac", "d_pred_unavailable_count"]:
         note_diffs = {}
