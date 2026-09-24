@@ -1,0 +1,170 @@
+[2026-09-24T01:22:02Z] === Viewer export: c1_cecum_t1_v1 ===
+[2026-09-24T01:22:02Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-24T01:22:04Z] Wed Sep 23 21:22:02 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 33%   62C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 44%   71C    P2            299W /  300W |   47034MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 45%   72C    P2            299W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 46%   74C    P2            299W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 42%   70C    P2            298W /  300W |   47036MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 37%   65C    P2            299W /  300W |   47036MiB /  49140MiB |     98%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   34C    P2             58W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         3665199      C   python                                47024MiB |
+|    1   N/A  N/A         4118905      C   python                                47024MiB |
+|    2   N/A  N/A          135635      C   python                                47024MiB |
+|    3   N/A  N/A         3863493      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A          555786      C   python                                47026MiB |
+|    6   N/A  N/A          689187      C   python                                47026MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-24T01:22:04Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 32.1 GB free, 0% utilized
+[2026-09-24T01:22:04Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA RTX 6000 Ada Generation" (47 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/grad/doc/2029/chua/.cache/warp/1.17.0
+[2026-09-24T01:22:04Z] warp version 1.17.0, device cuda:0
+[2026-09-24T01:22:08Z] streamed mesh (699908 faces) + poses (218 frames) in 3.2s
+[2026-09-24T01:22:14Z] loaded 218 GT depth frames in 6.0s
+[2026-09-24T01:22:15Z] loaded predicted depth + poses in 1.2s
+[2026-09-24T01:22:20Z] depth scale: median=177.01337448048218
+[2026-09-24T01:22:20Z] pose alignment: s_pose=557.8711809619352
+[2026-09-24T01:22:20Z] cross-check vs saved values: depth_scale.median diff 7.781263e-06; s_pose diff 5.218472e-06
+Module gt.rasterizer fa7bb76 load on device 'cuda:0' took 13.82 ms  (cached)
+[2026-09-24T01:23:13Z] pose variant GT: 52.9s
+[2026-09-24T01:24:02Z] pose variant pred: 48.9s
+[2026-09-24T01:24:46Z] oracle.py cross-check: 44.0s
+[2026-09-24T01:24:46Z] cross-check: fusion.py oracle config == oracle.py, confirmed
+[2026-09-24T01:24:46Z] ignore_set: 20094/699908 faces (2.8709%)
+[2026-09-24T01:24:46Z] GT regions: 416 total, 3 headline (d>=5mm)
+[2026-09-24T01:24:46Z] === configuration: oracle (metrics) ===
+[2026-09-24T01:24:47Z] === configuration: pred_depth_only (metrics) ===
+[2026-09-24T01:24:48Z] === configuration: pred_pose_only (metrics) ===
+[2026-09-24T01:24:49Z] === configuration: fully_predicted (metrics) ===
+[2026-09-24T01:24:49Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/metrics.json
+[2026-09-24T01:24:50Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/regions.json
+[2026-09-24T01:24:50Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/trajectory.json
+[2026-09-24T01:24:50Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/manifest.json
+[2026-09-24T01:24:50Z] EXPORT DONE
+------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 42%   70C    P2            298W /  300W |   47036MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 37%   65C    P2            299W /  300W |   47036MiB /  49140MiB |     98%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   34C    P2             58W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         3665199      C   python                                47024MiB |
+|    1   N/A  N/A         4118905      C   python                                47024MiB |
+|    2   N/A  N/A          135635      C   python                                47024MiB |
+|    3   N/A  N/A         3863493      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A          555786      C   python                                47026MiB |
+|    6   N/A  N/A          689187      C   python                                47026MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-24T01:22:04Z] Selected GPU: index 7 (NVIDIA RTX 6000 Ada Generation), 32.1 GB free, 0% utilized
+[2026-09-24T01:22:04Z] CUDA_VISIBLE_DEVICES set to '7' explicitly
+[2026-09-24T01:22:04Z] warp version 1.17.0, device cuda:0
+[2026-09-24T01:22:08Z] streamed mesh (699908 faces) + poses (218 frames) in 3.2s
+[2026-09-24T01:22:14Z] loaded 218 GT depth frames in 6.0s
+[2026-09-24T01:22:15Z] loaded predicted depth + poses in 1.2s
+[2026-09-24T01:22:20Z] depth scale: median=177.01337448048218
+[2026-09-24T01:22:20Z] pose alignment: s_pose=557.8711809619352
+[2026-09-24T01:22:20Z] cross-check vs saved values: depth_scale.median diff 7.781263e-06; s_pose diff 5.218472e-06
+[2026-09-24T01:23:13Z] pose variant GT: 52.9s
+[2026-09-24T01:24:02Z] pose variant pred: 48.9s
+[2026-09-24T01:24:46Z] oracle.py cross-check: 44.0s
+[2026-09-24T01:24:46Z] cross-check: fusion.py oracle config == oracle.py, confirmed
+[2026-09-24T01:24:46Z] ignore_set: 20094/699908 faces (2.8709%)
+[2026-09-24T01:24:46Z] GT regions: 416 total, 3 headline (d>=5mm)
+[2026-09-24T01:24:46Z] === configuration: oracle (metrics) ===
+[2026-09-24T01:24:47Z] === configuration: pred_depth_only (metrics) ===
+[2026-09-24T01:24:48Z] === configuration: pred_pose_only (metrics) ===
+[2026-09-24T01:24:49Z] === configuration: fully_predicted (metrics) ===
+[2026-09-24T01:24:49Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/metrics.json
+[2026-09-24T01:24:50Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/regions.json
+[2026-09-24T01:24:50Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/trajectory.json
+[2026-09-24T01:24:50Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/manifest.json
+[2026-09-24T01:24:50Z] EXPORT DONE
+EXITCODE:0
+[2026-09-24T01:25:02Z] === Viewer export verification: c1_cecum_t1_v1 ===
+[2026-09-24T01:25:02Z] === Viewer export verification: c1_cecum_t1_v1 ===
+[2026-09-24T01:25:02Z] check A [f64]: max |recomputed_area - exported_area| = 0.000e+00
+[2026-09-24T01:25:02Z] check A [f64]: max |recomputed_area - exported_area| = 0.000e+00
+[2026-09-24T01:25:02Z] check A [f32]: max |recomputed_area - exported_area| = 1.055e-05
+[2026-09-24T01:25:02Z] check A [f32]: max |recomputed_area - exported_area| = 1.055e-05
+[2026-09-24T01:25:02Z] check A: recomputed GT region ids match exported gt_region_id = True
+[2026-09-24T01:25:02Z] check A: recomputed GT region ids match exported gt_region_id = True
+[2026-09-24T01:25:02Z] check A: ignore_set_frac_faces diff = 0.000e+00
+[2026-09-24T01:25:02Z] check A: ignore_set_frac_faces diff = 0.000e+00
+[2026-09-24T01:25:06Z] check A: worst metric diff = 0.000e+00 (None) -- PASS
+[2026-09-24T01:25:06Z] check A: worst metric diff = 0.000e+00 (None) -- PASS
+[2026-09-24T01:25:06Z] check B: n_faces=699908 (True), ignore_set=20094 (True), headline=3 small=2 medium=0 large=1 (True)
+[2026-09-24T01:25:06Z] check B: n_faces=699908 (True), ignore_set=20094 (True), headline=3 small=2 medium=0 large=1 (True)
+[2026-09-24T01:25:06Z] check C: diagnosis small-region-0 face set matches gt_region_id 45 (expected 45)
+[2026-09-24T01:25:06Z] check C: diagnosis small-region-0 face set matches gt_region_id 45 (expected 45)
+[2026-09-24T01:25:06Z] check C: 73 faces only-unobserved under fully_predicted (tau=0.25, region 45); 72 also unobserved under pred_depth_only, 1 not
+[2026-09-24T01:25:06Z] check C: 73 faces only-unobserved under fully_predicted (tau=0.25, region 45); 72 also unobserved under pred_depth_only, 1 not
+[2026-09-24T01:25:06Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/verification.json
+[2026-09-24T01:25:06Z] wrote /data1_ycao/chua/projects/mrsp/results/viewer/c1_cecum_t1_v1/verification.json
+[2026-09-24T01:25:06Z] VERIFY DONE
+[2026-09-24T01:25:06Z] VERIFY DONE
