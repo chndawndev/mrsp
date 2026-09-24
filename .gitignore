@@ -1,4 +1,10 @@
-/scratch/
+/scratch/*
+!/scratch/pipelines/
+/scratch/pipelines/*
+!/scratch/pipelines/*.py
+!/scratch/pipelines/*.md
+!/scratch/pipelines/*.json
+!/scratch/pipelines/*.csv
 /results/
 *.ply
 
