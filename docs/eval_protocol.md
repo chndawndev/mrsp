@@ -265,6 +265,22 @@ name. This has real compute cost at corpus scale — measured in §7, not
 just flagged: ~35 hours on CPU/embree for the full corpus, which is why
 §7 exists and why §7's decision (extend the GPU rasterizer) applies here.
 
+### 2026-09-23: Clarification: operational definition of D1.1 completion
+
+§2 D1.1 requires "a usable trajectory and depth for the full sequence, no
+crash, no permanent track loss". Operationalized before the full-corpus
+run as: every frame of the sequence has finite predicted depth and a
+finite predicted pose, and the Sim(3) trajectory alignment succeeds.
+
+Frame-to-frame pose pipelines such as EndoDAC cannot lose track by
+construction; for them D1.1 measures crash-free completion only. This is
+stated wherever D1.1 is reported.
+
+Trajectory quality (ATE after Sim(3) alignment, endpoint drift as a
+fraction of GT path length) is reported per sequence as a descriptive
+quantity. No threshold is attached to it, because one sequence
+(c1_cecum_t1_v1, endpoint drift 2.78%) had already been seen.
+
 ---
 
 ## 3. Rays that miss the mesh entirely
