@@ -1,0 +1,24 @@
+[2026-09-25T02:23:46Z] processing 169 sequences with 16 worker processes
+[2026-09-25T02:25:55Z] 10/169: c1_cecum_t2_v3 status=ok d1_1_complete=True elapsed=129.0s ETA=2051.2s
+[2026-09-25T02:26:33Z] 20/169: c1_descending_t4_v1 status=ok d1_1_complete=True elapsed=167.3s ETA=1246.7s
+[2026-09-25T02:26:55Z] 30/169: c1_rectum_t2_v1 status=ok d1_1_complete=True elapsed=189.0s ETA=875.7s
+[2026-09-25T02:27:21Z] 40/169: c1_rectum_t1_v3 status=ok d1_1_complete=True elapsed=214.7s ETA=692.4s
+[2026-09-25T02:27:41Z] 50/169: c1_sigmoid2_t1_v2 status=ok d1_1_complete=True elapsed=234.9s ETA=559.0s
+[2026-09-25T02:28:00Z] 60/169: c1_transverse1_t1_v3 status=ok d1_1_complete=True elapsed=253.9s ETA=461.3s
+[2026-09-25T02:28:16Z] 70/169: c1_transverse1_t2_v3 status=ok d1_1_complete=True elapsed=270.5s ETA=382.5s
+[2026-09-25T02:28:44Z] 80/169: c1_sigmoid1_t4_v3 status=ok d1_1_complete=True elapsed=298.2s ETA=331.7s
+[2026-09-25T02:29:12Z] 90/169: c1_transverse2_t3_v1 status=ok d1_1_complete=True elapsed=326.5s ETA=286.6s
+[2026-09-25T02:29:38Z] 100/169: c2_cecum_t1_v1 status=ok d1_1_complete=True elapsed=352.1s ETA=243.0s
+[2026-09-25T02:29:56Z] 110/169: c2_descending_t4_v2 status=ok d1_1_complete=True elapsed=369.7s ETA=198.3s
+[2026-09-25T02:30:15Z] 120/169: c2_descending_t3_v3 status=ok d1_1_complete=True elapsed=388.7s ETA=158.7s
+[2026-09-25T02:30:45Z] 130/169: c2_rectum_t1_v2 status=ok d1_1_complete=True elapsed=418.9s ETA=125.7s
+[2026-09-25T02:31:08Z] 140/169: c2_sigmoid_t2_v1 status=ok d1_1_complete=True elapsed=441.8s ETA=91.5s
+[2026-09-25T02:31:40Z] 150/169: c2_transverse1_t3_v3 status=ok d1_1_complete=True elapsed=473.6s ETA=60.0s
+[2026-09-25T02:31:59Z] 160/169: c2_transverse2_t2_v3 status=ok d1_1_complete=True elapsed=493.1s ETA=27.7s
+[2026-09-25T02:32:57Z] 169/169: c2_transverse2_t4_v3 status=ok d1_1_complete=True elapsed=550.9s ETA=0.0s
+[2026-09-25T02:32:57Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/stage_a_summary.csv (169 rows, 39 columns)
+[2026-09-25T02:32:57Z] D1.1 complete: 169/169
+[2026-09-25T02:32:57Z] distinct mesh_hash: 103
+[2026-09-25T02:32:57Z] distinct physical_segment_id: 15
+[2026-09-25T02:32:57Z] ALL DONE
+EXITCODE:0

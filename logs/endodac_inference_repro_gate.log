@@ -1,0 +1,17 @@
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/swiglu_ffn.py:43: UserWarning: xFormers is available (SwiGLU)
+  warnings.warn("xFormers is available (SwiGLU)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/attention.py:27: UserWarning: xFormers is available (Attention)
+  warnings.warn("xFormers is available (Attention)")
+/data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/models/backbones/layers/block.py:33: UserWarning: xFormers is available (Block)
+  warnings.warn("xFormers is available (Block)")
+load pretrained weight from /data1_ycao/chua/projects/mrsp/scratch/pipelines/EndoDAC/pretrained_model/depth_anything_vitb14.pth
+
+[2026-09-24T21:34:43Z][gpu7] c1_cecum_t1_v1: depth frame 0/217, elapsed 2.0s
+[2026-09-24T21:34:53Z][gpu7] c1_cecum_t1_v1: depth frame 100/217, elapsed 12.6s
+[2026-09-24T21:35:04Z][gpu7] c1_cecum_t1_v1: depth frame 200/217, elapsed 22.8s
+[2026-09-24T21:35:05Z][gpu7] c1_cecum_t1_v1: depth frame 217/217, elapsed 24.6s
+[2026-09-24T21:35:06Z][gpu7] c1_cecum_t1_v1: pose pair (0,1), elapsed 0.2s
+[2026-09-24T21:35:19Z][gpu7] c1_cecum_t1_v1: pose pair (100,101), elapsed 13.5s
+[2026-09-24T21:35:33Z][gpu7] c1_cecum_t1_v1: pose pair (200,201), elapsed 27.5s
+[2026-09-24T21:35:35Z][gpu7] c1_cecum_t1_v1: pose pair (216,217), elapsed 29.5s
+[2026-09-24T21:35:35Z][gpu7] c1_cecum_t1_v1: DONE in 56.3s, n_nonfinite_depth=0 n_nonfinite_pose=0

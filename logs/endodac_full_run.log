@@ -1,0 +1,70 @@
+[2026-09-24T21:39:27Z] === GPU availability check (scripts/gpu_status.py) ===
+[2026-09-24T21:39:29Z] Thu Sep 24 17:39:27 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:1D:00.0 Off |                  Off |
+| 33%   63C    P2            299W /  300W |   47036MiB /  49140MiB |     91%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:20:00.0 Off |                  Off |
+| 44%   72C    P2            298W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:23:00.0 Off |                  Off |
+| 44%   72C    P2            297W /  300W |   47034MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:24:00.0 Off |                  Off |
+| 46%   72C    P2            294W /  300W |   47034MiB /  49140MiB |     89%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:98:00.0 Off |                  Off |
+| 30%   29C    P8             27W /  300W |   43316MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9B:00.0 Off |                  Off |
+| 42%   70C    P2            296W /  300W |   47036MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9E:00.0 Off |                  Off |
+| 36%   65C    P2            298W /  300W |   47036MiB /  49140MiB |     94%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA RTX 6000 Ada Gene...    Off |   00000000:9F:00.0 Off |                  Off |
+| 30%   34C    P2             59W /  300W |   16428MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         1345860      C   python                                47026MiB |
+|    1   N/A  N/A         4118905      C   python                                47024MiB |
+|    2   N/A  N/A          135635      C   python                                47024MiB |
+|    3   N/A  N/A         3863493      C   python                                47024MiB |
+|    4   N/A  N/A         2778814      C   sglang::scheduler                     43306MiB |
+|    5   N/A  N/A          555786      C   python                                47026MiB |
+|    6   N/A  N/A          689187      C   python                                47026MiB |
+|    7   N/A  N/A         3284995      C   python3                               16418MiB |
++-----------------------------------------------------------------------------------------+
+
+[2026-09-24T21:39:29Z]   GPU 0 (NVIDIA RTX 6000 Ada Generation): 1.5GB free, 90% util -- skip
+[2026-09-24T21:39:29Z]   GPU 1 (NVIDIA RTX 6000 Ada Generation): 1.5GB free, 99% util -- skip
+[2026-09-24T21:39:29Z]   GPU 2 (NVIDIA RTX 6000 Ada Generation): 1.5GB free, 99% util -- skip
+[2026-09-24T21:39:29Z]   GPU 3 (NVIDIA RTX 6000 Ada Generation): 1.5GB free, 87% util -- skip
+[2026-09-24T21:39:29Z]   GPU 4 (NVIDIA RTX 6000 Ada Generation): 5.2GB free, 0% util -- skip
+[2026-09-24T21:39:29Z]   GPU 5 (NVIDIA RTX 6000 Ada Generation): 1.5GB free, 100% util -- skip
+[2026-09-24T21:39:29Z]   GPU 6 (NVIDIA RTX 6000 Ada Generation): 1.5GB free, 97% util -- skip
+[2026-09-24T21:39:29Z]   GPU 7 (NVIDIA RTX 6000 Ada Generation): 32.1GB free, 0% util -- SELECTED
+[2026-09-24T21:39:29Z] launching 1 shard(s) on GPUs [7]
+[2026-09-24T21:39:29Z] shard 0: GPU 7, log /data1_ycao/chua/projects/mrsp/logs/endodac_full_run_shard0.log
+[2026-09-25T02:20:20Z] shard 0 (GPU 7) exited with code 0
+[2026-09-25T02:20:20Z] all shards completed
+LAUNCHER_EXITCODE:0
