@@ -351,9 +351,9 @@ interval. The number of regions and the number of independent meshes
 behind every estimate are reported with it.
 
 Sensitivity (reported, not used for any decision): the same bootstrap
-clustered at the physical segment level (colon + segment parsed from the
-sequence name), since distinct mesh hashes can share one physical
-phantom segment.
+clustered at two coarser levels: (Colon, Segment), and (Colon, Segment,
+Phantom Number), both taken from the dataset summary sheet, since
+distinct mesh hashes can share one physical phantom or one mold.
 
 All D1 to D2 pass/fail decisions use the point estimate, as the
 thresholds in docs/success_criteria.md are stated on point values.
