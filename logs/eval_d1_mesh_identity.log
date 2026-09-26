@@ -1,0 +1,260 @@
+[2026-09-25T03:33:55Z] 360 total pairs across both levels, 12 workers
+[2026-09-25T03:34:46Z] 10/360: c1_ascending_t3_v1 vs c1_ascending_t4_v2 mean=2.259mm elapsed=50.5s ETA=1768.7s
+[2026-09-25T03:35:13Z] 20/360: c1_cecum_t3_v2 vs c1_cecum_t1_v1 mean=0.015mm elapsed=77.3s ETA=1313.7s
+[2026-09-25T03:35:31Z] 30/360: c1_cecum_t2_v2 vs c1_cecum_t1_v2 mean=0.016mm elapsed=95.7s ETA=1052.5s
+[2026-09-25T03:35:50Z] 40/360: c1_cecum_t1_v1 vs c1_cecum_t2_v1 mean=0.015mm elapsed=114.9s ETA=919.0s
+[2026-09-25T03:36:01Z] 50/360: c1_descending_t1_v2 vs c1_descending_t1_v1 mean=0.025mm elapsed=126.0s ETA=781.4s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:36:23Z] 60/360: c1_rectum_t4_v1 vs c1_rectum_t4_v2 mean=0.007mm elapsed=147.7s ETA=738.5s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:36:42Z] 70/360: c1_rectum_t4_v2 vs c1_rectum_t1_v3 mean=0.010mm elapsed=167.1s ETA=692.4s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:37:01Z] 80/360: c1_sigmoid1_t3_v1 vs c1_sigmoid1_t1_v1 mean=0.012mm elapsed=186.0s ETA=651.0s
+[2026-09-25T03:37:11Z] 90/360: c1_sigmoid1_t2_v2 vs c1_sigmoid1_t1_v1 mean=0.010mm elapsed=195.8s ETA=587.3s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:37:24Z] 100/360: c1_sigmoid2_t4_v1 vs c1_sigmoid2_t3_v3 mean=3.110mm elapsed=208.7s ETA=542.6s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:37:35Z] 110/360: c1_sigmoid2_t3_v3 vs c1_sigmoid2_t2_v1 mean=3.096mm elapsed=219.4s ETA=498.7s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:37:54Z] 120/360: c1_transverse1_t2_v2 vs c1_transverse1_t2_v1 mean=0.012mm elapsed=238.3s ETA=476.6s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:38:08Z] 130/360: c1_transverse1_t2_v2 vs c1_transverse1_t4_v1 mean=2.428mm elapsed=252.9s ETA=447.5s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:38:19Z] 140/360: c1_transverse1_t1_v1 vs c1_transverse1_t3_v1 mean=0.012mm elapsed=264.1s ETA=415.1s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:38:34Z] 150/360: c1_transverse1_t4_v1 vs c1_transverse1_t2_v1 mean=2.431mm elapsed=279.1s ETA=390.8s
+[2026-09-25T03:38:45Z] 160/360: c1_transverse2_t4_v1 vs c1_transverse2_t2_v1 mean=2.036mm elapsed=289.5s ETA=361.9s
+[2026-09-25T03:38:56Z] 170/360: c1_transverse2_t3_v1 vs c1_transverse2_t1_v2 mean=2.064mm elapsed=300.4s ETA=335.7s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:39:35Z] 180/360: c2_ascending_t1_v2 vs c2_ascending_t3_v1 mean=2.781mm elapsed=340.1s ETA=340.1s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:39:52Z] 190/360: c2_ascending_t2_v1 vs c2_ascending_t4_v1 mean=0.019mm elapsed=356.9s ETA=319.3s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:40:11Z] 200/360: c2_cecum_t3_v2 vs c2_cecum_t3_v1 mean=0.015mm elapsed=375.8s ETA=300.6s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:40:37Z] 210/360: c2_descending_t3_v1 vs c2_descending_t4_v3 mean=0.009mm elapsed=401.7s ETA=286.9s
+[2026-09-25T03:40:48Z] 220/360: c2_cecum_t2_v2 vs c2_cecum_t4_v2 mean=2.132mm elapsed=413.1s ETA=262.9s
+[2026-09-25T03:41:06Z] 230/360: c2_rectum_t1_v2 vs c2_rectum_t3_v2 mean=2.041mm elapsed=430.8s ETA=243.5s
+[2026-09-25T03:41:19Z] 240/360: c2_rectum_t1_v2 vs c2_rectum_t2_v1 mean=2.043mm elapsed=443.9s ETA=221.9s
+[2026-09-25T03:41:31Z] 250/360: c2_rectum_t1_v1 vs c2_rectum_t3_v1 mean=2.029mm elapsed=455.9s ETA=200.6s
+[2026-09-25T03:41:39Z] 260/360: c2_sigmoid_t1_v1 vs c2_sigmoid_t1_v2 mean=0.015mm elapsed=464.0s ETA=178.4s
+[2026-09-25T03:41:54Z] 270/360: c2_transverse1_t4_v1 vs c2_transverse1_t2_v1 mean=0.015mm elapsed=478.5s ETA=159.5s
+[2026-09-25T03:42:05Z] 280/360: c2_transverse2_t1_v2 vs c2_transverse2_t1_v1 mean=0.022mm elapsed=490.0s ETA=140.0s
+[2026-09-25T03:42:23Z] 290/360: c2_transverse2_t3_v3 vs c2_transverse2_t3_v1 mean=0.017mm elapsed=508.1s ETA=122.6s
+[2026-09-25T03:42:54Z] 300/360: c2_transverse2_t4_v3 vs c2_transverse2_t3_v3 mean=4.497mm elapsed=538.8s ETA=107.8s
+[2026-09-25T03:43:17Z] 310/360: c1_ascending_t4_v2 vs c1_ascending_t4_v1 mean=0.012mm elapsed=561.2s ETA=90.5s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:43:29Z] 320/360: c1_sigmoid2_t3_v2 vs c1_sigmoid2_t3_v1 mean=0.020mm elapsed=574.1s ETA=71.8s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:43:38Z] 330/360: c1_transverse1_t1_v2 vs c1_transverse1_t1_v1 mean=0.015mm elapsed=582.6s ETA=53.0s
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+/data1_ycao/chua/projects/mrsp/scratch/.venv/lib/python3.12/site-packages/trimesh/triangles.py:659: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+[2026-09-25T03:43:54Z] 340/360: c2_cecum_t3_v2 vs c2_cecum_t3_v1 mean=0.015mm elapsed=598.5s ETA=35.2s
+[2026-09-25T03:44:02Z] 350/360: c2_rectum_t2_v1 vs c2_rectum_t2_v2 mean=0.005mm elapsed=607.1s ETA=17.3s
+[2026-09-25T03:44:13Z] 360/360: c2_cecum_t4_v1 vs c2_cecum_t4_v2 mean=2.144mm elapsed=617.6s ETA=0.0s
+[2026-09-25T03:44:13Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/mesh_identity_check.csv (360 rows)
+[2026-09-25T03:44:13Z] colon_segment: mean_mm median=0.020 p95_mm median=0.049 n_pairs=308
+[2026-09-25T03:44:13Z] colon_segment_phantom: mean_mm median=0.016 p95_mm median=0.037 n_pairs=52
+[2026-09-25T03:44:13Z] ALL DONE
+EXITCODE:0

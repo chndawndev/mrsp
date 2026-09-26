@@ -1,0 +1,227 @@
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA RTX 6000 Ada Generation" (47 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/grad/doc/2029/chua/.cache/warp/1.17.0
+[2026-09-25T11:49:11Z][gpu7] warp version 1.17.0, device cuda:0, CUDA_VISIBLE_DEVICES=7
+[2026-09-25T11:49:11Z][gpu7] shard 0/1: 169 sequences assigned
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA RTX 6000 Ada Generation" (47 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/grad/doc/2029/chua/.cache/warp/1.17.0
+[2026-09-25T11:54:52Z][gpu7] warp version 1.17.0, device cuda:0, CUDA_VISIBLE_DEVICES=7
+[2026-09-25T11:54:52Z][gpu7] shard 0/1: 169 sequences assigned
+Module gt.rasterizer fa7bb76 load on device 'cuda:0' took 8.76 ms  (cached)
+[2026-09-25T11:58:31Z][gpu7] c1_ascending_t1_v1: FAILED
+Traceback (most recent call last):
+  File "/data1_ycao/chua/projects/mrsp/scripts/eval_d1_sequence.py", line 390, in run_one
+    manifest = evaluate_sequence(name, wp, device, gpu_index)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1_ycao/chua/projects/mrsp/scripts/eval_d1_sequence.py", line 223, in evaluate_sequence
+    packed.tofile(out_dir / "predicted_observed_packed.bin")
+FileNotFoundError: [Errno 2] No such file or directory: '/data1_ycao/chua/projects/mrsp/results/d1/per_sequence/c1_ascending_t1_v1/predicted_observed_packed.bin'
+
+Traceback (most recent call last):
+  File "/data1_ycao/chua/projects/mrsp/scripts/eval_d1_sequence.py", line 390, in run_one
+    manifest = evaluate_sequence(name, wp, device, gpu_index)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1_ycao/chua/projects/mrsp/scripts/eval_d1_sequence.py", line 223, in evaluate_sequence
+    packed.tofile(out_dir / "predicted_observed_packed.bin")
+FileNotFoundError: [Errno 2] No such file or directory: '/data1_ycao/chua/projects/mrsp/results/d1/per_sequence/c1_ascending_t1_v1/predicted_observed_packed.bin'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data1_ycao/chua/projects/mrsp/scripts/eval_d1_sequence.py", line 469, in <module>
+    main()
+  File "/data1_ycao/chua/projects/mrsp/scripts/eval_d1_sequence.py", line 464, in main
+    run_one(name, wp, device, gpu_index)
+  File "/data1_ycao/chua/projects/mrsp/scripts/eval_d1_sequence.py", line 401, in run_one
+    with open(out_dir / "MANIFEST.json", "w") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data1_ycao/chua/projects/mrsp/results/d1/per_sequence/c1_ascending_t1_v1/MANIFEST.json'
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA RTX 6000 Ada Generation" (47 GiB, sm_89, mempool enabled)
+   Kernel cache:
+     /home/grad/doc/2029/chua/.cache/warp/1.17.0
+[2026-09-25T12:16:00Z][gpu7] warp version 1.17.0, device cuda:0, CUDA_VISIBLE_DEVICES=7
+[2026-09-25T12:16:00Z][gpu7] shard 0/1: 169 sequences assigned
+Module gt.rasterizer fa7bb76 load on device 'cuda:0' took 5.92 ms  (cached)
+[2026-09-25T12:19:51Z][gpu7] c1_ascending_t1_v1: DONE in 231.2s
+[2026-09-25T12:26:12Z][gpu7] c1_ascending_t1_v2: DONE in 380.8s
+[2026-09-25T12:31:09Z][gpu7] c1_ascending_t2_v1: DONE in 297.2s
+[2026-09-25T12:36:20Z][gpu7] c1_ascending_t2_v2: DONE in 310.8s
+[2026-09-25T12:41:57Z][gpu7] c1_ascending_t2_v3: DONE in 336.7s
+[2026-09-25T12:45:34Z][gpu7] c1_ascending_t3_v1: DONE in 216.8s
+[2026-09-25T12:54:23Z][gpu7] c1_ascending_t3_v2: DONE in 529.2s
+[2026-09-25T13:03:07Z][gpu7] c1_ascending_t3_v3: DONE in 524.2s
+[2026-09-25T13:08:37Z][gpu7] c1_ascending_t4_v1: DONE in 329.3s
+[2026-09-25T13:17:45Z][gpu7] c1_ascending_t4_v2: DONE in 548.2s
+[2026-09-25T13:26:45Z][gpu7] c1_ascending_t4_v3: DONE in 540.1s
+[2026-09-25T13:26:45Z][gpu7] c1_cecum_t1_v1: already complete, skipping
+[2026-09-25T13:32:04Z][gpu7] c1_cecum_t1_v2: DONE in 318.6s
+[2026-09-25T13:37:21Z][gpu7] c1_cecum_t1_v3: DONE in 317.2s
+[2026-09-25T13:40:50Z][gpu7] c1_cecum_t2_v1: DONE in 209.0s
+[2026-09-25T13:45:02Z][gpu7] c1_cecum_t2_v2: DONE in 252.5s
+[2026-09-25T13:49:18Z][gpu7] c1_cecum_t2_v3: DONE in 256.1s
+[2026-09-25T13:58:48Z][gpu7] c1_cecum_t3_v2: DONE in 569.5s
+[2026-09-25T14:07:54Z][gpu7] c1_cecum_t3_v3: DONE in 546.4s
+[2026-09-25T14:18:12Z][gpu7] c1_cecum_t4_v1: DONE in 617.1s
+[2026-09-25T14:29:46Z][gpu7] c1_cecum_t4_v2: DONE in 694.1s
+[2026-09-25T14:41:24Z][gpu7] c1_cecum_t4_v3: DONE in 697.8s
+[2026-09-25T14:42:58Z][gpu7] c1_descending_t1_v1: DONE in 94.7s
+[2026-09-25T14:45:35Z][gpu7] c1_descending_t1_v2: DONE in 156.3s
+[2026-09-25T14:48:17Z][gpu7] c1_descending_t1_v3: DONE in 162.1s
+[2026-09-25T14:55:35Z][gpu7] c1_descending_t2_v2: DONE in 438.0s
+[2026-09-25T15:02:55Z][gpu7] c1_descending_t2_v3: DONE in 440.8s
+[2026-09-25T15:05:47Z][gpu7] c1_descending_t3_v1: DONE in 171.7s
+[2026-09-25T15:10:01Z][gpu7] c1_descending_t3_v2: DONE in 253.7s
+[2026-09-25T15:14:21Z][gpu7] c1_descending_t3_v3: DONE in 260.0s
+[2026-09-25T15:16:50Z][gpu7] c1_descending_t4_v1: DONE in 148.8s
+[2026-09-25T15:20:23Z][gpu7] c1_descending_t4_v2: DONE in 213.2s
+[2026-09-25T15:23:50Z][gpu7] c1_descending_t4_v3: DONE in 206.5s
+[2026-09-25T15:26:31Z][gpu7] c1_rectum_t1_v1: DONE in 161.7s
+[2026-09-25T15:31:14Z][gpu7] c1_rectum_t1_v2: DONE in 283.2s
+[2026-09-25T15:36:01Z][gpu7] c1_rectum_t1_v3: DONE in 286.5s
+[2026-09-25T15:38:10Z][gpu7] c1_rectum_t2_v1: DONE in 129.6s
+[2026-09-25T15:42:38Z][gpu7] c1_rectum_t2_v2: DONE in 267.5s
+[2026-09-25T15:47:25Z][gpu7] c1_rectum_t2_v3: DONE in 287.3s
+[2026-09-25T15:50:40Z][gpu7] c1_rectum_t3_v1: DONE in 194.3s
+[2026-09-25T15:53:28Z][gpu7] c1_rectum_t3_v2: DONE in 168.7s
+[2026-09-25T15:56:34Z][gpu7] c1_rectum_t3_v3: DONE in 185.3s
+[2026-09-25T16:00:30Z][gpu7] c1_rectum_t4_v1: DONE in 236.6s
+[2026-09-25T16:05:50Z][gpu7] c1_rectum_t4_v2: DONE in 319.6s
+[2026-09-25T16:11:26Z][gpu7] c1_rectum_t4_v3: DONE in 336.3s
+[2026-09-25T16:13:55Z][gpu7] c1_sigmoid1_t1_v1: DONE in 148.5s
+[2026-09-25T16:17:48Z][gpu7] c1_sigmoid1_t1_v2: DONE in 233.5s
+[2026-09-25T16:21:50Z][gpu7] c1_sigmoid1_t1_v3: DONE in 242.1s
+[2026-09-25T16:26:12Z][gpu7] c1_sigmoid1_t2_v1: DONE in 261.7s
+[2026-09-25T16:29:50Z][gpu7] c1_sigmoid1_t2_v2: DONE in 218.0s
+[2026-09-25T16:33:41Z][gpu7] c1_sigmoid1_t2_v3: DONE in 230.8s
+[2026-09-25T16:37:51Z][gpu7] c1_sigmoid1_t3_v1: DONE in 250.4s
+[2026-09-25T16:43:36Z][gpu7] c1_sigmoid1_t3_v2: DONE in 344.4s
+[2026-09-25T16:49:17Z][gpu7] c1_sigmoid1_t3_v3: DONE in 341.1s
+[2026-09-25T16:54:43Z][gpu7] c1_sigmoid1_t4_v1: DONE in 326.7s
+[2026-09-25T17:03:27Z][gpu7] c1_sigmoid1_t4_v2: DONE in 523.5s
+[2026-09-25T17:12:37Z][gpu7] c1_sigmoid1_t4_v3: DONE in 550.2s
+[2026-09-25T17:14:17Z][gpu7] c1_sigmoid2_t1_v1: DONE in 99.9s
+[2026-09-25T17:16:14Z][gpu7] c1_sigmoid2_t1_v2: DONE in 117.5s
+[2026-09-25T17:18:16Z][gpu7] c1_sigmoid2_t1_v3: DONE in 121.4s
+[2026-09-25T17:23:08Z][gpu7] c1_sigmoid2_t2_v1: DONE in 291.8s
+[2026-09-25T17:26:05Z][gpu7] c1_sigmoid2_t2_v2: DONE in 177.6s
+[2026-09-25T17:29:03Z][gpu7] c1_sigmoid2_t2_v3: DONE in 177.9s
+[2026-09-25T17:32:20Z][gpu7] c1_sigmoid2_t3_v1: DONE in 196.7s
+[2026-09-25T17:35:41Z][gpu7] c1_sigmoid2_t3_v2: DONE in 201.0s
+[2026-09-25T17:38:50Z][gpu7] c1_sigmoid2_t3_v3: DONE in 188.9s
+[2026-09-25T17:43:31Z][gpu7] c1_sigmoid2_t4_v1: DONE in 281.5s
+[2026-09-25T17:48:35Z][gpu7] c1_sigmoid2_t4_v2: DONE in 303.6s
+[2026-09-25T17:53:43Z][gpu7] c1_sigmoid2_t4_v3: DONE in 308.4s
+[2026-09-25T17:55:49Z][gpu7] c1_transverse1_t1_v1: DONE in 125.3s
+[2026-09-25T17:57:19Z][gpu7] c1_transverse1_t1_v2: DONE in 90.4s
+[2026-09-25T17:58:51Z][gpu7] c1_transverse1_t1_v3: DONE in 91.8s
+[2026-09-25T18:06:55Z][gpu7] c1_transverse1_t2_v1: DONE in 484.3s
+[2026-09-25T18:09:52Z][gpu7] c1_transverse1_t2_v2: DONE in 176.5s
+[2026-09-25T18:12:47Z][gpu7] c1_transverse1_t2_v3: DONE in 175.9s
+[2026-09-25T18:15:24Z][gpu7] c1_transverse1_t3_v1: DONE in 156.5s
+[2026-09-25T18:17:55Z][gpu7] c1_transverse1_t3_v2: DONE in 150.7s
+[2026-09-25T18:20:26Z][gpu7] c1_transverse1_t3_v3: DONE in 151.5s
+[2026-09-25T18:24:21Z][gpu7] c1_transverse1_t4_v1: DONE in 235.3s
+[2026-09-25T18:31:50Z][gpu7] c1_transverse1_t4_v2: DONE in 448.4s
+[2026-09-25T18:39:09Z][gpu7] c1_transverse1_t4_v3: DONE in 439.2s
+[2026-09-25T18:42:31Z][gpu7] c1_transverse2_t1_v1: DONE in 201.6s
+[2026-09-25T18:48:49Z][gpu7] c1_transverse2_t1_v2: DONE in 377.7s
+[2026-09-25T18:55:16Z][gpu7] c1_transverse2_t1_v3: DONE in 387.7s
+[2026-09-25T19:00:36Z][gpu7] c1_transverse2_t2_v1: DONE in 319.9s
+[2026-09-25T19:07:21Z][gpu7] c1_transverse2_t2_v2: DONE in 404.9s
+[2026-09-25T19:14:02Z][gpu7] c1_transverse2_t2_v3: DONE in 401.1s
+[2026-09-25T19:20:56Z][gpu7] c1_transverse2_t3_v1: DONE in 413.9s
+[2026-09-25T19:24:01Z][gpu7] c1_transverse2_t3_v2: DONE in 184.5s
+[2026-09-25T19:27:10Z][gpu7] c1_transverse2_t3_v3: DONE in 189.3s
+[2026-09-25T19:30:29Z][gpu7] c1_transverse2_t4_v1: DONE in 199.3s
+[2026-09-25T19:35:53Z][gpu7] c1_transverse2_t4_v2: DONE in 324.0s
+[2026-09-25T19:41:13Z][gpu7] c1_transverse2_t4_v3: DONE in 319.5s
+[2026-09-25T19:44:47Z][gpu7] c2_ascending_t1_v1: DONE in 214.6s
+[2026-09-25T19:51:04Z][gpu7] c2_ascending_t1_v2: DONE in 376.5s
+[2026-09-25T19:57:22Z][gpu7] c2_ascending_t1_v3: DONE in 377.7s
+[2026-09-25T20:02:50Z][gpu7] c2_ascending_t2_v1: DONE in 328.0s
+[2026-09-25T20:08:26Z][gpu7] c2_ascending_t2_v2: DONE in 336.1s
+[2026-09-25T20:14:11Z][gpu7] c2_ascending_t2_v3: DONE in 345.7s
+[2026-09-25T20:18:38Z][gpu7] c2_ascending_t3_v1: DONE in 266.4s
+[2026-09-25T20:24:59Z][gpu7] c2_ascending_t3_v2: DONE in 381.0s
+[2026-09-25T20:31:28Z][gpu7] c2_ascending_t3_v3: DONE in 389.0s
+[2026-09-25T20:35:22Z][gpu7] c2_ascending_t4_v1: DONE in 234.5s
+[2026-09-25T20:41:13Z][gpu7] c2_ascending_t4_v2: DONE in 350.7s
+[2026-09-25T20:46:49Z][gpu7] c2_ascending_t4_v3: DONE in 335.8s
+[2026-09-25T20:50:34Z][gpu7] c2_cecum_t1_v1: DONE in 225.1s
+[2026-09-25T20:56:02Z][gpu7] c2_cecum_t1_v2: DONE in 327.7s
+[2026-09-25T21:01:23Z][gpu7] c2_cecum_t1_v3: DONE in 321.3s
+[2026-09-25T21:07:04Z][gpu7] c2_cecum_t2_v2: DONE in 340.8s
+[2026-09-25T21:12:52Z][gpu7] c2_cecum_t2_v3: DONE in 348.0s
+[2026-09-25T21:15:47Z][gpu7] c2_cecum_t3_v1: DONE in 174.8s
+[2026-09-25T21:19:40Z][gpu7] c2_cecum_t3_v2: DONE in 233.7s
+[2026-09-25T21:23:34Z][gpu7] c2_cecum_t3_v3: DONE in 234.3s
+[2026-09-25T21:25:58Z][gpu7] c2_cecum_t4_v1: DONE in 144.0s
+[2026-09-25T21:32:12Z][gpu7] c2_cecum_t4_v2: DONE in 373.5s
+[2026-09-25T21:38:20Z][gpu7] c2_cecum_t4_v3: DONE in 367.6s
+[2026-09-25T21:40:57Z][gpu7] c2_descending_t3_v1: DONE in 157.7s
+[2026-09-25T21:46:07Z][gpu7] c2_descending_t3_v2: DONE in 310.0s
+[2026-09-25T21:51:32Z][gpu7] c2_descending_t3_v3: DONE in 324.8s
+[2026-09-25T21:54:57Z][gpu7] c2_descending_t4_v1: DONE in 204.7s
+[2026-09-25T21:56:38Z][gpu7] c2_descending_t4_v2: DONE in 101.4s
+[2026-09-25T21:58:18Z][gpu7] c2_descending_t4_v3: DONE in 100.0s
+[2026-09-25T22:00:11Z][gpu7] c2_rectum_t1_v1: DONE in 113.3s
+[2026-09-25T22:08:42Z][gpu7] c2_rectum_t1_v2: DONE in 510.6s
+[2026-09-25T22:17:02Z][gpu7] c2_rectum_t1_v3: DONE in 499.6s
+[2026-09-25T22:22:57Z][gpu7] c2_rectum_t2_v1: DONE in 355.4s
+[2026-09-25T22:27:33Z][gpu7] c2_rectum_t2_v2: DONE in 275.9s
+[2026-09-25T22:32:24Z][gpu7] c2_rectum_t2_v3: DONE in 290.8s
+[2026-09-25T22:35:49Z][gpu7] c2_rectum_t3_v1: DONE in 205.2s
+[2026-09-25T22:39:51Z][gpu7] c2_rectum_t3_v2: DONE in 241.8s
+[2026-09-25T22:43:46Z][gpu7] c2_rectum_t3_v3: DONE in 234.8s
+[2026-09-25T22:46:10Z][gpu7] c2_rectum_t4_v1: DONE in 144.3s
+[2026-09-25T22:49:45Z][gpu7] c2_rectum_t4_v2: DONE in 215.1s
+[2026-09-25T22:53:28Z][gpu7] c2_rectum_t4_v3: DONE in 223.1s
+[2026-09-25T22:59:47Z][gpu7] c2_sigmoid_t1_v1: DONE in 378.5s
+[2026-09-25T23:06:34Z][gpu7] c2_sigmoid_t1_v2: DONE in 407.7s
+[2026-09-25T23:13:35Z][gpu7] c2_sigmoid_t1_v3: DONE in 420.8s
+[2026-09-25T23:19:19Z][gpu7] c2_sigmoid_t2_v1: DONE in 343.6s
+[2026-09-25T23:24:44Z][gpu7] c2_sigmoid_t2_v2: DONE in 325.4s
+[2026-09-25T23:30:20Z][gpu7] c2_sigmoid_t2_v3: DONE in 336.2s
+[2026-09-25T23:35:16Z][gpu7] c2_sigmoid_t3_v1: DONE in 295.8s
+[2026-09-25T23:38:02Z][gpu7] c2_sigmoid_t3_v2: DONE in 165.9s
+[2026-09-25T23:40:57Z][gpu7] c2_sigmoid_t3_v3: DONE in 174.5s
+[2026-09-25T23:45:52Z][gpu7] c2_sigmoid_t4_v1: DONE in 295.8s
+[2026-09-25T23:49:19Z][gpu7] c2_sigmoid_t4_v2: DONE in 207.0s
+[2026-09-25T23:52:52Z][gpu7] c2_sigmoid_t4_v3: DONE in 213.0s
+[2026-09-25T23:57:37Z][gpu7] c2_transverse1_t1_v1: DONE in 284.6s
+[2026-09-26T00:04:57Z][gpu7] c2_transverse1_t1_v2: DONE in 439.9s
+[2026-09-26T00:12:17Z][gpu7] c2_transverse1_t1_v3: DONE in 439.8s
+[2026-09-26T00:19:21Z][gpu7] c2_transverse1_t2_v1: DONE in 423.8s
+[2026-09-26T00:26:33Z][gpu7] c2_transverse1_t2_v2: DONE in 432.8s
+[2026-09-26T00:33:47Z][gpu7] c2_transverse1_t2_v3: DONE in 433.3s
+[2026-09-26T00:43:56Z][gpu7] c2_transverse1_t3_v1: DONE in 609.5s
+[2026-09-26T00:47:41Z][gpu7] c2_transverse1_t3_v2: DONE in 225.4s
+[2026-09-26T00:51:33Z][gpu7] c2_transverse1_t3_v3: DONE in 231.8s
+[2026-09-26T00:56:17Z][gpu7] c2_transverse1_t4_v1: DONE in 283.8s
+[2026-09-26T01:00:50Z][gpu7] c2_transverse1_t4_v2: DONE in 272.5s
+[2026-09-26T01:05:26Z][gpu7] c2_transverse1_t4_v3: DONE in 276.4s
+[2026-09-26T01:10:16Z][gpu7] c2_transverse2_t1_v1: DONE in 290.1s
+[2026-09-26T01:17:04Z][gpu7] c2_transverse2_t1_v2: DONE in 408.2s
+[2026-09-26T01:23:52Z][gpu7] c2_transverse2_t1_v3: DONE in 408.1s
+[2026-09-26T01:28:52Z][gpu7] c2_transverse2_t2_v1: DONE in 299.6s
+[2026-09-26T01:33:02Z][gpu7] c2_transverse2_t2_v2: DONE in 250.3s
+[2026-09-26T01:37:13Z][gpu7] c2_transverse2_t2_v3: DONE in 250.1s
+[2026-09-26T01:39:35Z][gpu7] c2_transverse2_t3_v1: DONE in 142.9s
+[2026-09-26T01:47:41Z][gpu7] c2_transverse2_t3_v2: DONE in 485.7s
+[2026-09-26T01:56:37Z][gpu7] c2_transverse2_t3_v3: DONE in 535.9s
+[2026-09-26T02:04:58Z][gpu7] c2_transverse2_t4_v1: DONE in 501.1s
+[2026-09-26T02:16:25Z][gpu7] c2_transverse2_t4_v3: DONE in 687.0s
+[2026-09-26T02:16:25Z][gpu7] shard 0/1: all assigned sequences done

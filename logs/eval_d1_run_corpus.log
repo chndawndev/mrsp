@@ -1,0 +1,6 @@
+[2026-09-25T12:15:58Z] using explicit GPU override: [7] (auto-selection skipped)
+[2026-09-25T12:15:58Z] launching 1 shard(s) on GPUs [7]
+[2026-09-25T12:15:58Z] shard 0: GPU 7, log /data1_ycao/chua/projects/mrsp/logs/eval_d1_run_corpus_shard0.log
+[2026-09-26T02:16:26Z] shard 0 (GPU 7) exited with code 0
+[2026-09-26T02:16:26Z] all shards completed
+LAUNCHER_EXITCODE:0

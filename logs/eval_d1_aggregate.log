@@ -1,0 +1,14 @@
+[2026-09-26T02:20:49Z] === D1 Stage B aggregation ===
+[2026-09-26T02:20:49Z] bootstrap seed: 20260925, replicates: 10000
+[2026-09-26T02:20:49Z] 169 sequences with status=ok, 0 not ok
+[2026-09-26T02:20:50Z] loaded 387328 region rows, 2704 area rows
+[2026-09-26T02:21:43Z] corpus-wide segment_intersects_mesh fraction (all configs/taus pooled): 0.0413
+[2026-09-26T02:21:43Z] D1.1: {'value': '169/169', 'threshold': '>= 70% of 169 sequences', 'result': 'pass', 'note': "computed in Stage A per the docs/success_criteria.md section 6 2026-09-23 operational definition; for a frame-to-frame pipeline like EndoDAC this measures crash-free completion only, not track-loss detection (same entry's own caveat)."}
+[2026-09-26T02:21:43Z] D1.2: {'value': 1.0, 'threshold': '>= 0.80', 'result': 'pass', 'tau': 0.25}
+[2026-09-26T02:21:43Z] D1.3: {'value_pp': 1.6689847009735748, 'threshold': '>= 10.0 percentage points', 'result': 'fail', 'oracle_recall': 1.0, 'fully_predicted_recall': 0.9833101529902643, 'tau': 0.25}
+[2026-09-26T02:21:43Z] D1.4: {'small_recall': 0.957983193277311, 'large_recall': 0.9909502262443439, 'gap_pp': 3.296703296703296, 'threshold': '>= 15 percentage points (record-only, does not block)', 'result': 'record_only_does_not_meet_gap', 'tau': 0.25}
+[2026-09-26T02:21:43Z] D1.5: {'value': 0.03074024131072527, 'threshold': 'strictly between 0.02 and 0.98', 'result': 'pass', 'tau': 0.25}
+[2026-09-26T02:21:43Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/corpus_tables.json
+[2026-09-26T02:21:43Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/per_sequence_metrics.csv (2704 rows)
+[2026-09-26T02:21:43Z] *** STOP: D1.3 FAILED ({'value_pp': 1.6689847009735748, 'threshold': '>= 10.0 percentage points', 'result': 'fail', 'oracle_recall': 1.0, 'fully_predicted_recall': 0.9833101529902643, 'tau': 0.25}) -- reporting only, no further analysis this session ***
+EXITCODE:0
