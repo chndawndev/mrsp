@@ -373,6 +373,68 @@ Both findings are recorded before any second pipeline is evaluated.
 Any criterion added for D2 in response will be recorded as a separate,
 dated deviation, and D2.1 to D2.3 stay as written.
 
+### 2026-09-27: Deviation: primary endpoints for D2 (false reassurance, region IoU), a validity gate for localization, and new pre-stated hypotheses
+
+Written before any second pipeline has been run or evaluated. Motivated by
+the D1.3 diagnosis (2026-09-27 entry): region recall cannot be lowered by
+depth error by construction, is not lowered by over-flagging, and the
+section 1 localization error does not separate a location-blind baseline
+from real pipelines. D2.1 to D2.3 stay as written and are reported
+regardless of the outcome below.
+
+1. Region IoU (new primary localization metric).
+   For each GT unobserved region R: let C be the union of all predicted-
+   unobserved connected components (built exactly as in the locked
+   component construction, ignore set excluded) that intersect R.
+   IoU(R) = area(R intersect C) / area(R union C); IoU(R) = 0 if no
+   component intersects R. Corpus value: mean over regions, pooled per
+   docs/eval_protocol.md, mesh-level cluster bootstrap, with the
+   (Colon, Segment) and (Colon, Segment, Phantom Number) intervals
+   reported alongside. Implemented outside the locked paths.
+   The section 1 centroid localization error is retained as a secondary
+   metric, always reported next to the matched area ratio, and is not
+   used as evidence of localization quality on its own.
+
+2. Validity gate for region IoU, evaluated only on oracle and the two
+   location-blind baselines of the D1.3 diagnosis (all-unobserved;
+   area-matched random, 20 seeds), at tau = 0.25, medium + large regions.
+   No real pipeline's output is used for the gate.
+   Pass: oracle median IoU >= 0.80, and oracle median IoU exceeds each
+   baseline's median by >= 0.30.
+   If the gate fails, region IoU is not used as a primary endpoint; stop
+   and diagnose before any pipeline is scored with it.
+
+3. D2b: new decision point, primary endpoints.
+   Trigger: 3 pipelines evaluated, including EndoDAC (reduced from the
+   4 to 6 of section 3; recorded here as a scope reduction). Original D2
+   is evaluated if and when 4 or more pipelines are available; otherwise
+   it is reported as not triggered.
+   Configuration fully_predicted, tau = 0.25.
+   D2b.1: best-minus-worst pooled false reassurance >= 0.01 (absolute),
+          and the mesh-level 95% bootstrap CI of the paired difference
+          (same sequences, clustered by mesh) excludes zero.
+   D2b.2: best-minus-worst mean region IoU (medium + large) >= 0.10,
+          with the same CI requirement.
+   D2b.3 (record only): top and bottom pipelines on each endpoint do not
+          swap across tau in {0.15, 0.25, 0.35, 0.50}.
+   D2b.1 and D2b.2 are judged and reported separately. EndoDAC's false
+   reassurance (0.031) was known when these thresholds were set;
+   between-pipeline differences were not.
+
+4. New pre-stated hypotheses, tested only on pipelines evaluated after
+   this entry (EndoDAC excluded, since these were derived from its data).
+   H5 (masking): for each new pipeline, false reassurance under
+       fully_predicted is lower than under pred_pose_only, with the
+       mesh-level CI of the paired difference excluding zero.
+   H6 (depth drives false alarm): for each new pipeline, false alarm
+       under pred_depth_only exceeds that under pred_pose_only, with the
+       mesh-level CI of the paired difference excluding zero.
+
+5. Note on H1 (section 4). Region recall is insensitive to depth error by
+   construction (2026-09-27 diagnosis). H1 therefore holds for structural
+   reasons and cannot count toward D3 as a finding. H1 stays as written
+   and is reported with this note.
+
 ---
 
 ## 7. Sign-off
