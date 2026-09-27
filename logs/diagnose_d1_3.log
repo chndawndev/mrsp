@@ -1,0 +1,32 @@
+[2026-09-27T18:40:46Z] 169 sequences with both Stage B and ignore_set complete
+[2026-09-27T18:40:47Z] loaded 387328 Stage B region rows, 2704 area rows
+[2026-09-27T18:40:47Z] === Diagnostic 2: recall sensitivity table ===
+[2026-09-27T18:40:57Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/diagnosis/recall_sensitivity.csv (192 rows)
+[2026-09-27T18:40:57Z] === Diagnostic 3: region difficulty ===
+[2026-09-27T18:40:57Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/diagnosis/region_difficulty.csv (12 rows)
+[2026-09-27T18:40:57Z] === Diagnostics 1 & 4: per-sequence geometry pass ===
+[2026-09-27T18:43:51Z] 10/169: c1_ascending_t4_v2 elapsed=174.0s ETA=2766.4s
+[2026-09-27T18:46:09Z] 20/169: c1_cecum_t4_v1 elapsed=312.1s ETA=2324.8s
+[2026-09-27T18:47:15Z] 30/169: c1_descending_t3_v3 elapsed=377.8s ETA=1750.5s
+[2026-09-27T18:49:03Z] 40/169: c1_rectum_t3_v1 elapsed=485.7s ETA=1566.3s
+[2026-09-27T18:50:59Z] 50/169: c1_sigmoid1_t2_v2 elapsed=601.2s ETA=1430.8s
+[2026-09-27T18:52:19Z] 60/169: c1_sigmoid2_t1_v3 elapsed=681.3s ETA=1237.6s
+[2026-09-27T18:52:52Z] 70/169: c1_transverse1_t1_v1 elapsed=714.4s ETA=1010.4s
+[2026-09-27T18:54:04Z] 80/169: c1_transverse1_t4_v2 elapsed=786.3s ETA=874.7s
+[2026-09-27T18:54:37Z] 90/169: c1_transverse2_t3_v3 elapsed=819.4s ETA=719.2s
+[2026-09-27T18:56:22Z] 100/169: c2_ascending_t3_v1 elapsed=924.7s ETA=638.0s
+[2026-09-27T18:58:30Z] 110/169: c2_cecum_t2_v3 elapsed=1052.2s ETA=564.4s
+[2026-09-27T19:00:08Z] 120/169: c2_descending_t4_v1 elapsed=1150.8s ETA=469.9s
+[2026-09-27T19:01:17Z] 130/169: c2_rectum_t3_v2 elapsed=1219.3s ETA=365.8s
+[2026-09-27T19:02:05Z] 140/169: c2_sigmoid_t2_v3 elapsed=1267.3s ETA=262.5s
+[2026-09-27T19:03:07Z] 150/169: c2_transverse1_t2_v1 elapsed=1329.2s ETA=168.4s
+[2026-09-27T19:04:14Z] 160/169: c2_transverse2_t1_v2 elapsed=1397.0s ETA=78.6s
+[2026-09-27T19:04:53Z] 169/169: c2_transverse2_t4_v3 elapsed=1435.9s ETA=0.0s
+[2026-09-27T19:04:58Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/diagnosis/baselines.csv (508368 rows)
+[2026-09-27T19:04:58Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/diagnosis/region_merging.csv (3821 rows)
+[2026-09-27T19:04:58Z] === Diagnostic 1: aggregation ===
+[2026-09-27T19:05:01Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/diagnosis/baselines_bootstrap.json
+[2026-09-27T19:05:01Z] === Diagnostic 4: aggregation ===
+[2026-09-27T19:05:27Z] wrote /data1_ycao/chua/projects/mrsp/results/d1/diagnosis/region_merging_summary.json
+[2026-09-27T19:05:27Z] ALL DONE
+EXITCODE:0
