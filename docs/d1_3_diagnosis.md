@@ -38,6 +38,30 @@ configurations:
 the min-max across its 20 seeds (a different quantity from the CI of the
 seed-averaged value, both reported per the task spec).
 
+**Sensitivity CIs** (`docs/eval_protocol.md`'s two coarser clusterings,
+reported alongside every mesh-level CI above, not decision-driving),
+`results/d1/diagnosis/sensitivity_cis_followup.json`:
+
+| baseline | quantity | (Colon, Segment), 15 clusters | (Colon, Segment, Phantom Number), 58 clusters |
+|---|---|---|---|
+| all-unobserved | recall@50% (medium+large) | [1.000, 1.000] | [1.000, 1.000] |
+| all-unobserved | false_reassurance | [0.000, 0.000] | [0.000, 0.000] |
+| all-unobserved | false_alarm | [0.724, 0.795] | [0.738, 0.782] |
+| all-unobserved | loc. err. median | [44.32, 51.04] | [46.33, 49.85] |
+| area-matched random | recall@50% (medium+large) | [0.445, 0.772] | [0.511, 0.728] |
+| area-matched random | false_reassurance | [0.433, 0.534] | [0.451, 0.515] |
+| area-matched random | false_alarm | [0.725, 0.796] | [0.738, 0.782] |
+| area-matched random | loc. err. median | [6.82, 10.51] | [6.85, 10.10] |
+
+**False reassurance, oracle vs. pred_depth_only, tau=0.25** (corpus-wide
+pooled, `docs/eval_protocol.md`'s aggregation rule): oracle **0.0015**,
+pred_depth_only **0.0004**. Face count predicted-observed but
+GT-unobserved, pred_depth_only, tau=0.25, corpus-wide: **7,669 faces**
+(`results/d1/diagnosis/sensitivity_cis_followup.json` and a one-off
+recount from `results/d1/per_sequence/*/metrics.json` +
+`predicted_observed_packed.bin`, both already-saved Stage B/diagnosis
+outputs).
+
 ### Diagnostic 2: recall sensitivity table (all configs x taus x thresholds x size classes)
 
 Full table: `results/d1/diagnosis/recall_sensitivity.csv` (192 rows).
@@ -79,12 +103,17 @@ For every matched headline region: ratio of the matched predicted
 component's area to the GT region's own area, correlated (Spearman,
 mesh-level bootstrap CI) against localization error:
 
-| config | n regions | n meshes | Spearman rho | bootstrap 95% CI | p-value |
+p-values are not reported: they assume independent regions, which these
+are not (957 regions come from only 103 meshes, 15 (Colon, Segment)
+groups) -- the mesh-level and sensitivity bootstrap CIs are the
+uncertainty measure used throughout instead.
+
+| config | n regions | Spearman rho | mesh-level CI (103 meshes) | (Colon, Segment) CI (15 clusters) | (Colon, Segment, Phantom) CI (58 clusters) |
 |---|---|---|---|---|---|
-| oracle | 957 | 103 | **-0.649** | [-0.710, -0.584] | ~1e-115 |
-| pred_depth_only | 957 | 103 | **+0.839** | [0.801, 0.869] | ~1e-254 |
-| pred_pose_only | 951 | 103 | **+0.816** | [0.788, 0.836] | ~1e-228 |
-| fully_predicted | 956 | 103 | **+0.782** | [0.740, 0.817] | ~1e-198 |
+| oracle | 957 | **-0.649** | [-0.710, -0.584] | [-0.755, -0.532] | [-0.720, -0.570] |
+| pred_depth_only | 957 | **+0.839** | [0.801, 0.869] | [0.759, 0.892] | [0.796, 0.873] |
+| pred_pose_only | 951 | **+0.816** | [0.788, 0.836] | [0.768, 0.843] | [0.787, 0.837] |
+| fully_predicted | 956 | **+0.782** | [0.740, 0.817] | [0.706, 0.833] | [0.736, 0.819] |
 
 Localization error by area-ratio quartile (`results/d1/diagnosis/region_merging_summary.json`
 has the full table):
@@ -114,8 +143,8 @@ direction, and what would confirm/refute it further.
   corpus (not available here). *Would be weakened by*: a stricter
   threshold or size-class cut where all-unobserved's recall drops below
   oracle's -- diagnostic 2 already tests this at 75% and it does not
-  happen (`pred_depth_only`, an even more realistic baseline than
-  all-unobserved, still detects everything at every threshold).
+  happen (`pred_depth_only` still detects everything at every
+  threshold).
 - **Diagnostic 1's random baseline is mixed evidence, cutting against a
   simple "any baseline passes" version of cause A.** At the 50%
   threshold the random baseline scores only 0.624 -- far below oracle's
