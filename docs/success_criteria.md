@@ -315,6 +315,26 @@ fraction of GT path length) is reported per sequence as a descriptive
 quantity. No threshold is attached to it, because one sequence
 (c1_cecum_t1_v1, endpoint drift 2.78%) had already been seen.
 
+### 2026-09-26: Clarification: mesh geometry identity and the unit of independence
+
+Measured in D1 Stage B pre-flight (docs/d1_stage_b.md): among the 169
+registered sequences there are 103 distinct mesh hashes, 58 distinct
+(Colon, Segment, Phantom Number) groups, and 15 distinct (Colon, Segment)
+groups. Within each (Colon, Segment) group, 308 pairs of distinct mesh
+hashes were rigidly aligned; the median of the mean symmetric
+point-to-surface distance is 0.02 mm, with a minority of pairs at 1 to
+4.6 mm not yet explained.
+
+Consequence: the 103 distinct meshes of section 1 are distinct files, not
+geometrically independent shapes. Sequences sharing a (Colon, Segment)
+group share essentially the same fold geometry.
+
+Decision: the section 1 clustering rule (mesh level) remains the primary
+analysis and is unchanged. Every confidence interval reported for any
+decision point is accompanied by the (Colon, Segment) level interval,
+with the number of clusters stated. Any claim about generalization across
+colon geometry is limited to 15 molds and is worded accordingly.
+
 ---
 
 ## 7. Sign-off
