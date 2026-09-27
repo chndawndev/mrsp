@@ -335,6 +335,44 @@ decision point is accompanied by the (Colon, Segment) level interval,
 with the number of clusters stated. Any claim about generalization across
 colon geometry is limited to 15 molds and is worded accordingly.
 
+### 2026-09-27: Diagnosis of the D1.3 failure (post-hoc; D1 remains FAIL)
+
+D1.3 failed on the full corpus: oracle minus fully_predicted recall on
+medium + large regions = 1.67 pp against a 10 pp threshold. The
+pre-registered fail branch requires a diagnosis before adding methods.
+The diagnostics were designed after seeing the D1 results
+(docs/d1_3_diagnosis.md). Nothing below changes D1's verdict or any
+criterion.
+
+Diagnosis: the detection definition is insensitive, for a structural
+reason in the evaluation protocol rather than because the regions are
+easy.
+1. With the GT pose, predicted rays hit only faces the GT camera saw.
+   A depth error can only fail the tau test and remove an observation;
+   it cannot mark a GT-unobserved face as observed. Region coverage
+   under GT pose is therefore near 1 by construction. Consistent
+   measurements: pred_depth_only recall gap is 0.00 pp at every tau and
+   detection threshold; pred_depth_only false reassurance is 0.0004
+   (oracle 0.0015).
+2. Region recall can be lowered only by pose error, and only when it
+   brings a GT-unobserved region's predicted-observed share above 50%.
+   Pose-induced false reassurance on the corpus is 0.055, so a 10 pp
+   recall gap was not reachable for this pipeline.
+3. Region recall is not lowered by over-flagging: an all-unobserved
+   baseline scores recall 1.000 at every detection threshold.
+
+Related finding on localization error (section 1 metric): an
+area-matched, location-blind random baseline has median localization
+error 8.04 mm, comparable to pred_pose_only (8.1 mm) and lower than
+fully_predicted (17.7 mm). Localization error correlates with the
+matched predicted component's area ratio (Spearman 0.78 to 0.84, mesh-
+level CIs). As operationalized, localization error does not separate a
+location-blind predictor from real pipelines.
+
+Both findings are recorded before any second pipeline is evaluated.
+Any criterion added for D2 in response will be recorded as a separate,
+dated deviation, and D2.1 to D2.3 stay as written.
+
 ---
 
 ## 7. Sign-off
