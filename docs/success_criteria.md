@@ -25,7 +25,6 @@ This file is pre-registration, not a working note.
   metric definition, a threshold, or a filtering rule in those paths without
   explicit approval in the conversation. "The metric was wrong, so I fixed it
   and reran" is a protocol violation, even when the fix is correct.
-- `src/eval_ext/region_iou.py` is locked.
 
 ---
 
@@ -435,6 +434,17 @@ regardless of the outcome below.
    construction (2026-09-27 diagnosis). H1 therefore holds for structural
    reasons and cannot count toward D3 as a finding. H1 stays as written
    and is reported with this note.
+
+### 2026-09-28: Correction: a line added to section 0 in error
+
+Commit 2483abf appended "src/eval_ext/region_iou.py is locked." to
+section 0, contrary to section 0's own rule that this file is changed
+only by appending to section 6. The line was removed in the following
+commit. Its content stands and is recorded here instead:
+src/eval_ext/region_iou.py is locked from 2026-09-28, in the same sense
+as src/eval/ and src/gt/, because region IoU passed its validity gate
+(docs/region_iou_gate.md) and is now a D2b primary endpoint. The lock
+itself is enforced through CLAUDE.md.
 
 ---
 

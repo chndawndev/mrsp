@@ -14,8 +14,8 @@ Deviation entries are written by the author only. If a criterion looks wrong,
 unmeasurable, or infeasible, draft the proposed text in your reply, say what
 would have to change, and stop. Do not touch the file.
 
-**Never change metric or GT code to make a result work.** `src/eval/` and
-`src/gt/` hold the metric definitions, the detection threshold, the registration
+**Never change metric or GT code to make a result work.** `src/eval/`,
+`src/gt/`, and `src/eval_ext/region_iou.py` hold the metric definitions, the detection threshold, the registration
 procedure, and the GT loaders. Do not modify them without explicit approval in
 the conversation, even to fix what looks like a bug. Report the suspected bug,
 with evidence, and wait. "The metric was wrong so I fixed it and reran" is a
@@ -165,6 +165,7 @@ src/geometry/   camera model, pose handling, back-projection, coverage mesh
                 were not relocated when src/gt/ was introduced)
 src/gt/         depth loading, visibility raster                      (locked)
 src/eval/       metrics, region matching, registration                (locked)
+src/eval_ext/   region IoU (region_iou.py locked from 2026-09-28)
 scripts/        runnable entry points
 tests/          unit tests, tests/conventions/ for units and frames
 docs/           conventions, inventory, results write-ups
