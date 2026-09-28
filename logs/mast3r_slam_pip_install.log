@@ -1,0 +1,882 @@
+Obtaining file:///data1_ycao/chua/projects/mrsp/scratch/pipelines/MASt3R-SLAM/thirdparty/mast3r
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting scikit-learn (from MAST3R==0.0.1)
+  Using cached scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Collecting roma (from MAST3R==0.0.1)
+  Using cached roma-1.6.1-py3-none-any.whl.metadata (5.2 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Using cached gradio-6.28.0-py3-none-any.whl.metadata (16 kB)
+Collecting matplotlib (from MAST3R==0.0.1)
+  Using cached matplotlib-3.11.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+Collecting tqdm (from MAST3R==0.0.1)
+  Using cached tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Collecting opencv-python (from MAST3R==0.0.1)
+  Using cached opencv_python-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+Collecting scipy (from MAST3R==0.0.1)
+  Using cached scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting einops (from MAST3R==0.0.1)
+  Using cached einops-0.8.2-py3-none-any.whl.metadata (13 kB)
+Collecting trimesh (from MAST3R==0.0.1)
+  Using cached trimesh-5.1.0-py3-none-any.whl.metadata (13 kB)
+Collecting tensorboard (from MAST3R==0.0.1)
+  Using cached tensorboard-2.21.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting pyglet (from MAST3R==0.0.1)
+  Using cached pyglet-2.1.16-py3-none-any.whl.metadata (8.0 kB)
+Collecting huggingface-hub>=0.22 (from huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Using cached huggingface_hub-2.0.0-py3-none-any.whl.metadata (16 kB)
+Processing ./thirdparty/mast3r/dust3r/croco/models/curope (from MAST3R==0.0.1)
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Processing ./thirdparty/mast3r/asmk (from MAST3R==0.0.1)
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: numpy in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from asmk @ file:///data1_ycao/chua/projects/mrsp/scratch/pipelines/MASt3R-SLAM/thirdparty/mast3r/asmk->MAST3R==0.0.1) (2.4.6)
+Collecting pyaml (from asmk @ file:///data1_ycao/chua/projects/mrsp/scratch/pipelines/MASt3R-SLAM/thirdparty/mast3r/asmk->MAST3R==0.0.1)
+  Downloading pyaml-26.7.0-py3-none-any.whl.metadata (12 kB)
+Collecting faiss-cpu (from asmk @ file:///data1_ycao/chua/projects/mrsp/scratch/pipelines/MASt3R-SLAM/thirdparty/mast3r/asmk->MAST3R==0.0.1)
+  Downloading faiss_cpu-1.15.1-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (7.8 kB)
+Collecting click<9.0.0,>=8.4.2 (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: filelock>=3.10.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (3.32.3)
+Requirement already satisfied: fsspec>=2023.5.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (2026.7.0)
+Collecting hf-xet<2.0.0,>=1.6.0 (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Downloading hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting httpx2<3,>=2.0.0 (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Downloading httpx2-2.13.1-py3-none-any.whl.metadata (9.8 kB)
+Requirement already satisfied: packaging>=20.9 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (26.3)
+Collecting pyyaml>=5.1 (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Requirement already satisfied: typing-extensions>=4.1.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (4.16.0)
+Collecting anyio>=4.10 (from httpx2<3,>=2.0.0->huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+Collecting httpcore2==2.13.1 (from httpx2<3,>=2.0.0->huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Downloading httpcore2-2.13.1-py3-none-any.whl.metadata (26 kB)
+Collecting idna>=3.18 (from httpx2<3,>=2.0.0->huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting truststore>=0.10 (from httpx2<3,>=2.0.0->huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Downloading truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+Collecting h11>=0.16 (from httpcore2==2.13.1->httpx2<3,>=2.0.0->huggingface-hub>=0.22->huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Requirement already satisfied: torch in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (2.5.1+cu124)
+Collecting safetensors[torch] (from huggingface-hub[torch]>=0.22->MAST3R==0.0.1)
+  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting brotli>=1.1.0 (from gradio->MAST3R==0.0.1)
+  Using cached brotli-1.2.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.1 kB)
+Collecting fastapi<1.0,>=0.115.2 (from gradio->MAST3R==0.0.1)
+  Downloading fastapi-0.141.1-py3-none-any.whl.metadata (27 kB)
+Collecting gradio-client==2.7.1 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.7.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting groovy~=0.1 (from gradio->MAST3R==0.0.1)
+  Using cached groovy-0.1.2-py3-none-any.whl.metadata (6.1 kB)
+Collecting hf-gradio<1.0,>=0.4.1 (from gradio->MAST3R==0.0.1)
+  Downloading hf_gradio-0.4.1-py3-none-any.whl.metadata (428 bytes)
+Collecting httpx<1.0,>=0.24.1 (from gradio->MAST3R==0.0.1)
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+INFO: pip is looking at multiple versions of gradio to determine which version is compatible with other requirements. This could take a while.
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.27.0-py3-none-any.whl.metadata (17 kB)
+Collecting gradio-client==2.7.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.7.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.26.0-py3-none-any.whl.metadata (17 kB)
+Collecting gradio-client==2.6.1 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.6.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.25.0-py3-none-any.whl.metadata (17 kB)
+Collecting gradio-client==2.6.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.6.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.24.0-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.23.1-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.22.0-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.21.0-py3-none-any.whl.metadata (17 kB)
+INFO: pip is still looking at multiple versions of gradio to determine which version is compatible with other requirements. This could take a while.
+  Downloading gradio-6.20.0-py3-none-any.whl.metadata (17 kB)
+Collecting gradio-client==2.5.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.5.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.19.0-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.18.0-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.17.3-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.16.0-py3-none-any.whl.metadata (17 kB)
+INFO: This is taking longer than usual. You might need to provide the dependency resolver with stricter constraints to reduce runtime. See https://pip.pypa.io/warnings/backtracking for guidance. If you want to abort this run, press Ctrl + C.
+  Downloading gradio-6.15.2-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.15.1-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.15.0-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.14.0-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.13.0-py3-none-any.whl.metadata (17 kB)
+  Using cached gradio-6.12.0-py3-none-any.whl.metadata (17 kB)
+Collecting gradio-client==2.4.1 (from gradio->MAST3R==0.0.1)
+  Using cached gradio_client-2.4.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Using cached gradio-6.11.0-py3-none-any.whl.metadata (17 kB)
+Collecting aiofiles<25.0,>=22.0 (from gradio->MAST3R==0.0.1)
+  Using cached aiofiles-24.1.0-py3-none-any.whl.metadata (10 kB)
+Collecting ffmpy (from gradio->MAST3R==0.0.1)
+  Using cached ffmpy-1.0.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting gradio-client==2.4.0 (from gradio->MAST3R==0.0.1)
+  Using cached gradio_client-2.4.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Using cached gradio-6.10.0-py3-none-any.whl.metadata (17 kB)
+  Downloading gradio-6.9.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.3.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.3.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.8.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.2.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.2.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.7.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-6.6.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.1.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.1.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.5.1-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.0.3 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.0.3-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.5.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-6.4.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-6.3.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-6.2.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.0.2 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.0.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.1.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.0.1 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.0.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.0.2-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-6.0.1-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.0.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.0.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-6.0.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==2.0.0-dev.3 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-2.0.0.dev3-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.50.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.14.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.14.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.49.1-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.13.3 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.13.3-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.49.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.48.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.47.2-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.47.1-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.13.2 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.13.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.47.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.46.1-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.13.1 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.13.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.46.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.13.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.13.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.45.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.44.1-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.12.1 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.12.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.44.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.43.1-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.43.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.12.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.12.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.42.0-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.11.1 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.11.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.41.1-py3-none-any.whl.metadata (16 kB)
+Collecting gradio-client==1.11.0 (from gradio->MAST3R==0.0.1)
+  Downloading gradio_client-1.11.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting gradio (from MAST3R==0.0.1)
+  Downloading gradio-5.41.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.40.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.39.0-py3-none-any.whl.metadata (16 kB)
+  Downloading gradio-5.38.2-py3-none-any.whl.metadata (16 kB)
+Requirement already satisfied: jinja2<4.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from gradio->MAST3R==0.0.1) (3.1.6)
+Requirement already satisfied: markupsafe<4.0,>=2.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from gradio->MAST3R==0.0.1) (3.0.3)
+Collecting orjson~=3.0 (from gradio->MAST3R==0.0.1)
+  Downloading orjson-3.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+Collecting pandas<3.0,>=1.0 (from gradio->MAST3R==0.0.1)
+  Downloading pandas-2.3.3-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+Collecting pillow<12.0,>=8.0 (from gradio->MAST3R==0.0.1)
+  Downloading pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.0 kB)
+Collecting pydantic<2.12,>=2.0 (from gradio->MAST3R==0.0.1)
+  Downloading pydantic-2.11.10-py3-none-any.whl.metadata (68 kB)
+Collecting pydub (from gradio->MAST3R==0.0.1)
+  Using cached pydub-0.25.1-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting python-multipart>=0.0.18 (from gradio->MAST3R==0.0.1)
+  Downloading python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Collecting ruff>=0.9.3 (from gradio->MAST3R==0.0.1)
+  Downloading ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+Collecting safehttpx<0.2.0,>=0.1.6 (from gradio->MAST3R==0.0.1)
+  Using cached safehttpx-0.1.7-py3-none-any.whl.metadata (4.2 kB)
+Collecting semantic-version~=2.0 (from gradio->MAST3R==0.0.1)
+  Using cached semantic_version-2.10.0-py2.py3-none-any.whl.metadata (9.7 kB)
+Collecting starlette<1.0,>=0.40.0 (from gradio->MAST3R==0.0.1)
+  Using cached starlette-0.52.1-py3-none-any.whl.metadata (6.3 kB)
+Collecting tomlkit<0.14.0,>=0.12.0 (from gradio->MAST3R==0.0.1)
+  Using cached tomlkit-0.13.3-py3-none-any.whl.metadata (2.8 kB)
+Collecting typer<1.0,>=0.12 (from gradio->MAST3R==0.0.1)
+  Downloading typer-0.27.2-py3-none-any.whl.metadata (16 kB)
+Collecting uvicorn>=0.14.0 (from gradio->MAST3R==0.0.1)
+  Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting websockets<16.0,>=10.0 (from gradio-client==1.11.0->gradio->MAST3R==0.0.1)
+  Downloading websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+Collecting typing-inspection>=0.4.2 (from fastapi<1.0,>=0.115.2->gradio->MAST3R==0.0.1)
+  Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+Collecting annotated-doc>=0.0.2 (from fastapi<1.0,>=0.115.2->gradio->MAST3R==0.0.1)
+  Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting certifi (from httpx<1.0,>=0.24.1->gradio->MAST3R==0.0.1)
+  Using cached certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx<1.0,>=0.24.1->gradio->MAST3R==0.0.1)
+  Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting python-dateutil>=2.8.2 (from pandas<3.0,>=1.0->gradio->MAST3R==0.0.1)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2020.1 (from pandas<3.0,>=1.0->gradio->MAST3R==0.0.1)
+  Downloading pytz-2026.4-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas<3.0,>=1.0->gradio->MAST3R==0.0.1)
+  Using cached tzdata-2026.4-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting annotated-types>=0.6.0 (from pydantic<2.12,>=2.0->gradio->MAST3R==0.0.1)
+  Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.33.2 (from pydantic<2.12,>=2.0->gradio->MAST3R==0.0.1)
+  Downloading pydantic_core-2.33.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+Collecting shellingham>=1.3.0 (from typer<1.0,>=0.12->gradio->MAST3R==0.0.1)
+  Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=13.8.0 (from typer<1.0,>=0.12->gradio->MAST3R==0.0.1)
+  Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas<3.0,>=1.0->gradio->MAST3R==0.0.1)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer<1.0,>=0.12->gradio->MAST3R==0.0.1)
+  Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.8.0->typer<1.0,>=0.12->gradio->MAST3R==0.0.1)
+  Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer<1.0,>=0.12->gradio->MAST3R==0.0.1)
+  Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting contourpy>=1.0.1 (from matplotlib->MAST3R==0.0.1)
+  Downloading contourpy-1.3.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib->MAST3R==0.0.1)
+  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.28.2 (from matplotlib->MAST3R==0.0.1)
+  Downloading fonttools-4.66.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (129 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib->MAST3R==0.0.1)
+  Downloading kiwisolver-1.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Collecting pyparsing>=3 (from matplotlib->MAST3R==0.0.1)
+  Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Requirement already satisfied: networkx in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (3.6.1)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (9.1.0.70)
+Requirement already satisfied: nvidia-cublas-cu12==12.4.5.8 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (12.4.5.8)
+Requirement already satisfied: nvidia-cufft-cu12==11.2.1.3 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (11.2.1.3)
+Requirement already satisfied: nvidia-curand-cu12==10.3.5.147 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (10.3.5.147)
+Requirement already satisfied: nvidia-cusolver-cu12==11.6.1.9 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (11.6.1.9)
+Requirement already satisfied: nvidia-cusparse-cu12==12.3.1.170 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (12.3.1.170)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (12.4.127)
+Requirement already satisfied: triton==3.1.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (3.1.0)
+Requirement already satisfied: sympy==1.13.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from sympy==1.13.1->torch->huggingface-hub[torch]>=0.22->MAST3R==0.0.1) (1.3.0)
+Collecting joblib>=1.4.0 (from scikit-learn->MAST3R==0.0.1)
+  Downloading joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting narwhals>=2.0.1 (from scikit-learn->MAST3R==0.0.1)
+  Downloading narwhals-2.26.0-py3-none-any.whl.metadata (15 kB)
+Collecting threadpoolctl>=3.5.0 (from scikit-learn->MAST3R==0.0.1)
+  Using cached threadpoolctl-3.7.0-py3-none-any.whl.metadata (24 kB)
+Collecting cloudpickle>=3.0 (from joblib>=1.4.0->scikit-learn->MAST3R==0.0.1)
+  Using cached cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting absl-py>=0.4 (from tensorboard->MAST3R==0.0.1)
+  Downloading absl_py-2.5.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting grpcio<2.0,>=1.74.0 (from tensorboard->MAST3R==0.0.1)
+  Downloading grpcio-1.84.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.8 kB)
+Collecting markdown>=2.6.8 (from tensorboard->MAST3R==0.0.1)
+  Downloading markdown-3.11-py3-none-any.whl.metadata (5.1 kB)
+Collecting protobuf<8.0.0,>=6.31.1 (from tensorboard->MAST3R==0.0.1)
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Requirement already satisfied: setuptools>=41.0.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from tensorboard->MAST3R==0.0.1) (84.0.0)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tensorboard->MAST3R==0.0.1)
+  Using cached tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl.metadata (1.1 kB)
+Collecting werkzeug>=1.0.1 (from tensorboard->MAST3R==0.0.1)
+  Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Downloading huggingface_hub-2.0.0-py3-none-any.whl (828 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 828.5/828.5 kB 12.1 MB/s  0:00:00
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+Downloading hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 31.5 MB/s  0:00:00
+Downloading httpx2-2.13.1-py3-none-any.whl (95 kB)
+Downloading httpcore2-2.13.1-py3-none-any.whl (83 kB)
+Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Using cached idna-3.20-py3-none-any.whl (69 kB)
+Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+Using cached tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading truststore-0.10.4-py3-none-any.whl (18 kB)
+Using cached einops-0.8.2-py3-none-any.whl (65 kB)
+Downloading faiss_cpu-1.15.1-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (18.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.8/18.8 MB 47.1 MB/s  0:00:00
+Downloading gradio-5.38.2-py3-none-any.whl (59.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.5/59.5 MB 46.9 MB/s  0:00:01
+Downloading gradio_client-1.11.0-py3-none-any.whl (324 kB)
+Using cached aiofiles-24.1.0-py3-none-any.whl (15 kB)
+Downloading fastapi-0.141.1-py3-none-any.whl (131 kB)
+Using cached groovy-0.1.2-py3-none-any.whl (14 kB)
+Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Downloading orjson-3.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (131 kB)
+Downloading pandas-2.3.3-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 46.3 MB/s  0:00:00
+Downloading pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 34.4 MB/s  0:00:00
+Downloading pydantic-2.11.10-py3-none-any.whl (444 kB)
+Downloading pydantic_core-2.33.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 24.6 MB/s  0:00:00
+Using cached safehttpx-0.1.7-py3-none-any.whl (9.0 kB)
+Using cached semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
+Using cached starlette-0.52.1-py3-none-any.whl (74 kB)
+Using cached tomlkit-0.13.3-py3-none-any.whl (38 kB)
+Downloading typer-0.27.2-py3-none-any.whl (123 kB)
+Downloading websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Using cached brotli-1.2.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+Downloading pytz-2026.4-py2.py3-none-any.whl (506 kB)
+Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.4/10.4 MB 44.9 MB/s  0:00:00
+Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+Using cached tzdata-2026.4-py2.py3-none-any.whl (347 kB)
+Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+Using cached ffmpy-1.0.0-py3-none-any.whl (5.6 kB)
+Downloading matplotlib-3.11.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 45.7 MB/s  0:00:00
+Downloading contourpy-1.3.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (355 kB)
+Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.66.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 42.1 MB/s  0:00:00
+Downloading kiwisolver-1.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 26.4 MB/s  0:00:00
+Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Using cached opencv_python-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl (73.8 MB)
+Downloading pyaml-26.7.0-py3-none-any.whl (27 kB)
+Using cached pydub-0.25.1-py2.py3-none-any.whl (32 kB)
+Using cached pyglet-2.1.16-py3-none-any.whl (1.0 MB)
+Downloading roma-1.6.1-py3-none-any.whl (25 kB)
+Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 45.5 MB/s  0:00:00
+Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Using cached cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Downloading narwhals-2.26.0-py3-none-any.whl (474 kB)
+Using cached scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+Using cached threadpoolctl-3.7.0-py3-none-any.whl (26 kB)
+Downloading tensorboard-2.21.0-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 41.3 MB/s  0:00:00
+Downloading grpcio-1.84.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (7.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.2/7.2 MB 44.1 MB/s  0:00:00
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Using cached tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl (6.6 MB)
+Downloading absl_py-2.5.0-py3-none-any.whl (137 kB)
+Downloading markdown-3.11-py3-none-any.whl (111 kB)
+Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Using cached trimesh-5.1.0-py3-none-any.whl (750 kB)
+Building wheels for collected packages: MAST3R, asmk, curope
+  Building editable for MAST3R (pyproject.toml): started
+  Building editable for MAST3R (pyproject.toml): finished with status 'done'
+  Created wheel for MAST3R: filename=mast3r-0.0.1-0.editable-py3-none-any.whl size=5074 sha256=805f6c6e5c3d8bcdce87a7663b5d8770ab8491c86d530dedc2058d2ba9fa229c
+  Stored in directory: /tmp/pip-ephem-wheel-cache-1h0mam2_/wheels/e6/3f/24/e344c673b69a9b6e532461a57a01af9a76130d4986bd7de5bb
+  Building wheel for asmk (pyproject.toml): started
+  Building wheel for asmk (pyproject.toml): finished with status 'done'
+  Created wheel for asmk: filename=asmk-0.1-cp311-cp311-linux_x86_64.whl size=103174 sha256=cef663fd6f5ae4bb5e5581fb55182aca27efe0f07fafe6324b74b63d15496e01
+  Stored in directory: /tmp/pip-ephem-wheel-cache-1h0mam2_/wheels/01/f1/f8/878e54d8eefa9a6c61a79818897d4467458958c37de4d11056
+  Building wheel for curope (pyproject.toml): started
+  Building wheel for curope (pyproject.toml): still running...
+  Building wheel for curope (pyproject.toml): still running...
+  Building wheel for curope (pyproject.toml): still running...
+  Building wheel for curope (pyproject.toml): still running...
+  Building wheel for curope (pyproject.toml): still running...
+  Building wheel for curope (pyproject.toml): still running...
+  Building wheel for curope (pyproject.toml): still running...
+  Building wheel for curope (pyproject.toml): finished with status 'done'
+  Created wheel for curope: filename=curope-0.0.0-cp311-cp311-linux_x86_64.whl size=104216 sha256=79b5260ac5a7a6e7c66595dbfc061c2cba94580422a774c23e7995cd05157b0a
+  Stored in directory: /tmp/pip-ephem-wheel-cache-1h0mam2_/wheels/a2/99/a0/c12230239b8b0a0a4f60e4e947a96505f581b2d343a26d5427
+Successfully built MAST3R asmk curope
+Installing collected packages: pytz, pydub, curope, brotli, werkzeug, websockets, tzdata, typing-inspection, truststore, trimesh, tqdm, tomlkit, threadpoolctl, tensorboard-data-server, six, shellingham, semantic-version, scipy, safetensors, ruff, pyyaml, python-multipart, pyparsing, pygments, pyglet, pydantic-core, protobuf, pillow, orjson, opencv-python, narwhals, mdurl, markdown, kiwisolver, idna, hf-xet, h11, grpcio, groovy, fonttools, ffmpy, faiss-cpu, einops, cycler, contourpy, cloudpickle, click, certifi, annotated-types, annotated-doc, aiofiles, absl-py, uvicorn, tensorboard, python-dateutil, pydantic, pyaml, markdown-it-py, joblib, httpcore2, httpcore, anyio, starlette, scikit-learn, rich, pandas, matplotlib, httpx2, httpx, asmk, typer, safehttpx, roma, huggingface-hub, fastapi, gradio-client, gradio, MAST3R
+  Attempting uninstall: pillow
+    Found existing installation: pillow 12.3.0
+    Uninstalling pillow-12.3.0:
+      Successfully uninstalled pillow-12.3.0
+
+Successfully installed MAST3R-0.0.1 absl-py-2.5.0 aiofiles-24.1.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 asmk-0.1 brotli-1.2.0 certifi-2026.7.22 click-8.5.0 cloudpickle-3.1.2 contourpy-1.3.3 curope-0.0.0 cycler-0.12.1 einops-0.8.2 faiss-cpu-1.15.1 fastapi-0.141.1 ffmpy-1.0.0 fonttools-4.66.0 gradio-5.38.2 gradio-client-1.11.0 groovy-0.1.2 grpcio-1.84.0 h11-0.16.0 hf-xet-1.6.0 httpcore-1.0.9 httpcore2-2.13.1 httpx-0.28.1 httpx2-2.13.1 huggingface-hub-2.0.0 idna-3.20 joblib-1.6.0 kiwisolver-1.5.1 markdown-3.11 markdown-it-py-4.2.0 matplotlib-3.11.2 mdurl-0.1.2 narwhals-2.26.0 opencv-python-5.0.0.93 orjson-3.12.0 pandas-2.3.3 pillow-11.3.0 protobuf-7.36.2 pyaml-26.7.0 pydantic-2.11.10 pydantic-core-2.33.2 pydub-0.25.1 pyglet-2.1.16 pygments-2.21.0 pyparsing-3.3.3 python-dateutil-2.9.0.post0 python-multipart-0.0.32 pytz-2026.4 pyyaml-6.0.3 rich-15.0.0 roma-1.6.1 ruff-0.16.9 safehttpx-0.1.7 safetensors-0.8.0 scikit-learn-1.9.1 scipy-1.17.1 semantic-version-2.10.0 shellingham-1.5.4 six-1.17.0 starlette-0.52.1 tensorboard-2.21.0 tensorboard-data-server-0.7.2 threadpoolctl-3.7.0 tomlkit-0.13.3 tqdm-4.70.1 trimesh-5.1.0 truststore-0.10.4 typer-0.27.2 typing-inspection-0.4.4 tzdata-2026.4 uvicorn-0.54.0 websockets-15.0.1 werkzeug-3.1.9
+Obtaining file:///data1_ycao/chua/projects/mrsp/scratch/pipelines/MASt3R-SLAM/thirdparty/in3d
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Processing ./thirdparty/in3d/thirdparty/pyimgui (from in3d==0.0.1)
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting moderngl==5.12.0 (from in3d==0.0.1)
+  Downloading moderngl-5.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.8 kB)
+Collecting moderngl-window==2.4.6 (from in3d==0.0.1)
+  Downloading moderngl_window-2.4.6-py3-none-any.whl.metadata (8.8 kB)
+Collecting glfw (from in3d==0.0.1)
+  Downloading glfw-2.10.2-py2.py3-none-manylinux_2_28_x86_64.whl.metadata (5.5 kB)
+Collecting pyglm (from in3d==0.0.1)
+  Downloading pyglm-2.8.3-cp311-cp311-manylinux_2_34_x86_64.whl.metadata (13 kB)
+Collecting msgpack (from in3d==0.0.1)
+  Downloading msgpack-1.2.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Requirement already satisfied: numpy in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from in3d==0.0.1) (2.4.6)
+Requirement already satisfied: matplotlib in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from in3d==0.0.1) (3.11.2)
+Requirement already satisfied: trimesh[easy] in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from in3d==0.0.1) (5.1.0)
+Collecting glcontext>=3.0.0 (from moderngl==5.12.0->in3d==0.0.1)
+  Downloading glcontext-3.0.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.0 kB)
+Requirement already satisfied: pyglet>=2.0.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from moderngl-window==2.4.6->in3d==0.0.1) (2.1.16)
+Collecting numpy (from in3d==0.0.1)
+  Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting pyrr<1,>=0.10.3 (from moderngl-window==2.4.6->in3d==0.0.1)
+  Downloading pyrr-0.10.3-py3-none-any.whl.metadata (832 bytes)
+Requirement already satisfied: Pillow>=10.0.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from moderngl-window==2.4.6->in3d==0.0.1) (11.3.0)
+Collecting multipledispatch (from pyrr<1,>=0.10.3->moderngl-window==2.4.6->in3d==0.0.1)
+  Downloading multipledispatch-1.0.0-py3-none-any.whl.metadata (3.8 kB)
+Requirement already satisfied: contourpy>=1.0.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (1.3.3)
+Requirement already satisfied: cycler>=0.10 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (0.12.1)
+Requirement already satisfied: fonttools>=4.28.2 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (4.66.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (1.5.1)
+Requirement already satisfied: packaging>=20.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (26.3)
+Requirement already satisfied: pyparsing>=3 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (3.3.3)
+Requirement already satisfied: python-dateutil>=2.7 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from python-dateutil>=2.7->matplotlib->in3d==0.0.1) (1.17.0)
+Collecting colorlog (from trimesh[easy]->in3d==0.0.1)
+  Downloading colorlog-6.12.0-py3-none-any.whl.metadata (11 kB)
+Collecting manifold3d>=2.3.0 (from trimesh[easy]->in3d==0.0.1)
+  Downloading manifold3d-3.5.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (20 kB)
+Collecting charset-normalizer (from trimesh[easy]->in3d==0.0.1)
+  Downloading charset_normalizer-3.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (45 kB)
+Collecting lxml (from trimesh[easy]->in3d==0.0.1)
+  Downloading lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+Collecting jsonschema (from trimesh[easy]->in3d==0.0.1)
+  Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Requirement already satisfied: networkx in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from trimesh[easy]->in3d==0.0.1) (3.6.1)
+Collecting svg.path (from trimesh[easy]->in3d==0.0.1)
+  Downloading svg_path-7.1-py2.py3-none-any.whl.metadata (14 kB)
+Collecting pycollada (from trimesh[easy]->in3d==0.0.1)
+  Downloading pycollada-0.9.3-py3-none-any.whl.metadata (1.7 kB)
+Collecting shapely (from trimesh[easy]->in3d==0.0.1)
+  Downloading shapely-2.1.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.8 kB)
+Collecting xxhash (from trimesh[easy]->in3d==0.0.1)
+  Downloading xxhash-4.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (17 kB)
+Collecting rtree (from trimesh[easy]->in3d==0.0.1)
+  Using cached rtree-1.4.1-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.1 kB)
+Requirement already satisfied: httpx in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from trimesh[easy]->in3d==0.0.1) (0.28.1)
+Requirement already satisfied: scipy in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from trimesh[easy]->in3d==0.0.1) (1.17.1)
+Collecting embreex (from trimesh[easy]->in3d==0.0.1)
+  Downloading embreex-4.4.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting vhacdx (from trimesh[easy]->in3d==0.0.1)
+  Downloading vhacdx-0.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (1.1 kB)
+Collecting mapbox_earcut>=1.0.2 (from trimesh[easy]->in3d==0.0.1)
+  Downloading mapbox_earcut-2.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (2.5 kB)
+Requirement already satisfied: anyio in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (4.15.1)
+Requirement already satisfied: certifi in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (2026.7.22)
+Requirement already satisfied: httpcore==1.* in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (1.0.9)
+Requirement already satisfied: idna in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (3.20)
+Requirement already satisfied: h11>=0.16 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpcore==1.*->httpx->trimesh[easy]->in3d==0.0.1) (0.16.0)
+Requirement already satisfied: typing_extensions>=4.16.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from anyio->httpx->trimesh[easy]->in3d==0.0.1) (4.16.0)
+Collecting attrs>=22.2.0 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Downloading rpds_py-2026.6.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Downloading moderngl-5.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (293 kB)
+Downloading moderngl_window-2.4.6-py3-none-any.whl (370 kB)
+Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.3/18.3 MB 40.5 MB/s  0:00:00
+Downloading pyrr-0.10.3-py3-none-any.whl (46 kB)
+Downloading glcontext-3.0.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (51 kB)
+Downloading glfw-2.10.2-py2.py3-none-manylinux_2_28_x86_64.whl (248 kB)
+Downloading msgpack-1.2.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (422 kB)
+Downloading multipledispatch-1.0.0-py3-none-any.whl (12 kB)
+Downloading pyglm-2.8.3-cp311-cp311-manylinux_2_34_x86_64.whl (11.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.6/11.6 MB 37.5 MB/s  0:00:00
+Downloading manifold3d-3.5.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 26.7 MB/s  0:00:00
+Downloading mapbox_earcut-2.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (77 kB)
+Downloading charset_normalizer-3.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (262 kB)
+Downloading colorlog-6.12.0-py3-none-any.whl (12 kB)
+Downloading embreex-4.4.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (14.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.5/14.5 MB 46.2 MB/s  0:00:00
+Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+Downloading rpds_py-2026.6.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+Downloading lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 38.4 MB/s  0:00:00
+Downloading pycollada-0.9.3-py3-none-any.whl (129 kB)
+Using cached rtree-1.4.1-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (507 kB)
+Downloading shapely-2.1.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 38.2 MB/s  0:00:00
+Downloading svg_path-7.1-py2.py3-none-any.whl (18 kB)
+Downloading vhacdx-0.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (259 kB)
+Downloading xxhash-4.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (261 kB)
+Building wheels for collected packages: in3d, imgui
+  Building editable for in3d (pyproject.toml): started
+  Building editable for in3d (pyproject.toml): finished with status 'done'
+  Created wheel for in3d: filename=in3d-0.0.1-0.editable-py3-none-any.whl size=2778 sha256=bdbd57c6da27b14b80f016321ceaec68049ad453f1eb8b1ec760e8e77b4c5d09
+  Stored in directory: /tmp/pip-ephem-wheel-cache-9z_uvfuv/wheels/ac/9c/d5/1546922cb84f90e7bfc04789a13415db1b8ad75d4742f3416b
+  Building wheel for imgui (pyproject.toml): started
+  Building wheel for imgui (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Building wheel for imgui (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [61 lines of output]
+      /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages/setuptools/dist.py:765: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+      
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+      
+              License :: OSI Approved :: BSD License
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        self._finalize_license_expression()
+      running bdist_wheel
+      running build
+      running build_py
+      creating build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/__init__.py -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/_compat.py -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/extra.py -> build/lib.linux-x86_64-cpython-311/imgui
+      creating build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/__init__.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/base.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/cocos2d.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/glfw.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/glumpy.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/opengl.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/pygame.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/pyglet.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      copying imgui/integrations/sdl2.py -> build/lib.linux-x86_64-cpython-311/imgui/integrations
+      running egg_info
+      creating imgui.egg-info
+      writing imgui.egg-info/PKG-INFO
+      writing dependency_links to imgui.egg-info/dependency_links.txt
+      writing requirements to imgui.egg-info/requires.txt
+      writing top-level names to imgui.egg-info/top_level.txt
+      writing manifest file 'imgui.egg-info/SOURCES.txt'
+      reading manifest file 'imgui.egg-info/SOURCES.txt'
+      reading manifest template 'MANIFEST.in'
+      warning: no files found matching '*.cpp' under directory 'imgui'
+      warning: no files found matching '*.h' under directory 'imgui'
+      no previously-included directories found matching 'imgui-cpp/extra_fonts'
+      adding license file 'LICENSE'
+      writing manifest file 'imgui.egg-info/SOURCES.txt'
+      copying imgui/ansifeed.pxd -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/cimgui.pxd -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/common.pyx -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/core.pxd -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/core.pyx -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/enums.pxd -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/enums_internal.pxd -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/internal.pxd -> build/lib.linux-x86_64-cpython-311/imgui
+      copying imgui/internal.pyx -> build/lib.linux-x86_64-cpython-311/imgui
+      running build_ext
+      building 'imgui.core' extension
+      g++ -pthread -B /data1_ycao/chua/miniforge3/envs/mast3r-slam/compiler_compat -DNDEBUG -fwrapv -O2 -Wall -fPIC -O2 -fno-merge-constants -isystem /data1_ycao/chua/miniforge3/envs/mast3r-slam/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/python-split_1788391675171/work=/usr/local/src/conda/python-split-3.11.16 -fPIC -O2 -fno-merge-constants -isystem /data1_ycao/chua/miniforge3/envs/mast3r-slam/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/python-split_1788391675171/work=/usr/local/src/conda/python-split-3.11.16 -fPIC -DPYIMGUI_CUSTOM_EXCEPTION -Iimgui -Iconfig-cpp -Iimgui-cpp -Iansifeed-cpp -I/data1_ycao/chua/miniforge3/envs/mast3r-slam/include/python3.11 -c config-cpp/py_imconfig.cpp -o build/temp.linux-x86_64-cpython-311/config-cpp/py_imconfig.o -includeconfig-cpp/py_imconfig.h
+      config-cpp/py_imconfig.cpp:2:10: fatal error: core.h: No such file or directory
+          2 | #include "core.h"
+            |          ^~~~~~~~
+      compilation terminated.
+      error: Command '['g++', '-pthread', '-B', '/data1_ycao/chua/miniforge3/envs/mast3r-slam/compiler_compat', '-DNDEBUG', '-fwrapv', '-O2', '-Wall', '-fPIC', '-O2', '-fno-merge-constants', '-isystem', '/data1_ycao/chua/miniforge3/envs/mast3r-slam/include', '-fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/python-split_1788391675171/work=/usr/local/src/conda/python-split-3.11.16', '-fPIC', '-O2', '-fno-merge-constants', '-isystem', '/data1_ycao/chua/miniforge3/envs/mast3r-slam/include', '-fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/python-split_1788391675171/work=/usr/local/src/conda/python-split-3.11.16', '-fPIC', '-DPYIMGUI_CUSTOM_EXCEPTION', '-Iimgui', '-Iconfig-cpp', '-Iimgui-cpp', '-Iansifeed-cpp', '-I/data1_ycao/chua/miniforge3/envs/mast3r-slam/include/python3.11', '-c', 'config-cpp/py_imconfig.cpp', '-o', 'build/temp.linux-x86_64-cpython-311/config-cpp/py_imconfig.o', '-includeconfig-cpp/py_imconfig.h']' returned non-zero exit status 1.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for imgui
+Successfully built in3d
+Failed to build imgui
+error: failed-wheel-build-for-install
+
+× Failed to build installable wheels for some pyproject.toml based projects
+╰─> imgui
+Obtaining file:///data1_ycao/chua/projects/mrsp/scratch/pipelines/MASt3R-SLAM/thirdparty/in3d
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Processing ./thirdparty/in3d/thirdparty/pyimgui (from in3d==0.0.1)
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting moderngl==5.12.0 (from in3d==0.0.1)
+  Using cached moderngl-5.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.8 kB)
+Collecting moderngl-window==2.4.6 (from in3d==0.0.1)
+  Using cached moderngl_window-2.4.6-py3-none-any.whl.metadata (8.8 kB)
+Collecting glfw (from in3d==0.0.1)
+  Using cached glfw-2.10.2-py2.py3-none-manylinux_2_28_x86_64.whl.metadata (5.5 kB)
+Collecting pyglm (from in3d==0.0.1)
+  Using cached pyglm-2.8.3-cp311-cp311-manylinux_2_34_x86_64.whl.metadata (13 kB)
+Collecting msgpack (from in3d==0.0.1)
+  Using cached msgpack-1.2.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Requirement already satisfied: numpy in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from in3d==0.0.1) (2.4.6)
+Requirement already satisfied: matplotlib in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from in3d==0.0.1) (3.11.2)
+Requirement already satisfied: trimesh[easy] in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from in3d==0.0.1) (5.1.0)
+Collecting glcontext>=3.0.0 (from moderngl==5.12.0->in3d==0.0.1)
+  Using cached glcontext-3.0.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.0 kB)
+Requirement already satisfied: pyglet>=2.0.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from moderngl-window==2.4.6->in3d==0.0.1) (2.1.16)
+Collecting numpy (from in3d==0.0.1)
+  Using cached numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting pyrr<1,>=0.10.3 (from moderngl-window==2.4.6->in3d==0.0.1)
+  Using cached pyrr-0.10.3-py3-none-any.whl.metadata (832 bytes)
+Requirement already satisfied: Pillow>=10.0.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from moderngl-window==2.4.6->in3d==0.0.1) (11.3.0)
+Collecting multipledispatch (from pyrr<1,>=0.10.3->moderngl-window==2.4.6->in3d==0.0.1)
+  Using cached multipledispatch-1.0.0-py3-none-any.whl.metadata (3.8 kB)
+Requirement already satisfied: contourpy>=1.0.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (1.3.3)
+Requirement already satisfied: cycler>=0.10 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (0.12.1)
+Requirement already satisfied: fonttools>=4.28.2 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (4.66.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (1.5.1)
+Requirement already satisfied: packaging>=20.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (26.3)
+Requirement already satisfied: pyparsing>=3 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (3.3.3)
+Requirement already satisfied: python-dateutil>=2.7 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib->in3d==0.0.1) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from python-dateutil>=2.7->matplotlib->in3d==0.0.1) (1.17.0)
+Collecting colorlog (from trimesh[easy]->in3d==0.0.1)
+  Using cached colorlog-6.12.0-py3-none-any.whl.metadata (11 kB)
+Collecting manifold3d>=2.3.0 (from trimesh[easy]->in3d==0.0.1)
+  Using cached manifold3d-3.5.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (20 kB)
+Collecting charset-normalizer (from trimesh[easy]->in3d==0.0.1)
+  Using cached charset_normalizer-3.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (45 kB)
+Collecting lxml (from trimesh[easy]->in3d==0.0.1)
+  Using cached lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+Collecting jsonschema (from trimesh[easy]->in3d==0.0.1)
+  Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Requirement already satisfied: networkx in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from trimesh[easy]->in3d==0.0.1) (3.6.1)
+Collecting svg.path (from trimesh[easy]->in3d==0.0.1)
+  Using cached svg_path-7.1-py2.py3-none-any.whl.metadata (14 kB)
+Collecting pycollada (from trimesh[easy]->in3d==0.0.1)
+  Using cached pycollada-0.9.3-py3-none-any.whl.metadata (1.7 kB)
+Collecting shapely (from trimesh[easy]->in3d==0.0.1)
+  Using cached shapely-2.1.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.8 kB)
+Collecting xxhash (from trimesh[easy]->in3d==0.0.1)
+  Using cached xxhash-4.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (17 kB)
+Collecting rtree (from trimesh[easy]->in3d==0.0.1)
+  Using cached rtree-1.4.1-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.1 kB)
+Requirement already satisfied: httpx in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from trimesh[easy]->in3d==0.0.1) (0.28.1)
+Requirement already satisfied: scipy in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from trimesh[easy]->in3d==0.0.1) (1.17.1)
+Collecting embreex (from trimesh[easy]->in3d==0.0.1)
+  Using cached embreex-4.4.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting vhacdx (from trimesh[easy]->in3d==0.0.1)
+  Using cached vhacdx-0.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (1.1 kB)
+Collecting mapbox_earcut>=1.0.2 (from trimesh[easy]->in3d==0.0.1)
+  Using cached mapbox_earcut-2.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (2.5 kB)
+Requirement already satisfied: anyio in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (4.15.1)
+Requirement already satisfied: certifi in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (2026.7.22)
+Requirement already satisfied: httpcore==1.* in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (1.0.9)
+Requirement already satisfied: idna in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpx->trimesh[easy]->in3d==0.0.1) (3.20)
+Requirement already satisfied: h11>=0.16 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from httpcore==1.*->httpx->trimesh[easy]->in3d==0.0.1) (0.16.0)
+Requirement already satisfied: typing_extensions>=4.16.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from anyio->httpx->trimesh[easy]->in3d==0.0.1) (4.16.0)
+Collecting attrs>=22.2.0 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema->trimesh[easy]->in3d==0.0.1)
+  Using cached rpds_py-2026.6.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Using cached moderngl-5.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (293 kB)
+Using cached moderngl_window-2.4.6-py3-none-any.whl (370 kB)
+Using cached numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.3 MB)
+Using cached pyrr-0.10.3-py3-none-any.whl (46 kB)
+Using cached glcontext-3.0.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (51 kB)
+Using cached glfw-2.10.2-py2.py3-none-manylinux_2_28_x86_64.whl (248 kB)
+Using cached msgpack-1.2.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (422 kB)
+Using cached multipledispatch-1.0.0-py3-none-any.whl (12 kB)
+Using cached pyglm-2.8.3-cp311-cp311-manylinux_2_34_x86_64.whl (11.6 MB)
+Using cached manifold3d-3.5.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+Using cached mapbox_earcut-2.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (77 kB)
+Using cached charset_normalizer-3.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (262 kB)
+Using cached colorlog-6.12.0-py3-none-any.whl (12 kB)
+Using cached embreex-4.4.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (14.5 MB)
+Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+Using cached rpds_py-2026.6.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+Using cached lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+Using cached pycollada-0.9.3-py3-none-any.whl (129 kB)
+Using cached rtree-1.4.1-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (507 kB)
+Using cached shapely-2.1.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.1 MB)
+Using cached svg_path-7.1-py2.py3-none-any.whl (18 kB)
+Using cached vhacdx-0.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (259 kB)
+Using cached xxhash-4.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (261 kB)
+Building wheels for collected packages: in3d, imgui
+  Building editable for in3d (pyproject.toml): started
+  Building editable for in3d (pyproject.toml): finished with status 'done'
+  Created wheel for in3d: filename=in3d-0.0.1-0.editable-py3-none-any.whl size=2778 sha256=018b25a732702229fa1e031c25725a728a02d33f6869178cb9088053ad4f042c
+  Stored in directory: /tmp/pip-ephem-wheel-cache-2bsby9tu/wheels/ac/9c/d5/1546922cb84f90e7bfc04789a13415db1b8ad75d4742f3416b
+  Building wheel for imgui (pyproject.toml): started
+  Building wheel for imgui (pyproject.toml): still running...
+  Building wheel for imgui (pyproject.toml): finished with status 'done'
+  Created wheel for imgui: filename=imgui-2.0.0-cp311-cp311-linux_x86_64.whl size=2304753 sha256=f6e2ecb7cea1b0ddfb2b8ab9ccd01d4f58ef71b877132820ac4d683e73db08c6
+  Stored in directory: /tmp/pip-ephem-wheel-cache-2bsby9tu/wheels/63/71/74/ec66aec3bc23e47a8a9ab0bc3238bc73ef386969bb53ffa42a
+Successfully built in3d imgui
+Installing collected packages: pyglm, multipledispatch, imgui, glfw, glcontext, xxhash, svg.path, rtree, rpds-py, numpy, msgpack, moderngl, lxml, colorlog, charset-normalizer, attrs, vhacdx, shapely, referencing, pyrr, pycollada, mapbox_earcut, manifold3d, embreex, moderngl-window, jsonschema-specifications, jsonschema, in3d
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.4.6
+    Uninstalling numpy-2.4.6:
+      Successfully uninstalled numpy-2.4.6
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+opencv-python 5.0.0.93 requires numpy>=2; python_version >= "3.9", but you have numpy 1.26.4 which is incompatible.
+Successfully installed attrs-26.1.0 charset-normalizer-3.5.1 colorlog-6.12.0 embreex-4.4.0 glcontext-3.0.0 glfw-2.10.2 imgui-2.0.0 in3d-0.0.1 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 lxml-6.1.3 manifold3d-3.5.4 mapbox_earcut-2.1.0 moderngl-5.12.0 moderngl-window-2.4.6 msgpack-1.2.2 multipledispatch-1.0.0 numpy-1.26.4 pycollada-0.9.3 pyglm-2.8.3 pyrr-0.10.3 referencing-0.37.0 rpds-py-2026.6.3 rtree-1.4.1 shapely-2.1.2 svg.path-7.1 vhacdx-0.1.0 xxhash-4.0.1
+Obtaining file:///data1_ycao/chua/projects/mrsp/scratch/pipelines/MASt3R-SLAM
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: numpy==1.26.4 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from MAST3R-SLAM==0.0.1) (1.26.4)
+Requirement already satisfied: einops in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from MAST3R-SLAM==0.0.1) (0.8.2)
+Collecting pyrealsense2 (from MAST3R-SLAM==0.0.1)
+  Downloading pyrealsense2-2.58.4.10922-cp311-cp311-manylinux1_x86_64.whl.metadata (1.9 kB)
+Collecting evo (from MAST3R-SLAM==0.0.1)
+  Downloading evo-1.37.1-py3-none-any.whl.metadata (14 kB)
+Collecting natsort (from MAST3R-SLAM==0.0.1)
+  Downloading natsort-8.4.0-py3-none-any.whl.metadata (21 kB)
+Collecting lietorch @ git+https://github.com/princeton-vl/lietorch.git (from MAST3R-SLAM==0.0.1)
+  Cloning https://github.com/princeton-vl/lietorch.git to /tmp/pip-install-kwuwh9xr/lietorch_39084749f9434494b60677769fe22449
+  Running command git clone --filter=blob:none --quiet https://github.com/princeton-vl/lietorch.git /tmp/pip-install-kwuwh9xr/lietorch_39084749f9434494b60677769fe22449
+  Resolved https://github.com/princeton-vl/lietorch.git to commit e7df86554156b36846008d8ddbcc4d8521a16554
+  Running command git submodule update --init --recursive -q
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting plyfile (from MAST3R-SLAM==0.0.1)
+  Using cached plyfile-1.1.5-py3-none-any.whl.metadata (43 kB)
+Requirement already satisfied: torch in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (2.5.1+cu124)
+Collecting argcomplete (from evo->MAST3R-SLAM==0.0.1)
+  Downloading argcomplete-3.7.2-py3-none-any.whl.metadata (16 kB)
+Collecting colorama>=0.3 (from evo->MAST3R-SLAM==0.0.1)
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Requirement already satisfied: matplotlib>=3.6.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from evo->MAST3R-SLAM==0.0.1) (3.11.2)
+Collecting numexpr>=2.7.3 (from evo->MAST3R-SLAM==0.0.1)
+  Downloading numexpr-2.14.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.0 kB)
+Requirement already satisfied: packaging in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from evo->MAST3R-SLAM==0.0.1) (26.3)
+Requirement already satisfied: pandas in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from evo->MAST3R-SLAM==0.0.1) (2.3.3)
+Requirement already satisfied: pillow in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from evo->MAST3R-SLAM==0.0.1) (11.3.0)
+Requirement already satisfied: pygments in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from evo->MAST3R-SLAM==0.0.1) (2.21.0)
+Requirement already satisfied: pyyaml in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from evo->MAST3R-SLAM==0.0.1) (6.0.3)
+Collecting rosbags>=0.11.1 (from evo->MAST3R-SLAM==0.0.1)
+  Downloading rosbags-0.11.5-py3-none-any.whl.metadata (5.0 kB)
+Requirement already satisfied: scipy>=1.2 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from evo->MAST3R-SLAM==0.0.1) (1.17.1)
+Collecting seaborn>=0.9 (from evo->MAST3R-SLAM==0.0.1)
+  Downloading seaborn-0.13.2-py3-none-any.whl.metadata (5.4 kB)
+Requirement already satisfied: contourpy>=1.0.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib>=3.6.0->evo->MAST3R-SLAM==0.0.1) (1.3.3)
+Requirement already satisfied: cycler>=0.10 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib>=3.6.0->evo->MAST3R-SLAM==0.0.1) (0.12.1)
+Requirement already satisfied: fonttools>=4.28.2 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib>=3.6.0->evo->MAST3R-SLAM==0.0.1) (4.66.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib>=3.6.0->evo->MAST3R-SLAM==0.0.1) (1.5.1)
+Requirement already satisfied: pyparsing>=3 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib>=3.6.0->evo->MAST3R-SLAM==0.0.1) (3.3.3)
+Requirement already satisfied: python-dateutil>=2.7 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from matplotlib>=3.6.0->evo->MAST3R-SLAM==0.0.1) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from python-dateutil>=2.7->matplotlib>=3.6.0->evo->MAST3R-SLAM==0.0.1) (1.17.0)
+Collecting apsw (from rosbags>=0.11.1->evo->MAST3R-SLAM==0.0.1)
+  Downloading apsw-3.53.4.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (4.4 kB)
+Collecting lz4 (from rosbags>=0.11.1->evo->MAST3R-SLAM==0.0.1)
+  Downloading lz4-4.4.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting ruamel.yaml (from rosbags>=0.11.1->evo->MAST3R-SLAM==0.0.1)
+  Downloading ruamel_yaml-0.19.1-py3-none-any.whl.metadata (16 kB)
+Requirement already satisfied: typing_extensions>=4.5 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from rosbags>=0.11.1->evo->MAST3R-SLAM==0.0.1) (4.16.0)
+Collecting zstandard (from rosbags>=0.11.1->evo->MAST3R-SLAM==0.0.1)
+  Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+Requirement already satisfied: pytz>=2020.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from pandas->evo->MAST3R-SLAM==0.0.1) (2026.4)
+Requirement already satisfied: tzdata>=2022.7 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from pandas->evo->MAST3R-SLAM==0.0.1) (2026.4)
+INFO: pip is looking at multiple versions of plyfile to determine which version is compatible with other requirements. This could take a while.
+Collecting plyfile (from MAST3R-SLAM==0.0.1)
+  Downloading plyfile-1.1.4-py3-none-any.whl.metadata (43 kB)
+  Downloading plyfile-1.1.3-py3-none-any.whl.metadata (43 kB)
+Requirement already satisfied: filelock in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (3.32.3)
+Requirement already satisfied: networkx in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (3.6.1)
+Requirement already satisfied: jinja2 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (3.1.6)
+Requirement already satisfied: fsspec in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (2026.7.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (9.1.0.70)
+Requirement already satisfied: nvidia-cublas-cu12==12.4.5.8 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (12.4.5.8)
+Requirement already satisfied: nvidia-cufft-cu12==11.2.1.3 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (11.2.1.3)
+Requirement already satisfied: nvidia-curand-cu12==10.3.5.147 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (10.3.5.147)
+Requirement already satisfied: nvidia-cusolver-cu12==11.6.1.9 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (11.6.1.9)
+Requirement already satisfied: nvidia-cusparse-cu12==12.3.1.170 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (12.3.1.170)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (12.4.127)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.4.127 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (12.4.127)
+Requirement already satisfied: triton==3.1.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (3.1.0)
+Requirement already satisfied: sympy==1.13.1 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from sympy==1.13.1->torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /data1_ycao/chua/miniforge3/envs/mast3r-slam/lib/python3.11/site-packages (from jinja2->torch->lietorch @ git+https://github.com/princeton-vl/lietorch.git->MAST3R-SLAM==0.0.1) (3.0.3)
+Downloading evo-1.37.1-py3-none-any.whl (162 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading numexpr-2.14.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (443 kB)
+Downloading rosbags-0.11.5-py3-none-any.whl (144 kB)
+Downloading seaborn-0.13.2-py3-none-any.whl (294 kB)
+Downloading apsw-3.53.4.0-cp311-cp311-manylinux_2_28_x86_64.whl (3.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 12.6 MB/s  0:00:00
+Downloading argcomplete-3.7.2-py3-none-any.whl (43 kB)
+Downloading lz4-4.4.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 27.1 MB/s  0:00:00
+Downloading natsort-8.4.0-py3-none-any.whl (38 kB)
+Downloading plyfile-1.1.3-py3-none-any.whl (36 kB)
+Downloading pyrealsense2-2.58.4.10922-cp311-cp311-manylinux1_x86_64.whl (13.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.1/13.1 MB 42.4 MB/s  0:00:00
+Downloading ruamel_yaml-0.19.1-py3-none-any.whl (118 kB)
+Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+Building wheels for collected packages: MAST3R-SLAM, lietorch
+  Building editable for MAST3R-SLAM (pyproject.toml): started
+  Building editable for MAST3R-SLAM (pyproject.toml): still running...
+  Building editable for MAST3R-SLAM (pyproject.toml): still running...
+  Building editable for MAST3R-SLAM (pyproject.toml): still running...
+  Building editable for MAST3R-SLAM (pyproject.toml): still running...
+  Building editable for MAST3R-SLAM (pyproject.toml): still running...
+  Building editable for MAST3R-SLAM (pyproject.toml): still running...
+  Building editable for MAST3R-SLAM (pyproject.toml): still running...
+  Building editable for MAST3R-SLAM (pyproject.toml): finished with status 'done'
+  Created wheel for MAST3R-SLAM: filename=mast3r_slam-0.0.1-0.editable-cp311-cp311-linux_x86_64.whl size=3314 sha256=71d3c4e45756aeafba41792e4074b72d1b27a35a65b651fca138bff8e2ceb417
+  Stored in directory: /tmp/pip-ephem-wheel-cache-litw9hul/wheels/08/24/cc/8a823c9d0c8c8ea3625dc7190b5bb06f0663702364e97e910a
+  Building wheel for lietorch (pyproject.toml): started
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): still running...
+  Building wheel for lietorch (pyproject.toml): finished with status 'done'
+  Created wheel for lietorch: filename=lietorch-0.3-cp311-cp311-linux_x86_64.whl size=1271708 sha256=aae7e0386de0b333c74ce12e38ced83a763121b0f55e63e0e1ffab6fa2d1bc2b
+  Stored in directory: /tmp/pip-ephem-wheel-cache-litw9hul/wheels/ab/b0/8a/462452dd05f5bd59fa6a0359ac8b79099168de1c10ac279b52
+Successfully built MAST3R-SLAM lietorch
+Installing collected packages: zstandard, ruamel.yaml, pyrealsense2, plyfile, numexpr, natsort, lz4, colorama, argcomplete, apsw, rosbags, seaborn, lietorch, evo, MAST3R-SLAM
+
+Successfully installed MAST3R-SLAM-0.0.1 apsw-3.53.4.0 argcomplete-3.7.2 colorama-0.4.6 evo-1.37.1 lietorch-0.3 lz4-4.4.5 natsort-8.4.0 numexpr-2.14.2 plyfile-1.1.3 pyrealsense2-2.58.4.10922 rosbags-0.11.5 ruamel.yaml-0.19.1 seaborn-0.13.2 zstandard-0.25.0

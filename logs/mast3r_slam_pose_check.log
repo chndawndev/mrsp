@@ -1,0 +1,24 @@
+pair (kf 0,30): rot_err_A= 12.78 deg, rot_err_B= 13.56 deg, cos_sim_A=+0.7313, cos_sim_B=-0.8620
+pair (kf 30,42): rot_err_A=  4.05 deg, rot_err_B=  6.35 deg, cos_sim_A=+0.9746, cos_sim_B=-0.9530
+pair (kf 42,45): rot_err_A=  0.88 deg, rot_err_B=  1.81 deg, cos_sim_A=+0.9977, cos_sim_B=-0.9982
+pair (kf 45,48): rot_err_A=  0.00 deg, rot_err_B=  0.97 deg, cos_sim_A=+0.9996, cos_sim_B=-0.9997
+pair (kf 48,51): rot_err_A=  1.36 deg, rot_err_B=  3.18 deg, cos_sim_A=+0.9529, cos_sim_B=-0.9438
+pair (kf 51,68): rot_err_A= 14.33 deg, rot_err_B= 15.16 deg, cos_sim_A=+0.9664, cos_sim_B=-0.9892
+pair (kf 68,71): rot_err_A=  9.10 deg, rot_err_B=  9.62 deg, cos_sim_A=+0.9226, cos_sim_B=-0.8493
+pair (kf 71,82): rot_err_A=  4.38 deg, rot_err_B=  5.37 deg, cos_sim_A=+0.9943, cos_sim_B=-0.9997
+pair (kf 82,87): rot_err_A=  3.91 deg, rot_err_B=  1.98 deg, cos_sim_A=+0.9809, cos_sim_B=-0.9865
+pair (kf 87,93): rot_err_A=  5.07 deg, rot_err_B=  3.79 deg, cos_sim_A=+0.9617, cos_sim_B=-0.9778
+pair (kf 93,105): rot_err_A=  2.77 deg, rot_err_B=  4.17 deg, cos_sim_A=+0.9560, cos_sim_B=-0.9619
+pair (kf 105,111): rot_err_A= 13.68 deg, rot_err_B= 12.10 deg, cos_sim_A=+0.9862, cos_sim_B=-0.9483
+pair (kf 111,122): rot_err_A=  1.89 deg, rot_err_B=  3.26 deg, cos_sim_A=+0.9695, cos_sim_B=-0.9598
+pair (kf 122,126): rot_err_A=  1.88 deg, rot_err_B=  3.43 deg, cos_sim_A=+0.9893, cos_sim_B=-0.9827
+pair (kf 126,130): rot_err_A=  4.80 deg, rot_err_B=  6.77 deg, cos_sim_A=+0.4215, cos_sim_B=-0.3250
+pair (kf 130,144): rot_err_A= 20.85 deg, rot_err_B= 11.52 deg, cos_sim_A=+0.9910, cos_sim_B=-0.9892
+pair (kf 144,156): rot_err_A=  3.63 deg, rot_err_B=  3.46 deg, cos_sim_A=+0.9048, cos_sim_B=-0.9290
+pair (kf 156,161): rot_err_A=  1.58 deg, rot_err_B=  2.66 deg, cos_sim_A=+0.9740, cos_sim_B=-0.9805
+pair (kf 161,168): rot_err_A=  1.57 deg, rot_err_B=  3.76 deg, cos_sim_A=+0.9916, cos_sim_B=-0.9954
+
+=== summary ===
+n_pairs = 19
+Hypothesis A (T_WC as saved): mean rot err = 5.71 deg, mean translation-direction cosine sim = +0.9298
+Hypothesis B (inv(T_WC)):     mean rot err = 5.94 deg, mean translation-direction cosine sim = -0.9279

@@ -1,0 +1,31 @@
+{
+ "sequence": "c1_cecum_t1_v1",
+ "n_keyframes": 20,
+ "keyframe_frame_indices": [
+  0,
+  30,
+  42,
+  45,
+  48,
+  51,
+  68,
+  71,
+  82,
+  87,
+  93,
+  105,
+  111,
+  122,
+  126,
+  130,
+  144,
+  156,
+  161,
+  168
+ ],
+ "sim3_scale": 50.57079935771617,
+ "ate_rmse_mm": 9.264002569185891,
+ "gt_path_length_mm": 302.24193155235895,
+ "endpoint_drift_mm": 14.200925123271325,
+ "endpoint_drift_frac_of_gt_path": 0.046985291055854785
+}
