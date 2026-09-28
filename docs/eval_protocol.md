@@ -418,6 +418,28 @@ fraction is large on the corpus, geodesic distance should be revisited;
 if small, Euclidean stands on measured evidence rather than an assumption
 about mesh geometry.
 
+Superseded as the primary localization metric by region IoU
+(docs/success_criteria.md section 6, 2026-09-27 deviation). Centroid
+localization error is now secondary and is reported only next to the
+matched area ratio. See the region IoU reporting rule below.
+
+### 2026-09-28: Reporting rule for region IoU (before any real pipeline is scored)
+
+Region IoU considers, for each GT region, only the predicted components
+that intersect it. Predicted components that touch no GT region do not
+affect it; that cost is carried by false alarm. On the validity-gate run,
+an area-matched, location-blind random baseline scored a median of 0.48
+(medium + large, tau = 0.25; docs/region_iou_gate.md).
+
+Rule: region IoU is never reported alone. Every region IoU value for a
+pipeline is reported next to (a) its false alarm and predicted-unobserved
+area fraction, and (b) the area-matched random baseline computed at that
+pipeline's own predicted-unobserved area on the same sequences. A pipeline
+scoring below its matched random baseline is reported as such, without
+reinterpreting the metric.
+
+Written before region IoU was computed for any real pipeline.
+
 ---
 
 ## 6. Validation plan for the eval code

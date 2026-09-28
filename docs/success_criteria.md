@@ -25,6 +25,7 @@ This file is pre-registration, not a working note.
   metric definition, a threshold, or a filtering rule in those paths without
   explicit approval in the conversation. "The metric was wrong, so I fixed it
   and reran" is a protocol violation, even when the fix is correct.
+- `src/eval_ext/region_iou.py` is locked.
 
 ---
 
