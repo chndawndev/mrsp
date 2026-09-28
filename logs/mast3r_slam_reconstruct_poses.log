@@ -1,0 +1,2 @@
+n_total_frames=218 n_keyframes=20 n_reconstructed=218 n_failed=0
+sanity check vs TUM file: {'n_keyframes_checked': 20, 'max_abs_diff': 0.0}

@@ -3,11 +3,16 @@
 Second-pipeline feasibility only. **No evaluation metric of any kind
 (coverage, recall, false reassurance, false alarm, IoU, localization error)
 is computed here, and no script under `src/eval/` or `src/gt/` is run on
-any MASt3R-SLAM output.** A D2 pre-registration entry does not exist yet;
-this stage does not need one because it produces no metric. Rules on the
-distinction between "trajectory quality" (computed here, self-contained)
-and "evaluation" (not computed here) follow the task's own hard
-constraint.
+any MASt3R-SLAM output.** This stage computes no metric, so it needs no
+D2 pre-registration entry to proceed. **Correction (2026-09-28, Stage
+2):** an earlier version of this paragraph said no D2 pre-registration
+entry exists at all — wrong. `docs/success_criteria.md` section 6 (the
+2026-09-27 deviation, commit `14894c3`) already defines D2's primary
+endpoints and was pushed before this Stage 1 document's own commit
+(`a13211a`) — a factual miss on my part, not a timeline issue. Rules on
+the distinction between "trajectory quality" (computed here,
+self-contained) and "evaluation" (not computed here) follow the task's
+own hard constraint.
 
 MEASURED sections report only what was directly observed (code read, files
 opened, commands run). INTERPRETATION sections are marked explicitly, with
@@ -281,15 +286,251 @@ full 169-sequence run would need separate approval per CLAUDE.md.
 
 ## Open issues
 
-1. Why keyframe selection stops at frame 168/217 for this sequence
-   (Q2's UNKNOWN) — not diagnosed, needs either visual inspection or
-   per-frame instrumentation to settle.
-2. No D2 pre-registration entry exists in `docs/success_criteria.md` —
-   correctly out of scope for this feasibility-only stage, which computes
-   no metric; required before any D2 comparison metric is computed.
+1. ~~Why keyframe selection stops at frame 168/217 for this sequence~~
+   — **diagnosed in Stage 2** (below): little camera motion, not
+   tracking degradation.
+2. ~~No D2 pre-registration entry exists in `docs/success_criteria.md`~~
+   — **corrected, 2026-09-28 (Stage 2)**: this was wrong. `docs/
+   success_criteria.md` section 6 (2026-09-27 deviation, commit
+   `14894c3`) already defines D2's primary endpoints (region IoU, false
+   reassurance) and a validity gate, and was pushed before this Stage 1
+   document's own commit (`a13211a`). This stage still computed no
+   metric, so the entry wasn't load-bearing for anything done here, but
+   the claim itself was factually wrong and is corrected, not removed,
+   for the record.
 3. The FPS-vs-paper gap (Q1 INTERPRETATION) is unconfirmed — would need a
    rerun on an idle GPU to isolate contention from a genuine performance
    difference.
 4. Q4's four options are unranked and unimplemented by design (the task
    asked not to choose); a future stage would need to pick one before any
    full-corpus MASt3R-SLAM run.
+
+---
+
+# Stage 2: per-frame outputs and the frame 169-217 gap
+
+Still `c1_cecum_t1_v1` only. Still **no evaluation metric of any kind
+computed, and no script under `src/eval/`/`src/gt/` run on any
+MASt3R-SLAM output** — the region-IoU validity gate passed
+(`docs/region_iou_gate.md`, commit `2e38f37`) before this stage started,
+per the task's own precondition, but that gate result is not used here;
+this stage still produces no metric. Implements Option A from Stage 1's
+Q4 (log every frame's tracked pose relative to its reference keyframe,
+re-anchor after the run using the keyframe's final globally-optimized
+pose) and diagnoses the frame 169-217 gap with real evidence.
+
+## Method: instrumented tracker + copied entry script
+
+Two new files, neither an in-place edit of the vendored MASt3R-SLAM
+clone:
+
+- `scripts/mast3r_slam_perframe_tracker.py`:
+  `InstrumentedFrameTracker(FrameTracker)`, a subclass that copies
+  `mast3r_slam/tracker.py::FrameTracker.track()`'s body verbatim (read in
+  full before writing) and records, at both of its return points,
+  `frame_id`, `ref_keyframe_frame_id` (`keyframe.frame_id`, read at the
+  top of `track()`, before this frame's own tracking/promotion logic
+  runs), `T_ref_to_frame` (the raw 8-float Sim3 `T_CkCf = T_WCk.inv() *
+  T_WCf`, already computed internally, scale preserved, not dropped),
+  `match_frac`, `match_frac_k`, and `skipped`.
+- `scripts/mast3r_slam_run_perframe.py`: a copy of `main.py`'s driver
+  (read in full before writing), with three changes: (1) uses
+  `InstrumentedFrameTracker`; (2) always headless; (3) after every
+  `tracker.track(frame)` call, saves that frame's camera-frame Z depth
+  and confidence at MASt3R's internal resolution to
+  `depth/{frame_id:04d}.npz`; (4) at the very end, dumps every
+  keyframe's FINAL Sim3 pose and FINAL (fully-fused) Z/confidence,
+  overwriting that frame_id's tracking-time dump — a keyframe's depth is
+  only correct once fully fused (confirmed by reading `mast3r_slam/
+  global_opt.py`: the backend only ever calls `keyframes.update_T_WCs`,
+  poses only; a keyframe's `X_canon`/`C` are updated exclusively inside
+  `track()`'s `keyframe.update_pointmap(Xkk, Ckf)` call, every time a
+  later frame is tracked against it).
+
+**MEASURED — rerun**: `logs/mast3r_slam_run_perframe.log`. GPU 7 (32.1GB
+free, 0% util, via `scripts/gpu_status.py`). Same checkpoints/config/
+uncalibrated mode as Stage 1. Returncode 0. Wall time **54.9s** (faster
+than Stage 1's 70.2s single-GPU run of the unmodified pipeline — plausibly
+less GPU contention this time, not investigated further). **Manifest**:
+`n_frames_total=218, n_keyframes=20, n_tracking_records=217` (218 frames −
+1 anchor frame that never calls `track()` = 217, exactly as expected).
+**Keyframe frame-index set is bit-identical to Stage 1's**
+(`[0, 30, 42, 45, 48, 51, 68, 71, 82, 87, 93, 105, 111, 122, 126, 130,
+144, 156, 161, 168]`) — the pipeline is deterministic across reruns, not
+assumed. Per-frame depth+confidence storage: 293,822,448 bytes for 218
+frames (**1.348 MB/frame**, float32, `np.savez_compressed`).
+
+## Step 4: pose reconstruction
+
+`scripts/mast3r_slam_reconstruct_poses.py`: for each of the 218 frames,
+a keyframe uses its own final Sim3 pose directly; a non-keyframe frame is
+reconstructed as `T_WC_ref_final * T_ref_to_frame` (`lietorch.Sim3`
+composition, the same operator `track()` itself uses, substituting the
+reference keyframe's later/final pose — exact, not an approximation,
+because `T_ref_to_frame` doesn't depend on which `T_WC_ref` produced it),
+converted to SE3 via `mast3r_slam.lietorch_utils.as_SE3` only at this
+final step (same helper `save_traj` uses for the keyframe-only TUM file —
+same convention, not a new one).
+
+**MEASURED**: `logs/mast3r_slam_reconstruct_poses.log`.
+**`n_total_frames=218 n_reconstructed=218 n_failed=0`** — every frame got
+a pose, none skipped/unreconstructable. **Sanity check**: the 20
+keyframes' reconstructed poses (direct passthrough) against the
+already-saved `c1_cecum_t1_v1_perframe/c1_cecum_t1_v1.txt` TUM file:
+**`max_abs_diff=0.0`** across all 20 — bit-exact, confirming the
+reconstruction script's keyframe passthrough path and the TUM-writing
+path agree exactly (a correctness check on this script, not a new
+metric).
+
+## Step 5: resolution mapping, vignette crop fraction, ray-direction check
+
+`scripts/mast3r_slam_resolution_mapping.py`. Calls MASt3R-SLAM's own
+`resize_img(img, 512, return_transformation=True)` (imported, not
+reimplemented) on one real frame.
+
+**MEASURED — mapping** (`results/pipelines/mast3r_slam_perframe/
+c1_cecum_t1_v1/resolution_mapping.json`): original 1350×1080 → MASt3R
+grid **512×400**. `scale_w=2.63672, scale_h=2.63415, half_crop_w=0.0,
+half_crop_h=5.0`. All cropping is vertical only (the long side, width,
+is resized with zero crop; height loses a 5px band top and bottom of the
+already-resized 410px-tall image). Forward (original→model) and inverse
+(model→original) formulas implemented and documented in the script.
+**Round-trip test**, 2000 random points + 5 named corners/center: **max
+error 1.6e-13 px, mean 2.1e-14 px** — the two formulas are exact inverses
+of each other (floating-point-only residual).
+
+**MEASURED — vignette crop fraction**: of the fixed 102,049-pixel
+vignette mask (`docs/eval_protocol.md` §8, loaded by duplicating
+`src/eval/evaluable.py`'s 3-line unpack rather than importing that
+locked file), **12,354 pixels (12.11%) fall outside the region the
+MASt3R grid covers** — i.e. get no depth at all, purely from the
+vertical crop. Vignette pixels concentrate near the image's physical
+edges (a hardware property), so they are disproportionately affected by
+even a small (5px-of-410, ~1.2%-of-height) crop relative to the frame as
+a whole.
+
+**MEASURED — ray-direction check**, frame 0 (arbitrary, documented
+choice — the run's anchor frame, simplest to reproduce standalone
+without needing the tracking loop). Confident pixels (`C` above
+`max(Q_conf, C_conf)` = 1.5, the same threshold `track()` uses):
+185,725 of 204,800. For each, MASt3R's implied ray direction
+(`normalize(X_canon[px])`) vs. this project's own Scaramuzza ray
+(`geometry.camera.unproject`, imported from the unlocked `src/geometry/`)
+at the same pixel mapped back to original coordinates:
+**median 19.82°, p95 36.35°, mean 20.26°, max 42.49°** angular
+difference.
+
+**INTERPRETATION**: a ~20° median disagreement is large — MASt3R has no
+notion of this project's Scaramuzza camera model at all; it regresses a
+pointmap end-to-end from pixels, with no explicit camera model or
+calibration in uncalibrated mode, so its implied per-pixel ray directions
+are a learned approximation, not a projection of a shared geometric
+model. This is exactly why the protocol (per the task's own framing)
+uses only MASt3R's Z (camera-frame depth along *our* model's ray) and
+not its raw XY/pointmap directions — the two models' rays genuinely
+point differently, confirmed here with numbers rather than assumed.
+Whether 20° is "a lot" for the eventual fusion-stage error budget is not
+assessed here — that would require comparing against the same
+project's already-quantified EndoDAC/GT error budgets, not attempted in
+this stage.
+
+## Step 6: the frame 169-217 gap, diagnosed
+
+`scripts/mast3r_slam_diagnose_gap.py`. Two independent signals.
+
+**MEASURED — GT motion** (`pose.txt` only, no MASt3R data):
+
+| | path length | rotation | per-step path | per-step rotation |
+|---|---|---|---|---|
+| Frames 169-217 (48 steps) | 14.37mm | 9.50° | **0.299 mm/step** | **0.198°/step** |
+| Inter-keyframe intervals, 0-168 (19 intervals, median) | — | — | **15.57 mm/step** (range 8.99-25.78) | **1.615°/step** (range 0.00-4.80) |
+
+Frames 169-217 moved **~52x less per step** in translation and **~8x
+less per step** in rotation than the median inter-keyframe interval
+that *did* trigger a new keyframe earlier in the same sequence.
+
+**MEASURED — MASt3R's own tracking signal for frames 169-217**
+(`per_frame_tracking.csv`): **49 tracking records, 0 skipped**.
+`match_frac` and `match_frac_k` (identical here, both computed from the
+same `valid_kf` mask): median **0.556**, min **0.520** — comfortably
+above both the skip threshold (`min_match_frac=0.05`) and the new-keyframe
+trigger threshold (`match_frac_thresh=0.333`, and `new_kf` requires this
+value to fall *below* that threshold). Tracking quality stayed healthy
+and essentially flat throughout the gap.
+
+**Which explanation the numbers support**: **little camera motion**, not
+tracking degradation. There is no evidence of degraded tracking (0
+skipped frames, match fractions staying well above every relevant
+threshold) — the pipeline simply never needed a new keyframe because the
+camera barely moved relative to keyframe 168 for the rest of the
+sequence. This is a MEASURED conclusion from the two signals above, not
+an inference from absence of data.
+
+## Step 7: trajectory quality, all 218 frames, vs. EndoDAC
+
+`scripts/mast3r_slam_trajectory_quality_perframe.py` (self-contained
+Umeyama, same as Stage 1's script, still not importing `src/eval/`) —
+now over all 218 reconstructed frames instead of Stage 1's 20 keyframes,
+so both trajectories cover the identical span for the first time.
+
+| | MASt3R-SLAM (218 frames) | EndoDAC (218 frames, `results/d1/stage_a_summary.csv`) |
+|---|---|---|
+| GT path length compared against | 348.35mm | 348.35mm (same — full sequence, both now) |
+| ATE (RMSE, post-alignment) | **13.40mm** | **9.23mm** (`ate_mm`) |
+| Endpoint drift, fraction of GT path | **5.41%** | **2.78%** (`endpoint_error_frac_of_gt_path`) |
+
+Unlike Stage 1's comparison (flagged there as not directly comparable —
+MASt3R-SLAM's 20 keyframes only spanned frames 0-168), **this is now a
+controlled, same-span comparison**: both trajectories are aligned against
+and measured over the identical 218-frame, 348.35mm GT path.
+
+**INTERPRETATION**: on this one sequence, MASt3R-SLAM's ATE is ~45%
+higher and endpoint drift ~95% higher (roughly double) than EndoDAC's.
+Neither number is an evaluation metric under this project's pre-registered
+definitions — this is trajectory quality only, one sequence, no
+statistical claim about which pipeline is "better" is being made or
+supported by a single data point.
+
+## Step 8: storage + runtime extrapolation, 169 sequences
+
+**MEASURED extrapolation**, same method as Stage 1's Q6: measured
+per-frame rate × corpus-wide total frame count
+(`docs/dataset_official_description.md:9`: 67,886 frames, 169 sequences).
+**Numbers only — no full-corpus run**, per the task's explicit
+instruction.
+
+- Runtime: 54.94s / 218 frames = 0.2520 s/frame → 67,886 × 0.2520s ≈
+  **17,109s ≈ 4.75 hours**, single GPU, sequential.
+- Storage (per-frame depth+confidence `.npz` only, not counting the
+  keyframe-only `.ply`/TUM outputs which are much smaller): 293,822,448
+  bytes / 218 frames = 1.348 MB/frame → 67,886 × 1.348MB ≈ **91.5 GB**.
+
+**INTERPRETATION**: 4.75 hours is in the same range as EndoDAC's
+full-corpus run (4h41m) and Stage 1's own projection for the unmodified
+pipeline (6.07h) — this instrumented version is not meaningfully slower
+despite the added per-frame disk I/O. 91.5GB of per-frame depth data for
+the full corpus is a real storage cost that would need explicit approval
+(CLAUDE.md: "ask before any run expected to take over an hour," and this
+is well over an hour) before any full-corpus run — not requested or
+started in this stage.
+
+## Stage 2 open issues
+
+1. The ray-direction disagreement (median 19.8°) is measured on one
+   frame only (frame 0); whether it's representative of other frames/
+   sequences, or varies systematically with position in the frame (e.g.
+   worse toward the periphery, where the Scaramuzza model's distortion
+   is strongest) is not assessed here.
+2. The 12.11% vignette-crop-from-cropping figure is for `c1_cecum_t1_v1`
+   only; not confirmed representative of other sequences (all share the
+   same 1350×1080 input size and thus the same resize/crop geometry, so
+   it likely generalizes, but this is INTERPRETATION, not measured on
+   other sequences).
+3. Storage/runtime extrapolation (step 8) assumes this one sequence's
+   per-frame rate and per-frame storage are representative of the
+   169-sequence corpus — same caveat Stage 1's Q6 already carried,
+   unresolved.
+4. Which of Stage 1 Q4's four per-frame options to standardize on for
+   any future full-corpus run is still unranked — this stage implemented
+   Option A specifically (as instructed) but didn't compare it against
+   the other three empirically.

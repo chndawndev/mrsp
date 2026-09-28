@@ -1,0 +1,58 @@
+keyframe frame indices (20): [0, 30, 42, 45, 48, 51, 68, 71, 82, 87, 93, 105, 111, 122, 126, 130, 144, 156, 161, 168]
+gap (169-217) GT motion: {
+  "frame_range": [
+    169,
+    217
+  ],
+  "n_steps": 48,
+  "total_path_length_mm": 14.373420301744234,
+  "total_rotation_deg": 9.500986060574354,
+  "path_length_per_step_mm": 0.2994462562863382,
+  "rotation_per_step_deg": 0.19793720959529904
+}
+inter-keyframe intervals within 0-168, n=19:
+  {'frame_range': [0, 30], 'n_steps': 1, 'total_path_length_mm': 16.606637887185354, 'total_rotation_deg': 1.7170155221365766, 'path_length_per_step_mm': 16.606637887185354, 'rotation_per_step_deg': 1.7170155221365766}
+  {'frame_range': [30, 42], 'n_steps': 1, 'total_path_length_mm': 13.972977727116717, 'total_rotation_deg': 2.4475548662011763, 'path_length_per_step_mm': 13.972977727116717, 'rotation_per_step_deg': 2.4475548662011763}
+  {'frame_range': [42, 45], 'n_steps': 1, 'total_path_length_mm': 11.692408323459277, 'total_rotation_deg': 1.322872075392516, 'path_length_per_step_mm': 11.692408323459277, 'rotation_per_step_deg': 1.322872075392516}
+  {'frame_range': [45, 48], 'n_steps': 1, 'total_path_length_mm': 13.00227376977195, 'total_rotation_deg': 0.5065860206796682, 'path_length_per_step_mm': 13.00227376977195, 'rotation_per_step_deg': 0.5065860206796682}
+  {'frame_range': [48, 51], 'n_steps': 1, 'total_path_length_mm': 10.030739023621337, 'total_rotation_deg': 1.540825275791148, 'path_length_per_step_mm': 10.030739023621337, 'rotation_per_step_deg': 1.540825275791148}
+  {'frame_range': [51, 68], 'n_steps': 1, 'total_path_length_mm': 25.783297757463068, 'total_rotation_deg': 3.194713597049658, 'path_length_per_step_mm': 25.783297757463068, 'rotation_per_step_deg': 3.194713597049658}
+  {'frame_range': [68, 71], 'n_steps': 1, 'total_path_length_mm': 8.988789231036623, 'total_rotation_deg': 1.6365367340820125, 'path_length_per_step_mm': 8.988789231036623, 'rotation_per_step_deg': 1.6365367340820125}
+  {'frame_range': [71, 82], 'n_steps': 1, 'total_path_length_mm': 9.586640723423406, 'total_rotation_deg': 0.8985983399957812, 'path_length_per_step_mm': 9.586640723423406, 'rotation_per_step_deg': 0.8985983399957812}
+  {'frame_range': [82, 87], 'n_steps': 1, 'total_path_length_mm': 16.72889811822644, 'total_rotation_deg': 2.520125640871041, 'path_length_per_step_mm': 16.72889811822644, 'rotation_per_step_deg': 2.520125640871041}
+  {'frame_range': [87, 93], 'n_steps': 1, 'total_path_length_mm': 24.604261230323527, 'total_rotation_deg': 2.2476394334511456, 'path_length_per_step_mm': 24.604261230323527, 'rotation_per_step_deg': 2.2476394334511456}
+  {'frame_range': [93, 105], 'n_steps': 1, 'total_path_length_mm': 15.913701430214118, 'total_rotation_deg': 3.0398721623754836, 'path_length_per_step_mm': 15.913701430214118, 'rotation_per_step_deg': 3.0398721623754836}
+  {'frame_range': [105, 111], 'n_steps': 1, 'total_path_length_mm': 13.606493128282542, 'total_rotation_deg': 1.6152358761989973, 'path_length_per_step_mm': 13.606493128282542, 'rotation_per_step_deg': 1.6152358761989973}
+  {'frame_range': [111, 122], 'n_steps': 1, 'total_path_length_mm': 16.320160455399975, 'total_rotation_deg': 1.4761444898012437, 'path_length_per_step_mm': 16.320160455399975, 'rotation_per_step_deg': 1.4761444898012437}
+  {'frame_range': [122, 126], 'n_steps': 1, 'total_path_length_mm': 15.569783533819578, 'total_rotation_deg': 1.4197396725440643, 'path_length_per_step_mm': 15.569783533819578, 'rotation_per_step_deg': 1.4197396725440643}
+  {'frame_range': [126, 130], 'n_steps': 1, 'total_path_length_mm': 13.926547980027228, 'total_rotation_deg': 0.0, 'path_length_per_step_mm': 13.926547980027228, 'rotation_per_step_deg': 0.0}
+  {'frame_range': [130, 144], 'n_steps': 1, 'total_path_length_mm': 21.67186400128057, 'total_rotation_deg': 4.8031105105016545, 'path_length_per_step_mm': 21.67186400128057, 'rotation_per_step_deg': 4.8031105105016545}
+  {'frame_range': [144, 156], 'n_steps': 1, 'total_path_length_mm': 12.360464303981445, 'total_rotation_deg': 0.0, 'path_length_per_step_mm': 12.360464303981445, 'rotation_per_step_deg': 0.0}
+  {'frame_range': [156, 161], 'n_steps': 1, 'total_path_length_mm': 21.276640479408393, 'total_rotation_deg': 0.8896176855940585, 'path_length_per_step_mm': 21.276640479408393, 'rotation_per_step_deg': 0.8896176855940585}
+  {'frame_range': [161, 168], 'n_steps': 1, 'total_path_length_mm': 20.599352448317383, 'total_rotation_deg': 2.037955688958448, 'path_length_per_step_mm': 20.599352448317383, 'rotation_per_step_deg': 2.037955688958448}
+inter-keyframe interval summary (0-168): {
+  "n_intervals": 19,
+  "path_length_per_step_mm": {
+    "median": 15.569783533819578,
+    "min": 8.988789231036623,
+    "max": 25.783297757463068
+  },
+  "rotation_per_step_deg": {
+    "median": 1.6152358761989973,
+    "min": 0.0,
+    "max": 4.8031105105016545
+  }
+}
+tracking signal in gap: {
+  "n_frames_in_gap_with_tracking_record": 49,
+  "n_skipped": 0,
+  "match_frac": {
+    "median": 0.5559911727905273,
+    "min": 0.5199316143989563
+  },
+  "match_frac_k": {
+    "median": 0.5559911727905273,
+    "min": 0.5199316143989563
+  }
+}
+wrote /data1_ycao/chua/projects/mrsp/results/pipelines/mast3r_slam_perframe/c1_cecum_t1_v1/gap_diagnosis.json

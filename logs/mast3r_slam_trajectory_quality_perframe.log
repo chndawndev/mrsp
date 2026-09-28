@@ -1,0 +1,13 @@
+{
+ "sequence": "c1_cecum_t1_v1",
+ "n_frames_reconstructed": 218,
+ "frame_index_range": [
+  0,
+  217
+ ],
+ "sim3_scale": 50.01174825015417,
+ "ate_rmse_mm": 13.398325492494765,
+ "gt_path_length_mm": 348.3486272078711,
+ "endpoint_drift_mm": 18.848817748800187,
+ "endpoint_drift_frac_of_gt_path": 0.054109062808370065
+}
