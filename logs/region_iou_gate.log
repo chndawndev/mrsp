@@ -1,0 +1,39 @@
+[2026-09-28T03:03:48Z] 169 sequences
+[2026-09-28T03:06:08Z] 10/169: c1_ascending_t4_v2 elapsed=140.1s ETA=2228.2s
+[2026-09-28T03:08:05Z] 20/169: c1_cecum_t4_v1 elapsed=257.2s ETA=1916.1s
+[2026-09-28T03:08:58Z] 30/169: c1_descending_t3_v3 elapsed=309.7s ETA=1435.1s
+[2026-09-28T03:10:27Z] 40/169: c1_rectum_t3_v1 elapsed=398.6s ETA=1285.5s
+[2026-09-28T03:11:49Z] 50/169: c1_sigmoid1_t2_v2 elapsed=480.8s ETA=1144.3s
+[2026-09-28T03:12:52Z] 60/169: c1_sigmoid2_t1_v3 elapsed=543.5s ETA=987.4s
+[2026-09-28T03:13:13Z] 70/169: c1_transverse1_t1_v1 elapsed=564.8s ETA=798.7s
+[2026-09-28T03:14:01Z] 80/169: c1_transverse1_t4_v2 elapsed=612.4s ETA=681.3s
+[2026-09-28T03:14:26Z] 90/169: c1_transverse2_t3_v3 elapsed=637.3s ETA=559.4s
+[2026-09-28T03:15:47Z] 100/169: c2_ascending_t3_v1 elapsed=718.4s ETA=495.7s
+[2026-09-28T03:17:28Z] 110/169: c2_cecum_t2_v3 elapsed=819.9s ETA=439.7s
+[2026-09-28T03:18:50Z] 120/169: c2_descending_t4_v1 elapsed=901.6s ETA=368.2s
+[2026-09-28T03:19:47Z] 130/169: c2_rectum_t3_v2 elapsed=958.6s ETA=287.6s
+[2026-09-28T03:20:28Z] 140/169: c2_sigmoid_t2_v3 elapsed=1000.2s ETA=207.2s
+[2026-09-28T03:21:13Z] 150/169: c2_transverse1_t2_v1 elapsed=1044.5s ETA=132.3s
+[2026-09-28T03:22:06Z] 160/169: c2_transverse2_t1_v2 elapsed=1097.8s ETA=61.8s
+[2026-09-28T03:22:39Z] 169/169: c2_transverse2_t4_v3 elapsed=1130.7s ETA=0.0s
+[2026-09-28T03:22:39Z] wrote /data1_ycao/chua/projects/mrsp/results/region_iou_gate/region_iou_raw.csv (21054 rows)
+[2026-09-28T03:22:44Z] oracle: {'n_regions': 719, 'n_clusters': 103, 'mean': 0.9979254202159245, 'median': 0.9990999192059481, 'mean_ci': [0.9975086847890681, 0.9982821817133942], 'median_ci': [0.9989176229929957, 0.999263432557208], 'sensitivity_colon_segment_median_ci': [0.9987774456428381, 0.9993962388499412], 'sensitivity_colon_segment_mean_ci': [0.9974567155130952, 0.9984057852636848], 'sensitivity_colon_segment_phantom_median_ci': [0.9988365322864754, 0.9993273495660098], 'sensitivity_colon_segment_phantom_mean_ci': [0.9975076188629715, 0.9983114563036689]}
+[2026-09-28T03:22:49Z] all_unobserved: {'n_regions': 719, 'n_clusters': 103, 'mean': 0.06665594402272511, 'median': 0.029580859206678915, 'mean_ci': [0.05741701077586355, 0.07768441389405585], 'median_ci': [0.022930962058267418, 0.03949401195823937], 'sensitivity_colon_segment_median_ci': [0.02101988842031077, 0.04589792234902734], 'sensitivity_colon_segment_mean_ci': [0.05510717312598609, 0.08149137475454833], 'sensitivity_colon_segment_phantom_median_ci': [0.02276353844972618, 0.04110756994204223], 'sensitivity_colon_segment_phantom_mean_ci': [0.056373410195032295, 0.07994903278536591]}
+[2026-09-28T03:22:51Z] area_matched_random: {'per_seed_mean_of_means': 0.43165716659223446, 'per_seed_range_of_means': [0.42904371910691524, 0.43575429063764587], 'per_seed_mean_of_medians': 0.4764405287371652, 'per_seed_range_of_medians': [0.47352624268416954, 0.4788241718529651], 'seed_averaged_pooled_mean': 0.4316571665922346, 'seed_averaged_pooled_median': 0.4757602847609812, 'seed_averaged_pooled_mean_ci': [0.40225966198314445, 0.4582687546119708], 'seed_averaged_pooled_median_ci': [0.43862533277916443, 0.5002546199321054], 'n_regions': 719}
+[2026-09-28T03:22:51Z] wrote /data1_ycao/chua/projects/mrsp/results/region_iou_gate/region_iou_summary.json
+[2026-09-28T03:22:51Z] GATE RESULT: PASS
+[2026-09-28T03:22:51Z] {
+  "tau": 0.25,
+  "size_class": "medium_plus_large",
+  "oracle_median_iou": 0.9990999192059481,
+  "all_unobserved_median_iou": 0.029580859206678915,
+  "area_matched_random_median_iou_seed_averaged": 0.4764405287371652,
+  "margin_oracle_minus_all_unobserved": 0.9695190599992691,
+  "margin_oracle_minus_area_matched_random": 0.5226593904687828,
+  "threshold_oracle_min_median": 0.8,
+  "threshold_margin": 0.3,
+  "pass_oracle_min_median": true,
+  "pass_margin_over_all_unobserved": true,
+  "pass_margin_over_area_matched_random": true,
+  "GATE_RESULT": "PASS"
+}
