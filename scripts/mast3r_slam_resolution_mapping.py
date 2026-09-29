@@ -134,7 +134,15 @@ def vignette_crop_fraction(m: dict) -> dict:
     }
 
 
-def ray_direction_check(sequence: str, frame_index: int, gpu: int, m: dict) -> dict:
+def mast3r_confident_pixels_original_coords(sequence: str, frame_index: int, gpu: int, m: dict):
+    """Reruns a single MASt3R forward pass on one frame (deterministic,
+    torch.inference_mode, no dropout at eval) and returns
+    (ox, oy, mast3r_dirs): the confident pixels' original-1350x1080-frame
+    coordinates (in-bounds only) and MASt3R's own implied unit ray
+    direction at each. Factored out of ray_direction_check() so other
+    scripts (scripts/mast3r_slam_check_vignette_and_endodac_ray.py) can
+    compare a different camera model against the EXACT SAME pixel set,
+    not a redefined population."""
     import os
     os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
     os.chdir(MAST3R_REPO)  # load_mast3r() uses the relative path "checkpoints/..."
@@ -169,19 +177,25 @@ def ray_direction_check(sequence: str, frame_index: int, gpu: int, m: dict) -> d
     ox, oy = model_to_original(xs.astype(np.float64), ys.astype(np.float64), m)
     in_bounds = (ox >= 0) & (ox < ORIGINAL_W) & (oy >= 0) & (oy < ORIGINAL_H)
 
+    return ox[in_bounds], oy[in_bounds], mast3r_dirs[in_bounds]
+
+
+def ray_direction_check(sequence: str, frame_index: int, gpu: int, m: dict) -> dict:
+    ox, oy, mast3r_dirs = mast3r_confident_pixels_original_coords(sequence, frame_index, gpu, m)
+
     from geometry.camera import CameraIntrinsics, unproject
     intr = CameraIntrinsics.from_file(INTRINSICS_PATH)
-    px_orig = np.stack([ox[in_bounds], oy[in_bounds]], axis=-1)
+    px_orig = np.stack([ox, oy], axis=-1)
     geom_dirs = unproject(px_orig, intr)
 
-    dot = np.sum(mast3r_dirs[in_bounds] * geom_dirs, axis=-1)
+    dot = np.sum(mast3r_dirs * geom_dirs, axis=-1)
     dot = np.clip(dot, -1.0, 1.0)
     angle_deg = np.degrees(np.arccos(dot))
 
     return {
         "frame_index": frame_index,
-        "n_confident_pixels": int(valid.sum()),
-        "n_pixels_compared_in_bounds": int(in_bounds.sum()),
+        "n_confident_pixels": int(len(ox)),
+        "n_pixels_compared_in_bounds": int(len(ox)),
         "median_angle_deg": float(np.median(angle_deg)),
         "p95_angle_deg": float(np.percentile(angle_deg, 95)),
         "mean_angle_deg": float(np.mean(angle_deg)),

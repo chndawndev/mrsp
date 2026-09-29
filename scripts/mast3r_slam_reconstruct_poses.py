@@ -77,8 +77,8 @@ def sim3_from_vec(vec: list[float]) -> "lietorch.Sim3":
     return lietorch.Sim3(torch.tensor(vec, dtype=torch.float32).reshape(1, 8))
 
 
-def reconstruct(sequence: str) -> list[dict]:
-    out_dir = PERFRAME_ROOT / sequence
+def reconstruct(sequence: str, out_root: Path = PERFRAME_ROOT) -> list[dict]:
+    out_dir = out_root / sequence
     kf_final = load_keyframes_final(out_dir)
     tracking_rows = load_per_frame_tracking(out_dir)
     keyframe_ids = set(kf_final.keys())
@@ -133,11 +133,11 @@ def reconstruct(sequence: str) -> list[dict]:
     return results
 
 
-def sanity_check_against_tum(sequence: str, results: list[dict]) -> dict:
+def sanity_check_against_tum(sequence: str, results: list[dict], save_as: str) -> dict:
     """Keyframes' reconstructed poses (direct passthrough) should match
-    the already-saved TUM file (c1_cecum_t1_v1_perframe/c1_cecum_t1_v1.txt)
-    exactly -- a correctness check on THIS script, not a new metric."""
-    tum_path = MAST3R_REPO / "logs" / f"{sequence}_perframe" / f"{sequence}.txt"
+    the already-saved TUM file (logs/<save_as>/<sequence>.txt) exactly --
+    a correctness check on THIS script, not a new metric."""
+    tum_path = MAST3R_REPO / "logs" / save_as / f"{sequence}.txt"
     tum_by_frame = {}
     fps = 30.0
     with open(tum_path) as f:
@@ -165,10 +165,14 @@ def sanity_check_against_tum(sequence: str, results: list[dict]) -> dict:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sequence", required=True)
+    ap.add_argument("--out-root", default=str(PERFRAME_ROOT))
+    ap.add_argument("--save-as", default=None, help="defaults to <sequence>_perframe, matching Stage 2's convention")
     args = ap.parse_args()
+    out_root = Path(args.out_root)
+    save_as = args.save_as or f"{args.sequence}_perframe"
 
-    results = reconstruct(args.sequence)
-    out_dir = PERFRAME_ROOT / args.sequence
+    results = reconstruct(args.sequence, out_root)
+    out_dir = out_root / args.sequence
     with open(out_dir / "poses_per_frame.csv", "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=[
             "frame_id", "is_keyframe", "ref_keyframe_frame_id",
@@ -187,7 +191,7 @@ def main():
         if not r["reconstructed"]:
             print(f"  NOT RECONSTRUCTED: frame {r['frame_id']}: {r['reason']}")
 
-    sanity = sanity_check_against_tum(args.sequence, results)
+    sanity = sanity_check_against_tum(args.sequence, results, save_as)
     print(f"sanity check vs TUM file: {sanity}")
     with open(out_dir / "reconstruction_manifest.json", "w") as f:
         json.dump({

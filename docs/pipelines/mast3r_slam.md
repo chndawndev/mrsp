@@ -399,7 +399,7 @@ already-resized 410px-tall image). Forward (original→model) and inverse
 error 1.6e-13 px, mean 2.1e-14 px** — the two formulas are exact inverses
 of each other (floating-point-only residual).
 
-**MEASURED — vignette crop fraction**: of the fixed 102,049-pixel
+~~**MEASURED — vignette crop fraction**: of the fixed 102,049-pixel
 vignette mask (`docs/eval_protocol.md` §8, loaded by duplicating
 `src/eval/evaluable.py`'s 3-line unpack rather than importing that
 locked file), **12,354 pixels (12.11%) fall outside the region the
@@ -407,7 +407,29 @@ MASt3R grid covers** — i.e. get no depth at all, purely from the
 vertical crop. Vignette pixels concentrate near the image's physical
 edges (a hardware property), so they are disproportionately affected by
 even a small (5px-of-410, ~1.2%-of-height) crop relative to the frame as
-a whole.
+a whole.~~
+
+**Correction (2026-09-28, Stage 3 pre-flight)**: the paragraph above used
+the vignette mask **backwards**. `src/eval/evaluable.py::load_vignette_mask`'s
+own docstring (read, not modified): *"True = vignette (non-evaluable)."*
+`evaluable_pixel_mask` computes evaluability from `~vignette_mask` — mask
+**False** is the valid/imaged population. The number above was computed
+on `np.nonzero(vignette_mask)` (mask **True**, the small 102,049px black
+border itself), answering "how much of the black border does the crop
+cut into" — not "how much of the actually-imaged area loses depth to
+cropping," which is what the surrounding prose claimed and what matters
+for anything downstream. **Corrected, computed on the ~1,355,951-pixel
+valid (`~vignette_mask`) population**
+(`scripts/mast3r_slam_check_vignette_and_endodac_ray.py`,
+`results/pipelines/mast3r_slam_perframe/c1_cecum_t1_v1/
+vignette_and_endodac_ray_check.json`): **28,898 of 1,355,951 valid pixels
+(2.13%) fall outside the region the MASt3R grid covers** — much closer to
+the naive whole-frame estimate (~2.4% of rows lost to a 5px-of-410
+vertical crop) than the wrong 12.11% figure, which makes sense now that
+the population matches: a crop band near the top/bottom edges removes a
+proportional slice of the (much larger, roughly uniformly-distributed)
+valid region, not a disproportionate slice of the small edge-concentrated
+vignette border.
 
 **MEASURED — ray-direction check**, frame 0 (arbitrary, documented
 choice — the run's anchor frame, simplest to reproduce standalone
@@ -521,11 +543,12 @@ started in this stage.
    sequences, or varies systematically with position in the frame (e.g.
    worse toward the periphery, where the Scaramuzza model's distortion
    is strongest) is not assessed here.
-2. The 12.11% vignette-crop-from-cropping figure is for `c1_cecum_t1_v1`
-   only; not confirmed representative of other sequences (all share the
-   same 1350×1080 input size and thus the same resize/crop geometry, so
-   it likely generalizes, but this is INTERPRETATION, not measured on
-   other sequences).
+2. ~~The 12.11% vignette-crop-from-cropping figure~~ — **corrected to
+   2.13% in Stage 3** (wrong population, see the correction block above)
+   — for `c1_cecum_t1_v1` only; not confirmed representative of other
+   sequences (all share the same 1350×1080 input size and thus the same
+   resize/crop geometry, so it likely generalizes, but this is
+   INTERPRETATION, not measured on other sequences).
 3. Storage/runtime extrapolation (step 8) assumes this one sequence's
    per-frame rate and per-frame storage are representative of the
    169-sequence corpus — same caveat Stage 1's Q6 already carried,
@@ -534,3 +557,190 @@ started in this stage.
    any future full-corpus run is still unranked — this stage implemented
    Option A specifically (as instructed) but didn't compare it against
    the other three empirically.
+
+---
+
+# Stage 3: full-corpus inference (no metrics)
+
+All 169 registered sequences. Still **no evaluation metric of any kind
+computed, and no script under `src/eval/`/`src/eval_ext/` run on any
+MASt3R-SLAM output.**
+
+## Pre-flight
+
+**1. Disk**: 1.7TB free on `/data1_ycao/chua` at start — well above the
+500GB floor. PASS.
+
+**2. Vignette mask convention — Stage 2 had it backwards.** Confirmed by
+reading (not modifying) `src/eval/evaluable.py`:
+`load_vignette_mask`'s own docstring says *"True = vignette
+(non-evaluable)"*; `evaluable_pixel_mask` computes evaluability from
+`~vignette_mask` (mask **False** is the valid/imaged population). Stage
+2's `vignette_crop_fraction` selected the **True** (invalid,
+102,049-pixel black-border) population instead and reported the
+crop-loss fraction of *that* — backwards from "how much of the actually
+imaged area loses depth to cropping." **Corrected** (see the correction
+block under Stage 2's Step 5, above): recomputed on the ~1,355,951-pixel
+valid population, **2.13%** (28,898 pixels) fall outside the MASt3R
+grid's coverage, not 12.11%. The evaluator itself (`evaluable_pixel_mask`)
+uses the correct convention — no locked code has this bug, only Stage
+2's diagnostic script did, and it was never used for anything downstream
+of that one reported number.
+
+**3. EndoDAC ray-direction comparison** (`scripts/
+mast3r_slam_check_vignette_and_endodac_ray.py`, GPU 7). Reran MASt3R's
+own confident-pixel selection on frame 0 (deterministic — the rerun's
+median angle matched Stage 2's saved value exactly, diff 0.0°) to get
+the identical pixel set both checks compare against, rather than a
+redefined population:
+
+| | MASt3R (vs. our camera model) | EndoDAC (vs. our camera model) |
+|---|---|---|
+| n pixels compared | 185,725 | 185,725 (same set) |
+| median angle | 19.82° | 15.42° |
+| p95 angle | 36.35° | 30.62° |
+| mean angle | 20.26° | 16.12° |
+| max angle | 42.49° | 36.70° |
+
+**INTERPRETATION**: both methods disagree substantially with this
+project's Scaramuzza model — neither EndoDAC nor MASt3R uses it, so
+neither "should" agree, and this is exactly the expected shape of the
+result, not a red flag for either method. EndoDAC's disagreement is
+somewhat smaller (15.4° vs. 19.8° median) but both are large enough that
+neither pipeline's raw per-pixel ray geometry is a substitute for this
+project's own camera model — consistent with Stage 2's already-stated
+conclusion that only Z (not the raw pointmap direction) should be used
+downstream.
+
+## Full run
+
+`scripts/mast3r_slam_run_corpus.py`, GPU 7 (selected once via `scripts/
+gpu_status.py`, 32.1GB free, 0% util at start), resumable, subprocess-
+per-sequence (Stage 1/2's proven scripts, not a shared-process refactor).
+
+**One real bug found and fixed mid-run, not retried with different
+settings**: sequence 14/169 (`c1_cecum_t1_v3`) failed at the
+trajectory-quality step with `KeyError: "There is no item named
+'pose.txt' in the archive"`. This is the already-documented
+`c1_cecum_t1_v3.zip`-wraps-everything-in-a-subfolder exception
+(`src/geometry/coverage_mesh.py::_resolve_zip_member`'s docstring: *"at
+least one (c1_cecum_t1_v3.zip, confirmed the only exception found)
+wraps everything in a `<video_name>/` subfolder"*) — a genuine data-
+loading defect in this stage's own new code (`load_gt_poses` in two
+scripts hardcoded `"pose.txt"` at archive root), not a MASt3R-SLAM
+performance issue on that sequence. Fixed by matching on basename
+(`resolve_pose_txt_member`, duplicated in both affected scripts,
+verified against the real archive: resolves to
+`c1_cecum_t1_v3/pose.txt`). The run was stopped cleanly (no orphaned
+processes), the fix applied, and resumed — already-`"ok"` sequences were
+skipped, `c1_cecum_t1_v3` got a fresh attempt under the corrected code.
+This is a code-defect fix, not "retrying with different settings" (which
+would mean tuning MASt3R-SLAM's own behavior to make a struggling
+sequence pass) — same class of fix as the `git-lfs`/build-isolation
+fixes in Stage 1's install.
+
+**Result: 169/169 processed, 0 errors after the fix** (156 sequences run
+fresh in the resumed pass + 13 already-complete from before the
+interruption, matching the earlier validation run). Total per-sequence
+compute time (sum of each sequence's own `elapsed_seconds`, the true
+compute cost — wall-clock time undercounts this because of the
+mid-run interruption/restart): **30,754.8s ≈ 8.54 hours**, single GPU,
+sequential. Every manifest records `gpu_index=7` and the git commit that
+produced it. Storage: **85GB actual** (`results/pipelines/
+mast3r_slam_full_run/`), close to Stage 2's 91.5GB extrapolation.
+
+## Per-sequence descriptives (no thresholds, no metrics)
+
+### Completion
+
+**169/169 (100%) completed without crashing** (manifest `status="ok"`,
+every subprocess step returned 0). Under the **strict D1.1 operational
+definition** (`docs/success_criteria.md`, 2026-09-23 clarification, read
+not modified: *"every frame... has finite predicted depth and a finite
+predicted pose, and the Sim(3) trajectory alignment succeeds"*):
+**143/169 (84.6%) complete**.
+
+**MEASURED, not just asserted**: all 26 non-complete sequences are
+missing **exactly one frame** each (`n_reconstructed = n_total_frames -
+1` in every one of the 26 cases, confirmed by inspection, not assumed),
+and every one of the 26 still has `sim3_alignment_succeeded=True`. Each
+missing frame traces to MASt3R-SLAM's own `FrameTracker.track()`
+"Skipped frame" path (`match_frac < min_match_frac`, a transient
+tracking hiccup against the current keyframe) — not a script bug, not a
+permanent track loss, and not a crash. This is a real, if small,
+difference from `c1_cecum_t1_v1` (which Stage 1/2 already established
+has 0 skips) — **26/169 sequences (15.4%) have at least one transient
+per-frame tracking failure**, MASt3R-SLAM's own documented failure mode,
+correctly distinguished here from the crash-free-completion count per
+the same D1.1 clarification entry's own distinction (originally written
+for EndoDAC, which "cannot lose track by construction" — MASt3R-SLAM
+can, and sometimes transiently does).
+
+### Trajectory-quality and depth-scale distributions (169 sequences, no threshold attached)
+
+| quantity | min | 25% | median | 75% | max |
+|---|---|---|---|---|---|
+| ATE after Sim(3) alignment (mm) | 1.554 | 4.675 | 6.969 | 8.861 | 18.13 |
+| endpoint drift / GT path length | 1.25% | 3.84% | 5.66% | 8.31% | 26.93% |
+| `s_pose` (Sim3 scale) | 10.38 | 33.19 | 44.93 | 61.56 | 106.7 |
+| depth scale median | 13.02 | 24.80 | 29.12 | 34.90 | 52.60 |
+| depth scale relative IQR | 0.063 | 0.167 | 0.236 | 0.340 | 1.355 |
+| n keyframes | 2 | 7 | 9 | 13 | 27 |
+| longest no-new-keyframe run (frames) | 28 | 61 | 98 | 176 | 444 |
+
+**Next to EndoDAC's already-published corpus distributions**
+(`docs/d1_stage_a.md`, same 169 sequences):
+
+| quantity | MASt3R-SLAM median | EndoDAC median |
+|---|---|---|
+| ATE (mm) | 6.969 | 5.157 |
+| endpoint drift / GT path | 5.66% | 4.97% |
+| depth scale median | 29.12 | 118.80 |
+| depth scale relative IQR | 0.236 | 0.170 |
+
+**INTERPRETATION**: MASt3R-SLAM's median ATE and endpoint drift are
+somewhat worse than EndoDAC's but the same order of magnitude — neither
+pipeline is dramatically better on this purely descriptive trajectory
+measure, and neither number is an evaluation metric under this project's
+pre-registered definitions. The depth-scale-median gap (29 vs. 119) is
+expected, not a finding: the two methods' depth outputs are in
+different, method-specific native units (MASt3R's "metric" checkpoint
+and EndoDAC's scale-free network are not calibrated to the same
+constant), which is exactly why both require this per-sequence GT-based
+rescaling in the first place — the ratio's *absolute* value carries no
+meaning across methods, only each method's own dispersion (relative IQR)
+is comparable, and MASt3R's is somewhat higher (0.236 vs. 0.170),
+suggesting its scale is modestly less stable frame-to-frame than
+EndoDAC's. The keyframe-count and longest-gap rows have no EndoDAC
+equivalent (frame-to-frame method, no keyframe concept) — reported as
+MASt3R-specific descriptives only.
+
+### Covariates
+
+103 distinct `mesh_hash` values, 15 distinct `physical_segment_id`
+values across the 169 sequences — matches the already-established
+figures (`CLAUDE.md`: "103 distinct meshes," `docs/d1_stage_a.md`: "15
+distinct" physical segments). Joined directly from `results/
+d1/stage_a_summary.csv` (plain CSV merge on `sequence`), not re-derived.
+
+## Stage 3 outputs
+
+`results/pipelines/mast3r_slam_full_run/<sequence>/` (gitignored, 85GB
+total, never committed): `depth/*.npz`, `per_frame_tracking.csv`,
+`keyframes_final.csv`, `poses_per_frame.csv`,
+`trajectory_quality_perframe.json`, `descriptives.json`,
+`MANIFEST.json`, per-step subprocess logs. `results/mast3r/
+stage3_summary.csv` (169 rows, gitignored): one row per sequence,
+including its status, descriptives, and joined covariates.
+
+## Stage 3 open issues
+
+1. The 26 sequences with a single transiently-skipped frame are not
+   further characterized here (e.g. whether the skip correlates with
+   fast motion, low texture, or a specific anatomical segment) — flagged
+   as a follow-up candidate, not chased down, per this stage's own scope
+   (descriptives only, no analysis of *why*).
+2. The EndoDAC ray-direction comparison (pre-flight item 3) is frame 0
+   only, same single-frame caveat as Stage 2's own MASt3R check.
+3. No metric has been computed on any of this corpus's output yet —
+   evaluation is explicitly a separate task, per instructions.

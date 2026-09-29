@@ -1,0 +1,33 @@
+{
+  "sequence": "c1_cecum_t1_v1",
+  "completion": {
+    "n_total_frames": 218,
+    "n_reconstructed": 218,
+    "n_finite_pose": 218,
+    "n_depth_checked": 218,
+    "n_finite_depth": 218,
+    "sim3_alignment_succeeded": true,
+    "d1_1_complete": true
+  },
+  "ate_rmse_mm": 13.398325492494765,
+  "s_pose": 50.01174825015417,
+  "endpoint_drift_frac_of_gt_path": 0.054109062808370065,
+  "gt_path_length_mm": 348.3486272078711,
+  "depth_scale": {
+    "depth_scale_median": 38.19965557468797,
+    "depth_scale_relative_iqr": 0.23892391781563202,
+    "n_frames_used": 218
+  },
+  "keyframe_gap": {
+    "n_keyframes": 20,
+    "longest_gap_frames": 49,
+    "longest_gap_range": [
+      168,
+      217
+    ],
+    "longest_gap_gt_motion": {
+      "total_path_length_mm": 15.20181840048666,
+      "total_rotation_deg": 9.500986060574355
+    }
+  }
+}

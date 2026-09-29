@@ -1,0 +1,514 @@
+[2026-09-28T17:20:26Z] 169 sequences
+[2026-09-28T17:20:26Z] selected GPU 7 (NVIDIA RTX 6000 Ada Generation): 32.1GB free, 0% util
+[2026-09-28T17:20:26Z] [1/169] c1_ascending_t1_v1: starting
+c1_ascending_t1_v1: extracted 282 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t1_v1
+[2026-09-28T17:22:41Z] [1/169] c1_ascending_t1_v1: status=ok elapsed_this_seq=135.1s total_elapsed=135.1s ETA=22700.7s (ok=1 error=0 skipped=0)
+[2026-09-28T17:22:41Z] [2/169] c1_ascending_t1_v2: starting
+c1_ascending_t1_v2: extracted 454 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t1_v2
+[2026-09-28T17:25:58Z] [2/169] c1_ascending_t1_v2: status=ok elapsed_this_seq=197.2s total_elapsed=332.4s ETA=27754.0s (ok=2 error=0 skipped=0)
+[2026-09-28T17:25:58Z] [3/169] c1_ascending_t2_v1: starting
+c1_ascending_t2_v1: extracted 374 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t2_v1
+[2026-09-28T17:28:52Z] [3/169] c1_ascending_t2_v1: status=ok elapsed_this_seq=173.7s total_elapsed=506.1s ETA=28006.0s (ok=3 error=0 skipped=0)
+[2026-09-28T17:28:52Z] [4/169] c1_ascending_t2_v2: starting
+c1_ascending_t2_v2: extracted 412 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t2_v2
+[2026-09-28T17:31:55Z] [4/169] c1_ascending_t2_v2: status=ok elapsed_this_seq=183.1s total_elapsed=689.2s ETA=28430.5s (ok=4 error=0 skipped=0)
+[2026-09-28T17:31:55Z] [5/169] c1_ascending_t2_v3: starting
+c1_ascending_t2_v3: extracted 412 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t2_v3
+[2026-09-28T17:35:04Z] [5/169] c1_ascending_t2_v3: status=ok elapsed_this_seq=189.0s total_elapsed=878.3s ETA=28806.8s (ok=5 error=0 skipped=0)
+[2026-09-28T17:35:04Z] [6/169] c1_ascending_t3_v1: starting
+c1_ascending_t3_v1: extracted 259 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t3_v1
+[2026-09-28T17:37:20Z] [6/169] c1_ascending_t3_v1: status=ok elapsed_this_seq=135.4s total_elapsed=1013.7s ETA=27538.4s (ok=6 error=0 skipped=0)
+[2026-09-28T17:37:20Z] [7/169] c1_ascending_t3_v2: starting
+c1_ascending_t3_v2: extracted 680 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t3_v2
+[2026-09-28T17:41:58Z] [7/169] c1_ascending_t3_v2: status=ok elapsed_this_seq=278.4s total_elapsed=1292.1s ETA=29903.6s (ok=7 error=0 skipped=0)
+[2026-09-28T17:41:58Z] [8/169] c1_ascending_t3_v3: starting
+c1_ascending_t3_v3: extracted 680 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t3_v3
+[2026-09-28T17:46:55Z] [8/169] c1_ascending_t3_v3: status=ok elapsed_this_seq=297.1s total_elapsed=1589.3s ETA=31984.5s (ok=8 error=0 skipped=0)
+[2026-09-28T17:46:55Z] [9/169] c1_ascending_t4_v1: starting
+c1_ascending_t4_v1: extracted 410 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t4_v1
+[2026-09-28T17:49:55Z] [9/169] c1_ascending_t4_v1: status=ok elapsed_this_seq=180.1s total_elapsed=1769.4s ETA=31456.3s (ok=9 error=0 skipped=0)
+[2026-09-28T17:49:55Z] [10/169] c1_ascending_t4_v2: starting
+c1_ascending_t4_v2: extracted 694 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t4_v2
+[2026-09-28T17:54:48Z] [10/169] c1_ascending_t4_v2: status=ok elapsed_this_seq=293.1s total_elapsed=2062.5s ETA=32793.9s (ok=10 error=0 skipped=0)
+[2026-09-28T17:54:48Z] [11/169] c1_ascending_t4_v3: starting
+c1_ascending_t4_v3: extracted 694 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_ascending_t4_v3
+[2026-09-28T17:59:43Z] [11/169] c1_ascending_t4_v3: status=ok elapsed_this_seq=295.0s total_elapsed=2357.5s ETA=33861.9s (ok=11 error=0 skipped=0)
+[2026-09-28T17:59:43Z] [13/169] c1_cecum_t1_v2: starting
+c1_cecum_t1_v2: extracted 423 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t1_v2
+[2026-09-28T18:03:07Z] [13/169] c1_cecum_t1_v2: status=ok elapsed_this_seq=203.2s total_elapsed=2560.6s ETA=33288.3s (ok=12 error=0 skipped=1)
+[2026-09-28T18:03:07Z] [14/169] c1_cecum_t1_v3: starting
+c1_cecum_t1_v3: extracted 423 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t1_v3
+[2026-09-28T18:05:42Z] [14/169] c1_cecum_t1_v3: ERROR: mast3r_slam_trajectory_quality_perframe.py failed, rc=1 -- see step3_trajectory_quality.log
+[2026-09-28T18:05:42Z] [14/169] c1_cecum_t1_v3: status=error elapsed_this_seq=155.3s total_elapsed=2716.0s ETA=32383.0s (ok=12 error=1 skipped=1)
+[2026-09-28T18:05:42Z] [15/169] c1_cecum_t2_v1: starting
+[2026-09-28T18:07:13Z] 169 sequences
+[2026-09-28T18:07:13Z] selected GPU 7 (NVIDIA RTX 6000 Ada Generation): 32.1GB free, 0% util
+[2026-09-28T18:07:13Z] [14/169] c1_cecum_t1_v3: starting
+c1_cecum_t1_v3: extracted 423 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t1_v3
+[2026-09-28T18:10:37Z] [14/169] c1_cecum_t1_v3: status=ok elapsed_this_seq=203.6s total_elapsed=203.6s ETA=31557.5s (ok=1 error=0 skipped=13)
+[2026-09-28T18:10:37Z] [15/169] c1_cecum_t2_v1: starting
+c1_cecum_t2_v1: extracted 281 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t2_v1
+[2026-09-28T18:12:59Z] [15/169] c1_cecum_t2_v1: status=ok elapsed_this_seq=142.5s total_elapsed=346.1s ETA=26648.2s (ok=2 error=0 skipped=13)
+[2026-09-28T18:12:59Z] [16/169] c1_cecum_t2_v2: starting
+c1_cecum_t2_v2: extracted 328 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t2_v2
+[2026-09-28T18:15:33Z] [16/169] c1_cecum_t2_v2: status=ok elapsed_this_seq=154.0s total_elapsed=500.1s ETA=25505.2s (ok=3 error=0 skipped=13)
+[2026-09-28T18:15:33Z] [17/169] c1_cecum_t2_v3: starting
+c1_cecum_t2_v3: extracted 328 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t2_v3
+[2026-09-28T18:18:22Z] [17/169] c1_cecum_t2_v3: status=ok elapsed_this_seq=168.7s total_elapsed=668.8s ETA=25413.5s (ok=4 error=0 skipped=13)
+[2026-09-28T18:18:22Z] [18/169] c1_cecum_t3_v2: starting
+c1_cecum_t3_v2: extracted 721 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t3_v2
+[2026-09-28T18:23:24Z] [18/169] c1_cecum_t3_v2: status=ok elapsed_this_seq=301.4s total_elapsed=970.2s ETA=29299.9s (ok=5 error=0 skipped=13)
+[2026-09-28T18:23:24Z] [19/169] c1_cecum_t3_v3: starting
+c1_cecum_t3_v3: extracted 721 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t3_v3
+[2026-09-28T18:28:23Z] [19/169] c1_cecum_t3_v3: status=ok elapsed_this_seq=299.2s total_elapsed=1269.4s ETA=31734.4s (ok=6 error=0 skipped=13)
+[2026-09-28T18:28:23Z] [20/169] c1_cecum_t4_v1: starting
+c1_cecum_t4_v1: extracted 866 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t4_v1
+[2026-09-28T18:34:04Z] [20/169] c1_cecum_t4_v1: status=ok elapsed_this_seq=341.3s total_elapsed=1610.7s ETA=34284.5s (ok=7 error=0 skipped=13)
+[2026-09-28T18:34:04Z] [21/169] c1_cecum_t4_v2: starting
+c1_cecum_t4_v2: extracted 959 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t4_v2
+[2026-09-28T18:40:36Z] [21/169] c1_cecum_t4_v2: status=ok elapsed_this_seq=392.3s total_elapsed=2003.0s ETA=37054.7s (ok=8 error=0 skipped=13)
+[2026-09-28T18:40:36Z] [22/169] c1_cecum_t4_v3: starting
+c1_cecum_t4_v3: extracted 959 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t4_v3
+[2026-09-28T18:47:14Z] [22/169] c1_cecum_t4_v3: status=ok elapsed_this_seq=397.3s total_elapsed=2400.2s ETA=39204.1s (ok=9 error=0 skipped=13)
+[2026-09-28T18:47:14Z] [23/169] c1_descending_t1_v1: starting
+c1_descending_t1_v1: extracted 123 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t1_v1
+[2026-09-28T18:48:31Z] [23/169] c1_descending_t1_v1: status=ok elapsed_this_seq=77.7s total_elapsed=2477.9s ETA=36177.7s (ok=10 error=0 skipped=13)
+[2026-09-28T18:48:31Z] [24/169] c1_descending_t1_v2: starting
+c1_descending_t1_v2: extracted 208 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t1_v2
+[2026-09-28T18:50:17Z] [24/169] c1_descending_t1_v2: status=ok elapsed_this_seq=105.6s total_elapsed=2583.6s ETA=34056.1s (ok=11 error=0 skipped=13)
+[2026-09-28T18:50:17Z] [25/169] c1_descending_t1_v3: starting
+c1_descending_t1_v3: extracted 208 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t1_v3
+[2026-09-28T18:52:05Z] [25/169] c1_descending_t1_v3: status=ok elapsed_this_seq=108.5s total_elapsed=2692.0s ETA=32304.6s (ok=12 error=0 skipped=13)
+[2026-09-28T18:52:05Z] [26/169] c1_descending_t2_v2: starting
+c1_descending_t2_v2: extracted 617 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t2_v2
+[2026-09-28T18:56:25Z] [26/169] c1_descending_t2_v2: status=ok elapsed_this_seq=259.1s total_elapsed=2951.2s ETA=32463.1s (ok=13 error=0 skipped=13)
+[2026-09-28T18:56:25Z] [27/169] c1_descending_t2_v3: starting
+c1_descending_t2_v3: extracted 617 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t2_v3
+[2026-09-28T19:00:48Z] [27/169] c1_descending_t2_v3: status=ok elapsed_this_seq=263.0s total_elapsed=3214.2s ETA=32600.9s (ok=14 error=0 skipped=13)
+[2026-09-28T19:00:48Z] [28/169] c1_descending_t3_v1: starting
+c1_descending_t3_v1: extracted 239 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t3_v1
+[2026-09-28T19:02:45Z] [28/169] c1_descending_t3_v1: status=ok elapsed_this_seq=117.9s total_elapsed=3332.1s ETA=31321.4s (ok=15 error=0 skipped=13)
+[2026-09-28T19:02:45Z] [29/169] c1_descending_t3_v2: starting
+c1_descending_t3_v2: extracted 342 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t3_v2
+[2026-09-28T19:05:21Z] [29/169] c1_descending_t3_v2: status=ok elapsed_this_seq=155.5s total_elapsed=3487.6s ETA=30516.3s (ok=16 error=0 skipped=13)
+[2026-09-28T19:05:21Z] [30/169] c1_descending_t3_v3: starting
+c1_descending_t3_v3: extracted 342 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t3_v3
+[2026-09-28T19:07:55Z] [30/169] c1_descending_t3_v3: status=ok elapsed_this_seq=154.4s total_elapsed=3642.0s ETA=29778.9s (ok=17 error=0 skipped=13)
+[2026-09-28T19:07:55Z] [31/169] c1_descending_t4_v1: starting
+c1_descending_t4_v1: extracted 192 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t4_v1
+[2026-09-28T19:09:36Z] [31/169] c1_descending_t4_v1: status=ok elapsed_this_seq=100.8s total_elapsed=3742.8s ETA=28694.8s (ok=18 error=0 skipped=13)
+[2026-09-28T19:09:36Z] [32/169] c1_descending_t4_v2: starting
+c1_descending_t4_v2: extracted 279 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t4_v2
+[2026-09-28T19:11:53Z] [32/169] c1_descending_t4_v2: status=ok elapsed_this_seq=136.8s total_elapsed=3879.6s ETA=27974.2s (ok=19 error=0 skipped=13)
+[2026-09-28T19:11:53Z] [33/169] c1_descending_t4_v3: starting
+c1_descending_t4_v3: extracted 279 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_descending_t4_v3
+[2026-09-28T19:14:14Z] [33/169] c1_descending_t4_v3: status=ok elapsed_this_seq=140.6s total_elapsed=4020.3s ETA=27338.0s (ok=20 error=0 skipped=13)
+[2026-09-28T19:14:14Z] [34/169] c1_rectum_t1_v1: starting
+c1_rectum_t1_v1: extracted 206 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t1_v1
+[2026-09-28T19:16:03Z] [34/169] c1_rectum_t1_v1: status=ok elapsed_this_seq=109.4s total_elapsed=4129.7s ETA=26548.1s (ok=21 error=0 skipped=13)
+[2026-09-28T19:16:03Z] [35/169] c1_rectum_t1_v2: starting
+c1_rectum_t1_v2: extracted 383 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t1_v2
+[2026-09-28T19:18:54Z] [35/169] c1_rectum_t1_v2: status=ok elapsed_this_seq=171.2s total_elapsed=4300.9s ETA=26196.4s (ok=22 error=0 skipped=13)
+[2026-09-28T19:18:54Z] [36/169] c1_rectum_t1_v3: starting
+c1_rectum_t1_v3: extracted 383 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t1_v3
+[2026-09-28T19:21:48Z] [36/169] c1_rectum_t1_v3: status=ok elapsed_this_seq=173.3s total_elapsed=4474.2s ETA=25872.7s (ok=23 error=0 skipped=13)
+[2026-09-28T19:21:48Z] [37/169] c1_rectum_t2_v1: starting
+c1_rectum_t2_v1: extracted 165 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t2_v1
+[2026-09-28T19:23:26Z] [37/169] c1_rectum_t2_v1: status=ok elapsed_this_seq=98.6s total_elapsed=4572.9s ETA=25150.8s (ok=24 error=0 skipped=13)
+[2026-09-28T19:23:26Z] [38/169] c1_rectum_t2_v2: starting
+c1_rectum_t2_v2: extracted 366 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t2_v2
+[2026-09-28T19:26:21Z] [38/169] c1_rectum_t2_v2: status=ok elapsed_this_seq=175.0s total_elapsed=4747.9s ETA=24879.1s (ok=25 error=0 skipped=13)
+[2026-09-28T19:26:21Z] [39/169] c1_rectum_t2_v3: starting
+c1_rectum_t2_v3: extracted 366 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t2_v3
+[2026-09-28T19:29:15Z] [39/169] c1_rectum_t2_v3: status=ok elapsed_this_seq=174.0s total_elapsed=4921.9s ETA=24609.4s (ok=26 error=0 skipped=13)
+[2026-09-28T19:29:15Z] [40/169] c1_rectum_t3_v1: starting
+c1_rectum_t3_v1: extracted 247 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t3_v1
+[2026-09-28T19:31:20Z] [40/169] c1_rectum_t3_v1: status=ok elapsed_this_seq=125.1s total_elapsed=5047.0s ETA=24113.5s (ok=27 error=0 skipped=13)
+[2026-09-28T19:31:20Z] [41/169] c1_rectum_t3_v2: starting
+c1_rectum_t3_v2: extracted 220 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t3_v2
+[2026-09-28T19:33:20Z] [41/169] c1_rectum_t3_v2: status=ok elapsed_this_seq=119.6s total_elapsed=5166.6s ETA=23618.6s (ok=28 error=0 skipped=13)
+[2026-09-28T19:33:20Z] [42/169] c1_rectum_t3_v3: starting
+c1_rectum_t3_v3: extracted 220 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t3_v3
+[2026-09-28T19:35:22Z] [42/169] c1_rectum_t3_v3: status=ok elapsed_this_seq=122.0s total_elapsed=5288.6s ETA=23160.3s (ok=29 error=0 skipped=13)
+[2026-09-28T19:35:22Z] [43/169] c1_rectum_t4_v1: starting
+c1_rectum_t4_v1: extracted 324 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t4_v1
+[2026-09-28T19:37:55Z] [43/169] c1_rectum_t4_v1: status=ok elapsed_this_seq=153.0s total_elapsed=5441.6s ETA=22854.5s (ok=30 error=0 skipped=13)
+[2026-09-28T19:37:55Z] [44/169] c1_rectum_t4_v2: starting
+c1_rectum_t4_v2: extracted 457 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t4_v2
+[2026-09-28T19:41:10Z] [44/169] c1_rectum_t4_v2: status=ok elapsed_this_seq=195.4s total_elapsed=5636.9s ETA=22729.5s (ok=31 error=0 skipped=13)
+[2026-09-28T19:41:10Z] [45/169] c1_rectum_t4_v3: starting
+c1_rectum_t4_v3: extracted 457 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_rectum_t4_v3
+[2026-09-28T19:44:29Z] [45/169] c1_rectum_t4_v3: status=ok elapsed_this_seq=198.4s total_elapsed=5835.4s ETA=22612.1s (ok=32 error=0 skipped=13)
+[2026-09-28T19:44:29Z] [46/169] c1_sigmoid1_t1_v1: starting
+c1_sigmoid1_t1_v1: extracted 191 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t1_v1
+[2026-09-28T19:46:12Z] [46/169] c1_sigmoid1_t1_v1: status=ok elapsed_this_seq=103.7s total_elapsed=5939.1s ETA=22136.5s (ok=33 error=0 skipped=13)
+[2026-09-28T19:46:12Z] [47/169] c1_sigmoid1_t1_v2: starting
+c1_sigmoid1_t1_v2: extracted 307 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t1_v2
+[2026-09-28T19:48:39Z] [47/169] c1_sigmoid1_t1_v2: status=ok elapsed_this_seq=146.2s total_elapsed=6085.2s ETA=21835.2s (ok=34 error=0 skipped=13)
+[2026-09-28T19:48:39Z] [48/169] c1_sigmoid1_t1_v3: starting
+c1_sigmoid1_t1_v3: extracted 307 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t1_v3
+[2026-09-28T19:51:05Z] [48/169] c1_sigmoid1_t1_v3: status=ok elapsed_this_seq=146.8s total_elapsed=6232.0s ETA=21545.0s (ok=35 error=0 skipped=13)
+[2026-09-28T19:51:05Z] [49/169] c1_sigmoid1_t2_v1: starting
+c1_sigmoid1_t2_v1: extracted 354 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t2_v1
+[2026-09-28T19:53:44Z] [49/169] c1_sigmoid1_t2_v1: status=ok elapsed_this_seq=159.1s total_elapsed=6391.2s ETA=21303.9s (ok=36 error=0 skipped=13)
+[2026-09-28T19:53:44Z] [50/169] c1_sigmoid1_t2_v2: starting
+c1_sigmoid1_t2_v2: extracted 286 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t2_v2
+[2026-09-28T19:56:03Z] [50/169] c1_sigmoid1_t2_v2: status=ok elapsed_this_seq=138.3s total_elapsed=6529.5s ETA=21000.4s (ok=37 error=0 skipped=13)
+[2026-09-28T19:56:03Z] [51/169] c1_sigmoid1_t2_v3: starting
+c1_sigmoid1_t2_v3: extracted 286 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t2_v3
+[2026-09-28T19:58:20Z] [51/169] c1_sigmoid1_t2_v3: status=ok elapsed_this_seq=137.4s total_elapsed=6667.0s ETA=20702.7s (ok=38 error=0 skipped=13)
+[2026-09-28T19:58:20Z] [52/169] c1_sigmoid1_t3_v1: starting
+c1_sigmoid1_t3_v1: extracted 330 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t3_v1
+[2026-09-28T20:00:54Z] [52/169] c1_sigmoid1_t3_v1: status=ok elapsed_this_seq=153.9s total_elapsed=6820.9s ETA=20462.8s (ok=39 error=0 skipped=13)
+[2026-09-28T20:00:54Z] [53/169] c1_sigmoid1_t3_v2: starting
+c1_sigmoid1_t3_v2: extracted 464 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t3_v2
+[2026-09-28T20:04:15Z] [53/169] c1_sigmoid1_t3_v2: status=ok elapsed_this_seq=200.6s total_elapsed=7021.6s ETA=20362.6s (ok=40 error=0 skipped=13)
+[2026-09-28T20:04:15Z] [54/169] c1_sigmoid1_t3_v3: starting
+c1_sigmoid1_t3_v3: extracted 464 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t3_v3
+[2026-09-28T20:07:39Z] [54/169] c1_sigmoid1_t3_v3: status=ok elapsed_this_seq=204.2s total_elapsed=7225.7s ETA=20267.3s (ok=41 error=0 skipped=13)
+[2026-09-28T20:07:39Z] [55/169] c1_sigmoid1_t4_v1: starting
+c1_sigmoid1_t4_v1: extracted 447 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t4_v1
+[2026-09-28T20:10:52Z] [55/169] c1_sigmoid1_t4_v1: status=ok elapsed_this_seq=193.1s total_elapsed=7418.9s ETA=20137.0s (ok=42 error=0 skipped=13)
+[2026-09-28T20:10:52Z] [56/169] c1_sigmoid1_t4_v2: starting
+c1_sigmoid1_t4_v2: extracted 708 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t4_v2
+[2026-09-28T20:15:41Z] [56/169] c1_sigmoid1_t4_v2: status=ok elapsed_this_seq=288.5s total_elapsed=7707.4s ETA=20254.3s (ok=43 error=0 skipped=13)
+[2026-09-28T20:15:41Z] [57/169] c1_sigmoid1_t4_v3: starting
+c1_sigmoid1_t4_v3: extracted 708 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid1_t4_v3
+[2026-09-28T20:20:25Z] [57/169] c1_sigmoid1_t4_v3: status=ok elapsed_this_seq=284.6s total_elapsed=7992.0s ETA=20343.2s (ok=44 error=0 skipped=13)
+[2026-09-28T20:20:25Z] [58/169] c1_sigmoid2_t1_v1: starting
+c1_sigmoid2_t1_v1: extracted 132 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t1_v1
+[2026-09-28T20:21:48Z] [58/169] c1_sigmoid2_t1_v1: status=ok elapsed_this_seq=83.1s total_elapsed=8075.1s ETA=19918.5s (ok=45 error=0 skipped=13)
+[2026-09-28T20:21:48Z] [59/169] c1_sigmoid2_t1_v2: starting
+c1_sigmoid2_t1_v2: extracted 152 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t1_v2
+[2026-09-28T20:23:14Z] [59/169] c1_sigmoid2_t1_v2: status=ok elapsed_this_seq=85.1s total_elapsed=8160.2s ETA=19513.5s (ok=46 error=0 skipped=13)
+[2026-09-28T20:23:14Z] [60/169] c1_sigmoid2_t1_v3: starting
+c1_sigmoid2_t1_v3: extracted 152 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t1_v3
+[2026-09-28T20:24:41Z] [60/169] c1_sigmoid2_t1_v3: status=ok elapsed_this_seq=87.5s total_elapsed=8247.7s ETA=19127.6s (ok=47 error=0 skipped=13)
+[2026-09-28T20:24:41Z] [61/169] c1_sigmoid2_t2_v1: starting
+c1_sigmoid2_t2_v1: extracted 400 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t2_v1
+[2026-09-28T20:27:38Z] [61/169] c1_sigmoid2_t2_v1: status=ok elapsed_this_seq=177.2s total_elapsed=8424.9s ETA=18956.1s (ok=48 error=0 skipped=13)
+[2026-09-28T20:27:38Z] [62/169] c1_sigmoid2_t2_v2: starting
+c1_sigmoid2_t2_v2: extracted 239 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t2_v2
+[2026-09-28T20:29:35Z] [62/169] c1_sigmoid2_t2_v2: status=ok elapsed_this_seq=116.7s total_elapsed=8541.6s ETA=18652.1s (ok=49 error=0 skipped=13)
+[2026-09-28T20:29:35Z] [63/169] c1_sigmoid2_t2_v3: starting
+c1_sigmoid2_t2_v3: extracted 239 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t2_v3
+[2026-09-28T20:31:37Z] [63/169] c1_sigmoid2_t2_v3: status=ok elapsed_this_seq=121.9s total_elapsed=8663.5s ETA=18366.7s (ok=50 error=0 skipped=13)
+[2026-09-28T20:31:37Z] [64/169] c1_sigmoid2_t3_v1: starting
+c1_sigmoid2_t3_v1: extracted 255 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t3_v1
+[2026-09-28T20:33:40Z] [64/169] c1_sigmoid2_t3_v1: status=ok elapsed_this_seq=122.7s total_elapsed=8786.3s ETA=18089.4s (ok=51 error=0 skipped=13)
+[2026-09-28T20:33:40Z] [65/169] c1_sigmoid2_t3_v2: starting
+c1_sigmoid2_t3_v2: extracted 243 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t3_v2
+[2026-09-28T20:35:38Z] [65/169] c1_sigmoid2_t3_v2: status=ok elapsed_this_seq=118.7s total_elapsed=8905.0s ETA=17810.0s (ok=52 error=0 skipped=13)
+[2026-09-28T20:35:38Z] [66/169] c1_sigmoid2_t3_v3: starting
+c1_sigmoid2_t3_v3: extracted 243 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t3_v3
+[2026-09-28T20:37:38Z] [66/169] c1_sigmoid2_t3_v3: status=ok elapsed_this_seq=119.8s total_elapsed=9024.8s ETA=17538.8s (ok=53 error=0 skipped=13)
+[2026-09-28T20:37:38Z] [67/169] c1_sigmoid2_t4_v1: starting
+c1_sigmoid2_t4_v1: extracted 390 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t4_v1
+[2026-09-28T20:40:26Z] [67/169] c1_sigmoid2_t4_v1: status=ok elapsed_this_seq=168.0s total_elapsed=9192.9s ETA=17364.3s (ok=54 error=0 skipped=13)
+[2026-09-28T20:40:26Z] [68/169] c1_sigmoid2_t4_v2: starting
+c1_sigmoid2_t4_v2: extracted 428 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t4_v2
+[2026-09-28T20:43:39Z] [68/169] c1_sigmoid2_t4_v2: status=ok elapsed_this_seq=192.6s total_elapsed=9385.4s ETA=17235.1s (ok=55 error=0 skipped=13)
+[2026-09-28T20:43:39Z] [69/169] c1_sigmoid2_t4_v3: starting
+c1_sigmoid2_t4_v3: extracted 428 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_sigmoid2_t4_v3
+[2026-09-28T20:46:42Z] [69/169] c1_sigmoid2_t4_v3: status=ok elapsed_this_seq=183.0s total_elapsed=9568.5s ETA=17086.6s (ok=56 error=0 skipped=13)
+[2026-09-28T20:46:42Z] [70/169] c1_transverse1_t1_v1: starting
+c1_transverse1_t1_v1: extracted 156 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t1_v1
+[2026-09-28T20:48:12Z] [70/169] c1_transverse1_t1_v1: status=ok elapsed_this_seq=90.1s total_elapsed=9658.6s ETA=16775.5s (ok=57 error=0 skipped=13)
+[2026-09-28T20:48:12Z] [71/169] c1_transverse1_t1_v2: starting
+c1_transverse1_t1_v2: extracted 117 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t1_v2
+[2026-09-28T20:49:28Z] [71/169] c1_transverse1_t1_v2: status=ok elapsed_this_seq=76.3s total_elapsed=9734.9s ETA=16448.7s (ok=58 error=0 skipped=13)
+[2026-09-28T20:49:28Z] [72/169] c1_transverse1_t1_v3: starting
+c1_transverse1_t1_v3: extracted 117 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t1_v3
+[2026-09-28T20:50:42Z] [72/169] c1_transverse1_t1_v3: status=ok elapsed_this_seq=74.2s total_elapsed=9809.2s ETA=16126.9s (ok=59 error=0 skipped=13)
+[2026-09-28T20:50:42Z] [73/169] c1_transverse1_t2_v1: starting
+c1_transverse1_t2_v1: extracted 673 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t2_v1
+[2026-09-28T20:55:08Z] [73/169] c1_transverse1_t2_v1: status=ok elapsed_this_seq=265.4s total_elapsed=10074.5s ETA=16119.2s (ok=60 error=0 skipped=13)
+[2026-09-28T20:55:08Z] [74/169] c1_transverse1_t2_v2: starting
+c1_transverse1_t2_v2: extracted 235 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t2_v2
+[2026-09-28T20:57:05Z] [74/169] c1_transverse1_t2_v2: status=ok elapsed_this_seq=117.0s total_elapsed=10191.6s ETA=15872.1s (ok=61 error=0 skipped=13)
+[2026-09-28T20:57:05Z] [75/169] c1_transverse1_t2_v3: starting
+c1_transverse1_t2_v3: extracted 235 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t2_v3
+[2026-09-28T20:59:05Z] [75/169] c1_transverse1_t2_v3: status=ok elapsed_this_seq=120.3s total_elapsed=10311.8s ETA=15634.1s (ok=62 error=0 skipped=13)
+[2026-09-28T20:59:05Z] [76/169] c1_transverse1_t3_v1: starting
+c1_transverse1_t3_v1: extracted 203 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t3_v1
+[2026-09-28T21:00:55Z] [76/169] c1_transverse1_t3_v1: status=ok elapsed_this_seq=110.1s total_elapsed=10421.9s ETA=15384.7s (ok=63 error=0 skipped=13)
+[2026-09-28T21:00:55Z] [77/169] c1_transverse1_t3_v2: starting
+c1_transverse1_t3_v2: extracted 184 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t3_v2
+[2026-09-28T21:02:37Z] [77/169] c1_transverse1_t3_v2: status=ok elapsed_this_seq=101.9s total_elapsed=10523.9s ETA=15128.1s (ok=64 error=0 skipped=13)
+[2026-09-28T21:02:37Z] [78/169] c1_transverse1_t3_v3: starting
+c1_transverse1_t3_v3: extracted 184 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t3_v3
+[2026-09-28T21:04:17Z] [78/169] c1_transverse1_t3_v3: status=ok elapsed_this_seq=99.4s total_elapsed=10623.2s ETA=14872.5s (ok=65 error=0 skipped=13)
+[2026-09-28T21:04:17Z] [79/169] c1_transverse1_t4_v1: starting
+c1_transverse1_t4_v1: extracted 315 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t4_v1
+[2026-09-28T21:06:45Z] [79/169] c1_transverse1_t4_v1: status=ok elapsed_this_seq=148.0s total_elapsed=10771.3s ETA=14688.1s (ok=66 error=0 skipped=13)
+[2026-09-28T21:06:45Z] [80/169] c1_transverse1_t4_v2: starting
+c1_transverse1_t4_v2: extracted 626 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t4_v2
+[2026-09-28T21:11:03Z] [80/169] c1_transverse1_t4_v2: status=ok elapsed_this_seq=258.1s total_elapsed=11029.4s ETA=14650.9s (ok=67 error=0 skipped=13)
+[2026-09-28T21:11:03Z] [81/169] c1_transverse1_t4_v3: starting
+c1_transverse1_t4_v3: extracted 626 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse1_t4_v3
+[2026-09-28T21:15:30Z] [81/169] c1_transverse1_t4_v3: status=ok elapsed_this_seq=267.1s total_elapsed=11296.5s ETA=14619.0s (ok=68 error=0 skipped=13)
+[2026-09-28T21:15:30Z] [82/169] c1_transverse2_t1_v1: starting
+c1_transverse2_t1_v1: extracted 268 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t1_v1
+[2026-09-28T21:17:42Z] [82/169] c1_transverse2_t1_v1: status=ok elapsed_this_seq=132.6s total_elapsed=11429.1s ETA=14410.6s (ok=69 error=0 skipped=13)
+[2026-09-28T21:17:42Z] [83/169] c1_transverse2_t1_v2: starting
+c1_transverse2_t1_v2: extracted 517 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t1_v2
+[2026-09-28T21:21:19Z] [83/169] c1_transverse2_t1_v2: status=ok elapsed_this_seq=216.4s total_elapsed=11645.5s ETA=14307.3s (ok=70 error=0 skipped=13)
+[2026-09-28T21:21:19Z] [84/169] c1_transverse2_t1_v3: starting
+c1_transverse2_t1_v3: extracted 517 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t1_v3
+[2026-09-28T21:24:54Z] [84/169] c1_transverse2_t1_v3: status=ok elapsed_this_seq=215.6s total_elapsed=11861.1s ETA=14200.0s (ok=71 error=0 skipped=13)
+[2026-09-28T21:24:54Z] [85/169] c1_transverse2_t2_v1: starting
+c1_transverse2_t2_v1: extracted 457 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t2_v1
+[2026-09-28T21:28:11Z] [85/169] c1_transverse2_t2_v1: status=ok elapsed_this_seq=196.9s total_elapsed=12058.1s ETA=14067.8s (ok=72 error=0 skipped=13)
+[2026-09-28T21:28:11Z] [86/169] c1_transverse2_t2_v2: starting
+c1_transverse2_t2_v2: extracted 559 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t2_v2
+[2026-09-28T21:32:00Z] [86/169] c1_transverse2_t2_v2: status=ok elapsed_this_seq=228.4s total_elapsed=12286.5s ETA=13969.6s (ok=73 error=0 skipped=13)
+[2026-09-28T21:32:00Z] [87/169] c1_transverse2_t2_v3: starting
+c1_transverse2_t2_v3: extracted 559 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t2_v3
+[2026-09-28T21:35:56Z] [87/169] c1_transverse2_t2_v3: status=ok elapsed_this_seq=236.4s total_elapsed=12522.9s ETA=13876.8s (ok=74 error=0 skipped=13)
+[2026-09-28T21:35:56Z] [88/169] c1_transverse2_t3_v1: starting
+c1_transverse2_t3_v1: extracted 578 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t3_v1
+[2026-09-28T21:39:55Z] [88/169] c1_transverse2_t3_v1: status=ok elapsed_this_seq=238.4s total_elapsed=12761.3s ETA=13782.2s (ok=75 error=0 skipped=13)
+[2026-09-28T21:39:55Z] [89/169] c1_transverse2_t3_v2: starting
+c1_transverse2_t3_v2: extracted 249 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t3_v2
+[2026-09-28T21:41:56Z] [89/169] c1_transverse2_t3_v2: status=ok elapsed_this_seq=121.6s total_elapsed=12882.9s ETA=13561.0s (ok=76 error=0 skipped=13)
+[2026-09-28T21:41:56Z] [90/169] c1_transverse2_t3_v3: starting
+c1_transverse2_t3_v3: extracted 249 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t3_v3
+[2026-09-28T21:44:00Z] [90/169] c1_transverse2_t3_v3: status=ok elapsed_this_seq=123.9s total_elapsed=13006.8s ETA=13344.6s (ok=77 error=0 skipped=13)
+[2026-09-28T21:44:00Z] [91/169] c1_transverse2_t4_v1: starting
+c1_transverse2_t4_v1: extracted 258 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t4_v1
+[2026-09-28T21:46:04Z] [91/169] c1_transverse2_t4_v1: status=ok elapsed_this_seq=123.5s total_elapsed=13130.3s ETA=13130.3s (ok=78 error=0 skipped=13)
+[2026-09-28T21:46:04Z] [92/169] c1_transverse2_t4_v2: starting
+c1_transverse2_t4_v2: extracted 419 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t4_v2
+[2026-09-28T21:49:06Z] [92/169] c1_transverse2_t4_v2: status=ok elapsed_this_seq=182.1s total_elapsed=13312.5s ETA=12975.5s (ok=79 error=0 skipped=13)
+[2026-09-28T21:49:06Z] [93/169] c1_transverse2_t4_v3: starting
+c1_transverse2_t4_v3: extracted 419 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_transverse2_t4_v3
+[2026-09-28T21:52:11Z] [93/169] c1_transverse2_t4_v3: status=ok elapsed_this_seq=185.7s total_elapsed=13498.1s ETA=12823.2s (ok=80 error=0 skipped=13)
+[2026-09-28T21:52:11Z] [94/169] c2_ascending_t1_v1: starting
+c2_ascending_t1_v1: extracted 283 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t1_v1
+[2026-09-28T21:54:28Z] [94/169] c2_ascending_t1_v1: status=ok elapsed_this_seq=137.0s total_elapsed=13635.2s ETA=12625.1s (ok=81 error=0 skipped=13)
+[2026-09-28T21:54:28Z] [95/169] c2_ascending_t1_v2: starting
+c2_ascending_t1_v2: extracted 515 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t1_v2
+[2026-09-28T21:58:08Z] [95/169] c2_ascending_t1_v2: status=ok elapsed_this_seq=219.9s total_elapsed=13855.0s ETA=12503.3s (ok=82 error=0 skipped=13)
+[2026-09-28T21:58:08Z] [96/169] c2_ascending_t1_v3: starting
+c2_ascending_t1_v3: extracted 515 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t1_v3
+[2026-09-28T22:01:44Z] [96/169] c2_ascending_t1_v3: status=ok elapsed_this_seq=215.5s total_elapsed=14070.5s ETA=12375.3s (ok=83 error=0 skipped=13)
+[2026-09-28T22:01:44Z] [97/169] c2_ascending_t2_v1: starting
+c2_ascending_t2_v1: extracted 395 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t2_v1
+[2026-09-28T22:04:34Z] [97/169] c2_ascending_t2_v1: status=ok elapsed_this_seq=170.5s total_elapsed=14241.0s ETA=12206.6s (ok=84 error=0 skipped=13)
+[2026-09-28T22:04:34Z] [98/169] c2_ascending_t2_v2: starting
+c2_ascending_t2_v2: extracted 444 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t2_v2
+[2026-09-28T22:07:44Z] [98/169] c2_ascending_t2_v2: status=ok elapsed_this_seq=190.1s total_elapsed=14431.1s ETA=12054.2s (ok=85 error=0 skipped=13)
+[2026-09-28T22:07:44Z] [99/169] c2_ascending_t2_v3: starting
+c2_ascending_t2_v3: extracted 444 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t2_v3
+[2026-09-28T22:11:00Z] [99/169] c2_ascending_t2_v3: status=ok elapsed_this_seq=195.7s total_elapsed=14626.9s ETA=11905.6s (ok=86 error=0 skipped=13)
+[2026-09-28T22:11:00Z] [100/169] c2_ascending_t3_v1: starting
+c2_ascending_t3_v1: extracted 340 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t3_v1
+[2026-09-28T22:13:37Z] [100/169] c2_ascending_t3_v1: status=ok elapsed_this_seq=156.7s total_elapsed=14783.6s ETA=11724.9s (ok=87 error=0 skipped=13)
+[2026-09-28T22:13:37Z] [101/169] c2_ascending_t3_v2: starting
+c2_ascending_t3_v2: extracted 522 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t3_v2
+[2026-09-28T22:17:18Z] [101/169] c2_ascending_t3_v2: status=ok elapsed_this_seq=221.1s total_elapsed=15004.7s ETA=11594.5s (ok=88 error=0 skipped=13)
+[2026-09-28T22:17:18Z] [102/169] c2_ascending_t3_v3: starting
+c2_ascending_t3_v3: extracted 522 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t3_v3
+[2026-09-28T22:21:01Z] [102/169] c2_ascending_t3_v3: status=ok elapsed_this_seq=223.0s total_elapsed=15227.7s ETA=11463.5s (ok=89 error=0 skipped=13)
+[2026-09-28T22:21:01Z] [103/169] c2_ascending_t4_v1: starting
+c2_ascending_t4_v1: extracted 292 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t4_v1
+[2026-09-28T22:23:25Z] [103/169] c2_ascending_t4_v1: status=ok elapsed_this_seq=144.0s total_elapsed=15371.6s ETA=11272.5s (ok=90 error=0 skipped=13)
+[2026-09-28T22:23:25Z] [104/169] c2_ascending_t4_v2: starting
+c2_ascending_t4_v2: extracted 455 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t4_v2
+[2026-09-28T22:26:42Z] [104/169] c2_ascending_t4_v2: status=ok elapsed_this_seq=196.7s total_elapsed=15568.3s ETA=11120.2s (ok=91 error=0 skipped=13)
+[2026-09-28T22:26:42Z] [105/169] c2_ascending_t4_v3: starting
+c2_ascending_t4_v3: extracted 455 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_ascending_t4_v3
+[2026-09-28T22:30:06Z] [105/169] c2_ascending_t4_v3: status=ok elapsed_this_seq=204.3s total_elapsed=15772.6s ETA=10972.3s (ok=92 error=0 skipped=13)
+[2026-09-28T22:30:06Z] [106/169] c2_cecum_t1_v1: starting
+c2_cecum_t1_v1: extracted 304 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t1_v1
+[2026-09-28T22:32:36Z] [106/169] c2_cecum_t1_v1: status=ok elapsed_this_seq=150.3s total_elapsed=15923.0s ETA=10786.5s (ok=93 error=0 skipped=13)
+[2026-09-28T22:32:36Z] [107/169] c2_cecum_t1_v2: starting
+c2_cecum_t1_v2: extracted 431 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t1_v2
+[2026-09-28T22:35:56Z] [107/169] c2_cecum_t1_v2: status=ok elapsed_this_seq=200.0s total_elapsed=16123.0s ETA=10634.3s (ok=94 error=0 skipped=13)
+[2026-09-28T22:35:56Z] [108/169] c2_cecum_t1_v3: starting
+c2_cecum_t1_v3: extracted 431 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t1_v3
+[2026-09-28T22:39:10Z] [108/169] c2_cecum_t1_v3: status=ok elapsed_this_seq=193.6s total_elapsed=16316.6s ETA=10477.0s (ok=95 error=0 skipped=13)
+[2026-09-28T22:39:10Z] [109/169] c2_cecum_t2_v2: starting
+c2_cecum_t2_v2: extracted 452 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t2_v2
+[2026-09-28T22:42:28Z] [109/169] c2_cecum_t2_v2: status=ok elapsed_this_seq=197.8s total_elapsed=16514.4s ETA=10321.5s (ok=96 error=0 skipped=13)
+[2026-09-28T22:42:28Z] [110/169] c2_cecum_t2_v3: starting
+c2_cecum_t2_v3: extracted 452 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t2_v3
+[2026-09-28T22:45:50Z] [110/169] c2_cecum_t2_v3: status=ok elapsed_this_seq=202.0s total_elapsed=16716.4s ETA=10167.7s (ok=97 error=0 skipped=13)
+[2026-09-28T22:45:50Z] [111/169] c2_cecum_t3_v1: starting
+c2_cecum_t3_v1: extracted 228 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t3_v1
+[2026-09-28T22:47:49Z] [111/169] c2_cecum_t3_v1: status=ok elapsed_this_seq=118.8s total_elapsed=16835.2s ETA=9963.7s (ok=98 error=0 skipped=13)
+[2026-09-28T22:47:49Z] [112/169] c2_cecum_t3_v2: starting
+c2_cecum_t3_v2: extracted 306 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t3_v2
+[2026-09-28T22:50:18Z] [112/169] c2_cecum_t3_v2: status=ok elapsed_this_seq=149.0s total_elapsed=16984.2s ETA=9778.8s (ok=99 error=0 skipped=13)
+[2026-09-28T22:50:18Z] [113/169] c2_cecum_t3_v3: starting
+c2_cecum_t3_v3: extracted 306 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t3_v3
+[2026-09-28T22:52:48Z] [113/169] c2_cecum_t3_v3: status=ok elapsed_this_seq=150.9s total_elapsed=17135.1s ETA=9595.6s (ok=100 error=0 skipped=13)
+[2026-09-28T22:52:48Z] [114/169] c2_cecum_t4_v1: starting
+c2_cecum_t4_v1: extracted 191 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t4_v1
+[2026-09-28T22:54:36Z] [114/169] c2_cecum_t4_v1: status=ok elapsed_this_seq=107.4s total_elapsed=17242.5s ETA=9389.5s (ok=101 error=0 skipped=13)
+[2026-09-28T22:54:36Z] [115/169] c2_cecum_t4_v2: starting
+c2_cecum_t4_v2: extracted 520 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t4_v2
+[2026-09-28T22:58:18Z] [115/169] c2_cecum_t4_v2: status=ok elapsed_this_seq=222.5s total_elapsed=17465.0s ETA=9246.2s (ok=102 error=0 skipped=13)
+[2026-09-28T22:58:18Z] [116/169] c2_cecum_t4_v3: starting
+c2_cecum_t4_v3: extracted 520 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_cecum_t4_v3
+[2026-09-28T23:02:06Z] [116/169] c2_cecum_t4_v3: status=ok elapsed_this_seq=227.5s total_elapsed=17692.5s ETA=9103.9s (ok=103 error=0 skipped=13)
+[2026-09-28T23:02:06Z] [117/169] c2_descending_t3_v1: starting
+c2_descending_t3_v1: extracted 198 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_descending_t3_v1
+[2026-09-28T23:03:57Z] [117/169] c2_descending_t3_v1: status=ok elapsed_this_seq=111.2s total_elapsed=17803.7s ETA=8901.8s (ok=104 error=0 skipped=13)
+[2026-09-28T23:03:57Z] [118/169] c2_descending_t3_v2: starting
+c2_descending_t3_v2: extracted 413 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_descending_t3_v2
+[2026-09-28T23:07:10Z] [118/169] c2_descending_t3_v2: status=ok elapsed_this_seq=192.8s total_elapsed=17996.5s ETA=8741.2s (ok=105 error=0 skipped=13)
+[2026-09-28T23:07:10Z] [119/169] c2_descending_t3_v3: starting
+c2_descending_t3_v3: extracted 413 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_descending_t3_v3
+[2026-09-28T23:10:13Z] [119/169] c2_descending_t3_v3: status=ok elapsed_this_seq=183.6s total_elapsed=18180.1s ETA=8575.5s (ok=106 error=0 skipped=13)
+[2026-09-28T23:10:13Z] [120/169] c2_descending_t4_v1: starting
+c2_descending_t4_v1: extracted 252 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_descending_t4_v1
+[2026-09-28T23:12:17Z] [120/169] c2_descending_t4_v1: status=ok elapsed_this_seq=123.9s total_elapsed=18304.0s ETA=8382.2s (ok=107 error=0 skipped=13)
+[2026-09-28T23:12:17Z] [121/169] c2_descending_t4_v2: starting
+c2_descending_t4_v2: extracted 128 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_descending_t4_v2
+[2026-09-28T23:13:38Z] [121/169] c2_descending_t4_v2: status=ok elapsed_this_seq=80.6s total_elapsed=18384.5s ETA=8170.9s (ok=108 error=0 skipped=13)
+[2026-09-28T23:13:38Z] [122/169] c2_descending_t4_v3: starting
+c2_descending_t4_v3: extracted 128 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_descending_t4_v3
+[2026-09-28T23:15:10Z] [122/169] c2_descending_t4_v3: status=ok elapsed_this_seq=91.9s total_elapsed=18476.5s ETA=7966.9s (ok=109 error=0 skipped=13)
+[2026-09-28T23:15:10Z] [123/169] c2_rectum_t1_v1: starting
+c2_rectum_t1_v1: extracted 154 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t1_v1
+[2026-09-28T23:16:46Z] [123/169] c2_rectum_t1_v1: status=ok elapsed_this_seq=96.4s total_elapsed=18572.8s ETA=7766.8s (ok=110 error=0 skipped=13)
+[2026-09-28T23:16:46Z] [124/169] c2_rectum_t1_v2: starting
+c2_rectum_t1_v2: extracted 712 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t1_v2
+[2026-09-28T23:21:40Z] [124/169] c2_rectum_t1_v2: status=ok elapsed_this_seq=293.4s total_elapsed=18866.2s ETA=7648.5s (ok=111 error=0 skipped=13)
+[2026-09-28T23:21:40Z] [125/169] c2_rectum_t1_v3: starting
+c2_rectum_t1_v3: extracted 712 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t1_v3
+[2026-09-28T23:26:51Z] [125/169] c2_rectum_t1_v3: status=ok elapsed_this_seq=311.9s total_elapsed=19178.1s ETA=7534.3s (ok=112 error=0 skipped=13)
+[2026-09-28T23:26:51Z] [126/169] c2_rectum_t2_v1: starting
+c2_rectum_t2_v1: extracted 519 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t2_v1
+[2026-09-28T23:30:43Z] [126/169] c2_rectum_t2_v1: status=ok elapsed_this_seq=231.6s total_elapsed=19409.8s ETA=7386.0s (ok=113 error=0 skipped=13)
+[2026-09-28T23:30:43Z] [127/169] c2_rectum_t2_v2: starting
+c2_rectum_t2_v2: extracted 383 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t2_v2
+[2026-09-28T23:33:39Z] [127/169] c2_rectum_t2_v2: status=ok elapsed_this_seq=176.1s total_elapsed=19585.8s ETA=7215.8s (ok=114 error=0 skipped=13)
+[2026-09-28T23:33:39Z] [128/169] c2_rectum_t2_v3: starting
+c2_rectum_t2_v3: extracted 383 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t2_v3
+[2026-09-28T23:36:40Z] [128/169] c2_rectum_t2_v3: status=ok elapsed_this_seq=180.7s total_elapsed=19766.5s ETA=7047.2s (ok=115 error=0 skipped=13)
+[2026-09-28T23:36:40Z] [129/169] c2_rectum_t3_v1: starting
+c2_rectum_t3_v1: extracted 281 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t3_v1
+[2026-09-28T23:38:59Z] [129/169] c2_rectum_t3_v1: status=ok elapsed_this_seq=139.2s total_elapsed=19905.8s ETA=6864.1s (ok=116 error=0 skipped=13)
+[2026-09-28T23:38:59Z] [130/169] c2_rectum_t3_v2: starting
+c2_rectum_t3_v2: extracted 333 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t3_v2
+[2026-09-28T23:41:36Z] [130/169] c2_rectum_t3_v2: status=ok elapsed_this_seq=156.7s total_elapsed=20062.4s ETA=6687.5s (ok=117 error=0 skipped=13)
+[2026-09-28T23:41:36Z] [131/169] c2_rectum_t3_v3: starting
+c2_rectum_t3_v3: extracted 333 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t3_v3
+[2026-09-28T23:44:12Z] [131/169] c2_rectum_t3_v3: status=ok elapsed_this_seq=155.8s total_elapsed=20218.3s ETA=6511.0s (ok=118 error=0 skipped=13)
+[2026-09-28T23:44:12Z] [132/169] c2_rectum_t4_v1: starting
+c2_rectum_t4_v1: extracted 198 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t4_v1
+[2026-09-28T23:45:57Z] [132/169] c2_rectum_t4_v1: status=ok elapsed_this_seq=105.5s total_elapsed=20323.8s ETA=6319.2s (ok=119 error=0 skipped=13)
+[2026-09-28T23:45:57Z] [133/169] c2_rectum_t4_v2: starting
+c2_rectum_t4_v2: extracted 296 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t4_v2
+[2026-09-28T23:48:16Z] [133/169] c2_rectum_t4_v2: status=ok elapsed_this_seq=138.6s total_elapsed=20462.5s ETA=6138.7s (ok=120 error=0 skipped=13)
+[2026-09-28T23:48:16Z] [134/169] c2_rectum_t4_v3: starting
+c2_rectum_t4_v3: extracted 296 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_rectum_t4_v3
+[2026-09-28T23:50:31Z] [134/169] c2_rectum_t4_v3: status=ok elapsed_this_seq=135.5s total_elapsed=20598.0s ETA=5958.1s (ok=121 error=0 skipped=13)
+[2026-09-28T23:50:31Z] [135/169] c2_sigmoid_t1_v1: starting
+c2_sigmoid_t1_v1: extracted 501 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t1_v1
+[2026-09-28T23:54:03Z] [135/169] c2_sigmoid_t1_v1: status=ok elapsed_this_seq=211.5s total_elapsed=20809.5s ETA=5799.4s (ok=122 error=0 skipped=13)
+[2026-09-28T23:54:03Z] [136/169] c2_sigmoid_t1_v2: starting
+c2_sigmoid_t1_v2: extracted 558 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t1_v2
+[2026-09-28T23:57:52Z] [136/169] c2_sigmoid_t1_v2: status=ok elapsed_this_seq=229.0s total_elapsed=21038.5s ETA=5644.5s (ok=123 error=0 skipped=13)
+[2026-09-28T23:57:52Z] [137/169] c2_sigmoid_t1_v3: starting
+c2_sigmoid_t1_v3: extracted 558 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t1_v3
+[2026-09-29T00:01:55Z] [137/169] c2_sigmoid_t1_v3: status=ok elapsed_this_seq=243.1s total_elapsed=21281.6s ETA=5492.0s (ok=124 error=0 skipped=13)
+[2026-09-29T00:01:55Z] [138/169] c2_sigmoid_t2_v1: starting
+c2_sigmoid_t2_v1: extracted 466 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t2_v1
+[2026-09-29T00:05:23Z] [138/169] c2_sigmoid_t2_v1: status=ok elapsed_this_seq=208.4s total_elapsed=21489.9s ETA=5329.5s (ok=125 error=0 skipped=13)
+[2026-09-29T00:05:23Z] [139/169] c2_sigmoid_t2_v2: starting
+c2_sigmoid_t2_v2: extracted 448 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t2_v2
+[2026-09-29T00:09:11Z] [139/169] c2_sigmoid_t2_v2: status=ok elapsed_this_seq=228.2s total_elapsed=21718.1s ETA=5171.0s (ok=126 error=0 skipped=13)
+[2026-09-29T00:09:11Z] [140/169] c2_sigmoid_t2_v3: starting
+c2_sigmoid_t2_v3: extracted 448 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t2_v3
+[2026-09-29T00:12:35Z] [140/169] c2_sigmoid_t2_v3: status=ok elapsed_this_seq=203.8s total_elapsed=21922.0s ETA=5005.8s (ok=127 error=0 skipped=13)
+[2026-09-29T00:12:35Z] [141/169] c2_sigmoid_t3_v1: starting
+c2_sigmoid_t3_v1: extracted 391 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t3_v1
+[2026-09-29T00:15:34Z] [141/169] c2_sigmoid_t3_v1: status=ok elapsed_this_seq=178.3s total_elapsed=22100.3s ETA=4834.4s (ok=128 error=0 skipped=13)
+[2026-09-29T00:15:34Z] [142/169] c2_sigmoid_t3_v2: starting
+c2_sigmoid_t3_v2: extracted 225 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t3_v2
+[2026-09-29T00:17:28Z] [142/169] c2_sigmoid_t3_v2: status=ok elapsed_this_seq=113.8s total_elapsed=22214.2s ETA=4649.5s (ok=129 error=0 skipped=13)
+[2026-09-29T00:17:28Z] [143/169] c2_sigmoid_t3_v3: starting
+c2_sigmoid_t3_v3: extracted 225 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t3_v3
+[2026-09-29T00:19:24Z] [143/169] c2_sigmoid_t3_v3: status=ok elapsed_this_seq=116.1s total_elapsed=22330.3s ETA=4466.1s (ok=130 error=0 skipped=13)
+[2026-09-29T00:19:24Z] [144/169] c2_sigmoid_t4_v1: starting
+c2_sigmoid_t4_v1: extracted 413 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t4_v1
+[2026-09-29T00:22:29Z] [144/169] c2_sigmoid_t4_v1: status=ok elapsed_this_seq=185.0s total_elapsed=22515.3s ETA=4296.8s (ok=131 error=0 skipped=13)
+[2026-09-29T00:22:29Z] [145/169] c2_sigmoid_t4_v2: starting
+c2_sigmoid_t4_v2: extracted 290 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t4_v2
+[2026-09-29T00:24:48Z] [145/169] c2_sigmoid_t4_v2: status=ok elapsed_this_seq=139.2s total_elapsed=22654.5s ETA=4119.0s (ok=132 error=0 skipped=13)
+[2026-09-29T00:24:48Z] [146/169] c2_sigmoid_t4_v3: starting
+c2_sigmoid_t4_v3: extracted 290 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_sigmoid_t4_v3
+[2026-09-29T00:27:08Z] [146/169] c2_sigmoid_t4_v3: status=ok elapsed_this_seq=140.2s total_elapsed=22794.8s ETA=3942.0s (ok=133 error=0 skipped=13)
+[2026-09-29T00:27:08Z] [147/169] c2_transverse1_t1_v1: starting
+c2_transverse1_t1_v1: extracted 402 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t1_v1
+[2026-09-29T00:30:10Z] [147/169] c2_transverse1_t1_v1: status=ok elapsed_this_seq=182.1s total_elapsed=22976.9s ETA=3772.3s (ok=134 error=0 skipped=13)
+[2026-09-29T00:30:10Z] [148/169] c2_transverse1_t1_v2: starting
+c2_transverse1_t1_v2: extracted 627 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t1_v2
+[2026-09-29T00:34:38Z] [148/169] c2_transverse1_t1_v2: status=ok elapsed_this_seq=268.0s total_elapsed=23244.9s ETA=3615.9s (ok=135 error=0 skipped=13)
+[2026-09-29T00:34:38Z] [149/169] c2_transverse1_t1_v3: starting
+c2_transverse1_t1_v3: extracted 627 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t1_v3
+[2026-09-29T00:39:09Z] [149/169] c2_transverse1_t1_v3: status=ok elapsed_this_seq=270.6s total_elapsed=23515.5s ETA=3458.2s (ok=136 error=0 skipped=13)
+[2026-09-29T00:39:09Z] [150/169] c2_transverse1_t2_v1: starting
+c2_transverse1_t2_v1: extracted 610 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t2_v1
+[2026-09-29T00:43:35Z] [150/169] c2_transverse1_t2_v1: status=ok elapsed_this_seq=266.3s total_elapsed=23781.8s ETA=3298.2s (ok=137 error=0 skipped=13)
+[2026-09-29T00:43:35Z] [151/169] c2_transverse1_t2_v2: starting
+c2_transverse1_t2_v2: extracted 600 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t2_v2
+[2026-09-29T00:47:49Z] [151/169] c2_transverse1_t2_v2: status=ok elapsed_this_seq=253.8s total_elapsed=24035.6s ETA=3135.1s (ok=138 error=0 skipped=13)
+[2026-09-29T00:47:49Z] [152/169] c2_transverse1_t2_v3: starting
+c2_transverse1_t2_v3: extracted 600 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t2_v3
+[2026-09-29T00:52:04Z] [152/169] c2_transverse1_t2_v3: status=ok elapsed_this_seq=254.7s total_elapsed=24290.3s ETA=2970.8s (ok=139 error=0 skipped=13)
+[2026-09-29T00:52:04Z] [153/169] c2_transverse1_t3_v1: starting
+c2_transverse1_t3_v1: extracted 853 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t3_v1
+[2026-09-29T00:57:37Z] [153/169] c2_transverse1_t3_v1: status=ok elapsed_this_seq=333.5s total_elapsed=24623.8s ETA=2814.2s (ok=140 error=0 skipped=13)
+[2026-09-29T00:57:37Z] [154/169] c2_transverse1_t3_v2: starting
+c2_transverse1_t3_v2: extracted 298 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t3_v2
+[2026-09-29T01:00:02Z] [154/169] c2_transverse1_t3_v2: status=ok elapsed_this_seq=144.5s total_elapsed=24768.3s ETA=2634.9s (ok=141 error=0 skipped=13)
+[2026-09-29T01:00:02Z] [155/169] c2_transverse1_t3_v3: starting
+c2_transverse1_t3_v3: extracted 298 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t3_v3
+[2026-09-29T01:02:29Z] [155/169] c2_transverse1_t3_v3: status=ok elapsed_this_seq=147.3s total_elapsed=24915.7s ETA=2456.5s (ok=142 error=0 skipped=13)
+[2026-09-29T01:02:29Z] [156/169] c2_transverse1_t4_v1: starting
+c2_transverse1_t4_v1: extracted 376 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t4_v1
+[2026-09-29T01:05:20Z] [156/169] c2_transverse1_t4_v1: status=ok elapsed_this_seq=170.6s total_elapsed=25086.3s ETA=2280.6s (ok=143 error=0 skipped=13)
+[2026-09-29T01:05:20Z] [157/169] c2_transverse1_t4_v2: starting
+c2_transverse1_t4_v2: extracted 382 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t4_v2
+[2026-09-29T01:08:16Z] [157/169] c2_transverse1_t4_v2: status=ok elapsed_this_seq=176.3s total_elapsed=25262.6s ETA=2105.2s (ok=144 error=0 skipped=13)
+[2026-09-29T01:08:16Z] [158/169] c2_transverse1_t4_v3: starting
+c2_transverse1_t4_v3: extracted 382 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse1_t4_v3
+[2026-09-29T01:11:11Z] [158/169] c2_transverse1_t4_v3: status=ok elapsed_this_seq=174.9s total_elapsed=25437.6s ETA=1929.7s (ok=145 error=0 skipped=13)
+[2026-09-29T01:11:11Z] [159/169] c2_transverse2_t1_v1: starting
+c2_transverse2_t1_v1: extracted 393 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t1_v1
+[2026-09-29T01:14:08Z] [159/169] c2_transverse2_t1_v1: status=ok elapsed_this_seq=176.8s total_elapsed=25614.4s ETA=1754.4s (ok=146 error=0 skipped=13)
+[2026-09-29T01:14:08Z] [160/169] c2_transverse2_t1_v2: starting
+c2_transverse2_t1_v2: extracted 552 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t1_v2
+[2026-09-29T01:18:18Z] [160/169] c2_transverse2_t1_v2: status=ok elapsed_this_seq=250.1s total_elapsed=25864.5s ETA=1583.5s (ok=147 error=0 skipped=13)
+[2026-09-29T01:18:18Z] [161/169] c2_transverse2_t1_v3: starting
+c2_transverse2_t1_v3: extracted 552 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t1_v3
+[2026-09-29T01:22:32Z] [161/169] c2_transverse2_t1_v3: status=ok elapsed_this_seq=254.0s total_elapsed=26118.5s ETA=1411.8s (ok=148 error=0 skipped=13)
+[2026-09-29T01:22:32Z] [162/169] c2_transverse2_t2_v1: starting
+c2_transverse2_t2_v1: extracted 415 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t2_v1
+[2026-09-29T01:25:48Z] [162/169] c2_transverse2_t2_v1: status=ok elapsed_this_seq=195.8s total_elapsed=26314.4s ETA=1236.2s (ok=149 error=0 skipped=13)
+[2026-09-29T01:25:48Z] [163/169] c2_transverse2_t2_v2: starting
+c2_transverse2_t2_v2: extracted 337 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t2_v2
+[2026-09-29T01:28:38Z] [163/169] c2_transverse2_t2_v2: status=ok elapsed_this_seq=170.3s total_elapsed=26484.7s ETA=1059.4s (ok=150 error=0 skipped=13)
+[2026-09-29T01:28:38Z] [164/169] c2_transverse2_t2_v3: starting
+c2_transverse2_t2_v3: extracted 337 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t2_v3
+[2026-09-29T01:31:24Z] [164/169] c2_transverse2_t2_v3: status=ok elapsed_this_seq=165.8s total_elapsed=26650.5s ETA=882.5s (ok=151 error=0 skipped=13)
+[2026-09-29T01:31:24Z] [165/169] c2_transverse2_t3_v1: starting
+c2_transverse2_t3_v1: extracted 193 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t3_v1
+[2026-09-29T01:33:12Z] [165/169] c2_transverse2_t3_v1: status=ok elapsed_this_seq=107.9s total_elapsed=26758.4s ETA=704.2s (ok=152 error=0 skipped=13)
+[2026-09-29T01:33:12Z] [166/169] c2_transverse2_t3_v2: starting
+c2_transverse2_t3_v2: extracted 733 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t3_v2
+[2026-09-29T01:38:20Z] [166/169] c2_transverse2_t3_v2: status=ok elapsed_this_seq=308.1s total_elapsed=27066.5s ETA=530.7s (ok=153 error=0 skipped=13)
+[2026-09-29T01:38:20Z] [167/169] c2_transverse2_t3_v3: starting
+c2_transverse2_t3_v3: extracted 733 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t3_v3
+[2026-09-29T01:43:51Z] [167/169] c2_transverse2_t3_v3: status=ok elapsed_this_seq=331.5s total_elapsed=27398.0s ETA=355.8s (ok=154 error=0 skipped=13)
+[2026-09-29T01:43:51Z] [168/169] c2_transverse2_t4_v1: starting
+c2_transverse2_t4_v1: extracted 687 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t4_v1
+[2026-09-29T01:48:40Z] [168/169] c2_transverse2_t4_v1: status=ok elapsed_this_seq=288.5s total_elapsed=27686.5s ETA=178.6s (ok=155 error=0 skipped=13)
+[2026-09-29T01:48:40Z] [169/169] c2_transverse2_t4_v3: starting
+c2_transverse2_t4_v3: extracted 940 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c2_transverse2_t4_v3
+[2026-09-29T01:55:15Z] [169/169] c2_transverse2_t4_v3: status=ok elapsed_this_seq=395.6s total_elapsed=28082.1s ETA=0.0s (ok=156 error=0 skipped=13)
+[2026-09-29T01:55:15Z] DONE. 156 ok, 0 error, 13 skipped (already complete), out of 169 total. Wall time this run: 28082.1s

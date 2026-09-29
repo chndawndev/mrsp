@@ -32,15 +32,31 @@ REGISTERED_DIR = DATASET_ROOT / "registered_videos"
 PERFRAME_ROOT = REPO / "results/pipelines/mast3r_slam_perframe"
 
 
+def resolve_pose_txt_member(zf: zipfile.ZipFile) -> str:
+    """Most C3VDv2 registered_videos archives store pose.txt at the
+    archive root, but at least one (c1_cecum_t1_v3.zip, per
+    src/geometry/coverage_mesh.py::_resolve_zip_member's docstring --
+    read, not imported, same duplicate-small-helper precedent as
+    elsewhere in this project) wraps everything in a <video_name>/
+    subfolder instead. Match on basename rather than assuming root."""
+    candidates = [n for n in zf.namelist() if n == "pose.txt" or n.endswith("/pose.txt")]
+    if not candidates:
+        raise RuntimeError("no pose.txt member found in archive")
+    if len(candidates) > 1:
+        raise RuntimeError(f"ambiguous pose.txt member: {candidates}")
+    return candidates[0]
+
+
 def load_gt_poses(sequence: str) -> list[np.ndarray]:
     zpath = REGISTERED_DIR / f"{sequence}.zip"
     with zipfile.ZipFile(zpath) as zf:
-        lines = zf.read("pose.txt").decode().strip().split("\n")
+        member = resolve_pose_txt_member(zf)
+        lines = zf.read(member).decode().strip().split("\n")
     return [np.array([float(x) for x in line.split(",")]).reshape(4, 4).T for line in lines]
 
 
-def load_pred_per_frame_positions(sequence: str) -> tuple[list[int], np.ndarray]:
-    out_dir = PERFRAME_ROOT / sequence
+def load_pred_per_frame_positions(sequence: str, out_root: Path = PERFRAME_ROOT) -> tuple[list[int], np.ndarray]:
+    out_dir = out_root / sequence
     frame_idxs, positions = [], []
     with open(out_dir / "poses_per_frame.csv") as f:
         reader = csv.DictReader(f)
@@ -76,9 +92,9 @@ def path_length(positions: np.ndarray) -> float:
     return float(np.linalg.norm(np.diff(positions, axis=0), axis=1).sum())
 
 
-def compute(sequence: str) -> dict:
+def compute(sequence: str, out_root: Path = PERFRAME_ROOT) -> dict:
     gt_poses = load_gt_poses(sequence)
-    frame_idxs, pred_pos = load_pred_per_frame_positions(sequence)
+    frame_idxs, pred_pos = load_pred_per_frame_positions(sequence, out_root)
     gt_pos = np.array([gt_poses[i][:3, 3] for i in frame_idxs])
 
     R, t, c, aligned = umeyama(pred_pos, gt_pos)
@@ -99,7 +115,7 @@ def compute(sequence: str) -> dict:
         "endpoint_drift_frac_of_gt_path": endpoint_drift_frac,
     }
     print(json.dumps(result, indent=1))
-    out_dir = PERFRAME_ROOT / sequence
+    out_dir = out_root / sequence
     with open(out_dir / "trajectory_quality_perframe.json", "w") as f:
         json.dump(result, f, indent=2)
     return result
@@ -108,5 +124,6 @@ def compute(sequence: str) -> dict:
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--sequence", required=True)
+    ap.add_argument("--out-root", default=str(PERFRAME_ROOT))
     args = ap.parse_args()
-    compute(args.sequence)
+    compute(args.sequence, Path(args.out_root))

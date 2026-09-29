@@ -1,0 +1,3 @@
+c1_cecum_t1_v1: extracted 218 frames -> /data1_ycao/chua/projects/mrsp/scratch/mast3r_slam/c1_cecum_t1_v1
+elapsed 114.0499415397644
+{'sequence': 'c1_cecum_t1_v1', 'status': 'ok', 'error': None, 'gpu_index': 7, 'elapsed_seconds': 114.03952288627625, 'git_commit': '6c5193153b468801dcb7b75b8f77c07624db699b'}
