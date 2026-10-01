@@ -84,20 +84,30 @@ def compute_resize_mapping(sample_frame_path: Path) -> dict:
 
 
 def model_to_original(px_model: np.ndarray, py_model: np.ndarray, m: dict) -> tuple[np.ndarray, np.ndarray]:
-    """Inverse mapping: model-grid pixel -> original 1350x1080 pixel."""
-    ox = (px_model + m["half_crop_w"]) * m["scale_w"]
-    oy = (py_model + m["half_crop_h"]) * m["scale_h"]
+    """Inverse mapping: model-grid pixel index -> original 1350x1080 pixel
+    index, pixel-center aligned (PIL resize maps output pixel center
+    r + 0.5 to input coordinate (r + 0.5) * scale; the crop is a whole
+    number of resized pixels). Corrected 2026-10-01 from the corner-aligned
+    (px + half_crop) * scale; evidence:
+    scripts/mast3r_slam_grid_alignment_test.py."""
+    ox = (px_model + m["half_crop_w"] + 0.5) * m["scale_w"] - 0.5
+    oy = (py_model + m["half_crop_h"] + 0.5) * m["scale_h"] - 0.5
     return ox, oy
 
 
 def original_to_model(ox: np.ndarray, oy: np.ndarray, m: dict) -> tuple[np.ndarray, np.ndarray]:
-    """Forward mapping: original 1350x1080 pixel -> model-grid pixel."""
-    px = ox / m["scale_w"] - m["half_crop_w"]
-    py = oy / m["scale_h"] - m["half_crop_h"]
+    """Forward mapping: original 1350x1080 pixel index -> model-grid pixel
+    index, pixel-center aligned (see model_to_original)."""
+    px = (ox + 0.5) / m["scale_w"] - 0.5 - m["half_crop_w"]
+    py = (oy + 0.5) / m["scale_h"] - 0.5 - m["half_crop_h"]
     return px, py
 
 
 def round_trip_test(m: dict) -> dict:
+    """Forward then inverse. Checks only that the two functions are
+    inverses of each other; it cannot tell a pixel-center aligned pair from
+    a corner aligned pair (both pass). The alignment itself is tested by
+    scripts/mast3r_slam_grid_alignment_test.py."""
     rng = np.random.default_rng(0)
     n = 2000
     ox = rng.uniform(0, ORIGINAL_W - 1, n)
@@ -206,17 +216,32 @@ def ray_direction_check(sequence: str, frame_index: int, gpu: int, m: dict) -> d
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sequence", required=True)
-    ap.add_argument("--gpu", type=int, required=True)
+    ap.add_argument("--gpu", type=int, default=None)
     ap.add_argument("--ray-check-frame", type=int, default=0)
+    ap.add_argument("--round-trip-only", action="store_true",
+                    help="CPU only: mapping parameters and round-trip test, written to "
+                         "resolution_mapping_round_trip_center_aligned.json; the Stage 2 "
+                         "resolution_mapping.json is left untouched")
+    ap.add_argument("--sample-frame", default=None,
+                    help="any 1350x1080 image; the resize/crop parameters depend on the image "
+                         "shape only. Default: scratch/mast3r_slam/<sequence>/0000.png")
     args = ap.parse_args()
 
-    sample_frame = SCRATCH_ROOT / args.sequence / "0000.png"
+    sample_frame = Path(args.sample_frame) if args.sample_frame else SCRATCH_ROOT / args.sequence / "0000.png"
     m = compute_resize_mapping(sample_frame)
     print("resolution mapping:", json.dumps(m, indent=2))
 
     rt = round_trip_test(m)
     print("round-trip test:", json.dumps(rt, indent=2))
 
+    if args.round_trip_only:
+        out_dir = PERFRAME_ROOT / args.sequence
+        with open(out_dir / "resolution_mapping_round_trip_center_aligned.json", "w") as f:
+            json.dump({"resolution_mapping": m, "alignment": "pixel_center", "round_trip_test": rt}, f, indent=2)
+        return
+
+    if args.gpu is None:
+        raise SystemExit("--gpu is required unless --round-trip-only")
     vig = vignette_crop_fraction(m)
     print("vignette crop fraction:", json.dumps(vig, indent=2))
 

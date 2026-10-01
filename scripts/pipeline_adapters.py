@@ -37,9 +37,11 @@ from scipy.spatial.transform import Rotation
 REPO = Path("/data1_ycao/chua/projects/mrsp")
 ENDODAC_ROOT = REPO / "results/pipelines/endodac_full_run"
 MAST3R_ROOT = REPO / "results/pipelines/mast3r_slam_full_run"
-# Stage 2's documented, round-trip-tested resize/crop mapping
-# (docs/pipelines/mast3r_slam.md, Stage 2 step 5). Identical for every
-# sequence: fixed 1350x1080 input and MASt3R's fixed 512 px target.
+# Stage 2's measured resize/crop parameters (docs/pipelines/mast3r_slam.md,
+# Stage 2 step 5). Identical for every sequence: fixed 1350x1080 input and
+# MASt3R's fixed 512 px target. The parameters are read from this file; the
+# pixel-center alignment of the formula that uses them is established by
+# scripts/mast3r_slam_grid_alignment_test.py.
 MAST3R_MAPPING_JSON = REPO / "results/pipelines/mast3r_slam_perframe/c1_cecum_t1_v1/resolution_mapping.json"
 ORIGINAL_W, ORIGINAL_H = 1350, 1080
 
@@ -83,13 +85,26 @@ def load_mast3r_mapping() -> dict:
 
 
 def original_to_model(ox: np.ndarray, oy: np.ndarray, m: dict) -> tuple[np.ndarray, np.ndarray]:
-    """Stage 2's documented forward mapping, original 1350x1080 pixel ->
-    MASt3R grid pixel (scripts/mast3r_slam_resolution_mapping.py
-    ::original_to_model, same formula; that script imports MASt3R's
-    torch-side code lazily, so the formula is restated here and checked
-    equal to the imported one in pre-flight 2)."""
-    px = ox / m["scale_w"] - m["half_crop_w"]
-    py = oy / m["scale_h"] - m["half_crop_h"]
+    """Forward mapping, original 1350x1080 pixel index -> MASt3R grid pixel
+    index (integer = pixel center on both sides), pixel-center aligned:
+
+        px = (ox + 0.5) / scale_w - 0.5 - half_crop_w
+
+    MASt3R-SLAM resizes with PIL (dust3r _resize_pil_image, called from
+    mast3r_slam/mast3r_utils.py::resize_img), which maps output pixel
+    center (r + 0.5) to input coordinate (r + 0.5) * scale, then crops an
+    integer number of resized pixels. Verified with markers through
+    MASt3R-SLAM's own loader (scripts/mast3r_slam_grid_alignment_test.py;
+    docs/pipeline2_eval.md section 1.2). Until 2026-10-01 this was the
+    corner-aligned px = ox / scale_w - half_crop_w, which is off by
+    0.5 / scale - 0.5 = -0.31 grid pixels in x and y.
+
+    Same formula as scripts/mast3r_slam_resolution_mapping.py
+    ::original_to_model (that script imports MASt3R's torch-side code
+    lazily, so the formula is restated here and checked equal to the
+    imported one in pre-flight 2)."""
+    px = (ox + 0.5) / m["scale_w"] - 0.5 - m["half_crop_w"]
+    py = (oy + 0.5) / m["scale_h"] - 0.5 - m["half_crop_h"]
     return px, py
 
 
@@ -98,9 +113,9 @@ class BilinearGridMap:
     1350x1080 pixel's mapped coordinate. A pixel is available iff its mapped
     coordinate lies in [0, grid_w-1] x [0, grid_h-1]: then all four bilinear
     neighbours are grid cells that hold a prediction. Outside that box
-    (the vertical crop band, and the sub-pixel strip past the last grid
-    column/row) no neighbour set exists without extrapolating, so the pixel
-    is unavailable."""
+    (the vertical crop band, and the sub-pixel strips outside the first and
+    last grid pixel centers) no neighbour set exists without extrapolating,
+    so the pixel is unavailable."""
 
     def __init__(self, m: dict):
         self.m = m
