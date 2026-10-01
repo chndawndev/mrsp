@@ -193,6 +193,28 @@ geometry escapes are simply rays that find **no hit** against
 `coverage_mesh.obj`, already covered by §3 (discard, count), not folded
 into "evaluable" one way or the other.
 
+### 2026-09-29: Missing predictions, internal crops, confidence maps (before any metric for a second pipeline)
+
+Written after MASt3R-SLAM full-corpus inference and before any
+evaluation metric was computed on its output.
+
+- A frame for which a pipeline outputs no pose or no depth (for example a
+  tracker's skipped frame) contributes no observations. The sequence
+  stays in the analysis. Missing frames are never filled by
+  interpolation or copied from neighbours. The number of such frames and
+  the number of affected sequences are reported per pipeline.
+- A pixel with no predicted depth (for example outside a pipeline's
+  internal crop) is treated exactly like a pixel whose d_pred is
+  unavailable: it does not enter the tau test and marks nothing
+  observed. The fraction of valid (non-vignette) pixels affected is
+  reported per pipeline.
+- Depth predicted on a pipeline's internal grid is mapped to the
+  1350x1080 input grid by the documented per-pipeline mapping with
+  bilinear interpolation; interpolation never crosses into pixels that
+  have no prediction.
+- Confidence maps are not used, for any pipeline. No confidence
+  threshold, weighting, or masking is applied.
+
 ### Why a tau gate is necessary (not just permitted)
 
 Without it, "predicted-observed" would degenerate into "the camera's
