@@ -763,3 +763,43 @@ including its status, descriptives, and joined covariates.
    only, same single-frame caveat as Stage 2's own MASt3R check.
 3. No metric has been computed on any of this corpus's output yet —
    evaluation is explicitly a separate task, per instructions.
+
+---
+
+# Correction (2026-10-01): the grid mapping is pixel-center aligned
+
+Stage 2 step 5's mapping formulas (`ox = (px + half_crop_w) * scale_w`,
+`px = ox / scale_w - half_crop_w`) are corner aligned. MASt3R-SLAM's
+resize is pixel-center aligned. The measured parameters (512x400 grid,
+`scale_w = 2.63672`, `scale_h = 2.63415`, `half_crop_w = 0`,
+`half_crop_h = 5`) are unchanged; only the formula changes:
+
+    px = (ox + 0.5) / scale_w - 0.5 - half_crop_w
+    ox = (px + half_crop_w + 0.5) * scale_w - 0.5      (same in y)
+
+The corner-aligned formula was off by `0.5 / scale - 0.5` = -0.310 grid
+pixels in x and in y (0.82 original pixels). Evidence, code quotes and the
+marker test are in `docs/pipeline2_eval.md` section 1.2
+(`scripts/mast3r_slam_grid_alignment_test.py`). The original text above is
+left in place.
+
+Why Stage 2 did not catch it: the step 5 round-trip test applies the
+forward formula and then its own inverse. It checks that the two are
+inverses of each other and passes for any self-consistent pair, corner
+aligned or center aligned. It was rerun with the corrected pair
+(`--round-trip-only`, max error 1.6e-13 px) and still says nothing about
+alignment; the marker test does.
+
+Stage 2 and Stage 3 numbers computed with the corner-aligned formula:
+
+| number | where | status |
+|---|---|---|
+| valid pixels with no depth, 2.13% (28,898) | Stage 2 step 5 correction block, Stage 3 pre-flight 2 | recomputed with the corrected formula in the pipeline 2 pre-flight: **2.060% (27,926)**; see `docs/pipeline2_eval.md` section 1.2 |
+| ray-direction check, median 19.82 deg (MASt3R) and 15.42 deg (EndoDAC) | Stage 2 step 5, Stage 3 pre-flight 3 | **not rerun**. Original pixel coordinates of the compared rays shift by 0.82 px; the effect on a ~20 deg disagreement was not measured |
+| Stage 3 descriptive depth scale (nearest-neighbour lookup at the mapped coordinate) | Stage 3 per-sequence descriptives, `scripts/mast3r_slam_sequence_descriptives.py` | **not rerun**. Descriptive only; the evaluation's depth scale is recomputed by the evaluation driver with the corrected mapping |
+
+`scripts/mast3r_slam_resolution_mapping.py` now holds the corrected
+formulas, so rerunning the two "not rerun" items would use them.
+`results/pipelines/mast3r_slam_perframe/c1_cecum_t1_v1/resolution_mapping.json`
+was left untouched (its parameters are still valid; its round-trip, crop
+fraction and ray-check entries are the corner-aligned ones).
