@@ -446,6 +446,26 @@ as src/eval/ and src/gt/, because region IoU passed its validity gate
 (docs/region_iou_gate.md) and is now a D2b primary endpoint. The lock
 itself is enforced through CLAUDE.md.
 
+### 2026-10-01: Clarification: tau for H5 and H6
+
+Item 4 of the 2026-09-27 deviation states H5 and H6 without a tau. This
+was an omission in drafting. This clarification is written AFTER the
+MASt3R-SLAM results for H5 and H6 were seen (docs/pipeline2_eval.md):
+H5 met its criterion at all four tau values; H6 met it at tau = 0.15,
+0.25 and 0.35 and not at tau = 0.50 (mesh-level CI [-0.003, 0.106]).
+
+Rule: a criterion or hypothesis that names no tau is judged at the
+protocol's primary value, tau = 0.25 (docs/eval_protocol.md, section on
+the tau gate, "Proposed primary value: tau = 0.25", which predates this
+entry). The other three tau values are reported alongside as
+sensitivity, always, including any value at which the criterion is not
+met. This rule is chosen because it existed before the results; it is
+not chosen for its effect on H6.
+
+Applied: H5 holds at tau = 0.25 (and at all four values). H6 holds at
+tau = 0.25 and does not hold at tau = 0.50; both facts are reported
+together wherever H6 is reported.
+
 ---
 
 ## 7. Sign-off
