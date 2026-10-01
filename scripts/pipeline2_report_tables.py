@@ -110,16 +110,90 @@ def iou_tables(b: dict) -> str:
     return "\n".join(out)
 
 
+def sign_of(c) -> str:
+    return "above" if c[0] > 0 else "below" if c[1] < 0 else "includes zero"
+
+
+def baseline_statements(b: dict) -> str:
+    """One line per (pipeline, cell): position of the pipeline's region IoU
+    relative to its area-matched random baseline at the mesh level AND at
+    the (Colon, Segment) level. A direction is stated only when both
+    intervals exclude zero on the same side; otherwise the disagreement
+    (or the absence of a direction) is stated."""
+    out = ["| pipeline | config | tau | paired diff | mesh CI (103 meshes) | (Colon, Segment) CI (15 molds) | statement |",
+           "|---|---|---|---|---|---|---|"]
+    for key, cell in b["cells"].items():
+        p, c, tau = key.split("|")
+        d = cell["by_size_class"]["medium_plus_large"]["paired_diff_pipeline_minus_random_mean"]
+        m, cs = sign_of(d["ci"]), sign_of(d["sensitivity_colon_segment_ci"])
+        if m == cs and m != "includes zero":
+            stmt = f"{m} its baseline at both levels"
+        elif m == cs:
+            stmt = "not distinguishable from its baseline at either level"
+        elif m != "includes zero" and cs == "includes zero":
+            stmt = (f"levels disagree: mesh CI is {m} zero, (Colon, Segment) CI includes zero; "
+                    "no direction declared")
+        elif m == "includes zero":
+            stmt = (f"levels disagree: mesh CI includes zero, (Colon, Segment) CI is {cs} zero; "
+                    "no direction declared")
+        else:
+            stmt = f"levels disagree: mesh CI {m} zero, (Colon, Segment) CI {cs} zero; no direction declared"
+        out.append(f"| {p} | {c} | {tau} | {d['mean']:+.4f} | {ci(d['ci'])} | {ci(d['sensitivity_colon_segment_ci'])} | {stmt} |")
+    return "\n".join(out)
+
+
 def h_tables(h: dict) -> str:
+    """H5/H6 per docs/success_criteria.md section 6, 2026-10-01
+    clarification: judged at the primary tau = 0.25 on the mesh-level CI;
+    the other taus are reported alongside."""
     out = []
-    for name, a, b_, direction in [("H5", "fully_predicted", "pred_pose_only", "false reassurance, A - B < 0"),
-                                   ("H6", "pred_depth_only", "pred_pose_only", "false alarm, A - B > 0")]:
+    for name, a, b_, direction, want in [("H5", "fully_predicted", "pred_pose_only", "false reassurance, A - B < 0", "below"),
+                                         ("H6", "pred_depth_only", "pred_pose_only", "false alarm, A - B > 0", "above")]:
         out += [f"**{name}** ({direction}; A = {a}, B = {b_})", "",
-                "| tau | A | B | A - B | mesh CI | (C,S) CI | (C,S,P) CI | criterion met (mesh CI) |", "|---|---|---|---|---|---|---|---|"]
+                "| tau | role | A | B | A - B | mesh CI | (C,S) CI | (C,S,P) CI | mesh CI excludes zero in the stated direction | (C,S) CI does |",
+                "|---|---|---|---|---|---|---|---|---|---|"]
         for tau, x in h[name].items():
-            out.append(f"| {tau} | {f(x['A'], 5)} | {f(x['B'], 5)} | {x['diff']:+.5f} | {ci(x['ci'], 5)} | {ci(x['sensitivity_colon_segment_ci'], 5)} "
-                       f"| {ci(x['sensitivity_colon_segment_phantom_ci'], 5)} | {'yes' if x['criterion_met_mesh_level'] else 'no'} |")
+            role = "**primary**" if float(tau) == 0.25 else "alongside"
+            cs = "yes" if sign_of(x["sensitivity_colon_segment_ci"]) == want else "no"
+            out.append(f"| {tau} | {role} | {f(x['A'], 5)} | {f(x['B'], 5)} | {x['diff']:+.5f} | {ci(x['ci'], 5)} | {ci(x['sensitivity_colon_segment_ci'], 5)} "
+                       f"| {ci(x['sensitivity_colon_segment_phantom_ci'], 5)} | {'yes' if x['criterion_met_mesh_level'] else 'no'} | {cs} |")
         out.append("")
+    return "\n".join(out)
+
+
+def old_new_table(root: Path, old_root: Path) -> str:
+    """Record of the grid-mapping correction: corner-aligned (old, archived)
+    next to pixel-center aligned (new) values. Formatting only."""
+    def load(r, n):
+        return json.loads((r / n).read_text())
+    out = ["| quantity | old (corner aligned) | new (center aligned) | new - old |", "|---|---|---|---|"]
+
+    def row(label, o, n, d=5):
+        out.append(f"| {label} | {f(o, d)} | {f(n, d)} | {n - o:+.{d}f} |")
+
+    to, tn = load(old_root, "mast3r_corpus_tables.json"), load(root, "mast3r_corpus_tables.json")
+    for c in CONFIGS:
+        for tau in TAUS:
+            for m in ["false_reassurance_rate", "false_alarm_rate", "area_fraction"]:
+                row(f"{c} tau {tau} {m}", to["tables"][c][tau][m]["point"], tn["tables"][c][tau][m]["point"])
+            row(f"{c} tau {tau} recall m+l @50%", to["tables"][c][tau]["region_recall"]["medium_plus_large"]["0.5"]["point"],
+                tn["tables"][c][tau]["region_recall"]["medium_plus_large"]["0.5"]["point"])
+    bo, bn = load(old_root, "region_iou_summary.json"), load(root, "region_iou_summary.json")
+    for key in bn["cells"]:
+        if not key.startswith("mast3r_slam"):
+            continue
+        xo, xn = (b["cells"][key]["by_size_class"]["medium_plus_large"] for b in (bo, bn))
+        row(f"{key} IoU mean", xo["pipeline"]["mean"], xn["pipeline"]["mean"])
+        row(f"{key} random mean", xo["random_seed_averaged"]["mean"], xn["random_seed_averaged"]["mean"])
+        row(f"{key} paired diff", xo["paired_diff_pipeline_minus_random_mean"]["mean"], xn["paired_diff_pipeline_minus_random_mean"]["mean"])
+    ho, hn = load(old_root, "h5_h6.json"), load(root, "h5_h6.json")
+    for name in ["H5", "H6"]:
+        for tau in TAUS:
+            row(f"{name} tau {tau} A - B", ho[name][tau]["diff"], hn[name][tau]["diff"])
+            out.append(f"| {name} tau {tau} mesh CI | {ci(ho[name][tau]['ci'], 5)} | {ci(hn[name][tau]['ci'], 5)} | |")
+    mo, mn = to["missing_frames"], tn["missing_frames"]
+    row("valid pixels with no depth (fraction)", mo["no_depth_frac_of_valid_pixels_all_gt_frames_pooled"],
+        mn["no_depth_frac_of_valid_pixels_all_gt_frames_pooled"])
     return "\n".join(out)
 
 
@@ -138,15 +212,20 @@ def pairwise_table(d: dict) -> str:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=str(REPO / "results/pipeline2_eval"))
+    ap.add_argument("--old-root", default=None,
+                    help="archived aggregation root to tabulate against (grid-mapping correction record)")
     args = ap.parse_args()
     root = Path(args.root)
     parts = []
     if (root / "mast3r_corpus_tables.json").exists():
         t = json.loads((root / "mast3r_corpus_tables.json").read_text())
         parts += ["## CORPUS", corpus_tables(t), "", "## MISSING", missing_table(t)]
-    parts += ["## IOU", iou_tables(json.loads((root / "region_iou_summary.json").read_text())),
+    iou_summary = json.loads((root / "region_iou_summary.json").read_text())
+    parts += ["## IOU", iou_tables(iou_summary), "## BASELINE STATEMENTS", baseline_statements(iou_summary),
               "## H5H6", h_tables(json.loads((root / "h5_h6.json").read_text())),
               "## PAIRWISE", pairwise_table(json.loads((root / "pairwise_mast3r_minus_endodac.json").read_text()))]
+    if args.old_root:
+        parts += ["## OLD VS NEW", old_new_table(root, Path(args.old_root))]
     text = "\n\n".join(parts)
     (root / "report_tables.md").write_text(text)
     print(text)
