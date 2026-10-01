@@ -537,6 +537,8 @@ def main():
     parser.add_argument("--pipeline", required=True, choices=sorted(ADAPTERS))
     parser.add_argument("--sequence", action="append", help="repeatable; omit with --all")
     parser.add_argument("--all", action="store_true")
+    parser.add_argument("--shard-index", type=int, default=0, help="with --all: this process's shard")
+    parser.add_argument("--shard-total", type=int, default=1, help="with --all: number of shards (same GPU)")
     parser.add_argument("--out-root", default=None,
                         help="default: results/pipeline2_eval/per_sequence/<pipeline>")
     args = parser.parse_args()
@@ -560,7 +562,7 @@ def main():
 
     sequences = [n for n, _ in discover_sequences()]
     if args.all:
-        todo = sequences
+        todo = [n for i, n in enumerate(sequences) if i % args.shard_total == args.shard_index]
     elif args.sequence:
         unknown = [s for s in args.sequence if s not in sequences]
         if unknown:

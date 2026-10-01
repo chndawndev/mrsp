@@ -198,6 +198,7 @@ class Mast3rSlamAdapter:
                 R = Rotation.from_quat(vals[3:7]).as_matrix()  # scipy: scalar-last (x, y, z, w)
                 self._poses[fid] = (R, vals[:3].copy())
         self.frames_with_pose = sorted(self._poses)
+        self._cache: dict[int, tuple[np.ndarray, np.ndarray]] = {}
 
     def depth_grid(self, i: int) -> np.ndarray | None:
         p = self._depth_files.get(i)
@@ -210,10 +211,17 @@ class Mast3rSlamAdapter:
         return z
 
     def depth_native(self, i: int):
+        # Cached: the driver reads each frame up to four times (scale recovery,
+        # two pose variants, no-depth count). Same array every time; values are
+        # unchanged by caching (checked against an uncached run).
+        if i in self._cache:
+            return self._cache[i]
         z = self.depth_grid(i)
         if z is None:
             return None
-        return self.grid_map.sample(z), self.grid_map.available
+        out = (self.grid_map.sample(z), self.grid_map.available)
+        self._cache[i] = out
+        return out
 
     def pose(self, i: int):
         return self._poses.get(i)
