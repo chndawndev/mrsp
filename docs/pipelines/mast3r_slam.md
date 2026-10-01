@@ -676,6 +676,25 @@ the same D1.1 clarification entry's own distinction (originally written
 for EndoDAC, which "cannot lose track by construction" — MASt3R-SLAM
 can, and sometimes transiently does).
 
+**Correction (2026-10-01, pipeline 2 evaluation pre-flight,
+`docs/pipeline2_eval.md`)**: the two paragraphs above are wrong about the
+size of the gap. `check_completion` counted frames from the rows of
+`poses_per_frame.csv`, not from the GT frame count. Frames that MASt3R-SLAM
+processed in RELOC mode after the skipped frame never reach `track()`, so
+they have no row at all and were not counted as missing. Against the GT
+frame count (`pose.txt` lines in each archive,
+`scripts/pipeline2_preflight.py adapter-check`,
+`results/pipeline2_eval/preflight/gate2_adapter_check.json`): the same 26
+sequences lack a pose for **6,188 frames in total** (of 67,886), from 61
+to 441 frames per sequence, not 1. In 21 of the 26 every frame from the
+skipped frame to the end of the sequence has no pose (relocalization never
+succeeded; e.g. `results/pipelines/mast3r_slam_full_run/c1_cecum_t1_v2/step1_run_perframe.log`: "Skipped frame 170", then repeated
+"Failed to relocalize"); in the other 5 tracking resumed later. Depth
+(`depth/*.npz`) exists for every GT frame of every sequence. The 143/169
+strict-D1.1 count is unchanged (the same 26 sequences fail it); the
+statements "missing exactly one frame" and "not a permanent track loss" do
+not hold. Text above left in place.
+
 ### Trajectory-quality and depth-scale distributions (169 sequences, no threshold attached)
 
 | quantity | min | 25% | median | 75% | max |

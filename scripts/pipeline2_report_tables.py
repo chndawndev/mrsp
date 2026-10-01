@@ -77,7 +77,7 @@ def missing_table(t: dict) -> str:
     m = t["missing_frames"]
     out = ["| sequence | GT frames | frames with pose | missing pose | first missing-pose frame |", "|---|---|---|---|---|"]
     for r in m["affected_sequences"]:
-        out.append(f"| {r['sequence']} | {r['n_gt_frames']} | {r['n_frames_with_pose']} | {r['n_frames_missing_pose']} | {r['first_missing_pose_frame']} |")
+        out.append(f"| {r['sequence']} | {r['n_gt_frames']} | {r['n_frames_with_pose']} | {r['n_frames_missing_pose']} | {int(r['first_missing_pose_frame'])} |")
     return "\n".join(out)
 
 
