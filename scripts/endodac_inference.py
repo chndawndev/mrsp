@@ -166,7 +166,16 @@ def is_complete(name: str, expected_n_frames: int) -> bool:
 # per-sequence inference
 # ---------------------------------------------------------------------
 
-def run_sequence_inference(name: str, zpath: Path, models: dict, device, gpu_index: int, seed: int = 0) -> dict:
+def run_sequence_inference(name: str, zpath: Path, models: dict, device, gpu_index: int, seed: int = 0,
+                           noise_sigma: float = 0.0, noise_seed: int | None = None,
+                           out_root: Path | None = None) -> dict:
+    """noise_sigma / noise_seed (docs/eval_protocol.md, 2026-10-02, variability
+    runs): i.i.d. Gaussian noise of that std on the 0-1 image scale, added to
+    the float tensor fed to the networks, right after loading. The noise of
+    frame i is drawn from default_rng([noise_seed, i]), so a frame gets the
+    same noise every time it is loaded (depth pass and both pose pairs). With
+    noise_sigma == 0 (the primary run) nothing is added and the code path is
+    the one D1 Stage A ran. out_root: where to write (default OUT_ROOT)."""
     import torch
     from PIL import Image
     from utils.layers import disp_to_depth, transformation_from_parameters
@@ -176,9 +185,11 @@ def run_sequence_inference(name: str, zpath: Path, models: dict, device, gpu_ind
     torch.backends.cudnn.benchmark = False
 
     t_start = time.time()
-    out_dir = OUT_ROOT / name
+    if noise_sigma and noise_seed is None:
+        raise ValueError("noise_sigma given without noise_seed")
+    out_dir = (out_root or OUT_ROOT) / name
     (out_dir / "depth").mkdir(parents=True, exist_ok=True)
-    seq_scratch = SCRATCH_ROOT / name
+    seq_scratch = SCRATCH_ROOT / (name if out_root is None else f"{name}__{Path(out_root).name}")
     rgb_dir = seq_scratch / "rgb"
     rgb_dir.mkdir(parents=True, exist_ok=True)
 
@@ -196,6 +207,9 @@ def run_sequence_inference(name: str, zpath: Path, models: dict, device, gpu_ind
             ow, oh = im.size
             resized = im.resize((FEED_W, FEED_H), Image.LANCZOS)
             t = torch.from_numpy(np.array(resized)).permute(2, 0, 1).float().div(255.0).unsqueeze(0)
+            if noise_sigma:
+                rng = np.random.default_rng([noise_seed, frame_idx])
+                t = t + torch.from_numpy((noise_sigma * rng.standard_normal(t.shape)).astype(np.float32))
             return t, ow, oh
 
         depther = models["depther"]
@@ -295,6 +309,8 @@ def run_sequence_inference(name: str, zpath: Path, models: dict, device, gpu_ind
             "timing": {"depth_seconds_total": depth_elapsed, "pose_intrinsics_seconds_total": pose_elapsed},
             "git_commit": git_head(),
             "gpu_index": gpu_index,
+            "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+            "noise_sigma_0_1_scale": noise_sigma, "noise_seed": noise_seed,
             "runtime_seconds_total": time.time() - t_start,
             "n_nonfinite_depth": n_nonfinite_depth,
             "n_nonfinite_pose": n_nonfinite_pose,
@@ -357,7 +373,12 @@ def run_shard(shard_index: int, shard_total: int):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--sequence", help="run a single named sequence (e.g. for the reproduction gate)")
+    parser.add_argument("--sequence", action="append",
+                        help="run named sequence(s) (repeatable), e.g. for the reproduction gate")
+    parser.add_argument("--noise-sigma", type=float, default=0.0, help="variability runs: std on the 0-1 image scale")
+    parser.add_argument("--noise-seed", type=int, default=None)
+    parser.add_argument("--out-root", default=None,
+                        help="write here instead of results/pipelines/endodac_full_run (required with noise)")
     parser.add_argument("--shard-index", type=int)
     parser.add_argument("--shard-total", type=int)
     args = parser.parse_args()
@@ -366,18 +387,30 @@ def main():
     SCRATCH_ROOT.mkdir(parents=True, exist_ok=True)
     LOG_DIR.mkdir(parents=True, exist_ok=True)
 
+    if args.noise_sigma and not args.out_root:
+        raise SystemExit("--noise-sigma requires --out-root: variability runs never write into the primary run")
     if args.sequence:
         import torch
 
         sequences = dict(discover_sequences())
-        if args.sequence not in sequences:
-            raise SystemExit(f"{args.sequence!r} not among the 169 registered sequences")
-        zpath = sequences[args.sequence]
+        unknown = [q for q in args.sequence if q not in sequences]
+        if unknown:
+            raise SystemExit(f"{unknown!r} not among the 169 registered sequences")
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         gpu_index = int(os.environ.get("CUDA_VISIBLE_DEVICES", "-1"))
         models = load_models(device)
-        manifest = run_sequence_inference(args.sequence, zpath, models, device, gpu_index)
-        if manifest["status"] != "ok":
+        out_root = Path(args.out_root).resolve() if args.out_root else None
+        n_failed = 0
+        for q in args.sequence:
+            mpath = (out_root or OUT_ROOT) / q / "MANIFEST.json"
+            if out_root is not None and mpath.exists() and json.loads(mpath.read_text()).get("status") == "ok":
+                log(f"{q}: already complete in {out_root}, skipping")
+                continue
+            manifest = run_sequence_inference(q, sequences[q], models, device, gpu_index,
+                                              noise_sigma=args.noise_sigma, noise_seed=args.noise_seed,
+                                              out_root=out_root)
+            n_failed += manifest["status"] != "ok"
+        if n_failed:
             sys.exit(1)
         return
 

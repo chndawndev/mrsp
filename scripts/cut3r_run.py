@@ -89,7 +89,7 @@ def main():
     ap.add_argument("--input-noise", type=float, default=0.0,
                     help="diagnosis only: add N(0, sigma) noise (seed 0) to the normalized input images, which "
                          "lie in [-1, 1]; output goes to <tag>_noise<sigma>")
-    ap.add_argument("--path", choices=["parallel", "recurrent", "recurrent_plain"], default="parallel",
+    ap.add_argument("--path", choices=["parallel", "recurrent", "recurrent_plain", "recurrent_batchenc"], default="parallel",
                     help="parallel: demo.py's inference() (Stage 1). recurrent: vendored forward_recurrent fed one "
                          "frame at a time (scripts/cut3r_recurrent.py). recurrent_plain: vendored "
                          "inference_recurrent on the whole list. Non-default paths write to <tag>_<path>")
@@ -176,7 +176,8 @@ def main():
             outputs, _ = inference_recurrent(views, model, device)
             preds = outputs["pred"]
         else:
-            preds = run_recurrent_streaming(views, model, device, keep=lambda r: r)
+            preds = run_recurrent_streaming(views, model, device, keep=lambda r: r,
+                                            batched_encoder=(args.path == "recurrent_batchenc"))
         torch.cuda.synchronize()
         manifest["inference_seconds"] = time.time() - t0
         manifest["peak_gpu_allocated_mib"] = torch.cuda.max_memory_allocated() / 2**20

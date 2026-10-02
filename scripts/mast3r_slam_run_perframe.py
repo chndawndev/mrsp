@@ -171,7 +171,13 @@ def main():
     ap.add_argument("--config", default="config/base.yaml")
     ap.add_argument("--save-as", required=True)
     ap.add_argument("--out-dir", required=True)
+    ap.add_argument("--noise-sigma", type=float, default=0.0,
+                    help="variability runs (docs/eval_protocol.md, 2026-10-02): std of i.i.d. Gaussian noise on "
+                         "the 0-1 image scale, added to the tensor the network receives")
+    ap.add_argument("--noise-seed", type=int, default=None)
     args = ap.parse_args()
+    if args.noise_sigma and args.noise_seed is None:
+        raise SystemExit("--noise-sigma given without --noise-seed")
 
     out_dir = Path(args.out_dir)
     depth_dir = out_dir / "depth"
@@ -247,6 +253,13 @@ def main():
             else states.get_frame().T_WC
         )
         frame = create_frame(i, img, T_WC, img_size=dataset.img_size, device=device)
+        if args.noise_sigma:
+            # frame.img is the normalized tensor MASt3R encodes, on a [-1, 1] scale: std x 2. The noise is
+            # added here and not to the 0-1 float image the dataset returns, because create_frame ->
+            # resize_img converts that image back to uint8 (np.uint8(img * 255)) before resizing.
+            rng = np.random.default_rng([args.noise_seed, i])
+            noise = (2.0 * args.noise_sigma * rng.standard_normal(tuple(frame.img.shape))).astype(np.float32)
+            frame.img = frame.img + torch.from_numpy(noise).to(frame.img.device)
 
         if mode == Mode.INIT:
             X_init, C_init = mast3r_inference_mono(model, frame)
@@ -337,6 +350,8 @@ def main():
         "n_frames_total": i, "n_keyframes": n_kf, "elapsed_seconds": elapsed,
         "n_tracking_records": len(tracker.records),
         "h": h, "w": w, "dataset": args.dataset, "save_as": args.save_as,
+        "noise_sigma_0_1_scale": args.noise_sigma, "noise_seed": args.noise_seed,
+        "gpu_name": torch.cuda.get_device_name(0),
     }
     with open(out_dir / "MANIFEST.json", "w") as f:
         json.dump(manifest, f, indent=2)

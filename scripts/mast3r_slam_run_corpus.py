@@ -25,6 +25,7 @@ Usage (detached, e.g. tmux):
 """
 from __future__ import annotations
 
+import argparse
 import json
 import shutil
 import subprocess
@@ -84,8 +85,8 @@ def free_disk_gb(path: Path) -> float:
     return shutil.disk_usage(path).free / 1e9
 
 
-def is_already_ok(seq: str) -> bool:
-    manifest_path = FULL_RUN_ROOT / seq / "MANIFEST.json"
+def is_already_ok(seq: str, out_root: Path = FULL_RUN_ROOT) -> bool:
+    manifest_path = out_root / seq / "MANIFEST.json"
     if not manifest_path.exists():
         return False
     try:
@@ -102,11 +103,18 @@ def run_subprocess(cmd: list[str], cwd: Path, env: dict, log_path: Path) -> tupl
     return proc.returncode, output
 
 
-def run_one_sequence(seq: str, gpu: int) -> dict:
+def run_one_sequence(seq: str, gpu: int, out_root: Path = FULL_RUN_ROOT, noise_sigma: float = 0.0,
+                     noise_seed: int | None = None, run_tag: str = "full") -> dict:
+    """out_root / noise_* / run_tag: variability runs (docs/eval_protocol.md,
+    2026-10-02). The defaults are the Stage 3 primary run. A non-default
+    out_root skips step 4 (Stage 3's descriptives script reads the primary
+    run's directory only)."""
     t0 = time.time()
-    out_dir = FULL_RUN_ROOT / seq
+    primary = out_root == FULL_RUN_ROOT
+    out_dir = out_root / seq
     out_dir.mkdir(parents=True, exist_ok=True)
-    save_as = f"{seq}_full"
+    save_as = f"{seq}_{run_tag}"
+    noise_args = [] if not noise_sigma else ["--noise-sigma", repr(noise_sigma), "--noise-seed", str(noise_seed)]
     env = dict(__import__("os").environ)
     env["CUDA_VISIBLE_DEVICES"] = str(gpu)
 
@@ -117,7 +125,7 @@ def run_one_sequence(seq: str, gpu: int) -> dict:
         rc, _ = run_subprocess(
             [MAST3R_ENV_PYTHON, str(SCRIPTS_DIR / "mast3r_slam_run_perframe.py"),
              "--dataset", str(SCRATCH_ROOT / seq), "--config", "config/base.yaml",
-             "--save-as", save_as, "--out-dir", str(out_dir)],
+             "--save-as", save_as, "--out-dir", str(out_dir)] + noise_args,
             cwd=MAST3R_REPO, env=env, log_path=out_dir / "step1_run_perframe.log",
         )
         if rc != 0:
@@ -125,7 +133,7 @@ def run_one_sequence(seq: str, gpu: int) -> dict:
 
         rc, _ = run_subprocess(
             [MAST3R_ENV_PYTHON, str(SCRIPTS_DIR / "mast3r_slam_reconstruct_poses.py"),
-             "--sequence", seq, "--out-root", str(FULL_RUN_ROOT), "--save-as", save_as],
+             "--sequence", seq, "--out-root", str(out_root), "--save-as", save_as],
             cwd=REPO, env=env, log_path=out_dir / "step2_reconstruct_poses.log",
         )
         if rc != 0:
@@ -133,18 +141,19 @@ def run_one_sequence(seq: str, gpu: int) -> dict:
 
         rc, _ = run_subprocess(
             [CPU_ENV_PYTHON, str(SCRIPTS_DIR / "mast3r_slam_trajectory_quality_perframe.py"),
-             "--sequence", seq, "--out-root", str(FULL_RUN_ROOT)],
+             "--sequence", seq, "--out-root", str(out_root)],
             cwd=REPO, env=env, log_path=out_dir / "step3_trajectory_quality.log",
         )
         if rc != 0:
             raise RuntimeError(f"mast3r_slam_trajectory_quality_perframe.py failed, rc={rc} -- see step3_trajectory_quality.log")
 
-        rc, _ = run_subprocess(
-            [CPU_ENV_PYTHON, str(SCRIPTS_DIR / "mast3r_slam_sequence_descriptives.py"), "--sequence", seq],
-            cwd=REPO, env=env, log_path=out_dir / "step4_descriptives.log",
-        )
-        if rc != 0:
-            raise RuntimeError(f"mast3r_slam_sequence_descriptives.py failed, rc={rc} -- see step4_descriptives.log")
+        if primary:
+            rc, _ = run_subprocess(
+                [CPU_ENV_PYTHON, str(SCRIPTS_DIR / "mast3r_slam_sequence_descriptives.py"), "--sequence", seq],
+                cwd=REPO, env=env, log_path=out_dir / "step4_descriptives.log",
+            )
+            if rc != 0:
+                raise RuntimeError(f"mast3r_slam_sequence_descriptives.py failed, rc={rc} -- see step4_descriptives.log")
 
         status = "ok"
         error = None
@@ -159,6 +168,7 @@ def run_one_sequence(seq: str, gpu: int) -> dict:
     manifest = {
         "sequence": seq, "status": status, "error": error,
         "gpu_index": gpu, "elapsed_seconds": time.time() - t0,
+        "noise_sigma_0_1_scale": noise_sigma, "noise_seed": noise_seed,
         "git_commit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True, text=True).stdout.strip(),
     }
     with open(out_dir / "MANIFEST.json", "w") as f:
@@ -167,16 +177,36 @@ def run_one_sequence(seq: str, gpu: int) -> dict:
 
 
 def main():
-    FULL_RUN_ROOT.mkdir(parents=True, exist_ok=True)
-    sequences = discover_sequences()
-    log(f"{len(sequences)} sequences")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out-root", default=str(FULL_RUN_ROOT))
+    ap.add_argument("--sequence", action="append", help="repeatable; default: all 169")
+    ap.add_argument("--noise-sigma", type=float, default=0.0)
+    ap.add_argument("--noise-seed", type=int, default=None)
+    ap.add_argument("--run-tag", default="full", help="suffix of the MASt3R-SLAM logs/<sequence>_<tag> save dir")
+    ap.add_argument("--gpu", type=int, default=None, help="default: freest GPU via scripts/gpu_status.py")
+    args = ap.parse_args()
+    out_root = Path(args.out_root).resolve()
+    if out_root == FULL_RUN_ROOT and (args.noise_sigma or args.run_tag != "full"):
+        raise SystemExit("noise / run-tag runs never write into the primary run: pass --out-root")
+    if out_root != FULL_RUN_ROOT and args.run_tag == "full":
+        raise SystemExit("a non-primary --out-root needs its own --run-tag")
+    out_root.mkdir(parents=True, exist_ok=True)
+    all_sequences = discover_sequences()
+    if args.sequence:
+        unknown = [q for q in args.sequence if q not in all_sequences]
+        if unknown:
+            raise SystemExit(f"not among the 169 registered sequences: {unknown}")
+        sequences = args.sequence
+    else:
+        sequences = all_sequences
+    log(f"{len(sequences)} sequences, out_root={out_root}, noise_sigma={args.noise_sigma}, noise_seed={args.noise_seed}")
 
-    gpu = select_gpu()
+    gpu = args.gpu if args.gpu is not None else select_gpu()
 
     t_start = time.time()
     n_ok = n_error = n_skipped = 0
     for i, seq in enumerate(sequences):
-        if is_already_ok(seq):
+        if is_already_ok(seq, out_root):
             n_skipped += 1
             continue
 
@@ -188,7 +218,7 @@ def main():
             sys.exit(1)
 
         log(f"[{i+1}/{len(sequences)}] {seq}: starting")
-        manifest = run_one_sequence(seq, gpu)
+        manifest = run_one_sequence(seq, gpu, out_root, args.noise_sigma, args.noise_seed, args.run_tag)
         if manifest["status"] == "ok":
             n_ok += 1
         else:

@@ -56,13 +56,37 @@ class LazyDeviceViews:
 
 
 @torch.no_grad()
-def run_recurrent_streaming(views: list[dict], model, device: str, keep) -> list:
+def run_recurrent_streaming(views: list[dict], model, device: str, keep, batched_encoder: bool = False) -> list:
     """Returns [keep(pred_i on CPU) for every frame]. `keep` selects what is
-    retained per frame (e.g. Z and pose only)."""
+    retained per frame (e.g. Z and pose only).
+
+    batched_encoder=True is the confirmation test of
+    docs/noise_sensitivity.md only: the image encoder is called ONCE on all
+    frames, as the parallel path does (model._encode_views ->
+    _encode_image on every image), and forward_recurrent's per-frame
+    _encode_image calls are answered from that batch, in order. Everything
+    after the encoder is forward_recurrent's own loop. It needs the
+    parallel path's memory."""
     from src.dust3r.utils.device import to_cpu
 
     kept = []
     original_head = model._downstream_head
+    if batched_encoder:
+        with torch.cuda.amp.autocast(enabled=False):
+            imgs = torch.cat([v["img"] for v in views], 0).to(device)
+            shapes = torch.cat([v["true_shape"] for v in views], 0).to(device)
+            img_out, img_pos, _ = model._encode_image(imgs, shapes)
+            del imgs
+        calls = {"i": 0}
+
+        def encode_from_batch(image, true_shape):
+            i = calls["i"]
+            calls["i"] += 1
+            if image.shape[0] != 1:
+                raise RuntimeError("expected one frame per forward_recurrent step")
+            return [o[i:i + 1] for o in img_out], img_pos[i:i + 1], None
+
+        model._encode_image = encode_from_batch
 
     def head_then_offload(*args, **kwargs):
         res = to_cpu(original_head(*args, **kwargs))
@@ -75,6 +99,8 @@ def run_recurrent_streaming(views: list[dict], model, device: str, keep) -> list
             model.forward_recurrent(LazyDeviceViews(views, device), device, ret_state=True)
     finally:
         del model._downstream_head  # instance attribute off; the class method is back
+        if batched_encoder:
+            del model._encode_image
     if len(kept) != len(views):
         raise RuntimeError(f"{len(kept)} predictions for {len(views)} views")
     return kept
