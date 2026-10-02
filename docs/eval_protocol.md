@@ -462,6 +462,36 @@ reinterpreting the metric.
 
 Written before region IoU was computed for any real pipeline.
 
+### 2026-10-02: Numerical run-to-run variability (before any CUT3R metric)
+
+Written after CUT3R Stage 2 showed that its per-frame outputs change
+substantially under numerically irrelevant perturbations (input noise of
+1e-6, batch composition, TF32), and before any evaluation metric was
+computed on CUT3R output.
+
+1. Pinned configuration. Each pipeline's primary run uses one pinned
+   numerical configuration, recorded in its pipeline document: entry
+   point, batch size, precision settings (vendor defaults are kept, not
+   changed), and GPU model. All decision points (D2b) and hypotheses are
+   judged on the primary runs only.
+2. Variability runs. For every pipeline, K = 5 additional runs, each
+   adding i.i.d. Gaussian noise with standard deviation 1e-6 (on the
+   0-1 image scale) to the input frames, seeds 1 to 5, everything else
+   pinned. Run on a fixed subset: for each (Colon, Segment) mold, the
+   first registered sequence in alphabetical order (15 sequences).
+3. Reported for each pipeline, configuration fully_predicted,
+   tau = 0.25, on the 15-sequence subset: false reassurance, false
+   alarm, predicted-unobserved area fraction and region IoU (medium +
+   large) for the primary run and each variability run; the standard
+   deviation and range across the six runs, per sequence and pooled.
+   The pooled range is reported next to every between-pipeline
+   difference and next to the D2b thresholds (0.01 for false
+   reassurance, 0.10 for region IoU).
+4. These runs are descriptive. They do not change any verdict. A D2b
+   endpoint whose primary-run difference is smaller than the pooled
+   run-to-run range of either pipeline involved is reported with that
+   statement attached.
+
 ---
 
 ## 6. Validation plan for the eval code
