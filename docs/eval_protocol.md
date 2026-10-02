@@ -492,6 +492,33 @@ computed on CUT3R output.
    run-to-run range of either pipeline involved is reported with that
    statement attached.
 
+### 2026-10-03: Invalid predicted depth (before any CUT3R metric)
+
+A predicted depth that is non-finite or not strictly positive is treated
+exactly like an unavailable d_pred: the pixel does not enter the tau test
+and marks nothing observed. This applies to every pipeline. The count of
+such pixels is reported per pipeline and per sequence. Written after the
+CUT3R primary run showed 10 such pixels (all in c2_transverse1_t1_v2) and
+before any evaluation metric was computed on CUT3R output.
+
+### 2026-10-03: Noise injection point for the variability runs (clarifies the 2026-10-02 entry)
+
+The 2026-10-02 entry specifies noise of standard deviation 1e-6 "on the
+0-1 image scale to the input frames". As implemented, before any
+variability metric was computed:
+- MASt3R-SLAM and CUT3R: noise is added to the tensor the network
+  receives, after the loader's resizing and normalization to [-1, 1], at
+  standard deviation 2e-6 (equal to 1e-6 on the 0-1 scale). For
+  MASt3R-SLAM, earlier injection is not possible: its loader converts the
+  image back to 8-bit before resizing, which would erase the noise or flip
+  whole grey levels.
+- EndoDAC: noise is added right after loading, on the 0-1 scale, before
+  the loader's resizing. Resizing averages neighbouring pixels and may
+  attenuate the noise by a small factor relative to the other two
+  pipelines. This is reported next to every EndoDAC variability result,
+  together with a one-sequence check (c1_cecum_t1_v1, seed 1) with the
+  noise added instead to EndoDAC's network input tensor.
+
 ---
 
 ## 6. Validation plan for the eval code
