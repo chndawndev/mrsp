@@ -385,3 +385,208 @@ Each item is a reading, not a finding.
 6. `demo.py` seeds only Python's `random`; `scripts/cut3r_run.py` also
    seeds torch and numpy. Two runs were bit-identical on this GPU;
    determinism across GPUs or drivers was not tested.
+
+---
+
+# Stage 2: recurrent inference path, equivalence test
+
+**Result: NOT EQUIVALENT. Per the decision rule the task stopped here. No
+path was chosen and no full-corpus run was started.** No evaluation
+metric was computed; nothing under `src/eval/` or `src/eval_ext/` was run
+on CUT3R output.
+
+Code (committed): `scripts/cut3r_recurrent.py` (wrapper),
+`scripts/cut3r_run.py` (`--path`, and the diagnosis-only `--no-tf32`,
+`--input-noise`), `scripts/cut3r_compare_paths.py`,
+`scripts/cut3r_encoder_batch_diagnosis.py`,
+`scripts/cut3r_variant_descriptives.py`. Outputs (not committed):
+`results/pipelines/cut3r_stage1/` (`compare__*.json`,
+`variant_descriptives__*.json`, `encoder_batch_diagnosis*.json`). Logs:
+`logs/cut3r_stage2_*.log`. GPU 0 throughout
+(`logs/cut3r_stage2_gpu_status.log`: 2 MiB used, 0% utilized).
+
+# MEASURED
+
+## S2.1 The wrapper
+
+`scripts/cut3r_recurrent.py` runs the vendored
+`ARCroco3DStereo.forward_recurrent` (`src/dust3r/model.py:963-1100`)
+verbatim, under the `no_grad` + `autocast(enabled=False)` context of the
+vendored `inference_recurrent` (`src/dust3r/inference.py:265-289`). Each
+view is moved to the GPU when the loop reaches it, and each frame's head
+output is moved to the CPU as soon as it is produced (instance-level wrap
+of `model._downstream_head`; no vendored file edited). Same checkpoint,
+size 512, loader, seeds as Stage 1.
+
+`inference_step` cannot be used for images: it asserts
+`view["ray_mask"]` and encodes only a ray map (`model.py:902-921`).
+
+Check that the wrapper changes no value: against the vendored
+`inference_recurrent` called on the whole 218-frame list, poses and
+depth are **bit-identical** (max difference 0.0, all frames).
+
+## S2.2 Decision rule and threshold (fixed before any comparison)
+
+Committed in `scripts/cut3r_compare_paths.py` (commit 01fa996) and logged
+(`logs/cut3r_stage2_equivalence.log`, 2026-10-02T02:52:51Z) before the
+first comparison was run: EQUIVALENT iff every frame of every compared
+sequence has relative translation difference <= 1e-4 of the trajectory
+extent, rotation difference <= 1e-4 rad (0.0057 deg), and max relative
+Z difference <= 1e-4. Reason for 1e-4: about 1,000 float32 eps, taken as
+the upper end of what accumulated round-off can produce through the
+network and several hundred recurrent updates.
+
+## S2.3 Parallel path (Stage 1) vs recurrent path
+
+Per frame, parallel minus recurrent. Translation relative to the
+trajectory extent in model units (1.83 and 0.95); Z over all 204,800
+grid pixels (all finite and positive in both paths).
+
+`c1_cecum_t1_v1` (218 frames):
+
+| quantity | min | median | p95 | max | frames over threshold |
+|---|---|---|---|---|---|
+| translation difference / extent | 5.2e-07 | 0.173 | 0.452 | **0.500** | 198 of 218 |
+| rotation difference (deg) | 5.5e-05 | 9.01 | 19.4 | **21.3** | 201 of 218 |
+| Z, max relative difference | 5.6e-04 | 0.065 | 0.123 | **0.132** | 218 of 218 |
+| Z, median relative difference | 3.6e-05 | 0.016 | 0.049 | 0.051 | |
+| Z, max abs difference (model units) | 7.1e-04 | 0.096 | 0.269 | 0.328 | |
+
+`c2_transverse1_t2_v1` (610 frames; parallel path fits: 34.0 GB
+allocated):
+
+| quantity | min | median | p95 | max | frames over threshold |
+|---|---|---|---|---|---|
+| translation difference / extent | 1.6e-06 | 0.160 | 0.379 | **0.473** | 594 of 610 |
+| rotation difference (deg) | 7.7e-05 | 3.40 | 9.18 | **10.1** | 598 of 610 |
+| Z, max relative difference | 9.2e-04 | 0.168 | 0.289 | **0.365** | 610 of 610 |
+| Z, median relative difference | 2.3e-04 | 0.028 | 0.179 | 0.184 | |
+
+**NOT EQUIVALENT** on both sequences, by three to four orders of
+magnitude over the threshold. The difference is small at frame 0 and
+grows along the sequence (`c1_cecum_t1_v1`, translation / extent and
+rotation): frame 0: 5e-07, 5e-05 deg; frame 10: 1e-05, 0.0014 deg; frame
+30: 0.002, 0.16 deg; frame 50: 0.009, 1.2 deg; frame 100: 0.20, 11 deg.
+
+## S2.4 Peak GPU memory of the recurrent path
+
+| frames | path | peak allocated (MiB) | peak reserved (MiB) | inference (s) |
+|---|---|---|---|---|
+| 218 | parallel (Stage 1) | 14,125 | 19,908 | 12.0 to 13.1 |
+| 218 | recurrent, wrapper | **4,485** | 4,668 | 12.8 |
+| 218 | vendored `inference_recurrent`, whole list | 7,908 | 8,354 | 13.2 |
+| 610 | parallel | 34,037 | 45,204 | 36.8 |
+| 610 | recurrent, wrapper | **6,297** | 6,504 | 37.2 |
+
+The wrapper's memory is not constant: it grows by 4.6 MiB per frame
+(two points), against 50.8 for the parallel path. The remaining growth is
+`forward_recurrent`'s own `all_state_args` list, which keeps one state
+tuple per frame on the GPU (`model.py:1095-1097`). Extrapolated to 959
+frames: about 7.9 GB. Lengths above 610 were not run with the wrapper.
+
+## S2.5 Diagnosis: where the difference comes from (not a path choice)
+
+All on `c1_cecum_t1_v1`, 218 frames. Each configuration is deterministic
+on this GPU (repeated runs bit-identical).
+
+**(a) The encoder's output for a frame depends on how many frames are
+encoded together** (`scripts/cut3r_encoder_batch_diagnosis.py`, first 64
+frames, features of one batched `_encode_image` call against 64
+single-frame calls, relative L2 difference per frame):
+
+| setting | batch of 2 | batch of 64 | patch embedding alone (one convolution), batch of 64 |
+|---|---|---|---|
+| as shipped (TF32 on) | 2.8e-04 | 5.3e-04 (max 7.3e-04) | 2.4e-04 |
+| TF32 off | 3.5e-05 | 3.6e-05 | 0.0 |
+
+The vendored code switches TF32 on at import
+(`src/croco/models/croco.py:13`,
+`torch.backends.cuda.matmul.allow_tf32 = True`); cuDNN's TF32 is on by
+PyTorch default. The parallel path encodes all frames in one batch, the
+recurrent path one frame per call: their inputs to the decoder differ by
+about 5e-04 from the first frame on.
+
+**(b) Small differences are amplified along the sequence.** Per-frame
+differences between pairs of runs (median / max over frames):
+
+| pair | translation / extent | rotation (deg) | Z max relative |
+|---|---|---|---|
+| parallel vs recurrent (as shipped) | 0.173 / 0.500 | 9.01 / 21.3 | 0.065 / 0.132 |
+| parallel vs recurrent, both TF32 off | 0.048 / 0.263 | 7.33 / 12.7 | 0.054 / 0.186 |
+| recurrent vs recurrent with N(0, 1e-6) noise added to the input images | 0.056 / 0.176 | 2.23 / 8.22 | 0.047 / 0.104 |
+| recurrent vs recurrent with N(0, 1e-4) noise | 0.083 / 0.352 | 4.53 / 12.4 | 0.050 / 0.171 |
+| recurrent, TF32 on vs off | 0.039 / 0.268 | 3.39 / 8.87 | 0.053 / 0.124 |
+| parallel, TF32 on vs off | 0.097 / 0.431 | 3.91 / 18.9 | 0.069 / 0.138 |
+
+Input images are in [-1, 1] with 8-bit steps of 7.8e-03; noise of 1e-6 is
+almost four orders below one grey level. Switching TF32 off does not make
+the two paths agree.
+
+**(c) Sequence-level descriptives across the same runs** (not evaluation
+metrics; definitions of Stage 1 section 7):
+
+| run, `c1_cecum_t1_v1` | ATE (mm) | endpoint drift | `s_pose` | depth scale median | relative IQR |
+|---|---|---|---|---|---|
+| parallel (Stage 1) | 20.62 | 0.93% | 22.97 | 30.52 | 0.395 |
+| recurrent | 19.67 | 2.49% | 25.39 | 30.89 | 0.388 |
+| parallel, TF32 off | 20.01 | 2.60% | 25.28 | 29.76 | 0.446 |
+| recurrent, TF32 off | 19.88 | 3.30% | 24.40 | 30.10 | 0.431 |
+| recurrent, noise 1e-6 | 19.83 | 2.62% | 25.81 | 30.56 | 0.419 |
+| recurrent, noise 1e-4 | 18.83 | 1.97% | 29.77 | 31.03 | 0.378 |
+
+| run, `c2_transverse1_t2_v1` | ATE (mm) | endpoint drift | `s_pose` | depth scale median | relative IQR |
+|---|---|---|---|---|---|
+| parallel | 11.37 | 10.33% | 16.31 | 18.28 | 0.828 |
+| recurrent | 11.45 | 9.67% | 16.50 | 18.70 | 0.703 |
+
+Consequence for Stage 1: its trajectory and depth-scale numbers
+(section 7) are those of one run configuration. The 0.93% endpoint drift
+in particular is at the low end of a 0.93% to 3.30% range across the six
+runs above.
+
+# INTERPRETATION
+
+1. **The two paths implement the same computation, and differ because
+   CUT3R's rollout on these sequences amplifies perturbations far below
+   image quantization.** Evidence for: the vendored loops are line-by-line
+   the same apart from encoder batching; the difference starts at the
+   size of the encoder's batch dependence and grows along the sequence;
+   a 1e-6 input perturbation inside a single path produces differences of
+   the same order as the path difference. Not shown: that no other
+   difference between the paths exists. Would be confirmed by feeding the
+   recurrent loop the encoder features of the batched call and obtaining
+   bit-identical outputs to the parallel path; refuted if a difference
+   remains.
+
+2. **If item 1 holds, neither path is "the" CUT3R output: per-frame poses
+   and depths are reproducible only for a fixed code path, batch size,
+   precision setting and hardware.** The sequence-level descriptives in
+   (c) move much less than the per-frame values (ATE within 18.8 to 20.6
+   mm, depth scale within 29.8 to 31.0), which suggests, without
+   showing, that aggregate quantities could be more stable than
+   per-frame ones. Whether any evaluation metric is stable across such
+   runs is not known and was not measured; it would need the same
+   sequence evaluated under two or more run configurations, which is an
+   evaluation and outside this stage.
+
+3. **Whether this sensitivity is specific to CUT3R is unknown.** No such
+   perturbation test was run on EndoDAC or MASt3R-SLAM. EndoDAC predicts
+   each frame pair independently, so it has no state to amplify through;
+   MASt3R-SLAM has tracking state. A noise-1e-6 rerun of each on this
+   sequence would settle it.
+
+# Stage 2 open issues (decisions needed)
+
+1. **Which path, if any, to run on the corpus.** Not chosen here.
+   Considerations, all measured above: the parallel path cannot process
+   the three longest sequences on a 48 GB card; the recurrent wrapper
+   needs about 6.3 GB at 610 frames; the two give different per-frame
+   outputs and similar sequence-level descriptives on the two sequences
+   tested; the Stage 1 entry point was fixed before any result and a
+   switch would have to be recorded as a change made before any metric.
+2. **Whether to fix a numerical configuration** (path, batch size, TF32)
+   as part of the pipeline definition, and whether to require a
+   repeat-run sensitivity check as part of the evaluation, given S2.5.
+3. The corpus pre-flight was not run. For information only: free space on
+   the output volume was 1.5 TB at the time of writing.
+4. Wrapper memory above 610 frames is extrapolated, not measured.

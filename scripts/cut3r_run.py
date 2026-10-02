@@ -83,6 +83,12 @@ def main():
                     help="use only the first N frames (memory-vs-length probe); output goes to <sequence>_first<N>")
     ap.add_argument("--save-pointmap-frames", type=int, nargs="*", default=[0])
     ap.add_argument("--no-save", action="store_true", help="timing / memory probe only")
+    ap.add_argument("--no-tf32", action="store_true",
+                    help="diagnosis only: disable TF32 (torch.backends.cuda.matmul / cudnn allow_tf32), which the "
+                         "vendored code enables on import; output goes to <tag>_notf32")
+    ap.add_argument("--input-noise", type=float, default=0.0,
+                    help="diagnosis only: add N(0, sigma) noise (seed 0) to the normalized input images, which "
+                         "lie in [-1, 1]; output goes to <tag>_noise<sigma>")
     ap.add_argument("--path", choices=["parallel", "recurrent", "recurrent_plain"], default="parallel",
                     help="parallel: demo.py's inference() (Stage 1). recurrent: vendored forward_recurrent fed one "
                          "frame at a time (scripts/cut3r_recurrent.py). recurrent_plain: vendored "
@@ -104,6 +110,10 @@ def main():
     tag = args.sequence if args.max_frames is None else f"{args.sequence}_first{args.max_frames}"
     if args.path != "parallel":
         tag = f"{tag}_{args.path}"
+    if args.input_noise:
+        tag = f"{tag}_noise{args.input_noise:g}"
+    if args.no_tf32:
+        tag = f"{tag}_notf32"
     out_dir = OUT_ROOT / tag
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -124,6 +134,9 @@ def main():
     from src.dust3r.post_process import estimate_focal_knowing_depth
     from src.dust3r.utils.camera import pose_encoding_to_camera
 
+    if args.no_tf32:
+        torch.backends.cuda.matmul.allow_tf32 = False
+        torch.backends.cudnn.allow_tf32 = False
     device = "cuda"
     manifest = {
         "sequence": args.sequence, "tag": tag, "n_frames_in_folder": n_total, "n_frames_input": len(img_paths),
@@ -131,6 +144,7 @@ def main():
         "checkpoint_sha256": None if args.skip_checkpoint_hash else sha256(CHECKPOINT),
         "cut3r_commit": git_head(CUT3R_REPO), "repo_commit": git_head(REPO),
         "torch": torch.__version__, "path": args.path,
+        "tf32": {"matmul": torch.backends.cuda.matmul.allow_tf32, "cudnn": torch.backends.cudnn.allow_tf32},
         "entry": "online inference, no global alignment",
         "status": "failed", "error": None,
     }
@@ -139,6 +153,11 @@ def main():
         views = demo.prepare_input(img_paths=img_paths, img_mask=[True] * len(img_paths), size=SIZE,
                                    revisit=1, update=True)
         manifest["load_seconds"] = time.time() - t0
+        if args.input_noise:
+            gen = torch.Generator().manual_seed(0)
+            for v in views:
+                v["img"] = v["img"] + args.input_noise * torch.randn(v["img"].shape, generator=gen)
+            manifest["input_noise_sigma"] = args.input_noise
         h, w = views[0]["img"].shape[-2:]
         log(f"{len(views)} views, internal grid {w}x{h}")
 
