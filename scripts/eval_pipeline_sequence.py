@@ -142,7 +142,8 @@ def rotation_angle_deg(R: np.ndarray) -> float:
 
 # --------------------------------------------------------------------------
 
-def evaluate_sequence(pipeline: str, name: str, out_dir: Path, wp, device: str, gpu_index: int) -> dict:
+def evaluate_sequence(pipeline: str, name: str, out_dir: Path, wp, device: str, gpu_index: int,
+                      pred_root: Path | None = None) -> dict:
     t_start = time.time()
     timings = {}
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -177,7 +178,7 @@ def evaluate_sequence(pipeline: str, name: str, out_dir: Path, wp, device: str, 
         gt_depth_mm_frames.append(d_mm)
         gt_depth_valid_frames.append(valid)
 
-    adapter = ADAPTERS[pipeline](name, n_frames)
+    adapter = ADAPTERS[pipeline](name, n_frames) if pred_root is None else ADAPTERS[pipeline](name, n_frames, root=pred_root)
     frames_with_depth = list(adapter.frames_with_depth)
     frames_with_pose = list(adapter.frames_with_pose)
     depth_set, pose_set = set(frames_with_depth), set(frames_with_pose)
@@ -328,6 +329,7 @@ def evaluate_sequence(pipeline: str, name: str, out_dir: Path, wp, device: str, 
             (no_depth_px_frames_with_depth + n_valid_px * len(missing_depth)) / (n_valid_px * n_frames)
         ),
         "adapter": adapter.descriptives(),
+        "pred_root": None if pred_root is None else str(pred_root),
     }
 
     # ---------------- per config x tau metrics + region rows ----------------
@@ -488,11 +490,11 @@ def evaluate_sequence(pipeline: str, name: str, out_dir: Path, wp, device: str, 
     return manifest
 
 
-def run_one(pipeline: str, name: str, out_dir: Path, wp, device, gpu_index: int) -> dict:
+def run_one(pipeline: str, name: str, out_dir: Path, wp, device, gpu_index: int, pred_root: Path | None = None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     try:
-        manifest = evaluate_sequence(pipeline, name, out_dir, wp, device, gpu_index)
+        manifest = evaluate_sequence(pipeline, name, out_dir, wp, device, gpu_index, pred_root)
         log(f"{name}: DONE in {manifest['runtime_seconds_total']:.1f}s", tag=f"gpu{gpu_index}")
         return manifest
     except Exception as exc:
@@ -541,9 +543,15 @@ def main():
     parser.add_argument("--shard-total", type=int, default=1, help="with --all: number of shards (same GPU)")
     parser.add_argument("--out-root", default=None,
                         help="default: results/pipeline2_eval/per_sequence/<pipeline>")
+    parser.add_argument("--pred-root", default=None,
+                        help="read the pipeline's predictions from this directory instead of its primary run "
+                             "(variability runs); requires --out-root")
     args = parser.parse_args()
+    if args.pred_root and not args.out_root:
+        raise SystemExit("--pred-root requires --out-root: a non-primary run never writes into the primary results")
+    pred_root = Path(args.pred_root).resolve() if args.pred_root else None
 
-    out_root = Path(args.out_root) if args.out_root else DEFAULT_OUT_ROOT / args.pipeline
+    out_root = Path(args.out_root).resolve() if args.out_root else DEFAULT_OUT_ROOT / args.pipeline
     out_root.mkdir(parents=True, exist_ok=True)
 
     gpu_index = int(os.environ.get("CUDA_VISIBLE_DEVICES", "-1"))
@@ -567,7 +575,7 @@ def main():
         unknown = [s for s in args.sequence if s not in sequences]
         if unknown:
             raise SystemExit(f"not among the 169 registered sequences: {unknown}")
-        todo = args.sequence
+        todo = [n for i, n in enumerate(args.sequence) if i % args.shard_total == args.shard_index]
     else:
         raise SystemExit("provide --sequence NAME (repeatable) or --all")
 
@@ -584,7 +592,7 @@ def main():
             time.sleep(DISK_PAUSE_SECONDS)
         log(f"[{k+1}/{len(todo)}] {name}: start (free disk {free_disk_gb(REPO):.0f}GB)", tag=f"gpu{gpu_index}")
         try:
-            manifest = run_one(args.pipeline, name, out_dir, wp, device, gpu_index)
+            manifest = run_one(args.pipeline, name, out_dir, wp, device, gpu_index, pred_root)
             n_done_here += 1
             n_failed += manifest["status"] != "ok"
         except SystemExit:

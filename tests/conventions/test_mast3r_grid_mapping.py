@@ -97,3 +97,28 @@ def test_never_reads_outside_grid_and_matches_scalar_reference():
         y, x = divmod(int(p), ORIGINAL_W)
         px, py = original_to_model(np.array([float(x)]), np.array([float(y)]), M)
         assert abs(out[p] - bilinear_reference(grid, px[0], py[0])) < 1e-12
+
+
+def test_invalid_depth_cells_make_their_bilinear_neighbourhood_unavailable():
+    """docs/eval_protocol.md 2026-10-03: non-finite or non-positive predicted
+    depth is unavailable; interpolation never crosses into such a cell."""
+    from pipeline_adapters import sample_valid_only
+
+    gm = BilinearGridMap(M)
+    rng = np.random.default_rng(1)
+    grid = rng.uniform(1.0, 2.0, size=(400, 512))
+    out0, av0, n0 = sample_valid_only(gm, grid)
+    assert n0 == 0 and av0 is gm.available and np.array_equal(out0, gm.sample(grid), equal_nan=True)
+
+    bad = grid.copy()
+    bad[100, 200], bad[250, 30], bad[10, 500] = -0.5, np.nan, 0.0
+    out, av, n = sample_valid_only(gm, bad)
+    assert n == 3
+    X, Y = np.meshgrid(np.arange(ORIGINAL_W, dtype=np.float64), np.arange(ORIGINAL_H, dtype=np.float64))
+    px, py = original_to_model(X.ravel(), Y.ravel(), M)
+    touched = np.zeros(px.shape, dtype=bool)
+    for (r, c) in [(100, 200), (250, 30), (10, 500)]:
+        touched |= (np.abs(px - c) < 1) & (np.abs(py - r) < 1)  # the cell is one of the four neighbours
+    assert np.array_equal(av, gm.available & ~touched)
+    assert np.isnan(out[~av]).all() and np.isfinite(out[av]).all() and (out[av] > 0).all()
+    assert np.array_equal(out[av], out0[av])  # pixels away from the invalid cells are unchanged

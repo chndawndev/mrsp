@@ -135,10 +135,26 @@ def process_sequence(name: str) -> tuple[list[dict], list[dict]]:
 
 
 def main():
+    global PER_SEQ_ROOTS, OUT_DIR, CELLS
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=12)
     ap.add_argument("--sequence", action="append")
+    ap.add_argument("--root", action="append", metavar="NAME=DIR",
+                    help="per-sequence evaluation root(s) to score, replacing the default two pipelines; NAME goes "
+                         "into the 'pipeline' column (D2b evaluation, variability runs)")
+    ap.add_argument("--out-dir", default=None, help="default: results/pipeline2_eval/region_iou")
+    ap.add_argument("--cell", action="append", metavar="CONFIG:TAU", help="restrict the cells (default: all 7)")
+    ap.add_argument("--full-names", action="store_true",
+                    help="with --sequence: write region_iou_rows.csv.gz / area_rows.csv without the _subset suffix")
     args = ap.parse_args()
+    if args.root:
+        PER_SEQ_ROOTS = {r.split("=", 1)[0]: Path(r.split("=", 1)[1]).resolve() for r in args.root}
+    if args.out_dir:
+        OUT_DIR = Path(args.out_dir).resolve()
+    if args.cell:
+        CELLS = [(c.split(":")[0], float(c.split(":")[1])) for c in args.cell]
+        if any(c not in CONFIG_NAMES or t not in TAUS for c, t in CELLS):
+            raise SystemExit(f"unknown cell in {args.cell}")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     from eval_pipeline_sequence import discover_sequences
@@ -158,7 +174,7 @@ def main():
             area_rows.extend(a)
             el = time.time() - t0
             log(f"progress {k+1}/{len(sequences)} elapsed {el/60:.1f}min ETA {el/(k+1)*(len(sequences)-k-1)/60:.1f}min")
-    suffix = "" if not args.sequence else "_subset"
+    suffix = "" if (not args.sequence or args.full_names) else "_subset"
     pd.DataFrame(region_rows).to_csv(OUT_DIR / f"region_iou_rows{suffix}.csv.gz", index=False)
     pd.DataFrame(area_rows).to_csv(OUT_DIR / f"area_rows{suffix}.csv", index=False)
     log(f"wrote {len(region_rows)} region rows, {len(area_rows)} area rows in {(time.time()-t0)/60:.1f}min")

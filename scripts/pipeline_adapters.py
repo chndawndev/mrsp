@@ -21,6 +21,15 @@ confidence maps" is applied here and in the driver, not in locked code:
     reads a grid cell outside the prediction;
   - confidence maps are never read.
 
+docs/eval_protocol.md, "2026-10-03: Invalid predicted depth", is applied
+here as well, for every pipeline: a predicted depth that is non-finite or
+not strictly positive is `available=False`. For a pipeline with an
+internal grid, a 1350x1080 pixel is available only if all four of its
+bilinear neighbours hold a valid depth (interpolation never crosses into
+a cell with no usable prediction). Invalid pixels are counted per
+sequence (descriptives()). When a frame has no invalid depth the returned
+arrays are exactly the ones returned before this rule existed.
+
 EndoDACAdapter reproduces scripts/eval_d1_sequence.py's loading exactly
 (same files, same dtype conversions), so the EndoDAC path through the new
 driver is bit-identical to D1 Stage B (pre-flight 1 checks this).
@@ -37,6 +46,9 @@ from scipy.spatial.transform import Rotation
 REPO = Path("/data1_ycao/chua/projects/mrsp")
 ENDODAC_ROOT = REPO / "results/pipelines/endodac_full_run"
 MAST3R_ROOT = REPO / "results/pipelines/mast3r_slam_full_run"
+CUT3R_ROOT = REPO / "results/pipelines/cut3r_full_run"
+# Marker-verified grid parameters of CUT3R's own loader (docs/pipelines/cut3r.md section 4).
+CUT3R_MAPPING_JSON = REPO / "results/pipelines/cut3r_stage1/grid_alignment/grid_alignment_test.json"
 # Stage 2's measured resize/crop parameters (docs/pipelines/mast3r_slam.md,
 # Stage 2 step 5). Identical for every sequence: fixed 1350x1080 input and
 # MASt3R's fixed 512 px target. The parameters are read from this file; the
@@ -49,9 +61,9 @@ ORIGINAL_W, ORIGINAL_H = 1350, 1080
 class EndoDACAdapter:
     name = "endodac"
 
-    def __init__(self, sequence: str, n_gt_frames: int):
+    def __init__(self, sequence: str, n_gt_frames: int, root: Path | None = None):
         self.sequence = sequence
-        self.dir = ENDODAC_ROOT / sequence
+        self.dir = (root or ENDODAC_ROOT) / sequence
         self.n_gt_frames = n_gt_frames
         # Exactly scripts/eval_d1_sequence.py's loading: every frame
         # preloaded, .ravel().astype(np.float64).
@@ -62,18 +74,31 @@ class EndoDACAdapter:
         self._poses = np.load(self.dir / "poses_pred.npy")
         if len(self._poses) != n_gt_frames:
             raise RuntimeError(f"{sequence}: EndoDAC poses {len(self._poses)} != GT frames {n_gt_frames}")
-        self._available = np.ones(len(self._depth[0]), dtype=bool)
+        self._all_available = np.ones(len(self._depth[0]), dtype=bool)
+        # 2026-10-03 rule: non-finite or non-positive predicted depth is unavailable.
+        self._available, self.n_invalid_depth_pixels, self.frames_with_invalid_depth = [], 0, []
+        for i, d in enumerate(self._depth):
+            valid = np.isfinite(d) & (d > 0)
+            n_bad = int((~valid).sum())
+            if n_bad:
+                self.n_invalid_depth_pixels += n_bad
+                self.frames_with_invalid_depth.append(i)
+                self._available.append(valid)
+            else:
+                self._available.append(self._all_available)
         self.frames_with_depth = list(range(n_gt_frames))
         self.frames_with_pose = list(range(n_gt_frames))
 
     def depth_native(self, i: int):
-        return self._depth[i], self._available
+        return self._depth[i], self._available[i]
 
     def pose(self, i: int):
         return self._poses[i, :3, :3], self._poses[i, :3, 3]
 
     def descriptives(self) -> dict:
-        return {"internal_grid": None}
+        return {"internal_grid": None, "n_invalid_depth_pixels": self.n_invalid_depth_pixels,
+                "n_frames_with_invalid_depth": len(self.frames_with_invalid_depth),
+                "invalid_depth_counted_on": "1350x1080 predicted depth"}
 
 
 # --------------------------------------------------------------------------
@@ -151,6 +176,26 @@ class BilinearGridMap:
         return out
 
 
+def sample_valid_only(gm: "BilinearGridMap", grid: np.ndarray) -> tuple[np.ndarray, np.ndarray, int]:
+    """Bilinear sampling under the 2026-10-03 invalid-depth rule. Returns
+    (full-res depth, available mask, number of invalid grid cells). A grid
+    cell is valid iff its depth is finite and > 0; a full-res pixel is
+    available iff it lies inside the grid box AND all four bilinear
+    neighbours are valid. With no invalid cell this returns exactly
+    gm.sample(grid) and gm.available (the same array object)."""
+    valid = np.isfinite(grid) & (grid > 0)
+    n_invalid = int((~valid).sum())
+    if n_invalid == 0:
+        return gm.sample(grid), gm.available, 0
+    x0, y0 = gm.x0, gm.y0
+    nb_ok = valid[y0, x0] & valid[y0, x0 + 1] & valid[y0 + 1, x0] & valid[y0 + 1, x0 + 1]
+    available = gm.available.copy()
+    available[gm.available] = nb_ok
+    out = gm.sample(np.where(valid, grid, 0.0))  # invalid cells never reach an available pixel
+    out[~available] = np.nan
+    return out, available, n_invalid
+
+
 def bilinear_reference(grid: np.ndarray, px: float, py: float) -> float:
     """Independent scalar bilinear lookup, for the pre-flight round-trip
     check only. Written separately from BilinearGridMap on purpose."""
@@ -170,8 +215,9 @@ class Mast3rSlamAdapter:
 
     Depth: depth/<frame:04d>.npz key "z" (camera-frame Z at MASt3R's
     512x400 grid). Key "conf" is never read. A frame with no .npz has no
-    depth. Non-finite z inside a saved grid fails loudly (malformed input,
-    not a missing prediction).
+    depth. A non-finite or non-positive z is unavailable
+    (docs/eval_protocol.md, 2026-10-03; before that entry a non-finite z
+    raised here) and is counted.
 
     Pose: poses_per_frame.csv rows with reconstructed == "True"; (tx,ty,tz,
     qx,qy,qz,qw) is lietorch SE3 data order, camera-to-world (Stage 1 Q3).
@@ -182,9 +228,10 @@ class Mast3rSlamAdapter:
 
     name = "mast3r_slam"
 
-    def __init__(self, sequence: str, n_gt_frames: int, grid_map: BilinearGridMap | None = None):
+    def __init__(self, sequence: str, n_gt_frames: int, grid_map: BilinearGridMap | None = None,
+                 root: Path | None = None):
         self.sequence = sequence
-        self.dir = MAST3R_ROOT / sequence
+        self.dir = (root or MAST3R_ROOT) / sequence
         self.n_gt_frames = n_gt_frames
         self.grid_map = grid_map if grid_map is not None else BilinearGridMap(load_mast3r_mapping())
 
@@ -214,6 +261,8 @@ class Mast3rSlamAdapter:
                 self._poses[fid] = (R, vals[:3].copy())
         self.frames_with_pose = sorted(self._poses)
         self._cache: dict[int, tuple[np.ndarray, np.ndarray]] = {}
+        self.n_invalid_depth_pixels = 0
+        self.frames_with_invalid_depth: list[int] = []
 
     def depth_grid(self, i: int) -> np.ndarray | None:
         p = self._depth_files.get(i)
@@ -221,8 +270,6 @@ class Mast3rSlamAdapter:
             return None
         with np.load(p) as npz:
             z = npz["z"]
-        if not np.isfinite(z).all():
-            raise RuntimeError(f"{self.sequence}: non-finite MASt3R z in frame {i}")
         return z
 
     def depth_native(self, i: int):
@@ -234,7 +281,11 @@ class Mast3rSlamAdapter:
         z = self.depth_grid(i)
         if z is None:
             return None
-        out = (self.grid_map.sample(z), self.grid_map.available)
+        d, available, n_invalid = sample_valid_only(self.grid_map, z)
+        if n_invalid:
+            self.n_invalid_depth_pixels += n_invalid
+            self.frames_with_invalid_depth.append(i)
+        out = (d, available)
         self._cache[i] = out
         return out
 
@@ -245,7 +296,86 @@ class Mast3rSlamAdapter:
         return {
             "internal_grid": [self.grid_map.grid_h, self.grid_map.grid_w],
             "pose_rows_not_reconstructed": self.pose_rows_not_reconstructed,
+            "n_invalid_depth_pixels": self.n_invalid_depth_pixels,
+            "n_frames_with_invalid_depth": len(self.frames_with_invalid_depth),
+            "invalid_depth_counted_on": "internal grid, frames loaded by the driver",
         }
 
 
-ADAPTERS = {"endodac": EndoDACAdapter, "mast3r_slam": Mast3rSlamAdapter}
+# --------------------------------------------------------------------------
+# CUT3R
+# --------------------------------------------------------------------------
+
+def load_cut3r_mapping() -> dict:
+    return json.loads(CUT3R_MAPPING_JSON.read_text())["mapping_parameters"]
+
+
+class Cut3rAdapter:
+    """Reads results/pipelines/cut3r_full_run/<seq>/ (docs/pipelines/cut3r.md
+    Stage 3, pinned primary run) or a variability run with the same layout.
+
+    Depth: depth/<frame:04d>.npz key "z", camera-frame Z on CUT3R's 512x400
+    grid, mapped to 1350x1080 with the marker-verified pixel-center mapping
+    (original_to_model) and the protocol's bilinear rule. Confidence is not
+    saved and not read. Pose: poses_c2w.npy, (N, 4, 4) camera-to-world
+    (Stage 1 section 5). The online path gives every frame a pose and a
+    depth; a count that differs from the GT frame count fails loudly."""
+
+    name = "cut3r"
+
+    def __init__(self, sequence: str, n_gt_frames: int, grid_map: BilinearGridMap | None = None,
+                 root: Path | None = None):
+        self.sequence = sequence
+        self.dir = (root or CUT3R_ROOT) / sequence
+        self.n_gt_frames = n_gt_frames
+        self.grid_map = grid_map if grid_map is not None else BilinearGridMap(load_cut3r_mapping())
+        manifest = json.loads((self.dir / "MANIFEST.json").read_text())
+        if manifest["status"] != "ok":
+            raise RuntimeError(f"{sequence}: CUT3R inference status {manifest['status']!r}")
+        depth_files = {int(p.stem): p for p in (self.dir / "depth").glob("*.npz")}
+        if sorted(depth_files) != list(range(n_gt_frames)):
+            raise RuntimeError(f"{sequence}: {len(depth_files)} CUT3R depth frames for {n_gt_frames} GT frames")
+        self._depth_files = depth_files
+        self._poses = np.load(self.dir / "poses_c2w.npy")
+        if self._poses.shape != (n_gt_frames, 4, 4):
+            raise RuntimeError(f"{sequence}: CUT3R poses {self._poses.shape} for {n_gt_frames} GT frames")
+        finite = np.isfinite(self._poses).all(axis=(1, 2))
+        self.frames_with_pose = [int(i) for i in np.flatnonzero(finite)]
+        self.frames_nonfinite_pose = [int(i) for i in np.flatnonzero(~finite)]
+        self.frames_with_depth = list(range(n_gt_frames))
+        self._cache: dict[int, tuple[np.ndarray, np.ndarray]] = {}
+        self.n_invalid_depth_pixels = 0
+        self.frames_with_invalid_depth: list[int] = []
+
+    def depth_grid(self, i: int) -> np.ndarray:
+        with np.load(self._depth_files[i]) as npz:
+            return npz["z"]
+
+    def depth_native(self, i: int):
+        if i in self._cache:
+            return self._cache[i]
+        d, available, n_invalid = sample_valid_only(self.grid_map, self.depth_grid(i))
+        if n_invalid:
+            self.n_invalid_depth_pixels += n_invalid
+            self.frames_with_invalid_depth.append(i)
+        out = (d, available)
+        self._cache[i] = out
+        return out
+
+    def pose(self, i: int):
+        if i in self.frames_nonfinite_pose:
+            return None
+        return self._poses[i, :3, :3], self._poses[i, :3, 3]
+
+    def descriptives(self) -> dict:
+        return {
+            "internal_grid": [self.grid_map.grid_h, self.grid_map.grid_w],
+            "frames_nonfinite_pose": self.frames_nonfinite_pose,
+            "n_invalid_depth_pixels": self.n_invalid_depth_pixels,
+            "n_frames_with_invalid_depth": len(self.frames_with_invalid_depth),
+            "frames_with_invalid_depth": sorted(self.frames_with_invalid_depth),
+            "invalid_depth_counted_on": "internal grid, frames loaded by the driver",
+        }
+
+
+ADAPTERS = {"endodac": EndoDACAdapter, "mast3r_slam": Mast3rSlamAdapter, "cut3r": Cut3rAdapter}

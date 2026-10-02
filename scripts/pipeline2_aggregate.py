@@ -169,15 +169,25 @@ def section_a(mesh_df) -> tuple[dict, dict]:
     if mism:
         raise SystemExit("EndoDAC aggregation does not reproduce results/d1/corpus_tables.json -- stopping")
 
-    log("=== A: MASt3R-SLAM corpus tables ===")
-    seqs, reg_m, area_m = load_pipeline("mast3r_slam", mesh_df)
+    tables_out, reg_m, area_m = corpus_section("mast3r_slam", mesh_df, repro)
+    return {"endodac": (reg_e, area_e), "mast3r_slam": (reg_m, area_m)}, tables_out
+
+
+def corpus_section(pipeline: str, mesh_df, repro: dict | None = None, out_dir: Path | None = None,
+                   prefix: str = "mast3r") -> tuple[dict, pd.DataFrame, pd.DataFrame]:
+    """Corpus tables, diagnostics b and c, missing frames, no-depth pixel
+    fraction and invalid-depth counts of one adapter-evaluated pipeline
+    (ROOTS[pipeline]). Defaults write the pipeline 2 evaluation's files."""
+    out_dir = out_dir or OUT_DIR
+    log(f"=== A: {pipeline} corpus tables ===")
+    seqs, reg_m, area_m = load_pipeline(pipeline, mesh_df)
     tables_m = agg.build_corpus_tables(reg_m, area_m, np.random.default_rng(SEED))
 
     # diagnostics b (per config, over sequences) and c (pooled face counts by tau); missing frames
     diag_b, diag_c, missing_rows = {}, {}, []
     per_seq = []
     for s in seqs:
-        m = json.loads((ROOTS["mast3r_slam"] / s / "metrics.json").read_text())
+        m = json.loads((ROOTS[pipeline] / s / "metrics.json").read_text())
         mp = m["missing_predictions"]
         missing_rows.append({
             "sequence": s, **{k: v for k, v in mp.items() if not isinstance(v, (list, dict))},
@@ -188,6 +198,8 @@ def section_a(mesh_df) -> tuple[dict, dict]:
             "cross_check_ignore_set_diff": m["cross_checks"].get("ignore_set_n_faces_differing_from_d1_diagnosis"),
             "cross_check_oracle_bits_diff_max": max(
                 m["cross_checks"]["oracle_bits_n_faces_differing_from_d1_stage_b_by_tau"].values()),
+            "n_invalid_depth_pixels": mp["adapter"].get("n_invalid_depth_pixels"),
+            "n_frames_with_invalid_depth": mp["adapter"].get("n_frames_with_invalid_depth"),
         })
         for c, cd in m["configurations"].items():
             per_seq.append({"sequence": s, "config": c, "ray_miss_frac": cd["ray_miss_frac"],
@@ -202,7 +214,7 @@ def section_a(mesh_df) -> tuple[dict, dict]:
         d["fraction"] = d["n_also_pred_depth_only_unobserved"] / d["n_only_fully_predicted_unobserved"] \
             if d["n_only_fully_predicted_unobserved"] else float("nan")
     ps = pd.DataFrame(per_seq)
-    ps.to_csv(OUT_DIR / "mast3r_diagnostic_b.csv", index=False)
+    ps.to_csv(out_dir / f"{prefix}_diagnostic_b.csv", index=False)
     for c in CONFIG_NAMES:
         sub = ps[ps["config"] == c]
         diag_b[c] = {col: {"mean": float(sub[col].mean()), "median": float(sub[col].median()), "max": float(sub[col].max()),
@@ -210,7 +222,7 @@ def section_a(mesh_df) -> tuple[dict, dict]:
                      for col in ["ray_miss_frac", "d_pred_unavailable_frac_of_evaluable"]}
     mdf = pd.DataFrame(missing_rows).merge(
         mesh_df[["Video Name", "mesh_hash"]].rename(columns={"Video Name": "sequence"}), on="sequence")
-    mdf.to_csv(OUT_DIR / "mast3r_missing_frames.csv", index=False)
+    mdf.to_csv(out_dir / f"{prefix}_missing_frames.csv", index=False)
     aff = mdf[mdf["n_frames_missing_either"] > 0]
     missing_summary = {
         "n_sequences": len(mdf), "n_gt_frames_total": int(mdf["n_gt_frames"].sum()),
@@ -228,6 +240,10 @@ def section_a(mesh_df) -> tuple[dict, dict]:
         "n_sequences_every_frame_pose_and_depth": int((mdf["n_frames_missing_either"] == 0).sum()),
         "cross_check_ignore_set_max_diff": int(mdf["cross_check_ignore_set_diff"].max()),
         "cross_check_oracle_bits_max_diff": int(mdf["cross_check_oracle_bits_diff_max"].max()),
+        "n_invalid_depth_pixels_total": (None if mdf["n_invalid_depth_pixels"].isna().all()
+                                         else int(mdf["n_invalid_depth_pixels"].sum())),
+        "sequences_with_invalid_depth": mdf.loc[mdf["n_invalid_depth_pixels"].fillna(0) > 0,
+                                                ["sequence", "n_invalid_depth_pixels", "n_frames_with_invalid_depth"]].to_dict("records"),
     }
     log(f"missing frames: { {k: v for k, v in missing_summary.items() if k != 'affected_sequences'} }")
 
@@ -240,14 +256,18 @@ def section_a(mesh_df) -> tuple[dict, dict]:
         "n_colon_segment": int(reg_m["colon_segment"].nunique()),
         "n_colon_segment_phantom": int(reg_m["colon_segment_phantom"].nunique()),
     }
-    (OUT_DIR / "mast3r_corpus_tables.json").write_text(json.dumps(jsonable(out), indent=2))
-    return {"endodac": (reg_e, area_e), "mast3r_slam": (reg_m, area_m)}, out
+    (out_dir / f"{prefix}_corpus_tables.json").write_text(json.dumps(jsonable(out), indent=2))
+    return out, reg_m, area_m
 
 
-def section_b(mesh_df) -> dict:
+def section_b(mesh_df, pipelines=("endodac", "mast3r_slam"), iou_dir: Path | None = None,
+              out_path: Path | None = None) -> dict:
+    """pipelines / iou_dir / out_path: defaults are the pipeline 2 evaluation;
+    scripts/d2b_aggregate.py passes the three-pipeline values."""
     log("=== B: region IoU with matched random baselines ===")
-    rows = agg.add_clusters(pd.read_csv(IOU_DIR / "region_iou_rows.csv.gz"), mesh_df)
-    areas = agg.add_clusters(pd.read_csv(IOU_DIR / "area_rows.csv"), mesh_df)
+    iou_dir = iou_dir or IOU_DIR
+    rows = agg.add_clusters(pd.read_csv(iou_dir / "region_iou_rows.csv.gz"), mesh_df)
+    areas = agg.add_clusters(pd.read_csv(iou_dir / "area_rows.csv"), mesh_df)
     rng = np.random.default_rng(SEED)
     out = {"seed": SEED, "n_boot": N_BOOT, "n_random_seeds": 20, "cells": {}}
 
@@ -261,7 +281,7 @@ def section_b(mesh_df) -> dict:
         "n_gate_rows": len(g), "n_matched": len(j), "max_abs_diff": float((j.iou_gate - j.iou_new).abs().max())}
     log(f"gate random-row reproduction: {out['check_reproduces_gate_random_rows']}")
 
-    for pipeline in ["endodac", "mast3r_slam"]:
+    for pipeline in pipelines:
         for config, tau in IOU_CELLS:
             key = f"{pipeline}|{config}|{tau}"
             cell_rows = rows[(rows.pipeline == pipeline) & (rows.config == config) & (rows.tau == tau)]
@@ -318,13 +338,13 @@ def section_b(mesh_df) -> dict:
                 f"diff {ml['paired_diff_pipeline_minus_random_mean']['mean']:+.4f} "
                 f"{ml['paired_diff_pipeline_minus_random_mean']['ci']}, FA {ctx['false_alarm_rate']['pipeline']:.4f}, "
                 f"area {ctx['area_fraction']['pipeline']:.4f}")
-    (OUT_DIR / "region_iou_summary.json").write_text(json.dumps(jsonable(out), indent=2))
+    (out_path or OUT_DIR / "region_iou_summary.json").write_text(json.dumps(jsonable(out), indent=2))
     return out
 
 
-def section_c(dfs) -> dict:
-    log("=== C: H5 and H6 on MASt3R-SLAM ===")
-    _, area_m = dfs["mast3r_slam"]
+def section_c(dfs, pipeline: str = "mast3r_slam", out_path: Path | None = None) -> dict:
+    log(f"=== C: H5 and H6 on {pipeline} ===")
+    _, area_m = dfs[pipeline]
     rng = np.random.default_rng(SEED)
     out = {"seed": SEED, "n_boot": N_BOOT, "H5": {}, "H6": {}}
     for tau in TAUS:
@@ -341,18 +361,21 @@ def section_c(dfs) -> dict:
         out["H6"][str(tau)] = h6
         log(f"tau {tau}: H5 diff {h5['diff']:+.5f} {h5['ci']} met={h5['criterion_met_mesh_level']}; "
             f"H6 diff {h6['diff']:+.5f} {h6['ci']} met={h6['criterion_met_mesh_level']}")
-    (OUT_DIR / "h5_h6.json").write_text(json.dumps(jsonable(out), indent=2))
+    (out_path or OUT_DIR / "h5_h6.json").write_text(json.dumps(jsonable(out), indent=2))
     return out
 
 
-def section_d(dfs, iou_rows_path: Path, mesh_df) -> dict:
-    log("=== D: pairwise MASt3R-SLAM minus EndoDAC (descriptive) ===")
+def section_d(dfs, iou_rows_path: Path, mesh_df, a: str = "mast3r_slam", b: str = "endodac",
+              out_path: Path | None = None) -> dict:
+    """Paired differences a minus b (variables below keep the names of the
+    original MASt3R-SLAM minus EndoDAC case: *_m is pipeline a, *_e is b)."""
+    log(f"=== D: pairwise {a} minus {b} (descriptive) ===")
     rng = np.random.default_rng(SEED)
-    reg_e, area_e = dfs["endodac"]
-    reg_m, area_m = dfs["mast3r_slam"]
+    reg_e, area_e = dfs[b]
+    reg_m, area_m = dfs[a]
     iou = agg.add_clusters(pd.read_csv(iou_rows_path), mesh_df)
     iou = iou[iou.source == "pipeline"]
-    out = {"seed": SEED, "n_boot": N_BOOT, "direction": "mast3r_slam minus endodac", "cells": {}}
+    out = {"seed": SEED, "n_boot": N_BOOT, "direction": f"{a} minus {b}", "cells": {}}
     for config, tau in IOU_CELLS:
         key = f"{config}|{tau}"
         cell = {}
@@ -367,8 +390,8 @@ def section_d(dfs, iou_rows_path: Path, mesh_df) -> dict:
         rB = rB.assign(det=rB["detected_at_0.5"].astype(float))
         cell["recall_medium_plus_large_at_50pct"] = with_sensitivity(paired_ratio_diff, rA, rB, "det", "one", rng=rng)
         # region IoU, medium + large, per-region paired difference
-        iA = size_filter(iou[(iou.pipeline == "mast3r_slam") & (iou.config == config) & (iou.tau == tau)], "medium_plus_large")
-        iB = size_filter(iou[(iou.pipeline == "endodac") & (iou.config == config) & (iou.tau == tau)], "medium_plus_large")
+        iA = size_filter(iou[(iou.pipeline == a) & (iou.config == config) & (iou.tau == tau)], "medium_plus_large")
+        iB = size_filter(iou[(iou.pipeline == b) & (iou.config == config) & (iou.tau == tau)], "medium_plus_large")
         pr = iA.merge(iB[["sequence", "region_id", "iou"]], on=["sequence", "region_id"], suffixes=("", "_endodac"))
         if len(pr) != len(iA) or len(pr) != len(iB):
             raise RuntimeError(f"{key}: IoU pairing mismatch")
@@ -379,7 +402,7 @@ def section_d(dfs, iou_rows_path: Path, mesh_df) -> dict:
         out["cells"][key] = cell
         log(f"{key}: FR {cell['false_reassurance_rate']['diff']:+.4f} {cell['false_reassurance_rate']['ci']}, "
             f"IoU {d['mean']:+.4f} {d['ci']}")
-    (OUT_DIR / "pairwise_mast3r_minus_endodac.json").write_text(json.dumps(jsonable(out), indent=2))
+    (out_path or OUT_DIR / "pairwise_mast3r_minus_endodac.json").write_text(json.dumps(jsonable(out), indent=2))
     return out
 
 
