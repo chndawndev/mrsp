@@ -13,7 +13,7 @@ pipeline document):
 - [x] Training data checked against docs/training_data_audit.md before
       Stage 1. (CUT3R: 32 general-domain datasets, no C3VD.)
 
-Fixed before any result (task statement, 2026-10-02):
+Fixed before any result (task statement, 2026-10-01):
 
 - checkpoint `cut3r_512_dpt_4_64.pth` (the README's final checkpoint),
   `--size 512`;

@@ -83,6 +83,10 @@ def main():
                     help="use only the first N frames (memory-vs-length probe); output goes to <sequence>_first<N>")
     ap.add_argument("--save-pointmap-frames", type=int, nargs="*", default=[0])
     ap.add_argument("--no-save", action="store_true", help="timing / memory probe only")
+    ap.add_argument("--path", choices=["parallel", "recurrent", "recurrent_plain"], default="parallel",
+                    help="parallel: demo.py's inference() (Stage 1). recurrent: vendored forward_recurrent fed one "
+                         "frame at a time (scripts/cut3r_recurrent.py). recurrent_plain: vendored "
+                         "inference_recurrent on the whole list. Non-default paths write to <tag>_<path>")
     ap.add_argument("--skip-checkpoint-hash", action="store_true")
     args = ap.parse_args()
 
@@ -98,6 +102,8 @@ def main():
     if args.max_frames is not None:
         img_paths = img_paths[: args.max_frames]
     tag = args.sequence if args.max_frames is None else f"{args.sequence}_first{args.max_frames}"
+    if args.path != "parallel":
+        tag = f"{tag}_{args.path}"
     out_dir = OUT_ROOT / tag
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -111,7 +117,9 @@ def main():
     torch.manual_seed(0)
     np.random.seed(0)
     add_path_to_dust3r(str(CHECKPOINT))
-    from src.dust3r.inference import inference
+    from src.dust3r.inference import inference, inference_recurrent
+    sys.path.insert(0, str(REPO / "scripts"))
+    from cut3r_recurrent import run_recurrent_streaming
     from src.dust3r.model import ARCroco3DStereo
     from src.dust3r.post_process import estimate_focal_knowing_depth
     from src.dust3r.utils.camera import pose_encoding_to_camera
@@ -122,7 +130,8 @@ def main():
         "gpu_index": gpu_index, "size": SIZE, "checkpoint": str(CHECKPOINT.relative_to(REPO)),
         "checkpoint_sha256": None if args.skip_checkpoint_hash else sha256(CHECKPOINT),
         "cut3r_commit": git_head(CUT3R_REPO), "repo_commit": git_head(REPO),
-        "torch": torch.__version__, "entry": "online inference (demo.py path), no global alignment",
+        "torch": torch.__version__, "path": args.path,
+        "entry": "online inference, no global alignment",
         "status": "failed", "error": None,
     }
     try:
@@ -141,7 +150,14 @@ def main():
 
         torch.cuda.reset_peak_memory_stats()
         t0 = time.time()
-        outputs, _ = inference(views, model, device)
+        if args.path == "parallel":
+            outputs, _ = inference(views, model, device)
+            preds = outputs["pred"]
+        elif args.path == "recurrent_plain":
+            outputs, _ = inference_recurrent(views, model, device)
+            preds = outputs["pred"]
+        else:
+            preds = run_recurrent_streaming(views, model, device, keep=lambda r: r)
         torch.cuda.synchronize()
         manifest["inference_seconds"] = time.time() - t0
         manifest["peak_gpu_allocated_mib"] = torch.cuda.max_memory_allocated() / 2**20
@@ -149,7 +165,6 @@ def main():
         log(f"inference {manifest['inference_seconds']:.1f}s, peak allocated {manifest['peak_gpu_allocated_mib']:.0f} MiB, "
             f"peak reserved {manifest['peak_gpu_reserved_mib']:.0f} MiB")
 
-        preds = outputs["pred"]
         manifest["n_predictions"] = len(preds)
         manifest["pred_keys"] = sorted(preds[0].keys())
         manifest["pred_shapes"] = {k: list(v.shape) for k, v in preds[0].items() if hasattr(v, "shape")}
