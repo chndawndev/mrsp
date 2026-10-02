@@ -81,9 +81,9 @@ def missing_table(t: dict) -> str:
     return "\n".join(out)
 
 
-def iou_tables(b: dict) -> str:
+def iou_tables(b: dict, pipelines=("endodac", "mast3r_slam")) -> str:
     out = []
-    for pipeline in ["endodac", "mast3r_slam"]:
+    for pipeline in pipelines:
         out += [f"### {pipeline}: region IoU (medium + large) vs area-matched random baseline", "",
                 "| config | tau | IoU mean [mesh CI] | IoU median | random mean, seed-avg (range over 20 seeds) | random median | paired diff (pipeline - random) [mesh CI] | (C,S) CI | (C,S,P) CI | false_alarm (random) | area_fraction | n regions / meshes |",
                 "|---|---|---|---|---|---|---|---|---|---|---|---|"]
