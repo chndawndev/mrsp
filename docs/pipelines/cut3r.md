@@ -590,3 +590,183 @@ runs above.
 3. The corpus pre-flight was not run. For information only: free space on
    the output volume was 1.5 TB at the time of writing.
 4. Wrapper memory above 610 frames is extrapolated, not measured.
+
+---
+
+# Stage 3: pinned primary run, full corpus (no metrics)
+
+**No evaluation metric was computed; nothing under `src/eval/` or
+`src/eval_ext/` was run on CUT3R output.** Descriptives only.
+
+Code (committed): `scripts/cut3r_run_corpus.py`,
+`scripts/cut3r_recurrent.py`, `scripts/cut3r_sequence_descriptives.py`,
+`scripts/pinned_and_variability_runs.sh`. Outputs (not committed):
+`results/pipelines/cut3r_full_run/<sequence>/`,
+`results/cut3r/stage3_summary.csv`. Logs: `logs/cut3r_run_corpus.log`,
+`logs/cut3r_run_corpus_first2.log`, `logs/pinvar_chain.log`,
+`logs/cut3r_sequence_descriptives.log`.
+
+## S3.1 Entry point replaced before any metric
+
+**The Stage 1 entry point (the parallel `inference()` path of `demo.py`)
+was replaced by the recurrent wrapper for the primary run, before any
+evaluation metric was computed on CUT3R output.** Reason: the parallel
+path cannot process the three longest sequences on a 48 GB card. Stage 2
+evidence: its memory is 50.8 MiB per frame + 3,049 MiB (six lengths, 27
+to 654 frames), which puts `c1_cecum_t4_v2`, `c1_cecum_t4_v3` (959
+frames) and `c2_transverse2_t4_v3` (940) at 50.8 to 51.8 GB; the
+recurrent wrapper needed 6,297 MiB at 610 frames. The two paths are not
+numerically equivalent (Stage 2, S2.3); they are the same computation
+after the encoder (`docs/noise_sensitivity.md` section 1: with
+batch-computed encoder features the recurrent loop reproduces the
+parallel output bit-identically). The Stage 1 numbers of sections 5 to 7
+belong to the parallel path and are superseded for `c1_cecum_t1_v1` by
+the row below.
+
+## S3.2 Pinned configuration
+
+Per `docs/eval_protocol.md` "2026-10-02: Numerical run-to-run
+variability", item 1 ("entry point, batch size, precision settings
+(vendor defaults are kept, not changed), and GPU model"):
+
+| item | value |
+|---|---|
+| entry point | `scripts/cut3r_run_corpus.py` -> `scripts/cut3r_recurrent.py::run_recurrent_streaming`: the vendored `ARCroco3DStereo.forward_recurrent`, one frame per step |
+| batch size | 1 (encoder and every later stage) |
+| precision | vendor defaults unchanged: `torch.backends.cuda.matmul.allow_tf32 = True` (set by the vendored `src/croco/models/croco.py:13`), `torch.backends.cudnn.allow_tf32 = True` (PyTorch default), `cudnn.benchmark = False`, `cudnn.deterministic = False`, float32, autocast off |
+| checkpoint | `cut3r_512_dpt_4_64.pth`, SHA-256 `45f7e98a...f8103`, verified at start of every process |
+| input | raw fisheye frames, `--size 512`, CUT3R's own loader, 512x400 grid, pixel-center mapping |
+| GPU model | NVIDIA RTX 6000 Ada Generation, index 0, **all 169 sequences**; none ran on a different model |
+| software | torch 2.5.1+cu124, CUT3R commit `8bc15dc` |
+
+Manifests record three repository commits (c4d77ea for the first two
+sequences, 1a8e5e8 and 51d77db for the rest): the driver was started
+once for two sequences as a check and then for the corpus; the later
+commits add other scripts and an absolute-path fix to the driver's
+`--out-root` handling, and change nothing in the inference code path.
+
+Checks: the driver's output for `c1_cecum_t1_v1` (run in the same process
+after another sequence) is bit-identical to Stage 2's standalone
+recurrent run, so no state carries over between sequences.
+
+## S3.3 Run
+
+GPU 0 (`logs/pinvar_gpu_status.log`: 48.5 GB free, 0% utilized at
+launch). **169 of 169 sequences status ok, 0 failures, 67,886 frames.**
+Wall time 3 h 24 min for 167 sequences (2026-10-02T03:47:56Z to
+07:11:55Z) plus 86 s for the first two; summed per-sequence runtime
+3.42 h, of which inference 1.02 h (0.054 s/frame), the rest extraction,
+loading and saving. Storage 44.9 GB (Z only). Stage 1 projected 5.6 to
+10 h and about 45 GB; the run was faster because the model is loaded
+once per process instead of once per sequence and confidence is not
+saved.
+
+Peak GPU memory (allocated): 4,018 MiB (shortest) to **7,913 MiB**
+(`c1_cecum_t4_v3`, 959 frames); line through the 169 sequences 4.63 MiB
+per frame + 3,478 MiB. The three sequences the parallel path could not
+hold: 7,912, 7,913 and 7,825 MiB.
+
+Saved per sequence: `depth/<frame>.npz` (`z`, float32, 400x512),
+`poses_c2w.npy` (camera-to-world), `MANIFEST.json` (frames, non-finite
+counts, runtime, GPU index and model, peak memory, commit, pinned
+configuration, status), `descriptives.json`.
+
+## S3.4 Completion and missing frames
+
+- **D1.1 operational definition (every frame finite depth and finite
+  pose, Sim(3) alignment succeeds): 169 / 169.**
+- Frames with no pose: 0. Frames with no depth: 0. Non-finite poses or
+  depth maps: 0.
+- Pixels with z <= 0: 10, all in `c2_transverse1_t1_v2` (627 frames,
+  128 million pixels). They are finite and are saved as predicted.
+- Valid pixels with no depth through the crop: 2.060% in every sequence
+  (Stage 1 section 4).
+
+EndoDAC: 169 / 169 (`docs/d1_stage_a.md`). MASt3R-SLAM: 143 / 169
+(`docs/pipeline2_eval.md` section 3).
+
+## S3.5 Descriptive distributions (169 sequences, no threshold attached)
+
+Definitions as MASt3R-SLAM Stage 3, with the depth scale computed
+through the pixel-center bilinear mapping
+(`scripts/cut3r_sequence_descriptives.py`).
+
+| quantity, CUT3R | min | 25% | median | 75% | max |
+|---|---|---|---|---|---|
+| ATE after Sim(3) alignment (mm) | 2.05 | 9.67 | 13.12 | 15.75 | 25.88 |
+| endpoint drift / GT path length | 0.89% | 6.28% | 9.30% | 13.46% | 36.95% |
+| `s_pose` (Sim(3) scale) | 4.45 | 16.29 | 20.55 | 29.65 | 76.04 |
+| depth scale median | 11.79 | 19.39 | 22.80 | 26.28 | 41.65 |
+| depth scale relative IQR | 0.081 | 0.235 | 0.341 | 0.497 | 1.234 |
+
+Next to the other two pipelines, same 169 sequences
+(`results/d1/stage_a_summary.csv`, `results/mast3r/stage3_summary.csv`):
+
+| quantity | | min | 25% | median | 75% | max |
+|---|---|---|---|---|---|---|
+| ATE (mm) | EndoDAC | 0.87 | 3.15 | 5.16 | 8.22 | 17.26 |
+| | MASt3R-SLAM | 1.55 | 4.68 | 6.97 | 8.86 | 18.13 |
+| | CUT3R | 2.05 | 9.67 | 13.12 | 15.75 | 25.88 |
+| endpoint drift / GT path | EndoDAC | 0.58% | 3.17% | 4.97% | 8.51% | 18.52% |
+| | MASt3R-SLAM | 1.25% | 3.84% | 5.66% | 8.31% | 26.93% |
+| | CUT3R | 0.89% | 6.28% | 9.30% | 13.46% | 36.95% |
+| depth scale relative IQR | EndoDAC | 0.035 | 0.109 | 0.170 | 0.258 | 0.894 |
+| | MASt3R-SLAM | 0.063 | 0.167 | 0.236 | 0.340 | 1.355 |
+| | CUT3R | 0.081 | 0.235 | 0.341 | 0.497 | 1.234 |
+| depth scale median (own units) | EndoDAC | | | 118.80 | | |
+| | MASt3R-SLAM | | | 29.12 | | |
+| | CUT3R | | | 22.80 | | |
+
+Caveats on the comparison: MASt3R-SLAM's ATE and drift are over posed
+frames only on its 26 incomplete sequences; its depth-scale columns are
+Stage 3's nearest-neighbour, corner-aligned values (not recomputed).
+
+Largest CUT3R ATE: `c2_cecum_t1_v2` 25.88 mm, `c2_transverse1_t2_v2`
+23.40, `c2_cecum_t1_v3` 23.30. Largest depth-scale relative IQR:
+`c1_descending_t2_v2` 1.234, `c2_cecum_t1_v3` 1.016,
+`c2_ascending_t2_v1` 0.928.
+
+`c1_cecum_t1_v1` in the primary run: ATE 19.67 mm, endpoint drift 2.49%,
+`s_pose` 25.39, depth scale 30.89, relative IQR 0.388.
+
+Stage A covariates are joined in `results/cut3r/stage3_summary.csv`
+(103 meshes, 15 molds across the 169 rows); no breakdown by covariate
+was made.
+
+## S3.6 Variability runs
+
+5 runs on the protocol's 15-sequence subset, noise std 1e-6 (0-1 scale),
+seeds 1 to 5, same pinned configuration: 75 of 75 sequence runs ok,
+`results/pipelines/variability/cut3r/seed<k>/`, 12.6 GB, 1 h 04 min.
+Subset list, the other two pipelines' runs and the three-pipeline noise
+comparison on `c1_cecum_t1_v1`: `docs/noise_sensitivity.md`.
+
+# INTERPRETATION (Stage 3)
+
+1. **CUT3R's trajectories are less accurate than the other two
+   pipelines' on this corpus, by these descriptives**: median ATE about
+   2.5 times EndoDAC's and 1.9 times MASt3R-SLAM's, with MASt3R-SLAM's
+   figure flattered by its 26 incomplete sequences. Not an evaluation
+   metric and not a statement about missed-region localization; whether
+   it carries over is what the evaluation measures.
+2. **CUT3R's per-frame depth scale is the least stable of the three**
+   (median relative IQR 0.34 against 0.24 and 0.17). Under the protocol's
+   single per-sequence depth scale this is a candidate source of depth
+   error at the tau test. Would be examined by the per-frame scale series
+   and, in the evaluation, by pred_depth_only.
+3. **Completion is 169 / 169 because the online path cannot lose
+   track**, as for EndoDAC; it says nothing about pose quality.
+
+# Stage 3 open issues
+
+1. Per-frame outputs are specific to the pinned configuration and to
+   this GPU model (Stage 2, `docs/noise_sensitivity.md`). A rerun on
+   another GPU model or with another batch size is expected to differ at
+   the level of the variability runs, not at round-off level.
+2. A `Cut3rAdapter` for `scripts/pipeline_adapters.py` does not exist
+   yet; the evaluation driver cannot read these outputs until it does.
+3. The 10 non-positive Z pixels in `c2_transverse1_t1_v2`: the protocol's
+   handling of a non-positive predicted depth is not stated anywhere I
+   found; to be settled before the evaluation.
+4. The DPT output-to-input pixel correspondence remains assumed
+   (Stage 1).

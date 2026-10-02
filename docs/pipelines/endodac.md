@@ -999,3 +999,15 @@ minute (58.6s combined) and was run in the foreground.
    affect this project's own use of the checkpoint (§7's empirical fix is
    correct for our GT regardless of which explanation is true), flagged
    for completeness only.
+
+---
+
+# Pinned configuration and variability runs (2026-10-02)
+
+Per `docs/eval_protocol.md` "2026-10-02: Numerical run-to-run
+variability". The EndoDAC primary run's pinned numerical configuration
+(entry point, batch size, precision settings, GPU model) is recorded in
+`docs/noise_sensitivity.md` section 2; it describes the run as it was
+made, before that protocol entry existed. The five variability runs on
+the 15-sequence subset and the noise sensitivity on `c1_cecum_t1_v1` are
+in the same document (sections 3 and 4). No evaluation metric there.

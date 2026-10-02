@@ -803,3 +803,15 @@ formulas, so rerunning the two "not rerun" items would use them.
 `results/pipelines/mast3r_slam_perframe/c1_cecum_t1_v1/resolution_mapping.json`
 was left untouched (its parameters are still valid; its round-trip, crop
 fraction and ray-check entries are the corner-aligned ones).
+
+---
+
+# Pinned configuration and variability runs (2026-10-02)
+
+Per `docs/eval_protocol.md` "2026-10-02: Numerical run-to-run
+variability". The MASt3R-SLAM primary run's pinned numerical configuration
+(entry point, batch size, precision settings, GPU model) is recorded in
+`docs/noise_sensitivity.md` section 2; it describes the run as it was
+made, before that protocol entry existed. The five variability runs on
+the 15-sequence subset and the noise sensitivity on `c1_cecum_t1_v1` are
+in the same document (sections 3 and 4). No evaluation metric there.
