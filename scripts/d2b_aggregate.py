@@ -142,7 +142,8 @@ def seq_cell(metrics_path: Path) -> dict:
     return {"fr_num": t["false_reassurance_numerator_area_mm2"], "fr_den": t["gt_unobserved_area_mm2"],
             "fa_num": t["false_alarm_numerator_area_mm2"], "fa_den": t["false_alarm_denominator_area_mm2"],
             "af_num": t["pred_unobserved_area_mm2"], "af_den": t["total_mesh_area_mm2"],
-            "n_invalid_depth_pixels": m["missing_predictions"]["adapter"].get("n_invalid_depth_pixels")}
+            # D1 Stage B's EndoDAC metrics.json (the EndoDAC primary run) predates the adapter fields
+            "n_invalid_depth_pixels": m.get("missing_predictions", {}).get("adapter", {}).get("n_invalid_depth_pixels")}
 
 
 def variability(primary_iou: pd.DataFrame) -> dict:
