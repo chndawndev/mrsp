@@ -512,12 +512,17 @@ variability metric was computed:
   MASt3R-SLAM, earlier injection is not possible: its loader converts the
   image back to 8-bit before resizing, which would erase the noise or flip
   whole grey levels.
-- EndoDAC: noise is added right after loading, on the 0-1 scale, before
-  the loader's resizing. Resizing averages neighbouring pixels and may
-  attenuate the noise by a small factor relative to the other two
-  pipelines. This is reported next to every EndoDAC variability result,
-  together with a one-sequence check (c1_cecum_t1_v1, seed 1) with the
-  noise added instead to EndoDAC's network input tensor.
+- EndoDAC: noise is added after the resize, on the 0-1 scale, to the
+  320x256 tensor the networks receive (scripts/endodac_inference.py,
+  lines 208-212). All three pipelines therefore receive the noise at
+  their network input; no resize attenuation applies.
+
+Correction (2026-10-04): the EndoDAC bullet above originally stated that
+noise was added before the loader's resizing and asked for a one-sequence
+check with noise at the network input. The code shows the noise was
+already added at the network input; the requested check is the existing
+run, and repeating it was bit-identical (docs/d2b_eval.md, section 1.4).
+The original wording was written from a summary, not from the code.
 
 ---
 
